@@ -27126,7 +27126,7 @@
                 offset: "0.11079",
                 stopColor: "#34C1ED"
             }), i.createElement("stop", {
-                offset: "0.23164",
+                offset: "0.4",
                 stopColor: "#2FC2DF"
             }), i.createElement("stop", {
                 offset: "0.31446",
@@ -27294,7 +27294,7 @@
                 offset: "0.11079",
                 stopColor: "#34C1ED"
             }), i.createElement("stop", {
-                offset: "0.23164",
+                offset: "0.4",
                 stopColor: "#2FC2DF"
             }), i.createElement("stop", {
                 offset: "0.31446",
