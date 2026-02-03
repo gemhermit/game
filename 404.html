@@ -1,7 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<script language="javascript" type="text/javascript">   
-    window.location.href = 'https://game.bago.top';
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面未找到 - 贝谷游戏</title>
+    <link href="favicon.png" rel="icon">
+    
+    <!-- Material 3 (BeerCSS) -->
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.5.1/dist/cdn/beer.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.5.1/dist/cdn/beer.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.0/dist/cdn/material-dynamic-colors.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #005cbb;
+            --on-primary: #ffffff;
+            --primary-container: #d7e3ff;
+            --on-primary-container: #001b3f;
+            --radius: 28px;
+        }
+        body {
+            background-color: var(--background);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .error-message {
+            font-size: 1.5rem;
+            color: var(--on-surface);
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+        .action-btn {
+            border-radius: 50px;
+            padding: 0 2.5rem;
+            height: 56px;
+            font-size: 1.1rem;
+        }
+    </style>
 </head>
+<body>
+
+<main class="responsive">
+    <div class="error-code">404</div>
+    <div class="error-message">糟糕，页面走丢了</div>
+    
+    <a href="/" class="button fill large action-btn">
+        <i>home</i>
+        <span>返回首页</span>
+    </a>
+</main>
+
+<script>
+    // 自动重定向作为兜底，设置为 5 秒
+    setTimeout(function() {
+        window.location.href = '/';
+    }, 5000);
+</script>
+
+</body>
+</html>
