@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>化学记忆 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="化学记忆把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="化学记忆,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/chemistry-memory.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="化学记忆 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="化学记忆把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/chemistry-memory.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="化学记忆 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="化学记忆把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"化学记忆","description":"化学记忆把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/chemistry-memory.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+            --text-secondary: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Element Card */
+        .element-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .element-symbol-large {
+            font-size: 56px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .element-name-large {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .element-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .element-stat {
+            background: rgba(255,255,255,0.15);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .element-stat-label {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+
+        .element-stat-value {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* Mode Selector */
+        .mode-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mode-btn:hover {
+            background: #f8fafc;
+            color: var(--text-color);
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Stats Card */
+        .stats-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-color);
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+        }
+
+        .stat-value.success { color: var(--success-color); }
+        .stat-value.danger { color: var(--danger-color); }
+        .stat-value.primary { color: var(--primary-color); }
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        /* Hint Box */
+        .hint-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
+        }
+
+        .hint-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hint-text {
+            font-size: 13px;
+            color: #b45309;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f1f5f9;
+            position: relative;
+            padding: 24px;
+        }
+
+        .game-area {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            position: relative;
+        }
+
+        .question-header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .timer {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+        }
+
+        .timer.warning {
+            color: var(--danger-color);
+        }
+
+        /* Element Display */
+        .element-display-card {
+            width: 180px;
+            height: 180px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 24px auto;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+        }
+
+        .element-display-symbol {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .element-display-number {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .element-display-mass {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Input Area */
+        .input-area {
+            width: 100%;
+            max-width: 280px;
+            margin: 20px 0;
+        }
+
+        .element-input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .element-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Memory Cards */
+        .memory-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+            max-width: 500px;
+        }
+
+        .memory-card {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.4s ease;
+            perspective: 1000px;
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 28px;
+        }
+
+        .card-back {
+            background: white;
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            transform: rotateY(180deg);
+        }
+
+        /* Options */
+        .options-area {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 400px;
+            margin: 20px 0;
+        }
+
+        .option-btn {
+            padding: 16px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary-color);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .option-btn.correct {
+            border-color: var(--success-color);
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success-color);
+        }
+
+        .option-btn.wrong {
+            border-color: var(--danger-color);
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-check {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: #16a34a;
+        }
+
+        .btn-hint {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-hint:hover {
+            background: #d97706;
+        }
+
+        .btn-next {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-next:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-reset {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #475569;
+        }
+
+        /* Result Panel */
+        .result-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .result-panel.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .result-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .result-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .result-title.success { color: var(--success-color); }
+        .result-title.error { color: var(--danger-color); }
+
+        .result-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 300px;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+
+            .main-content {
+                height: auto;
+                min-height: 500px;
+                padding: 16px;
+            }
+
+            .memory-cards {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+
+            .memory-card {
+                width: 60px;
+                height: 60px;
+            }
+
+            .card-face {
+                font-size: 14px;
+            }
+
+            .element-display-card {
+                width: 140px;
+                height: 140px;
+            }
+
+            .element-display-symbol {
+                font-size: 48px;
+            }
+
+            .options-area {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="header">
+            <h1>化学元素记忆</h1>
+            <div class="subtitle">互动式学习训练</div>
+        </div>
+
+        <div class="element-card" id="elementCard">
+            <div class="element-symbol-large" id="elementSymbolDisplay">H</div>
+            <div class="element-name-large" id="elementNameDisplay">氢</div>
+            <div class="element-stats">
+                <div class="element-stat">
+                    <div class="element-stat-label">原子序数</div>
+                    <div class="element-stat-value" id="elementNumber">1</div>
+                </div>
+                <div class="element-stat">
+                    <div class="element-stat-label">原子质量</div>
+                    <div class="element-stat-value" id="elementMass">1.008</div>
+                </div>
+                <div class="element-stat">
+                    <div class="element-stat-label">周期</div>
+                    <div class="element-stat-value" id="elementPeriod">1</div>
+                </div>
+                <div class="element-stat">
+                    <div class="element-stat-label">族</div>
+                    <div class="element-stat-value" id="elementGroup">1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="symbol">
+                <span>🔤</span> 符号记忆
+            </button>
+            <button class="mode-btn" data-mode="name">
+                <span>📝</span> 名称记忆
+            </button>
+            <button class="mode-btn" data-mode="memory">
+                <span>🧠</span> 配对游戏
+            </button>
+            <button class="mode-btn" data-mode="quiz">
+                <span>❓</span> 综合测试
+            </button>
+        </div>
+
+        <div class="stats-card">
+            <div class="stats-grid">
+                <div class="stat-row">
+                    <span class="stat-label">正确</span>
+                    <span class="stat-value success" id="correctCount">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">错误</span>
+                    <span class="stat-value danger" id="wrongCount">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">正确率</span>
+                    <span class="stat-value primary" id="accuracy">0%</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">连续</span>
+                    <span class="stat-value" id="streak">0</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="hint-box" id="hintBox" style="display: none;">
+            <div class="hint-title">💡 提示</div>
+            <div class="hint-text" id="hintText">这是最轻的元素</div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="game-area">
+            <div class="question-header">
+                <div class="question-text" id="questionText">请输入元素符号</div>
+                <div class="timer" id="timer">时间: 30s</div>
+            </div>
+
+            <div class="element-display-card" id="elementDisplayCard">
+                <div class="element-display-number" id="displayNumber">1</div>
+                <div class="element-display-symbol" id="displaySymbol">?</div>
+                <div class="element-display-mass" id="displayMass">-</div>
+            </div>
+
+            <div class="input-area" id="inputArea">
+                <input type="text" class="element-input" id="symbolInput" placeholder="输入符号..." maxlength="3">
+                <input type="text" class="element-input" id="nameInput" placeholder="输入名称..." maxlength="6" style="display: none;">
+            </div>
+
+            <div class="memory-cards" id="memoryCards" style="display: none;"></div>
+
+            <div class="options-area" id="optionsArea" style="display: none;"></div>
+
+            <div class="controls">
+                <button class="action-btn btn-check" id="checkBtn">✅ 检查</button>
+                <button class="action-btn btn-hint" id="hintBtn">💡 提示</button>
+                <button class="action-btn btn-next" id="nextBtn">➡️ 下一题</button>
+                <button class="action-btn btn-reset" id="resetBtn" style="display: none;">🔄 重玩</button>
+            </div>
+
+            <div class="result-panel" id="resultPanel">
+                <div class="result-icon" id="resultIcon">✅</div>
+                <div class="result-title" id="resultTitle">回答正确!</div>
+                <div class="result-text" id="resultText">恭喜你答对了</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        class ChemistryMemoryGame {
+            constructor() {
+                this.currentElement = null;
+                this.currentMode = 'symbol';
+                this.correctCount = 0;
+                this.wrongCount = 0;
+                this.streak = 0;
+                this.timeLeft = 30;
+                this.timer = null;
+                this.memoryCards = [];
+                this.flippedCards = [];
+                this.matchedPairs = 0;
+
+                this.elements = [
+                    {symbol: 'H', name: '氢', number: 1, mass: 1.008, group: 1, period: 1, hint: '最轻的元素'},
+                    {symbol: 'He', name: '氦', number: 2, mass: 4.003, group: 18, period: 1, hint: '惰性气体'},
+                    {symbol: 'Li', name: '锂', number: 3, mass: 6.941, group: 1, period: 2, hint: '最轻的金属'},
+                    {symbol: 'Be', name: '铍', number: 4, mass: 9.012, group: 2, period: 2, hint: '轻金属'},
+                    {symbol: 'B', name: '硼', number: 5, mass: 10.81, group: 13, period: 2, hint: '半金属'},
+                    {symbol: 'C', name: '碳', number: 6, mass: 12.01, group: 14, period: 2, hint: '生命基础'},
+                    {symbol: 'N', name: '氮', number: 7, mass: 14.01, group: 15, period: 2, hint: '空气成分'},
+                    {symbol: 'O', name: '氧', number: 8, mass: 16.00, group: 16, period: 2, hint: '呼吸必需'},
+                    {symbol: 'F', name: '氟', number: 9, mass: 19.00, group: 17, period: 2, hint: '最活泼非金属'},
+                    {symbol: 'Ne', name: '氖', number: 10, mass: 20.18, group: 18, period: 2, hint: '霓虹灯'},
+                    {symbol: 'Na', name: '钠', number: 11, mass: 22.99, group: 1, period: 3, hint: '食盐成分'},
+                    {symbol: 'Mg', name: '镁', number: 12, mass: 24.31, group: 2, period: 3, hint: '燃烧白光'},
+                    {symbol: 'Al', name: '铝', number: 13, mass: 26.98, group: 13, period: 3, hint: '轻金属'},
+                    {symbol: 'Si', name: '硅', number: 14, mass: 28.09, group: 14, period: 3, hint: '半导体'},
+                    {symbol: 'P', name: '磷', number: 15, mass: 30.97, group: 15, period: 3, hint: 'DNA成分'},
+                    {symbol: 'S', name: '硫', number: 16, mass: 32.06, group: 16, period: 3, hint: '黄色固体'},
+                    {symbol: 'Cl', name: '氯', number: 17, mass: 35.45, group: 17, period: 3, hint: '消毒成分'},
+                    {symbol: 'Ar', name: '氩', number: 18, mass: 39.95, group: 18, period: 3, hint: '惰性气体'},
+                    {symbol: 'K', name: '钾', number: 19, mass: 39.10, group: 1, period: 4, hint: '植物必需'},
+                    {symbol: 'Ca', name: '钙', number: 20, mass: 40.08, group: 2, period: 4, hint: '骨骼成分'},
+                    {symbol: 'Fe', name: '铁', number: 26, mass: 55.85, group: 8, period: 4, hint: '重要金属'},
+                    {symbol: 'Cu', name: '铜', number: 29, mass: 63.55, group: 11, period: 4, hint: '红色金属'},
+                    {symbol: 'Zn', name: '锌', number: 30, mass: 65.38, group: 12, period: 4, hint: '防锈镀层'},
+                    {symbol: 'Ag', name: '银', number: 47, mass: 107.9, group: 11, period: 5, hint: '最佳导电'},
+                    {symbol: 'Au', name: '金', number: 79, mass: 197.0, group: 11, period: 6, hint: '贵金属'}
+                ];
+
+                this.bindEvents();
+                this.newQuestion();
+                this.updateStats();
+            }
+
+            newQuestion() {
+                this.currentElement = this.elements[Math.floor(Math.random() * this.elements.length)];
+                this.timeLeft = 30;
+
+                this.updateElementInfo();
+                this.clearInputs();
+                this.hideResult();
+                this.hideHint();
+                this.resetTimer();
+
+                document.getElementById('resultPanel').classList.remove('show');
+
+                switch (this.currentMode) {
+                    case 'symbol':
+                        this.setupSymbolMode();
+                        break;
+                    case 'name':
+                        this.setupNameMode();
+                        break;
+                    case 'memory':
+                        this.setupMemoryMode();
+                        break;
+                    case 'quiz':
+                        this.setupQuizMode();
+                        break;
+                }
+            }
+
+            setupSymbolMode() {
+                document.getElementById('questionText').textContent = '请输入元素符号';
+                document.getElementById('displaySymbol').textContent = '?';
+                document.getElementById('symbolInput').style.display = 'block';
+                document.getElementById('nameInput').style.display = 'none';
+                document.getElementById('inputArea').style.display = 'block';
+                document.getElementById('memoryCards').style.display = 'none';
+                document.getElementById('optionsArea').style.display = 'none';
+                document.getElementById('elementDisplayCard').style.display = 'flex';
+                document.getElementById('checkBtn').style.display = 'flex';
+                document.getElementById('resetBtn').style.display = 'none';
+                this.startTimer();
+            }
+
+            setupNameMode() {
+                document.getElementById('questionText').textContent = '请输入元素名称';
+                document.getElementById('displaySymbol').textContent = this.currentElement.symbol;
+                document.getElementById('symbolInput').style.display = 'none';
+                document.getElementById('nameInput').style.display = 'block';
+                document.getElementById('inputArea').style.display = 'block';
+                document.getElementById('memoryCards').style.display = 'none';
+                document.getElementById('optionsArea').style.display = 'none';
+                document.getElementById('elementDisplayCard').style.display = 'flex';
+                document.getElementById('checkBtn').style.display = 'flex';
+                document.getElementById('resetBtn').style.display = 'none';
+                this.startTimer();
+            }
+
+            setupMemoryMode() {
+                document.getElementById('questionText').textContent = '找出配对的符号和名称';
+                document.getElementById('elementDisplayCard').style.display = 'none';
+                document.getElementById('inputArea').style.display = 'none';
+                document.getElementById('memoryCards').style.display = 'grid';
+                document.getElementById('optionsArea').style.display = 'none';
+                document.getElementById('checkBtn').style.display = 'none';
+                document.getElementById('resetBtn').style.display = 'flex';
+                this.generateMemoryCards();
+                this.stopTimer();
+            }
+
+            setupQuizMode() {
+                document.getElementById('questionText').textContent = '选择正确答案';
+                document.getElementById('displaySymbol').textContent = this.currentElement.symbol;
+                document.getElementById('inputArea').style.display = 'none';
+                document.getElementById('memoryCards').style.display = 'none';
+                document.getElementById('optionsArea').style.display = 'grid';
+                document.getElementById('elementDisplayCard').style.display = 'flex';
+                document.getElementById('checkBtn').style.display = 'none';
+                document.getElementById('resetBtn').style.display = 'none';
+                this.generateQuizOptions();
+                this.startTimer();
+            }
+
+            generateMemoryCards() {
+                const container = document.getElementById('memoryCards');
+                container.innerHTML = '';
+
+                const selectedElements = this.elements.slice(0, 8);
+                this.memoryCards = [];
+
+                selectedElements.forEach((element, index) => {
+                    const symbolCard = {
+                        id: `symbol-${index}`,
+                        content: element.symbol,
+                        type: 'symbol',
+                        elementIndex: index,
+                        matched: false
+                    };
+                    const nameCard = {
+                        id: `name-${index}`,
+                        content: element.name,
+                        type: 'name',
+                        elementIndex: index,
+                        matched: false
+                    };
+                    this.memoryCards.push(symbolCard, nameCard);
+                });
+
+                this.memoryCards = this.shuffleArray(this.memoryCards);
+
+                this.memoryCards.forEach((card, index) => {
+                    const cardElement = document.createElement('div');
+                    cardElement.className = 'memory-card';
+                    cardElement.dataset.id = card.id;
+                    cardElement.innerHTML = `
+                        <div class="card-face card-front">?</div>
+                        <div class="card-face card-back">${card.content}</div>
+                    `;
+                    container.appendChild(cardElement);
+                });
+
+                this.flippedCards = [];
+                this.matchedPairs = 0;
+            }
+
+            generateQuizOptions() {
+                const container = document.getElementById('optionsArea');
+                container.innerHTML = '';
+
+                const options = [this.currentElement.name];
+                let attempts = 0;
+                while (options.length < 4 && attempts < 100) {
+                    const randomElement = this.elements[Math.floor(Math.random() * this.elements.length)];
+                    if (!options.includes(randomElement.name)) {
+                        options.push(randomElement.name);
+                    }
+                    attempts++;
+                }
+
+                const shuffledOptions = this.shuffleArray(options);
+                shuffledOptions.forEach(option => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.dataset.answer = option;
+                    btn.textContent = option;
+                    container.appendChild(btn);
+                });
+            }
+
+            shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            updateElementInfo() {
+                const el = this.currentElement;
+                document.getElementById('elementSymbolDisplay').textContent = el.symbol;
+                document.getElementById('elementNameDisplay').textContent = el.name;
+                document.getElementById('elementNumber').textContent = el.number;
+                document.getElementById('elementMass').textContent = el.mass;
+                document.getElementById('elementPeriod').textContent = el.period;
+                document.getElementById('elementGroup').textContent = el.group;
+                document.getElementById('displayNumber').textContent = el.number;
+                document.getElementById('displayMass').textContent = el.mass;
+            }
+
+            checkAnswer() {
+                let userAnswer = '';
+                let correctAnswer = '';
+
+                switch (this.currentMode) {
+                    case 'symbol':
+                        userAnswer = document.getElementById('symbolInput').value.trim().toUpperCase();
+                        correctAnswer = this.currentElement.symbol.toUpperCase();
+                        break;
+                    case 'name':
+                        userAnswer = document.getElementById('nameInput').value.trim();
+                        correctAnswer = this.currentElement.name;
+                        break;
+                }
+
+                if (userAnswer === correctAnswer) {
+                    this.correctCount++;
+                    this.streak++;
+                    this.showResult('✅', '回答正确!', '太棒了!', 'success');
+                    this.stopTimer();
+                } else {
+                    this.wrongCount++;
+                    this.streak = 0;
+                    this.showResult('❌', '回答错误', `正确答案是: ${correctAnswer}`, 'error');
+                    this.stopTimer();
+                }
+
+                this.updateStats();
+            }
+
+            handleMemoryCardClick(cardElement) {
+                if (cardElement.classList.contains('flipped') || cardElement.classList.contains('matched')) {
+                    return;
+                }
+
+                cardElement.classList.add('flipped');
+                const cardId = cardElement.dataset.id;
+                const card = this.memoryCards.find(c => c.id === cardId);
+
+                this.flippedCards.push({ element: cardElement, card: card });
+
+                if (this.flippedCards.length === 2) {
+                    setTimeout(() => this.checkMemoryMatch(), 800);
+                }
+            }
+
+            checkMemoryMatch() {
+                const [first, second] = this.flippedCards;
+
+                if (first.card.elementIndex === second.card.elementIndex && first.card.type !== second.card.type) {
+                    first.element.classList.add('matched');
+                    second.element.classList.add('matched');
+                    first.card.matched = true;
+                    second.card.matched = true;
+                    this.matchedPairs++;
+                    this.correctCount++;
+
+                    if (this.matchedPairs === 8) {
+                        this.showResult('🎉', '游戏完成!', '恭喜你完成所有配对!', 'success');
+                    }
+                } else {
+                    first.element.classList.remove('flipped');
+                    second.element.classList.remove('flipped');
+                    this.wrongCount++;
+                    this.streak = 0;
+                }
+
+                this.flippedCards = [];
+                this.updateStats();
+            }
+
+            handleQuizAnswer(selectedAnswer) {
+                if (selectedAnswer === this.currentElement.name) {
+                    this.correctCount++;
+                    this.streak++;
+                    const btn = document.querySelector(`[data-answer="${selectedAnswer}"]`);
+                    btn.classList.add('correct');
+                    this.showResult('✅', '回答正确!', '太棒了!', 'success');
+                } else {
+                    this.wrongCount++;
+                    this.streak = 0;
+                    const wrongBtn = document.querySelector(`[data-answer="${selectedAnswer}"]`);
+                    wrongBtn.classList.add('wrong');
+                    const correctBtn = document.querySelector(`[data-answer="${this.currentElement.name}"]`);
+                    if (correctBtn) correctBtn.classList.add('correct');
+                    this.showResult('❌', '回答错误', `正确答案是: ${this.currentElement.name}`, 'error');
+                }
+
+                this.stopTimer();
+                this.updateStats();
+            }
+
+            showHint() {
+                document.getElementById('hintText').textContent = this.currentElement.hint;
+                document.getElementById('hintBox').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('hintBox').style.display = 'none';
+                }, 4000);
+            }
+
+            startTimer() {
+                this.stopTimer();
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    const timerEl = document.getElementById('timer');
+                    timerEl.textContent = `时间: ${this.timeLeft}s`;
+                    timerEl.classList.toggle('warning', this.timeLeft <= 10);
+
+                    if (this.timeLeft <= 0) {
+                        this.stopTimer();
+                        this.wrongCount++;
+                        this.streak = 0;
+                        this.showResult('⏰', '时间到!', '继续下一题吧', 'error');
+                        this.updateStats();
+                    }
+                }, 1000);
+            }
+
+            stopTimer() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            }
+
+            resetTimer() {
+                this.timeLeft = 30;
+                const timerEl = document.getElementById('timer');
+                timerEl.textContent = `时间: ${this.timeLeft}s`;
+                timerEl.classList.remove('warning');
+            }
+
+            clearInputs() {
+                document.getElementById('symbolInput').value = '';
+                document.getElementById('nameInput').value = '';
+            }
+
+            showResult(icon, title, text, type) {
+                const panel = document.getElementById('resultPanel');
+                document.getElementById('resultIcon').textContent = icon;
+                const titleEl = document.getElementById('resultTitle');
+                titleEl.textContent = title;
+                titleEl.className = `result-title ${type}`;
+                document.getElementById('resultText').textContent = text;
+                panel.classList.add('show');
+            }
+
+            hideResult() {
+                document.getElementById('resultPanel').classList.remove('show');
+            }
+
+            hideHint() {
+                document.getElementById('hintBox').style.display = 'none';
+            }
+
+            updateStats() {
+                document.getElementById('correctCount').textContent = this.correctCount;
+                document.getElementById('wrongCount').textContent = this.wrongCount;
+                document.getElementById('streak').textContent = this.streak;
+
+                const total = this.correctCount + this.wrongCount;
+                const accuracy = total > 0 ? Math.round((this.correctCount / total) * 100) : 0;
+                document.getElementById('accuracy').textContent = `${accuracy}%`;
+                document.getElementById('progressFill').style.width = `${accuracy}%`;
+            }
+
+            setMode(mode) {
+                this.currentMode = mode;
+                document.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.mode === mode);
+                });
+                this.newQuestion();
+            }
+
+            resetMemoryGame() {
+                this.generateMemoryCards();
+            }
+
+            bindEvents() {
+                document.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.setMode(btn.dataset.mode));
+                });
+
+                document.getElementById('memoryCards').addEventListener('click', (e) => {
+                    const card = e.target.closest('.memory-card');
+                    if (card) this.handleMemoryCardClick(card);
+                });
+
+                document.getElementById('optionsArea').addEventListener('click', (e) => {
+                    if (e.target.classList.contains('option-btn')) {
+                        this.handleQuizAnswer(e.target.dataset.answer);
+                    }
+                });
+
+                document.getElementById('symbolInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.checkAnswer();
+                });
+
+                document.getElementById('nameInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.checkAnswer();
+                });
+
+                document.getElementById('checkBtn').addEventListener('click', () => this.checkAnswer());
+                document.getElementById('hintBtn').addEventListener('click', () => this.showHint());
+                document.getElementById('nextBtn').addEventListener('click', () => this.newQuestion());
+                document.getElementById('resetBtn').addEventListener('click', () => this.resetMemoryGame());
+            }
+        }
+
+        new ChemistryMemoryGame();
+    </script>
+</body>
+</html>

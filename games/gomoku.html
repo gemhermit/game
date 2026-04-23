@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>五子棋 - 在线棋牌纸牌小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="五子棋是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="五子棋,棋牌纸牌,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/gomoku.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="五子棋 - 在线棋牌纸牌小游戏 | 贝谷游戏">
+    <meta property="og:description" content="五子棋是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/gomoku.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="五子棋 - 在线棋牌纸牌小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="五子棋是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"五子棋","description":"五子棋是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/gomoku.html","genre":"棋牌纸牌","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1e293b;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --black-stone: #1a1a1a;
+            --white-stone: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 360px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .header {
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Game Status */
+        .game-status {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .current-player {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .player-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .player-indicator.black {
+            background: var(--black-stone);
+            border: 2px solid #333;
+        }
+
+        .player-indicator.white {
+            background: var(--white-stone);
+            border: 2px solid #ddd;
+        }
+
+        .player-label {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .game-message {
+            font-size: 14px;
+            color: #64748b;
+            min-height: 20px;
+        }
+
+        .winner-message {
+            color: #16a34a;
+            font-weight: 600;
+            font-size: 16px;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Control Panel */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .control-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .control-value {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+            background: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        /* Mode Toggles */
+        .mode-toggles {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mode-btn.active {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-card h3 {
+            font-size: 14px;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stone-count {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* Rules */
+        .rules-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: auto;
+        }
+
+        .rules-card h3 {
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+
+        .rules-list {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        /* Main Display */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            gap: 24px;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .canvas-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .canvas-title {
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        canvas {
+            cursor: pointer;
+            border-radius: 8px;
+            background: #dcb35c;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Last Move Indicator */
+        .last-move-info {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #64748b;
+            min-height: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="header">
+            <h1>五子棋</h1>
+            <div class="subtitle">Gomoku - Five in a Row</div>
+        </div>
+
+        <div class="game-status">
+            <div class="current-player">
+                <div class="player-indicator" id="playerIndicator"></div>
+                <span class="player-label" id="playerLabel">等待开始</span>
+            </div>
+            <div class="game-message" id="gameMessage">点击"开始游戏"开始对弈</div>
+        </div>
+
+        <div class="mode-toggles">
+            <button class="mode-btn active" data-mode="pvp">双人对战</button>
+            <button class="mode-btn" data-mode="pve">人机对战</button>
+            <button class="mode-btn" data-mode="ai-first">AI先手</button>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">棋盘大小</span>
+                    <span class="control-value" id="boardSizeDisplay">15路</span>
+                </div>
+                <input type="range" id="boardSizeSlider" min="9" max="19" value="15" step="2">
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">AI 难度</span>
+                    <span class="control-value" id="difficultyDisplay">精通</span>
+                </div>
+                <input type="range" id="difficultySlider" min="1" max="3" value="2" step="1">
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" id="startBtn">开始游戏</button>
+            <button class="btn btn-secondary" id="undoBtn" disabled>悔棋</button>
+        </div>
+
+        <div class="info-cards">
+            <div class="info-card">
+                <h3><span class="legend-dot" style="background: var(--black-stone)"></span> 黑方</h3>
+                <span class="stone-count" id="blackCount">0</span>
+            </div>
+            <div class="info-card">
+                <h3><span class="legend-dot" style="background: #f5f5f5; border: 1px solid #ddd"></span> 白方</h3>
+                <span class="stone-count" id="whiteCount">0</span>
+            </div>
+        </div>
+
+        <div class="rules-card">
+            <h3>游戏规则</h3>
+            <div class="rules-list">
+                <div>• 黑白双方轮流落子</div>
+                <div>• 黑子先行，先连成5子获胜</div>
+                <div>• 棋盘: 15 x 15</div>
+                <div>• 无禁手限制</div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="canvas-card">
+            <div class="canvas-title">棋盘</div>
+            <canvas id="gameCanvas" width="600" height="600"></canvas>
+            <div class="last-move-info" id="lastMoveInfo"></div>
+        </div>
+    </main>
+
+    <script>
+        // Configuration
+        const config = {
+            boardSize: 15,
+            cellSize: 40,
+            stoneRadius: 17,
+            colors: {
+                board: '#dcb35c',
+                grid: '#8b6914',
+                lastMove: '#ff6b6b'
+            }
+        };
+
+        // DOM Elements
+        const elements = {
+            canvas: document.getElementById('gameCanvas'),
+            startBtn: document.getElementById('startBtn'),
+            undoBtn: document.getElementById('undoBtn'),
+            playerIndicator: document.getElementById('playerIndicator'),
+            playerLabel: document.getElementById('playerLabel'),
+            gameMessage: document.getElementById('gameMessage'),
+            blackCount: document.getElementById('blackCount'),
+            whiteCount: document.getElementById('whiteCount'),
+            boardSizeSlider: document.getElementById('boardSizeSlider'),
+            boardSizeDisplay: document.getElementById('boardSizeDisplay'),
+            difficultySlider: document.getElementById('difficultySlider'),
+            difficultyDisplay: document.getElementById('difficultyDisplay'),
+            modeBtns: document.querySelectorAll('.mode-btn'),
+            lastMoveInfo: document.getElementById('lastMoveInfo')
+        };
+
+        const ctx = elements.canvas.getContext('2d');
+
+        // Game State
+        let state = {
+            board: [], // 0: empty, 1: black, 2: white
+            currentPlayer: 1, // 1: black, 2: white
+            gameOver: false,
+            gameStarted: false,
+            mode: 'pvp', // 'pvp', 'pve', 'ai-first'
+            difficulty: 2, // 1: easy, 2: medium, 3: hard
+            history: [], // For undo
+            lastMove: null, // {x, y}
+            winner: null
+        };
+
+        // AI is always the player specified by mode
+        function isAITurn() {
+            if (!state.gameStarted || state.gameOver) return false;
+            if (state.mode === 'pve') return state.currentPlayer === 2; // AI = white
+            if (state.mode === 'ai-first') return state.currentPlayer === 1; // AI = black
+            return false;
+        }
+
+        // AI player value
+        function getAIPlayer() {
+            return state.mode === 'ai-first' ? 1 : 2;
+        }
+
+        // Human player value
+        function getHumanPlayer() {
+            return state.mode === 'ai-first' ? 2 : 1;
+        }
+
+        // AI settings based on difficulty
+        const aiDepth = [3, 4, 5]; // Search depth for each difficulty
+        const aiTimeout = [300, 800, 1500]; // Timeout in ms
+        const MAX_MOVES = 16; // Maximum moves to consider
+
+        // AI Optimization
+        const Zobrist = {
+            table: [],
+            init: function(size) {
+                this.table = new Array(size * size).fill(0).map(() => ({
+                    1: Math.floor(Math.random() * 0xFFFFFFFF),
+                    2: Math.floor(Math.random() * 0xFFFFFFFF)
+                }));
+            },
+            getHash: function(board) {
+                let hash = 0;
+                const size = board.length;
+                for(let y=0; y<size; y++) {
+                    for(let x=0; x<size; x++) {
+                        const p = board[y][x];
+                        if(p !== 0) hash ^= this.table[y*size + x][p];
+                    }
+                }
+                return hash;
+            },
+            update: function(hash, x, y, player, size) {
+                return hash ^ this.table[y*size + x][player];
+            }
+        };
+
+        const TT = {
+            map: new Map(),
+            get: function(hash) { return this.map.get(hash); },
+            put: function(hash, depth, score, flag, move) {
+                this.map.set(hash, {depth, score, flag, move});
+            },
+            clear: function() { this.map.clear(); }
+        };
+
+        // Initialize
+        function init() {
+            Zobrist.init(config.boardSize);
+            setupBoard();
+            drawBoard();
+            setupListeners();
+            updateUI();
+        }
+
+        function setupBoard() {
+            state.board = Array(config.boardSize).fill(null).map(() =>
+                Array(config.boardSize).fill(0)
+            );
+            state.hash = 0; // Reset hash
+            TT.clear(); // Clear TT on new game/board reset
+        }
+
+        function setupListeners() {
+            elements.canvas.addEventListener('click', handleCanvasClick);
+            elements.canvas.addEventListener('mousemove', handleCanvasHover);
+
+            elements.startBtn.addEventListener('click', startGame);
+            elements.undoBtn.addEventListener('click', undoMove);
+
+            // Board size slider
+            elements.boardSizeSlider.addEventListener('input', (e) => {
+                config.boardSize = parseInt(e.target.value);
+                elements.boardSizeDisplay.textContent = config.boardSize + '路';
+                // Resize canvas
+                elements.canvas.width = config.cellSize * (config.boardSize - 1) + config.cellSize;
+                elements.canvas.height = config.cellSize * (config.boardSize - 1) + config.cellSize;
+                Zobrist.init(config.boardSize); // Re-init Zobrist for new size
+                setupBoard();
+                drawBoard();
+            });
+
+            elements.difficultySlider.addEventListener('input', (e) => {
+                state.difficulty = parseInt(e.target.value);
+                const labels = ['入门', '精通', '大师'];
+                elements.difficultyDisplay.textContent = labels[state.difficulty - 1];
+            });
+
+            elements.modeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    elements.modeBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.mode = btn.dataset.mode;
+                });
+            });
+        }
+
+        function handleCanvasHover(e) {
+            if (!state.gameStarted || state.gameOver) return;
+
+            // Check if it's AI's turn
+            if (isAITurn()) return;
+
+            const rect = elements.canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const boardX = Math.round(x / config.cellSize - 0.5);
+            const boardY = Math.round(y / config.cellSize - 0.5);
+
+            if (isValidMove(boardX, boardY)) {
+                elements.canvas.style.cursor = 'pointer';
+            } else {
+                elements.canvas.style.cursor = 'default';
+            }
+        }
+
+        function handleCanvasClick(e) {
+            if (!state.gameStarted || state.gameOver) return;
+
+            // Check if it's AI's turn
+            if (isAITurn()) return;
+
+            const rect = elements.canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const boardX = Math.round(x / config.cellSize - 0.5);
+            const boardY = Math.round(y / config.cellSize - 0.5);
+
+            if (isValidMove(boardX, boardY)) {
+                makeMove(boardX, boardY);
+            }
+        }
+
+        function isValidMove(x, y) {
+            return x >= 0 && x < config.boardSize &&
+                   y >= 0 && y < config.boardSize &&
+                   state.board[y][x] === 0;
+        }
+
+        function makeMove(x, y, saveHistory = true) {
+            if (!isValidMove(x, y)) return false;
+
+            if (saveHistory) {
+                state.history.push({
+                    board: state.board.map(row => [...row]),
+                    currentPlayer: state.currentPlayer,
+                    lastMove: state.lastMove ? {...state.lastMove} : null,
+                    hash: state.hash
+                });
+            }
+
+            state.board[y][x] = state.currentPlayer;
+            state.hash = Zobrist.update(state.hash, x, y, state.currentPlayer, config.boardSize);
+            state.lastMove = {x, y};
+
+            if (checkWin(x, y)) {
+                state.gameOver = true;
+                state.winner = state.currentPlayer;
+                updateUI();
+                drawBoard();
+                return true;
+            }
+
+            // Switch player
+            state.currentPlayer = state.currentPlayer === 1 ? 2 : 1;
+
+            updateUI();
+            drawBoard();
+
+            // AI move in PvE or AI-first mode
+            if (isAITurn()) {
+                setTimeout(() => {
+                    makeAIMove();
+                }, 50); // Reduced delay for responsiveness
+            }
+
+            return true;
+        }
+
+        function undoMove() {
+            if (state.history.length === 0 || !state.gameStarted) return;
+            // In AI-first mode, need at least 2 moves to undo (AI + human)
+            if (state.mode === 'ai-first' && state.history.length < 2) return;
+            // In PvE mode, need at least 2 moves to undo
+            if (state.mode === 'pve' && state.history.length < 2) return;
+
+            const history = state.history.pop();
+            state.board = history.board;
+            state.currentPlayer = history.currentPlayer;
+            state.lastMove = history.lastMove;
+            state.hash = history.hash; // Restore hash
+            state.gameOver = false;
+            state.winner = null;
+
+            updateUI();
+            drawBoard();
+        }
+
+        function startGame() {
+            setupBoard();
+            state.currentPlayer = 1;
+            state.gameOver = false;
+            state.gameStarted = true;
+            state.history = [];
+            state.lastMove = null;
+            state.winner = null;
+
+            updateUI();
+            drawBoard();
+
+            const aiPlayer = getAIPlayer();
+            if (state.mode === 'ai-first') {
+                // AI plays first (black)
+                elements.gameMessage.textContent = 'AI 思考中...';
+                setTimeout(() => {
+                    makeAIMove();
+                }, 300);
+            } else if (state.mode === 'pve') {
+                elements.gameMessage.textContent = '游戏开始！黑方先行';
+            } else {
+                elements.gameMessage.textContent = '游戏开始！';
+            }
+        }
+
+        function makeAIMove() {
+            if (state.gameOver) return;
+
+            const aiPlayer = getAIPlayer();
+            const startTime = performance.now();
+            const move = getBestMove(startTime, aiPlayer);
+            const elapsed = performance.now() - startTime;
+            console.log(`AI思考时间: ${elapsed.toFixed(0)}ms`);
+
+            if (move) {
+                makeMove(move.x, move.y);
+            }
+        }
+
+        // AI Logic
+        const SCORES = {
+            WIN: 100000000,
+            LIVE_4: 1000000,
+            DEAD_4: 100000,
+            LIVE_3: 10000,
+            DEAD_3: 1000,
+            LIVE_2: 100,
+            DEAD_2: 10
+        };
+
+        function getBestMove(startTime, aiPlayer) {
+            const winMove = findImmediateWin(aiPlayer);
+            if (winMove) return winMove;
+
+            const humanPlayer = getHumanPlayer();
+            const loseMove = findImmediateWin(humanPlayer);
+            
+            if (state.difficulty === 1) {
+                if (loseMove && Math.random() > 0.3) return loseMove;
+                if (loseMove) return loseMove;
+                const moves = getSortedMoves(aiPlayer);
+                return moves[0];
+            }
+            
+            if (loseMove) return loseMove;
+
+            const timeout = aiTimeout[state.difficulty - 1];
+            return iterativeDeepening(startTime, timeout, aiPlayer);
+        }
+
+        function findImmediateWin(player) {
+             const moves = getSortedMoves(player);
+             for (const move of moves) {
+                 state.board[move.y][move.x] = player;
+                 if (checkWin(move.x, move.y)) {
+                     state.board[move.y][move.x] = 0;
+                     return move;
+                 }
+                 state.board[move.y][move.x] = 0;
+             }
+             return null;
+        }
+
+        function iterativeDeepening(startTime, timeout, aiPlayer) {
+            let bestMove = null;
+            const maxDepth = aiDepth[state.difficulty - 1] * 2;
+
+            for (let depth = 2; depth <= maxDepth; depth += 2) {
+                if (performance.now() - startTime > timeout) break;
+                
+                const val = alphaBeta(depth, -Infinity, Infinity, true, startTime, timeout, aiPlayer);
+                if (val.move) bestMove = val.move;
+                if (Math.abs(val.score) >= SCORES.WIN) break; 
+            }
+            
+            if (!bestMove) {
+                const moves = getSortedMoves(aiPlayer);
+                bestMove = moves[0];
+            }
+            return bestMove;
+        }
+
+        function alphaBeta(depth, alpha, beta, isMaximizing, startTime, timeout, aiPlayer) {
+            if (performance.now() - startTime > timeout) return {score: 0, move: null, timeout: true};
+
+            const hash = state.hash;
+            const ttEntry = TT.get(hash);
+            if (ttEntry && ttEntry.depth >= depth) {
+                if (ttEntry.flag === 'exact') return {score: ttEntry.score, move: ttEntry.move};
+                if (ttEntry.flag === 'lower' && ttEntry.score > alpha) alpha = ttEntry.score;
+                if (ttEntry.flag === 'upper' && ttEntry.score < beta) beta = ttEntry.score;
+                if (alpha >= beta) return {score: ttEntry.score, move: ttEntry.move};
+            }
+
+            if (depth === 0) {
+                const score = evaluateBoardFast(aiPlayer, getHumanPlayer());
+                TT.put(hash, 0, score, 'exact', null);
+                return {score, move: null};
+            }
+
+            const moves = getSortedMoves(isMaximizing ? aiPlayer : getHumanPlayer());
+            if (moves.length === 0) return {score: 0, move: null};
+
+            let bestMove = moves[0];
+            let bestScore = isMaximizing ? -Infinity : Infinity;
+            let flag = isMaximizing ? 'upper' : 'lower';
+
+            for (const move of moves) {
+                state.board[move.y][move.x] = isMaximizing ? aiPlayer : getHumanPlayer();
+                state.hash = Zobrist.update(state.hash, move.x, move.y, isMaximizing ? aiPlayer : getHumanPlayer(), config.boardSize);
+                
+                const result = alphaBeta(depth - 1, alpha, beta, !isMaximizing, startTime, timeout, aiPlayer);
+                
+                state.hash = Zobrist.update(state.hash, move.x, move.y, isMaximizing ? aiPlayer : getHumanPlayer(), config.boardSize);
+                state.board[move.y][move.x] = 0;
+
+                if (result.timeout) return result;
+
+                if (isMaximizing) {
+                    if (result.score > bestScore) {
+                        bestScore = result.score;
+                        bestMove = move;
+                    }
+                    alpha = Math.max(alpha, bestScore);
+                } else {
+                    if (result.score < bestScore) {
+                        bestScore = result.score;
+                        bestMove = move;
+                    }
+                    beta = Math.min(beta, bestScore);
+                }
+
+                if (beta <= alpha) {
+                    flag = isMaximizing ? 'lower' : 'upper';
+                    break;
+                }
+            }
+
+            TT.put(hash, depth, bestScore, flag, bestMove);
+            return {score: bestScore, move: bestMove};
+        }
+
+        function getSortedMoves(player) {
+            const moves = [];
+            const size = config.boardSize;
+            const center = Math.floor(size / 2);
+            const candidates = new Set();
+            
+            for(let y=0; y<size; y++) {
+                for(let x=0; x<size; x++) {
+                    if(state.board[y][x] !== 0) {
+                        for(let dy=-2; dy<=2; dy++) {
+                            for(let dx=-2; dx<=2; dx++) {
+                                if(dx===0 && dy===0) continue;
+                                const ny = y+dy;
+                                const nx = x+dx;
+                                if(nx>=0 && nx<size && ny>=0 && ny<size && state.board[ny][nx]===0) {
+                                    const key = ny*size + nx;
+                                    if(!candidates.has(key)) {
+                                        candidates.add(key);
+                                        let score = 0;
+                                        score -= (Math.abs(nx-center) + Math.abs(ny-center));
+                                        moves.push({x: nx, y: ny, score});
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(moves.length === 0) {
+                 return [{x: center, y: center, score: 100}];
+            }
+
+            return moves.sort((a, b) => b.score - a.score);
+        }
+
+        function evaluateBoardFast(aiPlayer, humanPlayer) {
+            let score = 0;
+            const size = config.boardSize;
+            const bd = state.board;
+
+            for(let y=0; y<size; y++) {
+                score += evaluateLine(bd[y], aiPlayer, humanPlayer);
+            }
+
+            for(let x=0; x<size; x++) {
+                const col = [];
+                for(let y=0; y<size; y++) col.push(bd[y][x]);
+                score += evaluateLine(col, aiPlayer, humanPlayer);
+            }
+
+            for(let k = -size+1; k < size; k++) {
+                const line = [];
+                for(let x=0; x<size; x++) {
+                    const y = x + k;
+                    if(y>=0 && y<size) line.push(bd[y][x]);
+                }
+                if(line.length >= 5) score += evaluateLine(line, aiPlayer, humanPlayer);
+            }
+
+            for(let k = 0; k < 2*size-1; k++) {
+                const line = [];
+                for(let x=0; x<size; x++) {
+                    const y = k - x;
+                    if(y>=0 && y<size) line.push(bd[y][x]);
+                }
+                if(line.length >= 5) score += evaluateLine(line, aiPlayer, humanPlayer);
+            }
+
+            return score;
+        }
+
+        function evaluateLine(line, aiPlayer, humanPlayer) {
+            let score = 0;
+            score += analyzeLineForPlayer(line, aiPlayer) * 1.0;
+            score -= analyzeLineForPlayer(line, humanPlayer) * 1.5; 
+            return score;
+        }
+
+        function analyzeLineForPlayer(line, player) {
+            let score = 0;
+            let count = 0;
+            let openBefore = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                if (line[i] === player) {
+                    count++;
+                } else if (line[i] === 0) {
+                    if (count > 0) {
+                        score += getPatternScore(count, openBefore, true);
+                        count = 0;
+                    }
+                    openBefore = true;
+                } else { 
+                    if (count > 0) {
+                        score += getPatternScore(count, openBefore, false);
+                        count = 0;
+                    }
+                    openBefore = false;
+                }
+            }
+            if (count > 0) {
+                 score += getPatternScore(count, openBefore, false);
+            }
+            return score;
+        }
+
+        function getPatternScore(count, openBefore, openAfter) {
+            if (count >= 5) return SCORES.WIN;
+            if (count === 4) {
+                if (openBefore && openAfter) return SCORES.LIVE_4;
+                if (openBefore || openAfter) return SCORES.DEAD_4;
+            }
+            if (count === 3) {
+                if (openBefore && openAfter) return SCORES.LIVE_3;
+                if (openBefore || openAfter) return SCORES.DEAD_3;
+            }
+            if (count === 2) {
+                if (openBefore && openAfter) return SCORES.LIVE_2;
+                if (openBefore || openAfter) return SCORES.DEAD_2;
+            }
+            return 0;
+        }
+
+        function checkWinImmediately(player) {
+            for (let y = 0; y < config.boardSize; y++) {
+                for (let x = 0; x < config.boardSize; x++) {
+                    if (state.board[y][x] !== player) continue;
+                    if (checkDirection(x, y, 1, 0, player) ||
+                        checkDirection(x, y, 0, 1, player) ||
+                        checkDirection(x, y, 1, 1, player) ||
+                        checkDirection(x, y, 1, -1, player)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function checkWin(x, y) {
+            return checkDirection(x, y, 1, 0, state.board[y][x]) ||
+                   checkDirection(x, y, 0, 1, state.board[y][x]) ||
+                   checkDirection(x, y, 1, 1, state.board[y][x]) ||
+                   checkDirection(x, y, 1, -1, state.board[y][x]);
+        }
+
+        function checkDirection(x, y, dx, dy, player) {
+            let count = 1;
+
+            // Check positive direction
+            for (let i = 1; i < 5; i++) {
+                const nx = x + dx * i;
+                const ny = y + dy * i;
+                if (nx < 0 || nx >= config.boardSize || ny < 0 || ny >= config.boardSize) break;
+                if (state.board[ny][nx] !== player) break;
+                count++;
+            }
+
+            // Check negative direction
+            for (let i = 1; i < 5; i++) {
+                const nx = x - dx * i;
+                const ny = y - dy * i;
+                if (nx < 0 || nx >= config.boardSize || ny < 0 || ny >= config.boardSize) break;
+                if (state.board[ny][nx] !== player) break;
+                count++;
+            }
+
+            return count >= 5;
+        }
+
+        function updateUI() {
+            // Update player indicator
+            if (!state.gameStarted) {
+                elements.playerIndicator.className = 'player-indicator';
+                elements.playerIndicator.style.background = '#ccc';
+                elements.playerLabel.textContent = '等待开始';
+            } else if (state.gameOver) {
+                const winner = state.winner === 1 ? '黑方' : '白方';
+                elements.playerIndicator.className = `player-indicator ${state.winner === 1 ? 'black' : 'white'}`;
+                elements.playerLabel.textContent = `${winner} 获胜！`;
+                elements.gameMessage.innerHTML = `<span class="winner-message">🎉 ${winner} 获胜！🎉</span>`;
+            } else {
+                const isBlack = state.currentPlayer === 1;
+                elements.playerIndicator.className = `player-indicator ${isBlack ? 'black' : 'white'}`;
+                elements.playerLabel.textContent = isBlack ? '黑方' : '白方';
+                elements.gameMessage.textContent = state.mode === 'pve' && state.currentPlayer === 2 ?
+                    'AI 思考中...' : '请落子';
+            }
+
+            // Update stone counts
+            let blackCount = 0, whiteCount = 0;
+            for (let y = 0; y < config.boardSize; y++) {
+                for (let x = 0; x < config.boardSize; x++) {
+                    if (state.board[y][x] === 1) blackCount++;
+                    else if (state.board[y][x] === 2) whiteCount++;
+                }
+            }
+            elements.blackCount.textContent = blackCount;
+            elements.whiteCount.textContent = whiteCount;
+
+            // Update undo button
+            const canUndo = state.history.length > 0 &&
+                          (state.mode === 'pvp' || state.history.length >= 2);
+            elements.undoBtn.disabled = !canUndo;
+
+            // Update last move info
+            if (state.lastMove) {
+                const col = String.fromCharCode(65 + state.lastMove.x);
+                const row = state.lastMove.y + 1;
+                elements.lastMoveInfo.textContent = `最后落子: ${col}${row}`;
+            } else {
+                elements.lastMoveInfo.textContent = '';
+            }
+        }
+
+        function drawBoard() {
+            const padding = config.cellSize / 2;
+            const size = config.cellSize * (config.boardSize - 1);
+
+            // Clear canvas
+            ctx.fillStyle = config.colors.board;
+            ctx.fillRect(0, 0, elements.canvas.width, elements.canvas.height);
+
+            // Draw grid
+            ctx.strokeStyle = config.colors.grid;
+            ctx.lineWidth = 1;
+
+            for (let i = 0; i < config.boardSize; i++) {
+                // Vertical lines
+                ctx.beginPath();
+                ctx.moveTo(padding + i * config.cellSize, padding);
+                ctx.lineTo(padding + i * config.cellSize, padding + size);
+                ctx.stroke();
+
+                // Horizontal lines
+                ctx.beginPath();
+                ctx.moveTo(padding, padding + i * config.cellSize);
+                ctx.lineTo(padding + size, padding + i * config.cellSize);
+                ctx.stroke();
+            }
+
+            // Draw star points (tengen and hoshi) - dynamic based on board size
+            const center = Math.floor(config.boardSize / 2);
+            const offset = Math.floor((config.boardSize - 1) / 4);
+            const starPoints = [
+                [center, center], // 天元
+            ];
+
+            // 添加四个角的星位
+            if (config.boardSize >= 13) {
+                starPoints.push([offset, offset]);
+                starPoints.push([config.boardSize - 1 - offset, offset]);
+                starPoints.push([offset, config.boardSize - 1 - offset]);
+                starPoints.push([config.boardSize - 1 - offset, config.boardSize - 1 - offset]);
+            }
+
+            // 19路添加额外的星位
+            if (config.boardSize === 19) {
+                starPoints.push([center, offset]);
+                starPoints.push([offset, center]);
+                starPoints.push([config.boardSize - 1 - offset, center]);
+                starPoints.push([center, config.boardSize - 1 - offset]);
+            }
+
+            ctx.fillStyle = config.colors.grid;
+            for (const [sx, sy] of starPoints) {
+                ctx.beginPath();
+                ctx.arc(
+                    padding + sx * config.cellSize,
+                    padding + sy * config.cellSize,
+                    4, 0, Math.PI * 2
+                );
+                ctx.fill();
+            }
+
+            // Draw stones
+            for (let y = 0; y < config.boardSize; y++) {
+                for (let x = 0; x < config.boardSize; x++) {
+                    if (state.board[y][x] !== 0) {
+                        drawStone(x, y, state.board[y][x]);
+                    }
+                }
+            }
+
+            // Draw last move indicator
+            if (state.lastMove) {
+                ctx.strokeStyle = config.colors.lastMove;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(
+                    padding + state.lastMove.x * config.cellSize,
+                    padding + state.lastMove.y * config.cellSize,
+                    config.stoneRadius + 5, 0, Math.PI * 2
+                );
+                ctx.stroke();
+            }
+        }
+
+        function drawStone(x, y, player) {
+            const padding = config.cellSize / 2;
+            const cx = padding + x * config.cellSize;
+            const cy = padding + y * config.cellSize;
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, config.stoneRadius, 0, Math.PI * 2);
+
+            if (player === 1) {
+                // Black stone with gradient
+                const gradient = ctx.createRadialGradient(cx - 5, cy - 5, 2, cx, cy, config.stoneRadius);
+                gradient.addColorStop(0, '#444');
+                gradient.addColorStop(1, '#111');
+                ctx.fillStyle = gradient;
+            } else {
+                // White stone with gradient
+                const gradient = ctx.createRadialGradient(cx - 5, cy - 5, 2, cx, cy, config.stoneRadius);
+                gradient.addColorStop(0, '#fff');
+                gradient.addColorStop(1, '#ccc');
+                ctx.fillStyle = gradient;
+            }
+
+            ctx.fill();
+
+            // Add subtle shadow
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            ctx.shadowBlur = 5;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+        }
+
+        // Initialize game
+        init();
+    </script>
+</body>
+</html>

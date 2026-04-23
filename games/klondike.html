@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纸牌接龙 - 在线棋牌纸牌小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="纸牌接龙是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="纸牌接龙,棋牌纸牌,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/klondike.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="纸牌接龙 - 在线棋牌纸牌小游戏 | 贝谷游戏">
+    <meta property="og:description" content="纸牌接龙是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/klondike.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="纸牌接龙 - 在线棋牌纸牌小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="纸牌接龙是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"纸牌接龙","description":"纸牌接龙是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/klondike.html","genre":"棋牌纸牌","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #059669;
+            --primary-hover: #047857;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+            --card-width: 70px;
+            --card-height: 100px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .header {
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #047857;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .stats-panel {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stats-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--secondary-color);
+            margin-top: 4px;
+        }
+
+        .deck-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .deck-count {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow: auto;
+        }
+
+        .top-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            min-height: var(--card-height);
+            justify-content: center;
+        }
+
+        .stock-deck {
+            width: var(--card-width);
+            height: var(--card-height);
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .stock-deck:hover {
+            transform: translateY(-2px);
+        }
+
+        .stock-deck.empty {
+            background: #e2e8f0;
+            cursor: default;
+            box-shadow: none;
+        }
+
+        .stock-deck .count {
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            background: var(--primary-color);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .waste-pile {
+            width: var(--card-width);
+            height: var(--card-height);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .foundation {
+            width: var(--card-width);
+            height: var(--card-height);
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #cbd5e1;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .foundation.drag-over {
+            border-color: var(--primary-color);
+            background: rgba(5, 150, 105, 0.1);
+            transform: scale(1.05);
+        }
+
+        .foundation.valid-drop {
+            border-color: var(--success-color);
+            background: rgba(34, 197, 94, 0.15);
+        }
+
+        .foundation.complete {
+            border-color: var(--success-color);
+            color: var(--success-color);
+            background: #ecfdf5;
+        }
+
+        .tableau {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tableau-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: var(--card-width);
+            min-height: 300px;
+            transition: transform 0.2s;
+            border-radius: 8px;
+        }
+
+        .tableau-col.drag-over {
+            transform: scale(1.02);
+            background: rgba(5, 150, 105, 0.05);
+        }
+
+        .tableau-col.valid-drop {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .tableau-placeholder {
+            width: var(--card-width);
+            height: var(--card-height);
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tableau-placeholder:hover {
+            border-color: var(--primary-color);
+            background: rgba(5, 150, 105, 0.05);
+        }
+
+        .card {
+            width: var(--card-width);
+            height: var(--card-height);
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: grab;
+            user-select: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            margin-top: -75px;
+        }
+
+        .card:first-child {
+            margin-top: 0;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transform: translateY(-8px);
+        }
+
+        .card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .card.drag-ghost {
+            opacity: 1;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            z-index: 1000;
+            position: fixed;
+            pointer-events: none;
+        }
+
+        .card.face-down {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            cursor: default;
+        }
+
+        .card.face-down:hover {
+            transform: none;
+            box-shadow: none;
+            z-index: auto;
+        }
+
+        .card.face-down * {
+            display: none;
+        }
+
+        .card.red {
+            color: #dc2626;
+        }
+
+        .card.black {
+            color: #1e293b;
+        }
+
+        .card .suit {
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .card .rank {
+            position: absolute;
+            top: 4px;
+            left: 6px;
+            font-size: 14px;
+        }
+
+        .card .rank-bottom {
+            position: absolute;
+            bottom: 4px;
+            right: 6px;
+            font-size: 14px;
+            transform: rotate(180deg);
+        }
+
+        .card .center-suit {
+            font-size: 28px;
+        }
+
+        .card.selected {
+            box-shadow: 0 0 0 3px var(--primary-color), 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(-4px);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal h2 {
+            color: var(--success-color);
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .modal p {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .hint {
+            margin-top: auto;
+            padding: 12px;
+            background: #fef3c7;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #92400e;
+        }
+
+        @media (hover: none) {
+            .card:active {
+                transform: scale(1.05);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+
+            .main-content {
+                min-height: 600px;
+                padding: 16px;
+            }
+
+            :root {
+                --card-width: 40px;
+                --card-height: 56px;
+            }
+
+            .card {
+                font-size: 12px;
+                margin-top: -42px;
+            }
+
+            .card .suit {
+                font-size: 14px;
+            }
+
+            .card .rank {
+                font-size: 8px;
+                top: 2px;
+                left: 3px;
+            }
+
+            .card .center-suit {
+                font-size: 14px;
+            }
+
+            .tableau-col {
+                min-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="header">
+            <h1>🃏 纸牌接龙</h1>
+            <p class="subtitle">经典单人纸牌游戏</p>
+        </div>
+
+        <div class="control-panel">
+            <button class="btn btn-primary" onclick="initGame()">🎮 新游戏</button>
+            <button class="btn btn-secondary" onclick="undo()">↩️ 撤销</button>
+        </div>
+
+        <div class="stats-panel">
+            <div class="stats-title">游戏统计</div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="moves">0</div>
+                    <div class="stat-label">移动次数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="time">0:00</div>
+                    <div class="stat-label">用时</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="deck-info">
+            <span>牌堆剩余:</span>
+            <span class="deck-count" id="deckCount">24</span>
+            <span>张</span>
+        </div>
+
+        <div class="hint">
+            <strong>游戏规则:</strong> 将所有牌按从A到K的顺序移到右上角的目标区。
+            红牌和黑牌交替排列，从大到小。点击左上角发牌。
+            <br><br>
+            💡 拖拽牌到目标位置
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-row">
+            <div class="stock-deck" id="stockDeck" onclick="drawCard()">
+                <span>🃏</span>
+                <div class="count" id="stockCount">24</div>
+            </div>
+            <div class="waste-pile" id="wastePile"></div>
+            <div class="foundation" id="foundation0" data-type="foundation" data-index="0">🅰️</div>
+            <div class="foundation" id="foundation1" data-type="foundation" data-index="1">🅰️</div>
+            <div class="foundation" id="foundation2" data-type="foundation" data-index="2">🅰️</div>
+            <div class="foundation" id="foundation3" data-type="foundation" data-index="3">🅰️</div>
+        </div>
+        <div class="tableau" id="tableau"></div>
+    </div>
+
+    <div class="modal-overlay" id="winModal">
+        <div class="modal">
+            <h2>🎉 恭喜通关!</h2>
+            <p>你成功完成了纸牌接龙!</p>
+            <div class="stats-grid" style="justify-items: center; margin-bottom: 20px;">
+                <div class="stat-item">
+                    <div class="stat-value" id="finalMoves">0</div>
+                    <div class="stat-label">移动次数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="finalTime">0:00</div>
+                    <div class="stat-label">用时</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="closeModal(); initGame()">再来一局</button>
+        </div>
+    </div>
+
+    <script>
+        const SUITS = ['♠', '♥', '♣', '♦'];
+        const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+        let stock = [];
+        let waste = [];
+        let foundations = [[], [], [], []];
+        let tableau = [];
+        let history = [];
+        let moves = 0;
+        let timer = null;
+        let seconds = 0;
+        let dragData = null;
+        let ghostElement = null;
+
+        function createDeck() {
+            const deck = [];
+            for (let s = 0; s < 4; s++) {
+                for (let r = 0; r < RANKS.length; r++) {
+                    deck.push({
+                        suit: SUITS[s],
+                        rank: RANKS[r],
+                        value: r,
+                        color: (SUITS[s] === '♥' || SUITS[s] === '♦') ? 'red' : 'black'
+                    });
+                }
+            }
+            return shuffle(deck);
+        }
+
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function saveState() {
+            history.push({
+                stock: [...stock],
+                waste: [...waste],
+                foundations: foundations.map(f => [...f]),
+                tableau: tableau.map(col => [...col]),
+                moves
+            });
+            if (history.length > 50) history.shift();
+        }
+
+        function undo() {
+            if (history.length === 0) return;
+            const state = history.pop();
+            stock = state.stock;
+            waste = state.waste;
+            foundations = state.foundations;
+            tableau = state.tableau;
+            moves = state.moves;
+            render();
+        }
+
+        function initGame() {
+            const deck = createDeck();
+            tableau = Array(7).fill(null).map(() => []);
+            stock = [];
+            waste = [];
+            foundations = [[], [], [], []];
+            history = [];
+            moves = 0;
+
+            // 发牌到tableau
+            for (let i = 0; i < 7; i++) {
+                for (let j = i; j < 7; j++) {
+                    const card = deck.pop();
+                    if (i === j) card.faceUp = true;
+                    tableau[j].push(card);
+                }
+            }
+            // 剩余的放入stock
+            stock = deck;
+
+            if (timer) clearInterval(timer);
+            seconds = 0;
+            timer = setInterval(() => {
+                seconds++;
+                document.getElementById('time').textContent = formatTime(seconds);
+            }, 1000);
+
+            render();
+        }
+
+        function formatTime(secs) {
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            return `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function render() {
+            document.getElementById('moves').textContent = moves;
+            document.getElementById('deckCount').textContent = stock.length;
+            document.getElementById('stockCount').textContent = stock.length;
+
+            const stockDeck = document.getElementById('stockDeck');
+            if (stock.length === 0) {
+                stockDeck.classList.add('empty');
+                stockDeck.innerHTML = '<span>🔄</span>';
+            } else {
+                stockDeck.classList.remove('empty');
+                stockDeck.innerHTML = '<span>🃏</span><div class="count">' + stock.length + '</div>';
+            }
+
+            // Render waste
+            const wasteEl = document.getElementById('wastePile');
+            wasteEl.innerHTML = '';
+            if (waste.length > 0) {
+                const topCard = waste[waste.length - 1];
+                const cardEl = createCardElement(topCard);
+                cardEl.draggable = true;
+                cardEl.dataset.source = 'waste';
+                cardEl.dataset.index = waste.length - 1;
+                cardEl.ontouchstart = handleTouchStart;
+                cardEl.ontouchmove = handleTouchMove;
+                cardEl.ontouchend = handleTouchEnd;
+                wasteEl.appendChild(cardEl);
+            }
+
+            // Render foundations
+            for (let i = 0; i < 4; i++) {
+                const foundation = document.getElementById(`foundation${i}`);
+                const cards = foundations[i];
+                if (cards.length > 0) {
+                    const topCard = cards[cards.length - 1];
+                    foundation.innerHTML = `<span class="suit">${topCard.suit}</span>`;
+                    foundation.classList.add('complete');
+                } else {
+                    foundation.innerHTML = '🅰️';
+                    foundation.classList.remove('complete');
+                }
+            }
+
+            // Render tableau
+            const tableauEl = document.getElementById('tableau');
+            tableauEl.innerHTML = '';
+
+            tableau.forEach((col, colIndex) => {
+                const colEl = document.createElement('div');
+                colEl.className = 'tableau-col';
+                colEl.dataset.type = 'tableau';
+                colEl.dataset.index = colIndex;
+
+                const placeholder = document.createElement('div');
+                placeholder.className = 'tableau-placeholder';
+                colEl.appendChild(placeholder);
+
+                col.forEach((card, cardIndex) => {
+                    const cardEl = createCardElement(card);
+                    cardEl.dataset.source = 'tableau';
+                    cardEl.dataset.col = colIndex;
+                    cardEl.dataset.index = cardIndex;
+                    colEl.appendChild(cardEl);
+                });
+
+                tableauEl.appendChild(colEl);
+            });
+
+            setupDragAndDrop();
+        }
+
+        function createCardElement(card) {
+            const cardEl = document.createElement('div');
+            if (card.faceUp === false) {
+                cardEl.className = 'card face-down';
+            } else {
+                cardEl.className = `card ${card.color}`;
+                cardEl.innerHTML = `
+                    <span class="rank">${card.rank}</span>
+                    <span class="center-suit">${card.suit}</span>
+                    <span class="rank-bottom">${card.rank}</span>
+                `;
+            }
+            return cardEl;
+        }
+
+        function setupDragAndDrop() {
+            document.querySelectorAll('.card[draggable="true"]').forEach(cardEl => {
+                cardEl.ondragstart = handleDragStart;
+                cardEl.ondragend = handleDragEnd;
+            });
+
+            document.querySelectorAll('.foundation, .tableau-col, .tableau-placeholder').forEach(el => {
+                el.ondragover = handleDragOver;
+                el.ondragleave = handleDragLeave;
+                el.ondrop = handleDrop;
+            });
+        }
+
+        function handleDragStart(e) {
+            const source = e.target.dataset.source;
+            let cards = [];
+
+            if (source === 'waste') {
+                const index = parseInt(e.target.dataset.index);
+                cards = [waste[index]];
+                dragData = { source, cards };
+            } else if (source === 'tableau') {
+                const col = parseInt(e.target.dataset.col);
+                const index = parseInt(e.target.dataset.index);
+                cards = tableau[col].slice(index);
+                dragData = { source, col, index, cards };
+            } else if (source === 'foundation') {
+                const index = parseInt(e.target.dataset.index);
+                cards = [foundations[index][foundations[index].length - 1]];
+                dragData = { source, index, cards };
+            }
+
+            e.dataTransfer.effectAllowed = 'move';
+
+            ghostElement = createGhostElement(cards[0]);
+            document.body.appendChild(ghostElement);
+            e.dataTransfer.setDragImage(ghostElement, 35, 50);
+
+            setTimeout(() => {
+                e.target.classList.add('dragging');
+            }, 0);
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+            dragData = null;
+            if (ghostElement) {
+                ghostElement.remove();
+                ghostElement = null;
+            }
+            clearHighlights();
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            const target = e.target.closest('.foundation, .tableau-col, .tableau-placeholder');
+            if (!target || !dragData) return;
+
+            target.classList.add('drag-over');
+
+            const targetType = target.dataset.type;
+            const targetIndex = parseInt(target.dataset.index);
+
+            if (isValidMove(targetType, targetIndex)) {
+                target.classList.add('valid-drop');
+            }
+        }
+
+        function handleDragLeave(e) {
+            const target = e.target.closest('.foundation, .tableau-col, .tableau-placeholder');
+            if (target) {
+                target.classList.remove('drag-over', 'valid-drop');
+            }
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const target = e.target.closest('.foundation, .tableau-col, .tableau-placeholder');
+            if (!target || !dragData) return;
+
+            const targetType = target.dataset.type;
+            const targetIndex = parseInt(target.dataset.index);
+
+            clearHighlights();
+
+            if (isValidMove(targetType, targetIndex)) {
+                executeMove(targetType, targetIndex);
+            }
+        }
+
+        function clearHighlights() {
+            document.querySelectorAll('.drag-over, .valid-drop').forEach(el => {
+                el.classList.remove('drag-over', 'valid-drop');
+            });
+        }
+
+        function isValidMove(targetType, targetIndex) {
+            if (!dragData) return false;
+
+            const { source, cards } = dragData;
+            const movingCard = cards[0];
+
+            if (targetType === 'foundation') {
+                if (source === 'tableau') {
+                    const col = dragData.col;
+                    if (tableau[col].length > dragData.index + 1) return false;
+                }
+
+                const pile = foundations[targetIndex];
+                if (pile.length === 0) {
+                    return movingCard.rank === 'A';
+                } else {
+                    const topCard = pile[pile.length - 1];
+                    return movingCard.suit === topCard.suit && movingCard.value === topCard.value + 1;
+                }
+            } else if (targetType === 'tableau') {
+                const col = tableau[targetIndex];
+                if (col.length === 0) {
+                    return movingCard.rank === 'K';
+                } else {
+                    const topCard = col[col.length - 1];
+                    return movingCard.color !== topCard.color && movingCard.value === topCard.value - 1;
+                }
+            }
+
+            return false;
+        }
+
+        function executeMove(targetType, targetIndex) {
+            saveState();
+
+            const { source, cards } = dragData;
+
+            // Remove from source
+            if (source === 'waste') {
+                waste.pop();
+            } else if (source === 'tableau') {
+                const col = dragData.col;
+                tableau[col].splice(dragData.index);
+                if (tableau[col].length > 0) {
+                    tableau[col][tableau[col].length - 1].faceUp = true;
+                }
+            } else if (source === 'foundation') {
+                foundations[dragData.index].pop();
+            }
+
+            // Add to target
+            if (targetType === 'foundation') {
+                foundations[targetIndex].push(cards[0]);
+                checkWin();
+            } else if (targetType === 'tableau') {
+                tableau[targetIndex].push(...cards);
+            }
+
+            moves++;
+            render();
+        }
+
+        function createGhostElement(card) {
+            const ghost = document.createElement('div');
+            ghost.className = 'card drag-ghost';
+            ghost.style.width = '70px';
+            ghost.style.height = '100px';
+            ghost.innerHTML = `
+                <span class="rank">${card.rank}</span>
+                <span class="center-suit">${card.suit}</span>
+            `;
+            if (card.color === 'red') {
+                ghost.style.color = '#dc2626';
+            }
+            return ghost;
+        }
+
+        function drawCard() {
+            if (stock.length === 0) {
+                // 回收waste到stock
+                if (waste.length > 0) {
+                    stock = waste.reverse().map(card => { card.faceUp = false; return card; });
+                    waste = [];
+                }
+            } else {
+                const card = stock.pop();
+                card.faceUp = true;
+                waste.push(card);
+            }
+            moves++;
+            render();
+        }
+
+        // Touch support
+        let touchStartPos = null;
+        let touchedCard = null;
+
+        function handleTouchStart(e) {
+            const touch = e.touches[0];
+            const source = e.target.dataset.source;
+
+            touchStartPos = { x: touch.clientX, y: touch.clientY };
+            touchedCard = e.target;
+
+            if (source === 'waste') {
+                dragData = { source, cards: [waste[waste.length - 1]] };
+            } else if (source === 'tableau') {
+                const col = parseInt(e.target.dataset.col);
+                const index = parseInt(e.target.dataset.index);
+                dragData = { source, col, index, cards: tableau[col].slice(index) };
+            }
+
+            ghostElement = createGhostElement(dragData.cards[0]);
+            ghostElement.style.display = 'none';
+            document.body.appendChild(ghostElement);
+
+            touchedCard.classList.add('selected');
+            e.preventDefault();
+        }
+
+        function handleTouchMove(e) {
+            if (!touchStartPos || !touchedCard) return;
+
+            const touch = e.touches[0];
+            const dx = Math.abs(touch.clientX - touchStartPos.x);
+            const dy = Math.abs(touch.clientY - touchStartPos.y);
+
+            if (dx > 10 || dy > 10) {
+                if (ghostElement) {
+                    ghostElement.style.display = 'block';
+                    ghostElement.style.left = (touch.clientX - 35) + 'px';
+                    ghostElement.style.top = (touch.clientY - 50) + 'px';
+                }
+
+                const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                const target = elementBelow?.closest('.foundation, .tableau-col, .tableau-placeholder');
+
+                clearHighlights();
+
+                if (target) {
+                    target.classList.add('drag-over');
+                    const targetType = target.dataset.type;
+                    const targetIndex = parseInt(target.dataset.index);
+                    if (isValidMove(targetType, targetIndex)) {
+                        target.classList.add('valid-drop');
+                    }
+                }
+            }
+
+            e.preventDefault();
+        }
+
+        function handleTouchEnd(e) {
+            if (!touchStartPos || !touchedCard) return;
+
+            if (ghostElement) {
+                const touch = e.changedTouches[0];
+                const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                const target = elementBelow?.closest('.foundation, .tableau-col, .tableau-placeholder');
+
+                if (target) {
+                    const targetType = target.dataset.type;
+                    const targetIndex = parseInt(target.dataset.index);
+                    if (isValidMove(targetType, targetIndex)) {
+                        executeMove(targetType, targetIndex);
+                    }
+                }
+            }
+
+            touchedCard.classList.remove('selected');
+            if (ghostElement) {
+                ghostElement.remove();
+                ghostElement = null;
+            }
+
+            clearHighlights();
+            touchStartPos = null;
+            touchedCard = null;
+            dragData = null;
+        }
+
+        function checkWin() {
+            const total = foundations.reduce((sum, pile) => sum + pile.length, 0);
+            if (total === 52) {
+                clearInterval(timer);
+                document.getElementById('finalMoves').textContent = moves;
+                document.getElementById('finalTime').textContent = formatTime(seconds);
+                document.getElementById('winModal').classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('winModal').classList.remove('active');
+        }
+
+        initGame();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>凸透镜 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="凸透镜把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="凸透镜,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/convex-lens.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="凸透镜 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="凸透镜把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/convex-lens.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="凸透镜 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="凸透镜把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"凸透镜","description":"凸透镜把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/convex-lens.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+            --text-secondary: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 360px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Controls */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .control-value {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 13px;
+            color: var(--primary-color);
+            background: #eff6ff;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        /* Preset Buttons */
+        .preset-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .preset-btn {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover {
+            background: #f1f5f9;
+            color: var(--text-color);
+        }
+
+        .preset-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Stats */
+        .stats-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .image-status {
+            text-align: center;
+            padding: 8px;
+            background: #eff6ff;
+            color: var(--primary-color);
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 12px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .legend-color {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Theory Box */
+        .theory-box {
+            margin-top: auto;
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .theory-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theory-text {
+            font-size: 13px;
+            color: #b45309;
+            line-height: 1.5;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #1e1e2e; /* Dark background for optics */
+            position: relative;
+        }
+
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .canvas-container:active {
+            cursor: grabbing;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .overlay-controls {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .hint-toast {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .hint-toast.visible {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-content {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="header">
+            <h1>凸透镜成像</h1>
+            <div class="subtitle">光学原理交互演示</div>
+        </div>
+
+        <div class="preset-grid">
+            <button class="preset-btn" data-u="far">u > 2f</button>
+            <button class="preset-btn" data-u="2f">u = 2f</button>
+            <button class="preset-btn" data-u="between">f < u < 2f</button>
+            <button class="preset-btn" data-u="near">u < f</button>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">焦距 (f)</span>
+                    <span class="control-value" id="focalVal">10.0 cm</span>
+                </div>
+                <input type="range" id="focalSlider" min="5" max="20" value="10" step="0.5">
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">物距 (u)</span>
+                    <span class="control-value" id="objectDistVal">30.0 cm</span>
+                </div>
+                <input type="range" id="objectDistSlider" min="1" max="60" value="30" step="0.5">
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">物体高度 (h)</span>
+                    <span class="control-value" id="heightVal">4.0 cm</span>
+                </div>
+                <input type="range" id="heightSlider" min="1" max="10" value="4" step="0.5">
+            </div>
+        </div>
+
+        <div class="stats-card">
+            <div class="stat-row">
+                <span class="stat-label">像距 (v)</span>
+                <span class="stat-value" id="imageDistVal">15.0 cm</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">放大率 (m)</span>
+                <span class="stat-value" id="magVal">0.50x</span>
+            </div>
+            <div class="image-status" id="imageStatus">
+                倒立 · 缩小 · 实像
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ef4444;"></div>
+                <span>物体</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #22c55e;"></div>
+                <span>实像</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #eab308; border: 1px dashed #ca8a04;"></div>
+                <span>虚像</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3b82f6;"></div>
+                <span>透镜</span>
+            </div>
+        </div>
+
+        <div class="theory-box">
+            <div class="theory-title">💡 成像规律</div>
+            <div class="theory-text" id="theoryText">
+                1/u + 1/v = 1/f
+                <br>
+                当 u > 2f 时，成倒立、缩小的实像。
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="canvas-container" id="canvasContainer">
+            <canvas id="opticsCanvas"></canvas>
+            <div class="hint-toast" id="hintToast">拖动蜡烛改变位置</div>
+        </div>
+
+        <div class="overlay-controls">
+            <button class="icon-btn active" id="raysBtn" title="显示光路">✨</button>
+            <button class="icon-btn" id="gridBtn" title="显示网格">▦</button>
+            <button class="icon-btn" id="resetBtn" title="重置">↺</button>
+        </div>
+    </main>
+
+    <script>
+        class OpticsSim {
+            constructor() {
+                this.canvas = document.getElementById('opticsCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.container = document.getElementById('canvasContainer');
+                
+                // State
+                this.config = {
+                    f: 10,  // Focal length (cm)
+                    u: 30,  // Object distance (cm)
+                    h: 4,   // Object height (cm)
+                    showRays: true,
+                    showGrid: false,
+                    pixelsPerCm: 15 // Scale factor
+                };
+
+                this.interaction = {
+                    isDragging: false,
+                    dragTarget: null, // 'object' or 'focal'
+                    lastX: 0
+                };
+
+                // UI Elements
+                this.ui = {
+                    focalSlider: document.getElementById('focalSlider'),
+                    objectDistSlider: document.getElementById('objectDistSlider'),
+                    heightSlider: document.getElementById('heightSlider'),
+                    focalVal: document.getElementById('focalVal'),
+                    objectDistVal: document.getElementById('objectDistVal'),
+                    heightVal: document.getElementById('heightVal'),
+                    imageDistVal: document.getElementById('imageDistVal'),
+                    magVal: document.getElementById('magVal'),
+                    imageStatus: document.getElementById('imageStatus'),
+                    theoryText: document.getElementById('theoryText'),
+                    presetBtns: document.querySelectorAll('.preset-btn'),
+                    raysBtn: document.getElementById('raysBtn'),
+                    gridBtn: document.getElementById('gridBtn'),
+                    resetBtn: document.getElementById('resetBtn'),
+                    hintToast: document.getElementById('hintToast')
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.bindEvents();
+                this.animate();
+                
+                setTimeout(() => this.ui.hintToast.classList.add('visible'), 1000);
+                setTimeout(() => this.ui.hintToast.classList.remove('visible'), 4000);
+            }
+
+            bindEvents() {
+                // Sliders
+                this.ui.focalSlider.addEventListener('input', (e) => {
+                    this.config.f = parseFloat(e.target.value);
+                    this.updateUI();
+                });
+                
+                this.ui.objectDistSlider.addEventListener('input', (e) => {
+                    this.config.u = parseFloat(e.target.value);
+                    this.updateUI();
+                });
+
+                this.ui.heightSlider.addEventListener('input', (e) => {
+                    this.config.h = parseFloat(e.target.value);
+                    this.updateUI();
+                });
+
+                // Presets
+                this.ui.presetBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.applyPreset(btn.dataset.u);
+                        // Visual feedback handled by updateUI or manual active class?
+                        // Simple active toggle
+                        this.ui.presetBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    });
+                });
+
+                // Overlay
+                this.ui.raysBtn.addEventListener('click', () => {
+                    this.config.showRays = !this.config.showRays;
+                    this.ui.raysBtn.classList.toggle('active', this.config.showRays);
+                });
+
+                this.ui.gridBtn.addEventListener('click', () => {
+                    this.config.showGrid = !this.config.showGrid;
+                    this.ui.gridBtn.classList.toggle('active', this.config.showGrid);
+                });
+
+                this.ui.resetBtn.addEventListener('click', () => {
+                    this.config.f = 10;
+                    this.config.u = 30;
+                    this.config.h = 4;
+                    this.updateUI();
+                    this.ui.presetBtns.forEach(b => b.classList.remove('active'));
+                });
+
+                // Canvas Interaction
+                this.canvas.addEventListener('mousedown', (e) => this.startDrag(e));
+                this.canvas.addEventListener('mousemove', (e) => this.drag(e));
+                window.addEventListener('mouseup', () => this.endDrag());
+                
+                this.canvas.addEventListener('touchstart', (e) => this.startDrag(e.touches[0]));
+                this.canvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    this.drag(e.touches[0]);
+                });
+                window.addEventListener('touchend', () => this.endDrag());
+            }
+
+            resize() {
+                this.canvas.width = this.container.clientWidth;
+                this.canvas.height = this.container.clientHeight;
+                // Fit roughly 60cm to left/right
+                // Total width coverage desired ~ 100cm (50 left, 50 right) is usually enough for key interactions
+                // But sliders go to 60.
+                // Let's try to fit 120cm total width
+                this.config.pixelsPerCm = this.canvas.width / 100; 
+                // Don't let it get too small (hard to see) or too big
+                if (this.config.pixelsPerCm < 6) this.config.pixelsPerCm = 6;
+                if (this.config.pixelsPerCm > 20) this.config.pixelsPerCm = 20;
+                
+                this.updateUI(); // Redraw
+            }
+
+            updateUI() {
+                // Update slider values
+                this.ui.focalVal.textContent = `${this.config.f.toFixed(1)} cm`;
+                this.ui.objectDistVal.textContent = `${this.config.u.toFixed(1)} cm`;
+                this.ui.heightVal.textContent = `${this.config.h.toFixed(1)} cm`;
+
+                // Sync sliders
+                this.ui.focalSlider.value = this.config.f;
+                this.ui.objectDistSlider.value = this.config.u;
+                this.ui.heightSlider.value = this.config.h;
+
+                // Calculate Image Properties
+                const f = this.config.f;
+                const u = this.config.u;
+                
+                let v, m, type;
+                
+                if (Math.abs(u - f) < 0.1) {
+                    v = Infinity;
+                    m = Infinity;
+                    type = "不成像 (平行光)";
+                } else {
+                    // 1/v = 1/f - 1/u = (u-f)/(uf) => v = uf/(u-f)
+                    v = (u * f) / (u - f);
+                    m = -v / u; // Magnification
+                    
+                    if (v > 0) {
+                        // Real image
+                        let sizeStr = Math.abs(m) > 1 ? "放大" : (Math.abs(m) < 1 ? "缩小" : "等大");
+                        type = `倒立 · ${sizeStr} · 实像`;
+                    } else {
+                        // Virtual image
+                        type = "正立 · 放大 · 虚像";
+                    }
+                }
+
+                this.ui.imageDistVal.textContent = v === Infinity ? "∞" : `${v.toFixed(1)} cm`;
+                this.ui.magVal.textContent = m === Infinity ? "∞" : `${Math.abs(m).toFixed(2)}x`;
+                this.ui.imageStatus.textContent = type;
+
+                // Update Theory Text
+                let theory = "";
+                if (u > 2 * f) theory = "u > 2f：成倒立、缩小的实像 (照相机原理)";
+                else if (Math.abs(u - 2 * f) < 0.1) theory = "u = 2f：成倒立、等大的实像 (测焦距)";
+                else if (u > f && u < 2 * f) theory = "f < u < 2f：成倒立、放大的实像 (投影仪原理)";
+                else if (Math.abs(u - f) < 0.1) theory = "u = f：不成像，光线平行射出";
+                else if (u < f) theory = "u < f：成正立、放大的虚像 (放大镜原理)";
+                
+                this.ui.theoryText.innerHTML = `1/u + 1/v = 1/f<br>${theory}`;
+            }
+
+            applyPreset(type) {
+                const f = this.config.f;
+                switch (type) {
+                    case 'far': this.config.u = f * 2.5; break;
+                    case '2f': this.config.u = f * 2.0; break;
+                    case 'between': this.config.u = f * 1.5; break;
+                    case 'near': this.config.u = f * 0.5; break;
+                }
+                // Clamp
+                if (this.config.u > 60) this.config.u = 60;
+                if (this.config.u < 1) this.config.u = 1;
+                this.updateUI();
+            }
+
+            // Canvas Logic
+            screenToWorld(x, y) {
+                const centerX = this.canvas.width / 2;
+                const centerY = this.canvas.height / 2;
+                const cmX = (centerX - x) / this.config.pixelsPerCm; // u is positive to left
+                const cmY = (centerY - y) / this.config.pixelsPerCm;
+                return { u: cmX, h: cmY };
+            }
+
+            startDrag(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const world = this.screenToWorld(x, y);
+                
+                // Check if clicking near object (candle)
+                // Object is at u (left of center)
+                // u is positive, so screen x = centerX - u * px
+                const centerX = this.canvas.width / 2;
+                const objScreenX = centerX - this.config.u * this.config.pixelsPerCm;
+                
+                if (Math.abs(x - objScreenX) < 40) {
+                    this.interaction.isDragging = true;
+                    this.interaction.dragTarget = 'object';
+                }
+                
+                // Could also drag focal point?
+                // Focal point F is at centerX - f * px (and centerX + f * px)
+                const fScreenX = centerX - this.config.f * this.config.pixelsPerCm;
+                if (Math.abs(x - fScreenX) < 20) {
+                    this.interaction.isDragging = true;
+                    this.interaction.dragTarget = 'focal';
+                }
+            }
+
+            drag(e) {
+                if (!this.interaction.isDragging) {
+                    // Hover effect logic could go here
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const centerX = this.canvas.width / 2;
+                    const objScreenX = centerX - this.config.u * this.config.pixelsPerCm;
+                    const fScreenX = centerX - this.config.f * this.config.pixelsPerCm;
+                    
+                    if (Math.abs(x - objScreenX) < 40 || Math.abs(x - fScreenX) < 20) {
+                        this.canvas.style.cursor = 'grab';
+                    } else {
+                        this.canvas.style.cursor = 'default';
+                    }
+                    return;
+                }
+
+                const rect = this.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const centerX = this.canvas.width / 2;
+                
+                if (this.interaction.dragTarget === 'object') {
+                    // Calculate new u
+                    // x = centerX - u * scale => u = (centerX - x) / scale
+                    let newU = (centerX - x) / this.config.pixelsPerCm;
+                    newU = Math.max(1, Math.min(60, newU));
+                    this.config.u = newU;
+                } else if (this.interaction.dragTarget === 'focal') {
+                    let newF = (centerX - x) / this.config.pixelsPerCm;
+                    newF = Math.max(5, Math.min(20, newF));
+                    this.config.f = newF;
+                }
+                
+                this.updateUI();
+            }
+
+            endDrag() {
+                this.interaction.isDragging = false;
+                this.interaction.dragTarget = null;
+                this.canvas.style.cursor = 'default';
+            }
+
+            animate() {
+                this.draw();
+                requestAnimationFrame(() => this.animate());
+            }
+
+            draw() {
+                const ctx = this.ctx;
+                const w = this.canvas.width;
+                const h = this.canvas.height;
+                const cx = w / 2;
+                const cy = h / 2;
+                const ppc = this.config.pixelsPerCm;
+                
+                // Clear
+                ctx.clearRect(0, 0, w, h);
+                
+                // Grid
+                if (this.config.showGrid) {
+                    this.drawGrid(ctx, w, h, cx, cy, ppc);
+                }
+
+                // Optical Axis
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.lineWidth = 1;
+                ctx.moveTo(0, cy);
+                ctx.lineTo(w, cy);
+                ctx.stroke();
+
+                // Lens
+                this.drawLens(ctx, cx, cy, h);
+
+                // Focal Points
+                const fPx = this.config.f * ppc;
+                this.drawPoint(ctx, cx - fPx, cy, 'F');
+                this.drawPoint(ctx, cx + fPx, cy, 'F\'');
+                this.drawPoint(ctx, cx - 2*fPx, cy, '2F');
+                this.drawPoint(ctx, cx + 2*fPx, cy, '2F\'');
+
+                // Object
+                const uPx = this.config.u * ppc;
+                const hPx = this.config.h * ppc;
+                const objX = cx - uPx;
+                this.drawCandle(ctx, objX, cy, hPx, 1);
+
+                // Image
+                let v = (this.config.u * this.config.f) / (this.config.u - this.config.f);
+                let m = -v / this.config.u;
+                
+                if (Math.abs(this.config.u - this.config.f) > 0.1) {
+                    const imgX = cx + v * ppc;
+                    const imgH = hPx * m; // Negative means inverted
+                    
+                    const isReal = v > 0;
+                    this.drawCandle(ctx, imgX, cy, Math.abs(imgH), isReal ? -1 * Math.sign(imgH) : 1, !isReal);
+                    
+                    // Rays
+                    if (this.config.showRays) {
+                        this.drawRays(ctx, objX, cy - hPx, imgX, cy - (hPx * m), cx, cy);
+                    }
+                } else {
+                    // Parallel rays
+                    if (this.config.showRays) {
+                        this.drawParallelRays(ctx, objX, cy - hPx, cx, cy, fPx);
+                    }
+                }
+            }
+
+            drawGrid(ctx, w, h, cx, cy, step) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                
+                // Vertical lines from center
+                for (let x = cx; x < w; x += step) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+                for (let x = cx; x > 0; x -= step) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+                
+                // Horizontal lines from center
+                for (let y = cy; y < h; y += step) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+                for (let y = cy; y > 0; y -= step) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+                
+                ctx.stroke();
+            }
+
+            drawLens(ctx, x, y, h) {
+                ctx.beginPath();
+                // Draw a simple convex lens shape
+                // Two arcs
+                const lensH = 200;
+                
+                // Calculate lens thickness based on focal length (f)
+                // Smaller f = stronger lens = thicker (more curved)
+                // f ranges from 5 to 20. Map 5->40px, 20->10px approx.
+                const lensW = Math.max(10, 200 / this.config.f);
+                
+                ctx.ellipse(x, y, lensW/2, lensH/2, 0, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(59, 130, 246, 0.2)';
+                ctx.fill();
+                ctx.strokeStyle = '#3b82f6';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Axis mark
+                ctx.beginPath();
+                ctx.moveTo(x, y - lensH/2 - 20);
+                ctx.lineTo(x, y + lensH/2 + 20);
+                ctx.setLineDash([5, 5]);
+                ctx.strokeStyle = 'rgba(59, 130, 246, 0.5)';
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            drawPoint(ctx, x, y, label) {
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = '#cbd5e1';
+                ctx.fill();
+                
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '12px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(label, x, y + 20);
+            }
+
+            drawCandle(ctx, x, groundY, height, direction = 1, isVirtual = false) {
+                ctx.save();
+                ctx.translate(x, groundY);
+                if (direction === -1) {
+                    ctx.scale(1, -1);
+                }
+
+                // Candle Body
+                const width = 12;
+                const flameH = 15;
+                const bodyH = height - flameH;
+
+                ctx.globalAlpha = isVirtual ? 0.5 : 1;
+                
+                if (bodyH > 0) {
+                    // Body
+                    ctx.fillStyle = isVirtual ? '#fbbf24' : '#ef4444'; // Red for object, Amber for image
+                    if (isVirtual && direction === 1) ctx.fillStyle = '#fbbf24'; // Virtual image is amber
+                    if (!isVirtual && direction === -1) ctx.fillStyle = '#22c55e'; // Real image is green
+                    
+                    ctx.fillRect(-width/2, -bodyH, width, bodyH);
+                    
+                    // Wick
+                    ctx.strokeStyle = '#333';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(0, -bodyH);
+                    ctx.lineTo(0, -bodyH - 3);
+                    ctx.stroke();
+                    
+                    // Flame
+                    this.drawFlame(ctx, 0, -bodyH - 3);
+                } else {
+                    // Too small, just draw a line
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(0, -height);
+                    ctx.strokeStyle = '#ef4444';
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+            }
+
+            drawFlame(ctx, x, y) {
+                const time = Date.now() / 100;
+                const flutter = Math.sin(time) * 2;
+                
+                ctx.beginPath();
+                ctx.moveTo(x - 4, y);
+                ctx.quadraticCurveTo(x - 6 + flutter/2, y - 8, x, y - 14 + flutter);
+                ctx.quadraticCurveTo(x + 6 + flutter/2, y - 8, x + 4, y);
+                ctx.closePath();
+                
+                ctx.fillStyle = '#fbbf24'; // Amber
+                ctx.fill();
+                
+                // Inner flame
+                ctx.beginPath();
+                ctx.moveTo(x - 2, y);
+                ctx.quadraticCurveTo(x - 3, y - 4, x, y - 8 + flutter/2);
+                ctx.quadraticCurveTo(x + 3, y - 4, x + 2, y);
+                ctx.closePath();
+                ctx.fillStyle = '#ef4444'; // Red inner
+                ctx.fill();
+            }
+
+            drawRays(ctx, startX, startY, endX, endY, lensX, lensY) {
+                // Ray 1: Parallel to axis -> Focal point -> Image
+                // From Tip to Lens (Parallel)
+                ctx.strokeStyle = 'rgba(234, 179, 8, 0.8)'; // Yellow
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(lensX, startY);
+                ctx.stroke();
+                
+                // Lens to Image
+                ctx.beginPath();
+                ctx.moveTo(lensX, startY);
+                if (endX > lensX) { // Real image side
+                    ctx.lineTo(endX, endY);
+                } else { // Virtual image side (dashed extension back)
+                    // Draw ray passing through F'
+                    // Slope from (lensX, startY) to F' (lensX + f, lensY)
+                    // Actually we know it goes to image point
+                    // Forward ray:
+                    const slope = (endY - startY) / (endX - lensX);
+                    ctx.lineTo(lensX + 1000, startY + slope * 1000); // Shoot out
+                    
+                    // Dashed back
+                    ctx.setLineDash([5, 5]);
+                    ctx.strokeStyle = 'rgba(234, 179, 8, 0.4)';
+                    ctx.moveTo(lensX, startY);
+                    ctx.lineTo(endX, endY);
+                }
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Ray 2: Through Optical Center -> Image (Undeviated)
+                ctx.strokeStyle = 'rgba(168, 85, 247, 0.8)'; // Purple
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                if (endX > lensX) {
+                    ctx.lineTo(endX, endY);
+                } else {
+                    const slope = (endY - startY) / (endX - startX);
+                    ctx.lineTo(lensX + 1000, startY + slope * (lensX + 1000 - startX));
+                    
+                    // Dashed back
+                    ctx.setLineDash([5, 5]);
+                    ctx.strokeStyle = 'rgba(168, 85, 247, 0.4)';
+                    ctx.moveTo(lensX, lensY + (lensY - startY)); // Approximate center crossing
+                    // Actually just line to end
+                    ctx.moveTo(startX, startY); // Start from object tip
+                    ctx.lineTo(endX, endY);
+                }
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            drawParallelRays(ctx, startX, startY, lensX, lensY, fPx) {
+                // Ray 1: Parallel -> F'
+                ctx.strokeStyle = 'rgba(234, 179, 8, 0.8)';
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(lensX, startY);
+                ctx.lineTo(lensX + 1000, startY + (lensY - startY) / fPx * 1000); // Through F' (lensX + fPx, lensY)
+                ctx.stroke();
+
+                // Ray 2: Through Center
+                ctx.strokeStyle = 'rgba(168, 85, 247, 0.8)';
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(lensX + 1000, startY + (lensY - startY) / (lensX - startX) * 1000); // Straight line
+                ctx.stroke();
+            }
+        }
+
+        new OpticsSim();
+    </script>
+</body>
+</html>

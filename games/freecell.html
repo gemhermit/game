@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空当接龙 - 在线棋牌纸牌小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="空当接龙是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="空当接龙,棋牌纸牌,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/freecell.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="空当接龙 - 在线棋牌纸牌小游戏 | 贝谷游戏">
+    <meta property="og:description" content="空当接龙是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/freecell.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="空当接龙 - 在线棋牌纸牌小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="空当接龙是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"空当接龙","description":"空当接龙是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/freecell.html","genre":"棋牌纸牌","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #0891b2;
+            --primary-hover: #0e7490;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+            --card-width: 70px;
+            --card-height: 100px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .header {
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0e7490;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .stats-panel {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stats-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--secondary-color);
+            margin-top: 4px;
+        }
+
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .freecells {
+            display: flex;
+            gap: 12px;
+        }
+
+        .foundations {
+            display: flex;
+            gap: 12px;
+        }
+
+        .freecell {
+            width: var(--card-width);
+            height: var(--card-height);
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #cbd5e1;
+            background: white;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .freecell.drag-over {
+            border-color: var(--primary-color);
+            background: rgba(8, 145, 178, 0.1);
+            transform: scale(1.05);
+        }
+
+        .freecell.valid-drop {
+            border-color: var(--success-color);
+            background: rgba(34, 197, 94, 0.15);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow: auto;
+        }
+
+        .foundation {
+            width: var(--card-width);
+            height: var(--card-height);
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #cbd5e1;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .foundation.drag-over {
+            border-color: var(--primary-color);
+            background: rgba(8, 145, 178, 0.1);
+            transform: scale(1.05);
+        }
+
+        .foundation.valid-drop {
+            border-color: var(--success-color);
+            background: rgba(34, 197, 94, 0.15);
+        }
+
+        .foundation.complete {
+            border-color: var(--success-color);
+            color: var(--success-color);
+            background: #ecfdf5;
+        }
+
+        .tableau {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tableau-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: var(--card-width);
+            min-height: 300px;
+            transition: transform 0.2s;
+            border-radius: 8px;
+        }
+
+        .tableau-col.drag-over {
+            transform: scale(1.02);
+            background: rgba(8, 145, 178, 0.05);
+        }
+
+        .tableau-col.valid-drop {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .tableau-placeholder {
+            width: var(--card-width);
+            height: var(--card-height);
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tableau-placeholder:hover {
+            border-color: var(--primary-color);
+            background: rgba(8, 145, 178, 0.05);
+        }
+
+        .card {
+            width: var(--card-width);
+            height: var(--card-height);
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: grab;
+            user-select: none;
+            transition: transform 0.15s, box-shadow 0.15s;
+            position: relative;
+            margin-top: -75px;
+        }
+
+        .card:first-child {
+            margin-top: 0;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .card.drag-ghost {
+            opacity: 1;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            z-index: 1000;
+            position: fixed;
+            pointer-events: none;
+        }
+
+        .card.red {
+            color: #dc2626;
+        }
+
+        .card.black {
+            color: #1e293b;
+        }
+
+        .card .suit {
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .card .rank {
+            position: absolute;
+            top: 4px;
+            left: 6px;
+            font-size: 14px;
+        }
+
+        .card .rank-bottom {
+            position: absolute;
+            bottom: 4px;
+            right: 6px;
+            font-size: 14px;
+            transform: rotate(180deg);
+        }
+
+        .card .center-suit {
+            font-size: 28px;
+        }
+
+        .card.selected {
+            box-shadow: 0 0 0 3px var(--primary-color), 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(-4px);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal h2 {
+            color: var(--success-color);
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .modal p {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .hint {
+            margin-top: auto;
+            padding: 12px;
+            background: #fef3c7;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #92400e;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 41, 59, 0.9);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        .hint-source {
+            box-shadow: 0 0 15px 5px #f59e0b !important;
+            z-index: 1000 !important;
+            animation: pulse 1s infinite;
+        }
+
+        .hint-target {
+            box-shadow: inset 0 0 20px 5px #22c55e !important;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Touch device */
+        @media (hover: none) {
+            .card:active {
+                transform: scale(1.05);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+
+            .main-content {
+                min-height: 500px;
+                padding: 16px;
+            }
+
+            :root {
+                --card-width: 40px;
+                --card-height: 56px;
+            }
+
+            .card {
+                font-size: 12px;
+                margin-top: -42px;
+            }
+
+            .card .suit {
+                font-size: 14px;
+            }
+
+            .card .rank {
+                font-size: 8px;
+                top: 2px;
+                left: 3px;
+            }
+
+            .card .center-suit {
+                font-size: 14px;
+            }
+
+            .tableau-col {
+                min-height: 200px;
+            }
+
+            .top-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="header">
+            <h1>🃏 空当接龙</h1>
+            <p class="subtitle">经典单人纸牌游戏</p>
+        </div>
+
+        <div class="control-panel">
+            <div style="display: flex; gap: 8px;">
+                <button class="btn btn-primary" style="flex: 1;" onclick="initGame()">🎮 新游戏</button>
+                <button class="btn btn-secondary" onclick="undo()">↩️ 撤销</button>
+            </div>
+            <button class="btn btn-secondary" style="width: 100%;" onclick="showHint()">💡 提示</button>
+        </div>
+
+        <div class="stats-panel">
+            <div class="stats-title">游戏统计</div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="moves">0</div>
+                    <div class="stat-label">移动次数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="time">0:00</div>
+                    <div class="stat-label">用时</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hint">
+            <strong>游戏规则:</strong> 将所有牌按从A到K的顺序移到右上角的目标区。
+            红牌和黑牌交替排列，从大到小。点击空位可以暂存单张牌。
+            <br><br>
+            💡 拖拽牌到目标位置，或点击牌自动移动
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-row">
+            <div class="freecells" id="freecells"></div>
+            <div class="foundations" id="foundations">
+                <div class="foundation" data-type="foundation" data-index="0">🅰️</div>
+                <div class="foundation" data-type="foundation" data-index="1">🅰️</div>
+                <div class="foundation" data-type="foundation" data-index="2">🅰️</div>
+                <div class="foundation" data-type="foundation" data-index="3">🅰️</div>
+            </div>
+        </div>
+        <div class="tableau" id="tableau"></div>
+    </div>
+
+    <div class="modal-overlay" id="winModal">
+        <div class="modal">
+            <h2>🎉 恭喜通关!</h2>
+            <p>你成功完成了空当接龙!</p>
+            <div class="stats-grid" style="justify-items: center; margin-bottom: 20px;">
+                <div class="stat-item">
+                    <div class="stat-value" id="finalMoves">0</div>
+                    <div class="stat-label">移动次数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="finalTime">0:00</div>
+                    <div class="stat-label">用时</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="closeModal(); initGame()">再来一局</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        const SUITS = ['♠', '♥', '♣', '♦'];
+        const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+        let tableau = [];
+        let foundations = [[], [], [], []];
+        let freecells = [null, null, null, null];
+        let history = [];
+        let moves = 0;
+        let timer = null;
+        let seconds = 0;
+        let dragData = null;
+        let ghostElement = null;
+
+        function createDeck() {
+            const deck = [];
+            for (let s = 0; s < 4; s++) {
+                for (let r = 0; r < RANKS.length; r++) {
+                    deck.push({
+                        suit: SUITS[s],
+                        rank: RANKS[r],
+                        value: r,
+                        color: (SUITS[s] === '♥' || SUITS[s] === '♦') ? 'red' : 'black'
+                    });
+                }
+            }
+            return shuffle(deck);
+        }
+
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function saveState() {
+            history.push({
+                tableau: tableau.map(col => [...col]),
+                foundations: foundations.map(f => [...f]),
+                freecells: [...freecells],
+                moves
+            });
+            if (history.length > 50) history.shift();
+        }
+
+        function undo() {
+            if (history.length === 0) return;
+            const state = history.pop();
+            tableau = state.tableau;
+            foundations = state.foundations;
+            freecells = state.freecells;
+            // Don't revert moves count or time, as undo is an action
+            // moves = state.moves; 
+            render();
+        }
+
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            if (toastTimeout) clearTimeout(toastTimeout);
+            
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function initGame() {
+            const deck = createDeck();
+            tableau = Array(8).fill(null).map(() => []);
+
+            for (let i = 0; i < 8; i++) {
+                const numCards = i < 4 ? 6 : 5;
+                for (let j = 0; j < numCards; j++) {
+                    tableau[i].push(deck.pop());
+                }
+            }
+
+            foundations = [[], [], [], []];
+            freecells = [null, null, null, null];
+            history = [];
+            moves = 0;
+
+            if (timer) clearInterval(timer);
+            seconds = 0;
+            timer = setInterval(() => {
+                seconds++;
+                document.getElementById('time').textContent = formatTime(seconds);
+            }, 1000);
+
+            render();
+        }
+
+        function formatTime(secs) {
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            return `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function render() {
+            document.getElementById('moves').textContent = moves;
+
+            // Render freecells
+            const freecellsEl = document.getElementById('freecells');
+            freecellsEl.innerHTML = '';
+            freecells.forEach((card, index) => {
+                const cell = document.createElement('div');
+                cell.className = 'freecell';
+                cell.dataset.type = 'freecell';
+                cell.dataset.index = index;
+                if (card) {
+                    const cardEl = document.createElement('div');
+                    cardEl.className = `card ${card.color}`;
+                    cardEl.innerHTML = createCardHTML(card);
+                    cardEl.dataset.type = 'freecell';
+                    cardEl.dataset.index = index;
+                    // For freecell, col/index is different
+                    // We can reuse logic if we adjust handleDragStart or use custom handler
+                    // Let's attach metadata for smart move
+                    cardEl.onclick = (e) => {
+                         e.stopPropagation();
+                         trySmartMove('freecell', index);
+                    };
+                    cell.appendChild(cardEl);
+                }
+                freecellsEl.appendChild(cell);
+            });
+
+            // Render foundations
+            const foundationsEl = document.getElementById('foundations');
+            foundationsEl.querySelectorAll('.foundation').forEach((el, index) => {
+                const cards = foundations[index];
+                if (cards.length > 0) {
+                    const topCard = cards[cards.length - 1];
+                    el.innerHTML = `<span class="suit">${topCard.suit}</span>`;
+                    el.classList.add('complete');
+                } else {
+                    el.innerHTML = '🅰️';
+                    el.classList.remove('complete');
+                }
+            });
+
+            // Render tableau
+            const tableauEl = document.getElementById('tableau');
+            tableauEl.innerHTML = '';
+
+            tableau.forEach((col, colIndex) => {
+                const colEl = document.createElement('div');
+                colEl.className = 'tableau-col';
+                colEl.dataset.type = 'tableau';
+                colEl.dataset.index = colIndex;
+
+                const placeholder = document.createElement('div');
+                placeholder.className = 'tableau-placeholder';
+                placeholder.onclick = () => {
+                     // Maybe click empty column to move something? Not needed for now.
+                };
+                colEl.appendChild(placeholder);
+
+                col.forEach((card, cardIndex) => {
+                    const cardEl = document.createElement('div');
+                    cardEl.className = `card ${card.color}`;
+                    cardEl.innerHTML = createCardHTML(card);
+                    cardEl.dataset.col = colIndex;
+                    cardEl.dataset.index = cardIndex;
+                    cardEl.onclick = (e) => {
+                        e.stopPropagation();
+                        trySmartMove('tableau', colIndex, cardIndex);
+                    };
+                    colEl.appendChild(cardEl);
+                });
+
+                tableauEl.appendChild(colEl);
+            });
+
+            setupDragAndDrop();
+        }
+
+        function createCardHTML(card) {
+            return `
+                <span class="rank">${card.rank}</span>
+                <span class="center-suit">${card.suit}</span>
+                <span class="rank-bottom">${card.rank}</span>
+            `;
+        }
+
+        function setupDragAndDrop() {
+            // Card drag events
+            document.querySelectorAll('.card').forEach(cardEl => {
+                cardEl.draggable = true;
+                cardEl.ondragstart = handleDragStart;
+                cardEl.ondragend = handleDragEnd;
+
+                // Touch events for mobile
+                cardEl.ontouchstart = handleTouchStart;
+                cardEl.ontouchmove = handleTouchMove;
+                cardEl.ontouchend = handleTouchEnd;
+            });
+
+            // Drop targets
+            document.querySelectorAll('.freecell, .foundation, .tableau-col, .tableau-placeholder').forEach(el => {
+                el.ondragover = handleDragOver;
+                el.ondragleave = handleDragLeave;
+                el.ondrop = handleDrop;
+            });
+        }
+
+        function trySmartMove(sourceType, colOrIndex, cardIndex) {
+            let cards = [];
+            let sourceColIndex = colOrIndex;
+            let sourceCardIndex = cardIndex;
+
+            if (sourceType === 'tableau') {
+                const col = tableau[colOrIndex];
+                if (cardIndex === undefined) cardIndex = col.length - 1; // Default to top card if not specified
+                // Only move if it's a valid sequence from click point to end
+                // Actually, usually we only move the clicked card and below if valid.
+                
+                // If user clicked middle of column, check sequence
+                for (let i = cardIndex; i < col.length - 1; i++) {
+                     if (col[i].value !== col[i+1].value + 1 || col[i].color === col[i+1].color) {
+                         showToast('无效的序列');
+                         return;
+                     }
+                }
+                cards = col.slice(cardIndex);
+            } else if (sourceType === 'freecell') {
+                if (freecells[colOrIndex] === null) return;
+                cards = [freecells[colOrIndex]];
+                sourceColIndex = colOrIndex;
+                sourceCardIndex = 0; // Dummy
+            }
+
+            const movingCard = cards[0];
+
+            // 1. Try Foundation (only if single card)
+            if (cards.length === 1) {
+                for (let i = 0; i < 4; i++) {
+                    const pile = foundations[i];
+                    if (pile.length === 0) {
+                        if (movingCard.rank === 'A') {
+                            executeMoveSmart(sourceType, sourceColIndex, sourceCardIndex, 'foundation', i, cards);
+                            return;
+                        }
+                    } else {
+                        const topCard = pile[pile.length - 1];
+                        if (movingCard.suit === topCard.suit && movingCard.value === topCard.value + 1) {
+                            executeMoveSmart(sourceType, sourceColIndex, sourceCardIndex, 'foundation', i, cards);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // 2. Try Tableau
+            // Calculate max movable cards
+            const emptyFreecells = freecells.filter(c => c === null).length;
+            const emptyCols = tableau.filter(c => c.length === 0).length;
+            // Note: If target is empty col, we use emptyCols - 1 for calculation (since target is one of them)
+            // But wait, the formula is: (emptyFreecells + 1) * 2^(emptyCols) ? 
+            // Standard rule: (1 + number of empty freecells) * 2^(number of empty columns)
+            // Wait, standard is: can move N cards if we have enough slots.
+            // Simplified: (emptyFreecells + 1) * 2^(emptyCols)
+            // But if moving to empty column, that column doesn't count as empty for intermediate storage.
+            
+            for (let i = 0; i < 8; i++) {
+                if (sourceType === 'tableau' && i === sourceColIndex) continue;
+
+                const targetCol = tableau[i];
+                let isValidTarget = false;
+                
+                if (targetCol.length === 0) {
+                     // Moving to empty column
+                     // Check capacity. 
+                     // Target is empty, so we consume it.
+                     // Available empty cols for transit = totalEmptyCols - 1
+                     const transitEmptyCols = emptyCols - 1;
+                     const max = (emptyFreecells + 1) * Math.pow(2, transitEmptyCols);
+                     if (cards.length <= max) {
+                         isValidTarget = true;
+                     }
+                } else {
+                    const topCard = targetCol[targetCol.length - 1];
+                    if (movingCard.color !== topCard.color && movingCard.value === topCard.value - 1) {
+                        // Moving to non-empty column
+                        // Target is not empty.
+                        // Available empty cols for transit = totalEmptyCols
+                        const max = (emptyFreecells + 1) * Math.pow(2, emptyCols);
+                        if (cards.length <= max) {
+                             isValidTarget = true;
+                        }
+                    }
+                }
+
+                if (isValidTarget) {
+                    executeMoveSmart(sourceType, sourceColIndex, sourceCardIndex, 'tableau', i, cards);
+                    return;
+                }
+            }
+
+            // 3. Try Freecell (only if single card)
+            if (cards.length === 1 && sourceType !== 'freecell') {
+                for (let i = 0; i < 4; i++) {
+                    if (freecells[i] === null) {
+                        executeMoveSmart(sourceType, sourceColIndex, sourceCardIndex, 'freecell', i, cards);
+                        return;
+                    }
+                }
+            }
+            
+            showToast('无法移动此牌');
+        }
+
+        function executeMoveSmart(sourceType, sourceCol, sourceIndex, targetType, targetIndex, cards) {
+            // Reconstruct dragData format for reuse or just execute directly
+            // Let's create a temp dragData
+            dragData = {
+                source: sourceType,
+                colIndex: sourceCol,
+                cardIndex: sourceIndex,
+                cards: cards
+            };
+            executeMove(targetType, targetIndex);
+            dragData = null; // cleanup
+            
+            // Auto finish check
+            checkAutoFinish();
+        }
+        
+        function checkAutoFinish() {
+             // If all cards in tableau are sorted and no hidden cards, or generally if safe to move
+             // Simple safe auto move: 
+             // Move to foundation if:
+             // 1. It's A or 2
+             // 2. It's > 2 and all lower ranks of opposite color are already in foundation
+             
+             // For now, let's just do a simple "try to move everything to foundation" pass
+             // This might be too aggressive, but let's try a safe approach.
+             
+             let moved = false;
+             
+             // Check Freecells
+             for(let i=0; i<4; i++) {
+                 if(freecells[i]) {
+                     if (tryMoveToFoundation(freecells[i], 'freecell', i, 0)) moved = true;
+                 }
+             }
+             
+             // Check Tableau
+             for(let i=0; i<8; i++) {
+                 if(tableau[i].length > 0) {
+                     const card = tableau[i][tableau[i].length-1];
+                     if (tryMoveToFoundation(card, 'tableau', i, tableau[i].length-1)) moved = true;
+                 }
+             }
+             
+             if (moved) {
+                 setTimeout(checkAutoFinish, 200); // Chain reactions
+             }
+        }
+        
+        function tryMoveToFoundation(card, sourceType, colIndex, cardIndex) {
+            // Check if safe
+            // Logic: Can move Rank R if foundations of opposite color have Rank >= R-1
+            // e.g. Can move 5 Red if Black foundations have 4 or more.
+            // Why? Because we might need that 5 Red to hold a 4 Black in tableau. 
+            // If 4 Black is already in foundation, we don't need 5 Red to hold it.
+            
+            /* 
+            Safe Logic Detailed:
+            To move card C (Rank R, Color X):
+            Check foundations of Color Opposite(X).
+            Let min_rank_opposite = min(foundation_opposite_1.rank, foundation_opposite_2.rank)
+            If R <= min_rank_opposite + 2 ? No, that's not quite right.
+            
+            Standard Safe Auto-Move:
+            1. Aces and Deuces are always safe.
+            2. For other cards (Rank R), they are safe if both foundations of opposite color are at Rank >= R - 1.
+            */
+            
+            if (card.value <= 1) { // A or 2
+                // Try move
+            } else {
+                const oppositeColor = card.color === 'red' ? 'black' : 'red';
+                // Find foundations of opposite color
+                const oppositeFoundations = foundations.filter((pile, idx) => {
+                     // Check suit color
+                     const suit = SUITS[idx]; // 0:S(B), 1:H(R), 2:C(B), 3:D(R)
+                     const color = (suit === '♥' || suit === '♦') ? 'red' : 'black';
+                     return color === oppositeColor;
+                });
+                
+                const minOppositeRank = oppositeFoundations.reduce((min, pile) => {
+                    return Math.min(min, pile.length - 1); // -1 if empty (value of A is 0)
+                }, 13);
+                
+                // card.value is 0(A)..12(K)
+                // If we want to move Rank R (value R), we need opposite foundations to be at least R-1.
+                // e.g. To move 3 (value 2), opposite must have 2 (value 1).
+                if (card.value > minOppositeRank + 1) { // +1 because we compare card.value to pile length index?
+                    // Example: Moving 3 (val 2). Opposite piles have 2 (val 1). minOppositeRank = 1.
+                    // 2 > 1 + 1 ? False. Safe.
+                    // Example: Moving 3 (val 2). Opposite piles have A (val 0). minOppositeRank = 0.
+                    // 2 > 0 + 1 ? True. Unsafe.
+                    return false;
+                }
+            }
+            
+            // Check if destination foundation accepts it
+            for(let i=0; i<4; i++) {
+                const pile = foundations[i];
+                if (pile.length === 0) {
+                    if (card.rank === 'A') {
+                        executeMoveSmart(sourceType, colIndex, cardIndex, 'foundation', i, [card]);
+                        return true;
+                    }
+                } else {
+                    const top = pile[pile.length-1];
+                    if (top.suit === card.suit && top.value === card.value - 1) {
+                         executeMoveSmart(sourceType, colIndex, cardIndex, 'foundation', i, [card]);
+                         return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function showHint() {
+            // Check Tableau moves
+            for(let i=0; i<8; i++) {
+                if (tableau[i].length === 0) continue;
+                // Try moving top sequence
+                // Find valid sequence from bottom up
+                const col = tableau[i];
+                let seqStart = col.length - 1;
+                while(seqStart > 0) {
+                    const curr = col[seqStart];
+                    const prev = col[seqStart-1];
+                    if (prev.value === curr.value + 1 && prev.color !== curr.color) {
+                        seqStart--;
+                    } else {
+                        break;
+                    }
+                }
+                
+                // Try moving subsequence starting from j
+                for (let j=seqStart; j<col.length; j++) {
+                     const cards = col.slice(j);
+                     const movingCard = cards[0];
+                     
+                     // Try moving to other tableau
+                     const emptyFreecells = freecells.filter(c => c === null).length;
+                     const emptyCols = tableau.filter(c => c.length === 0).length;
+                     
+                     for(let k=0; k<8; k++) {
+                         if (i === k) continue;
+                         const targetCol = tableau[k];
+                         let isValid = false;
+                         
+                         if (targetCol.length === 0) {
+                             // Can move?
+                             const max = (emptyFreecells + 1) * Math.pow(2, emptyCols - 1);
+                             if (cards.length <= max) isValid = true;
+                         } else {
+                             const top = targetCol[targetCol.length-1];
+                             if (top.value === movingCard.value + 1 && top.color !== movingCard.color) {
+                                 const max = (emptyFreecells + 1) * Math.pow(2, emptyCols);
+                                 if (cards.length <= max) isValid = true;
+                             }
+                         }
+                         
+                         if (isValid) {
+                             highlightHint(i, j, 'tableau', k);
+                             return;
+                         }
+                     }
+                     
+                     // Try moving to Foundation (only single card)
+                     if (cards.length === 1) {
+                         // ... logic similar to trySmartMove
+                         for(let f=0; f<4; f++) {
+                             const pile = foundations[f];
+                             if ((pile.length === 0 && movingCard.rank === 'A') || 
+                                 (pile.length > 0 && pile[pile.length-1].suit === movingCard.suit && pile[pile.length-1].value === movingCard.value - 1)) {
+                                 highlightHint(i, j, 'foundation', f);
+                                 return;
+                             }
+                         }
+                     }
+                }
+            }
+            
+            // Check Freecell moves
+            for(let i=0; i<4; i++) {
+                if (freecells[i]) {
+                    const card = freecells[i];
+                    // To Tableau
+                     for(let k=0; k<8; k++) {
+                         const targetCol = tableau[k];
+                         if (targetCol.length === 0) {
+                             highlightHint(i, 0, 'tableau', k, true); // true = from freecell
+                             return;
+                         } else {
+                             const top = targetCol[targetCol.length-1];
+                             if (top.value === card.value + 1 && top.color !== card.color) {
+                                 highlightHint(i, 0, 'tableau', k, true);
+                                 return;
+                             }
+                         }
+                     }
+                     // To Foundation
+                     // ...
+                }
+            }
+            
+            showToast('没有发现建议的移动');
+        }
+
+        function highlightHint(sourceIndex, cardIndex, targetType, targetIndex, isFromFreecell = false) {
+             let sourceSelector = '';
+             if (isFromFreecell) {
+                 sourceSelector = `.card[data-type="freecell"][data-index="${sourceIndex}"]`;
+             } else {
+                 sourceSelector = `.card[data-col="${sourceIndex}"][data-index="${cardIndex}"]`;
+             }
+             
+             let targetSelector = '';
+             if (targetType === 'tableau') {
+                 targetSelector = `.tableau-col[data-index="${targetIndex}"]`;
+             } else if (targetType === 'foundation') {
+                 targetSelector = `.foundation[data-index="${targetIndex}"]`;
+             }
+             
+             const sourceEl = document.querySelector(sourceSelector);
+             const targetEl = document.querySelector(targetSelector);
+             
+             if (sourceEl) sourceEl.classList.add('hint-source');
+             if (targetEl) targetEl.classList.add('hint-target');
+             
+             setTimeout(() => {
+                 if (sourceEl) sourceEl.classList.remove('hint-source');
+                 if (targetEl) targetEl.classList.remove('hint-target');
+             }, 2000);
+        }
+
+        function handleDragStart(e) {
+            const col = parseInt(e.target.dataset.col);
+            const index = parseInt(e.target.dataset.index);
+
+            let cards = [];
+            const emptyFreecells = freecells.filter(c => c === null).length;
+            const emptyCols = tableau.filter(c => c.length === 0).length;
+            // Standard formula: (1 + num_freecells) * 2^num_empty_cols
+            const maxCards = (emptyFreecells + 1) * Math.pow(2, emptyCols);
+
+            const colData = tableau[col];
+            cards = colData.slice(index);
+
+            // Validate sequence
+            for (let i = 0; i < cards.length - 1; i++) {
+                if (cards[i].value !== cards[i + 1].value + 1 || cards[i].color === cards[i + 1].color) {
+                    if (cards.length > maxCards) {
+                        e.preventDefault();
+                        return;
+                    }
+                    break;
+                }
+            }
+
+            if (cards.length > maxCards && cards.length > 1) {
+                e.preventDefault();
+                return;
+            }
+
+            dragData = { source: 'tableau', colIndex: col, cardIndex: index, cards };
+            e.dataTransfer.effectAllowed = 'move';
+
+            // Create ghost
+            ghostElement = createGhostElement(cards[0]);
+            document.body.appendChild(ghostElement);
+            e.dataTransfer.setDragImage(ghostElement, 35, 50);
+
+            setTimeout(() => {
+                e.target.classList.add('dragging');
+            }, 0);
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+            dragData = null;
+
+            if (ghostElement) {
+                ghostElement.remove();
+                ghostElement = null;
+            }
+
+            clearHighlights();
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            const target = e.target.closest('.freecell, .foundation, .tableau-col, .tableau-placeholder');
+            if (!target || !dragData) return;
+
+            target.classList.add('drag-over');
+
+            const targetType = target.dataset.type;
+            const targetIndex = parseInt(target.dataset.index);
+
+            if (isValidMove(targetType, targetIndex)) {
+                target.classList.add('valid-drop');
+            }
+        }
+
+        function handleDragLeave(e) {
+            const target = e.target.closest('.freecell, .foundation, .tableau-col, .tableau-placeholder');
+            if (target) {
+                target.classList.remove('drag-over', 'valid-drop');
+            }
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const target = e.target.closest('.freecell, .foundation, .tableau-col, .tableau-placeholder');
+            if (!target || !dragData) return;
+
+            const targetType = target.dataset.type;
+            const targetIndex = parseInt(target.dataset.index);
+
+            clearHighlights();
+
+            if (isValidMove(targetType, targetIndex)) {
+                executeMove(targetType, targetIndex);
+            }
+        }
+
+        function clearHighlights() {
+            document.querySelectorAll('.drag-over, .valid-drop').forEach(el => {
+                el.classList.remove('drag-over', 'valid-drop');
+            });
+        }
+
+        function isValidMove(targetType, targetIndex) {
+            if (!dragData) return false;
+
+            const { source, colIndex, cardIndex, cards } = dragData;
+            const movingCard = cards[0];
+
+            if (targetType === 'freecell') {
+                return freecells[targetIndex] === null && cards.length === 1;
+            } else if (targetType === 'foundation') {
+                if (cards.length > 1) return false;
+                const pile = foundations[targetIndex];
+                if (pile.length === 0) {
+                    return movingCard.rank === 'A';
+                } else {
+                    const topCard = pile[pile.length - 1];
+                    return movingCard.suit === topCard.suit && movingCard.value === topCard.value + 1;
+                }
+            } else if (targetType === 'tableau') {
+                const col = tableau[targetIndex];
+                
+                // Check capacity for moving multiple cards
+                const emptyFreecells = freecells.filter(c => c === null).length;
+                const emptyCols = tableau.filter(c => c.length === 0).length;
+                let maxCards = 1;
+                
+                if (col.length === 0) {
+                     // Moving to empty column
+                     // Available transit cols = emptyCols - 1 (because target is one of them)
+                     // If target is same as source (shouldn't happen in dragover usually), treat carefully
+                     // Actually dragover target is different from source usually.
+                     // The logic is: We need transit space. 
+                     // Formula: (emptyFreecells + 1) * 2^(emptyCols_excluding_target)
+                     const transitCols = Math.max(0, emptyCols - 1);
+                     maxCards = (emptyFreecells + 1) * Math.pow(2, transitCols);
+                     
+                     if (cards.length > maxCards) return false;
+                     return true; 
+                } else {
+                    const topCard = col[col.length - 1];
+                    // Check capacity
+                    maxCards = (emptyFreecells + 1) * Math.pow(2, emptyCols);
+                    if (cards.length > maxCards) return false;
+                    
+                    return movingCard.color !== topCard.color && movingCard.value === topCard.value - 1;
+                }
+            }
+
+            return false;
+        }
+
+        function executeMove(targetType, targetIndex) {
+            const { source, colIndex, cardIndex, cards } = dragData;
+
+            saveState();
+
+            // Remove from source
+            if (source === 'tableau') {
+                tableau[colIndex].splice(cardIndex);
+            } else if (source === 'freecell') {
+                freecells[colIndex] = null;
+            } else if (source === 'foundation') {
+                foundations[colIndex].pop();
+            }
+
+            // Add to target
+            if (targetType === 'freecell') {
+                freecells[targetIndex] = cards[0];
+            } else if (targetType === 'foundation') {
+                foundations[targetIndex].push(cards[0]);
+                checkWin();
+            } else if (targetType === 'tableau') {
+                tableau[targetIndex].push(...cards);
+            }
+
+            moves++;
+            render();
+            
+            // Trigger auto-finish check after move
+            // Use setTimeout to allow render to update first and avoid recursion stack issues
+            if (targetType !== 'foundation') { // If moved to foundation, checkAutoFinish might be redundant if we want to avoid loop, but actually safe.
+                setTimeout(checkAutoFinish, 300);
+            } else {
+                setTimeout(checkAutoFinish, 100);
+            }
+        }
+
+        function createGhostElement(card) {
+            const ghost = document.createElement('div');
+            ghost.className = 'card drag-ghost';
+            ghost.style.width = '70px';
+            ghost.style.height = '100px';
+            ghost.innerHTML = `
+                <span class="rank">${card.rank}</span>
+                <span class="center-suit">${card.suit}</span>
+            `;
+            if (card.color === 'red') {
+                ghost.style.color = '#dc2626';
+            }
+            return ghost;
+        }
+
+        // Touch support for mobile
+        let touchStartPos = null;
+        let touchedCard = null;
+        let touchMoved = false;
+
+        function handleTouchStart(e) {
+            const touch = e.touches[0];
+            const col = parseInt(e.target.dataset.col);
+            const index = parseInt(e.target.dataset.index);
+
+            if (isNaN(col) || isNaN(index)) return;
+
+            const emptyFreecells = freecells.filter(c => c === null).length;
+            const emptyCols = tableau.filter(c => c.length === 0).length;
+            const maxCards = (emptyFreecells + 1) * Math.pow(2, emptyCols);
+
+            const colData = tableau[col];
+            let cards = colData.slice(index);
+
+            // Validate
+            for (let i = 0; i < cards.length - 1; i++) {
+                if (cards[i].value !== cards[i + 1].value + 1 || cards[i].color === cards[i + 1].color) {
+                    if (cards.length > maxCards) return;
+                    break;
+                }
+            }
+
+            if (cards.length > maxCards && cards.length > 1) return;
+
+            touchStartPos = { x: touch.clientX, y: touch.clientY };
+            touchedCard = e.target;
+            dragData = { source: 'tableau', colIndex: col, cardIndex: index, cards };
+
+            // Create ghost
+            ghostElement = createGhostElement(cards[0]);
+            ghostElement.style.display = 'none';
+            document.body.appendChild(ghostElement);
+
+            touchedCard.classList.add('selected');
+            e.preventDefault();
+        }
+
+        function handleTouchMove(e) {
+            if (!touchStartPos || !touchedCard) return;
+
+            const touch = e.touches[0];
+            const dx = Math.abs(touch.clientX - touchStartPos.x);
+            const dy = Math.abs(touch.clientY - touchStartPos.y);
+
+            if (dx > 10 || dy > 10) {
+                touchMoved = true;
+
+                if (ghostElement) {
+                    ghostElement.style.display = 'block';
+                    ghostElement.style.left = (touch.clientX - 35) + 'px';
+                    ghostElement.style.top = (touch.clientY - 50) + 'px';
+                }
+
+                // Highlight target
+                const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                const target = elementBelow?.closest('.freecell, .foundation, .tableau-col, .tableau-placeholder');
+
+                clearHighlights();
+
+                if (target) {
+                    target.classList.add('drag-over');
+                    const targetType = target.dataset.type;
+                    const targetIndex = parseInt(target.dataset.index);
+                    if (isValidMove(targetType, targetIndex)) {
+                        target.classList.add('valid-drop');
+                    }
+                }
+            }
+
+            e.preventDefault();
+        }
+
+        function handleTouchEnd(e) {
+            if (!touchStartPos || !touchedCard) return;
+
+            if (touchMoved && ghostElement) {
+                const touch = e.changedTouches[0];
+                const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                const target = elementBelow?.closest('.freecell, .foundation, .tableau-col, .tableau-placeholder');
+
+                if (target) {
+                    const targetType = target.dataset.type;
+                    const targetIndex = parseInt(target.dataset.index);
+                    if (isValidMove(targetType, targetIndex)) {
+                        executeMove(targetType, targetIndex);
+                    }
+                }
+            }
+
+            touchedCard.classList.remove('selected');
+            if (ghostElement) {
+                ghostElement.remove();
+                ghostElement = null;
+            }
+
+            clearHighlights();
+            touchStartPos = null;
+            touchedCard = null;
+            touchMoved = false;
+            dragData = null;
+        }
+
+        function checkWin() {
+            const total = foundations.reduce((sum, pile) => sum + pile.length, 0);
+            if (total === 52) {
+                clearInterval(timer);
+                document.getElementById('finalMoves').textContent = moves;
+                document.getElementById('finalTime').textContent = formatTime(seconds);
+                document.getElementById('winModal').classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('winModal').classList.remove('active');
+        }
+
+        initGame();
+    </script>
+</body>
+</html>

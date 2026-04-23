@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仪器读数练习 - 在线创意工具小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="仪器读数练习小游戏，帮助熟悉常见实验仪表读数方式。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="仪器读数练习,创意工具,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/instrument-reading.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="仪器读数练习 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta property="og:description" content="仪器读数练习小游戏，帮助熟悉常见实验仪表读数方式。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/instrument-reading.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="仪器读数练习 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="仪器读数练习小游戏，帮助熟悉常见实验仪表读数方式。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"仪器读数练习","description":"仪器读数练习小游戏，帮助熟悉常见实验仪表读数方式。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/instrument-reading.html","genre":"创意工具","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #475569;
+            --success-color: #22c55e;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --sidebar-width: 380px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-color);
+            color: #1e293b;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-header .subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* Score Panel */
+        .score-panel {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .score-card {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .score-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .score-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .score-value.correct {
+            color: var(--success-color);
+        }
+
+        .score-value.wrong {
+            color: var(--error-color);
+        }
+
+        .score-value.total {
+            color: var(--primary-color);
+        }
+
+        /* Control Section */
+        .control-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Instrument Selector */
+        .instrument-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .instrument-btn {
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            color: var(--secondary-color);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .instrument-btn:hover {
+            border-color: var(--primary-color);
+            background: #eff6ff;
+        }
+
+        .instrument-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .instrument-btn .icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Difficulty Selector */
+        .difficulty-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .difficulty-btn {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #cbd5e1;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .difficulty-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .difficulty-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Answer Input */
+        .answer-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .answer-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .answer-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-family: 'Courier New', monospace;
+            transition: all 0.2s;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .answer-input.correct {
+            border-color: var(--success-color);
+            background: #f0fdf4;
+        }
+
+        .answer-input.wrong {
+            border-color: var(--error-color);
+            background: #fef2f2;
+        }
+
+        .unit-select {
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hint-btn {
+            width: 100%;
+            padding: 10px;
+            background: #fef3c7;
+            color: #92400e;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+
+        .hint-btn:hover {
+            background: #fde68a;
+        }
+
+        /* Feedback */
+        .feedback {
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+
+        .feedback.wrong {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feedback-detail {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            position: relative;
+            background-color: #f8fafc;
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .instrument-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 90%;
+            width: 800px;
+        }
+
+        .instrument-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .instrument-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .adjust-hint {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .adjust-hint-icon {
+            font-size: 1.3rem;
+        }
+
+        /* Adjustment Slider */
+        .adjustment-panel {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .adjustment-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .adjustment-slider {
+            width: 100%;
+            height: 12px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right, #e2e8f0, #3b82f6);
+            border-radius: 6px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .adjustment-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            background: white;
+            border: 3px solid #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.1s;
+        }
+
+        .adjustment-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        .adjustment-slider::-moz-range-thumb {
+            width: 28px;
+            height: 28px;
+            background: white;
+            border: 3px solid #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .adjustment-value {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 12px;
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .adjustment-value.correct {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .adjustment-value.wrong {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .adjustment-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .adjust-btn {
+            flex: 1;
+            padding: 10px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .adjust-btn:hover {
+            background: #eff6ff;
+            border-color: var(--primary-color);
+        }
+
+        .adjust-btn.small {
+            flex: 0.5;
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Target display */
+        .target-panel {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 1px solid #f59e0b;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .target-label {
+            font-size: 0.85rem;
+            color: #92400e;
+            margin-bottom: 4px;
+        }
+
+        .target-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #b45309;
+        }
+
+        .instrument-title {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Vernier Caliper SVG */
+        .caliper-svg, .micrometer-svg {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            display: block;
+            visibility: visible;
+        }
+
+        .caliper-svg {
+            height: 180px;
+        }
+
+        .caliper-main {
+            fill: none;
+            stroke: #374151;
+            stroke-width: 2;
+        }
+
+        .caliper-mark {
+            stroke: #374151;
+            stroke-width: 1;
+        }
+
+        .caliper-number {
+            font-size: 10px;
+            fill: #6b7280;
+            font-family: Arial, sans-serif;
+        }
+
+        .caliper-reading {
+            fill: #ef4444;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .caliper-highlight {
+            fill: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Micrometer SVG */
+        .micrometer-svg {
+            width: 100%;
+            height: 200px;
+        }
+
+        .micrometer-frame {
+            fill: #9ca3af;
+            stroke: #4b5563;
+            stroke-width: 1;
+        }
+
+        .micrometer-anvil {
+            fill: #6b7280;
+        }
+
+        .micrometer-spindle {
+            fill: #9ca3af;
+        }
+
+        .micrometer-thimble {
+            fill: #d1d5db;
+            stroke: #9ca3af;
+            stroke-width: 1;
+        }
+
+        .micrometer-scale {
+            stroke: #1f2937;
+            stroke-width: 1;
+        }
+
+        .micrometer-number {
+            font-size: 9px;
+            fill: #4b5563;
+            font-family: Arial, sans-serif;
+        }
+
+        .micrometer-reading {
+            fill: #ef4444;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Instruction Panel */
+        .instruction-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .instruction-text {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Reading Guide */
+        .reading-guide {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .reading-guide.show {
+            display: block;
+        }
+
+        .reading-guide h4 {
+            color: #1e40af;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reading-guide ol {
+            color: #1e3a8a;
+            font-size: 0.85rem;
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
+        /* Animations */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .celebrate {
+            animation: celebrate 0.5s ease-in-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 50vh;
+            }
+
+            body {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .instrument-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>📏 仪器读数练习</h1>
+            <div class="subtitle">游标卡尺 & 千分尺</div>
+        </div>
+
+        <div class="sidebar-content">
+            <!-- Score Panel -->
+            <div class="score-panel">
+                <div class="score-card">
+                    <div class="score-label">正确</div>
+                    <div class="score-value correct" id="correctCount">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label">错误</div>
+                    <div class="score-value wrong" id="wrongCount">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label">总计</div>
+                    <div class="score-value total" id="totalCount">0</div>
+                </div>
+            </div>
+
+            <!-- Instrument Selector -->
+            <div class="control-section">
+                <div class="section-title">🔧 选择仪器</div>
+                <div class="instrument-grid">
+                    <button class="instrument-btn active" data-instrument="caliper" onclick="selectInstrument('caliper')">
+                        <span class="icon">📐</span>
+                        游标卡尺
+                    </button>
+                    <button class="instrument-btn" data-instrument="micrometer" onclick="selectInstrument('micrometer')">
+                        <span class="icon">🔩</span>
+                        千分尺
+                    </button>
+                </div>
+            </div>
+
+            <!-- Difficulty Selector -->
+            <div class="control-section">
+                <div class="section-title">🎯 难度选择</div>
+                <div class="difficulty-btns">
+                    <button class="difficulty-btn active" data-difficulty="easy" onclick="selectDifficulty('easy')">简单</button>
+                    <button class="difficulty-btn" data-difficulty="medium" onclick="selectDifficulty('medium')">中等</button>
+                    <button class="difficulty-btn" data-difficulty="hard" onclick="selectDifficulty('hard')">困难</button>
+                </div>
+            </div>
+
+            <!-- Answer Section -->
+            <div class="answer-section">
+                <div class="question-text" id="questionText">
+                    调节仪器使读数与目标一致
+                </div>
+
+                <button class="submit-btn" id="submitBtn" onclick="checkAnswer()" style="width: 100%; margin-bottom: 12px;">
+                    提交答案
+                </button>
+
+                <button class="hint-btn" onclick="showHint()">💡 显示读数方法</button>
+
+                <div class="feedback" id="feedback">
+                    <div class="feedback-title" id="feedbackTitle"></div>
+                    <div class="feedback-detail" id="feedbackDetail"></div>
+                </div>
+
+                <div class="reading-guide" id="readingGuide">
+                    <h4>📖 读数方法</h4>
+                    <ol id="readingGuideText"></ol>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="nextQuestion()">下一题</button>
+                    <button class="btn btn-secondary" onclick="resetQuestion()">重置本题</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Target Panel -->
+        <div class="target-panel" id="targetPanel">
+            <div class="target-label">目标读数（需要调到与它一致）</div>
+            <div class="target-value" id="targetValue">-- mm</div>
+        </div>
+
+        <div class="instrument-container" id="instrumentContainer">
+            <div class="instrument-title" id="instrumentTitle">游标卡尺读数</div>
+            <div class="instrument-wrapper" id="instrumentWrapper">
+                <div class="instrument-content" id="instrumentContent">
+                    <svg class="caliper-svg" id="instrumentSvg" viewBox="0 0 700 160">
+                        <!-- Caliper SVG will be rendered here -->
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Adjustment Panel -->
+            <div class="adjustment-panel">
+                <div class="adjustment-title">🔧 调节仪器读数</div>
+                <input type="range" class="adjustment-slider" id="adjustSlider"
+                    min="0" max="100" value="0" step="1">
+                <div class="adjustment-value" id="adjustValue">0.00 mm</div>
+                <div class="adjustment-buttons">
+                    <button class="adjust-btn small" onclick="adjustByStep(-10)">-10</button>
+                    <button class="adjust-btn small" onclick="adjustByStep(-1)">-1</button>
+                    <button class="adjust-btn small" onclick="adjustByStep(1)">+1</button>
+                    <button class="adjust-btn small" onclick="adjustByStep(10)">+10</button>
+                </div>
+            </div>
+
+            <div class="adjust-hint">
+                <span class="adjust-hint-icon">🎯</span>
+                <span>拖动滑块或点击按钮调节，使读数与目标一致</span>
+            </div>
+        </div>
+
+        <div class="instruction-panel">
+            <div class="instruction-text" id="instructionText">
+                调节仪器使读数与目标一致，然后点击"确定"提交答案
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game State
+        let currentInstrument = 'caliper';
+        let currentDifficulty = 'easy';
+        let targetReading = 0;  // Target reading to match
+        let currentReading = 0;  // User's current reading
+        let correctCount = 0;
+        let wrongCount = 0;
+        let totalCount = 0;
+        let sliderValue = 0;
+
+        // DOM Elements
+        const adjustSlider = document.getElementById('adjustSlider');
+        const adjustValue = document.getElementById('adjustValue');
+        const targetValue = document.getElementById('targetValue');
+
+        // Initialize slider functionality
+        function initSlider() {
+            if (!adjustSlider) return;
+
+            adjustSlider.addEventListener('input', function() {
+                updateReadingFromSlider();
+            });
+        }
+
+        // Update reading based on slider value
+        function updateReadingFromSlider() {
+            try {
+                sliderValue = parseInt(adjustSlider.value);
+                const range = difficultyRanges[currentDifficulty];
+                const maxSlider = parseInt(adjustSlider.max);
+
+                // Map slider to reading range
+                currentReading = (sliderValue / maxSlider) * (range.max - range.min) + range.min;
+
+                // Apply precision based on difficulty
+                currentReading = Math.round(currentReading / range.step) * range.step;
+                currentReading = Math.max(range.min, Math.min(range.max, currentReading));
+
+                // Update display
+                adjustValue.textContent = currentReading.toFixed(2) + ' mm';
+
+                // Re-render instrument at this reading
+                if (currentInstrument === 'caliper') {
+                    renderCaliper(currentReading);
+                } else {
+                    renderMicrometer(currentReading);
+                }
+            } catch (e) {
+                console.error('Error updating reading:', e);
+            }
+        }
+
+        // Adjust by step (for buttons)
+        function adjustByStep(step) {
+            const range = difficultyRanges[currentDifficulty];
+            let newValue = currentReading + step * range.step;
+            newValue = Math.max(range.min, Math.min(range.max, newValue));
+
+            // Update slider
+            const maxSlider = parseInt(adjustSlider.max);
+            sliderValue = ((newValue - range.min) / (range.max - range.min)) * maxSlider;
+            adjustSlider.value = sliderValue;
+
+            updateReadingFromSlider();
+        }
+
+        // Set slider range based on difficulty
+        function setSliderRange() {
+            const range = difficultyRanges[currentDifficulty];
+            const maxSlider = 100;
+
+            adjustSlider.min = 0;
+            adjustSlider.max = maxSlider;
+            adjustSlider.value = 0;
+            adjustSlider.step = 1;
+
+            // Adjust slider range display
+            adjustSlider.style.background = `linear-gradient(to right, #e2e8f0 0%, #e2e8f0 ${(range.min / range.max) * 100}%, #3b82f6 ${(range.min / range.max) * 100}%, #3b82f6 100%)`;
+        }
+
+        // Reset slider to initial position
+        function resetSlider() {
+            if (adjustSlider) {
+                adjustSlider.value = 0;
+                currentReading = 0;
+                adjustValue.textContent = '0.00 mm';
+            }
+        }
+
+        // Instrument ranges based on difficulty
+        const difficultyRanges = {
+            easy: { min: 5, max: 30, step: 1 },      // 简单: 整数读数
+            medium: { min: 5, max: 50, step: 0.1 },   // 中等: 0.1mm精度
+            hard: { min: 0, max: 60, step: 0.02 }     // 困难: 0.02mm精度(需要估读)
+        };
+
+        // Reading guides
+        const readingGuides = {
+            caliper: [
+                '读取主尺上的整毫米数（看主尺刻度线）',
+                '找到游标尺上与主尺对齐的刻度线（第几条对齐）',
+                '将对齐的刻度乘以精度（0.1mm游标卡尺精度为0.1mm）',
+                '最终读数 = 主尺读数 + 游标读数'
+            ],
+            micrometer: [
+                '读取固定套筒上的毫米刻度（注意0.5mm刻度）',
+                '读取微分筒上的刻度（找到对齐的那一条）',
+                '将微分筒读数乘以0.01（因为微分筒一圈是0.5mm，共50格）',
+                '最终读数 = 固定套筒读数 + 微分筒读数'
+            ]
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // 确保SVG元素可见
+            const svg = document.getElementById('instrumentSvg');
+            if (svg) {
+                svg.style.display = 'block';
+                svg.style.visibility = 'visible';
+            }
+
+            initSlider();
+            generateQuestion();
+        });
+
+        // Select instrument
+        function selectInstrument(instrument) {
+            currentInstrument = instrument;
+            document.querySelectorAll('.instrument-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.instrument === instrument);
+            });
+
+            document.getElementById('instrumentTitle').textContent =
+                instrument === 'caliper' ? '游标卡尺读数' : '千分尺（螺旋测微器）读数';
+
+            document.getElementById('unitSelect').value = 'mm';
+
+            generateQuestion();
+        }
+
+        // Select difficulty
+        function selectDifficulty(difficulty) {
+            currentDifficulty = difficulty;
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.difficulty === difficulty);
+            });
+
+            generateQuestion();
+        }
+
+        // Generate random reading based on difficulty
+        function generateQuestion() {
+            const range = difficultyRanges[currentDifficulty];
+            const precision = range.step;
+
+            // Generate target reading
+            targetReading = Math.round((Math.random() * (range.max - range.min) + range.min) / precision) * precision;
+            targetReading = Math.max(range.min, Math.min(range.max, targetReading));
+
+            // Set slider range and reset
+            setSliderRange();
+            resetSlider();
+
+            // Update target display
+            targetValue.textContent = targetReading.toFixed(2) + ' mm';
+
+            // Reset UI
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('readingGuide').className = 'reading-guide';
+
+            // Render instrument at initial position (0)
+            if (currentInstrument === 'caliper') {
+                renderCaliper(0);
+            } else {
+                renderMicrometer(0);
+            }
+        }
+
+        // Generate main scale ruler marks
+        function generateMainScaleRuler(startX, y, count) {
+            let scales = '';
+            for (let i = 0; i <= count; i++) {
+                const x = startX + i * 10;
+                const height = i % 10 === 0 ? 25 : (i % 5 === 0 ? 18 : 12);
+                scales += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y + height}" stroke="#374151" stroke-width="1"/>`;
+                if (i % 5 === 0) {
+                    scales += `<text x="${x}" y="${y + height + 12}" text-anchor="middle" font-size="9" fill="#6b7280">${i}</text>`;
+                }
+            }
+            return scales;
+        }
+
+        // Generate vernier scale ruler marks
+        function generateVernierScaleRuler(startX, y, count) {
+            let scales = '';
+            for (let i = 0; i <= count; i++) {
+                const x = startX + i * 5;
+                const height = i % 5 === 0 ? 10 : 6;
+                const color = i === count ? '#ef4444' : '#374151';
+                const width = i === count ? 2 : 1;
+                scales += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y + height}" stroke="${color}" stroke-width="${width}"/>`;
+            }
+            return scales;
+        }
+
+        // Render Vernier Caliper SVG
+        function renderCaliper(reading) {
+            const svg = document.getElementById('instrumentSvg');
+            if (!svg) return;
+
+            const precision = 0.1; // 10分度游标卡尺
+
+            // Calculate main scale and vernier scale readings
+            const mainScale = Math.floor(reading);
+            const vernierReading = Math.round((reading - mainScale) / precision);
+            const vernierAlign = vernierReading;
+
+            // Convert reading to pixels (10px per mm)
+            const jawOffset = reading * 10;
+
+            let svgContent = `
+                <!-- Main Scale Ruler -->
+                <g class="main-scale">
+                    <rect x="30" y="55" width="620" height="35" fill="#f9fafb" stroke="#d1d5db" rx="2"/>
+                    ${generateMainScaleRuler(35, 65, 60)}
+                </g>
+
+                <!-- Fixed Jaw (left) -->
+                <g class="fixed-jaw">
+                    <rect x="25" y="50" width="15" height="50" fill="#374151" rx="2"/>
+                    <rect x="25" y="100" width="15" height="40" fill="#374151" rx="2"/>
+                    <!-- Inside measuring faces -->
+                    <rect x="40" y="70" width="5" height="25" fill="#6b7280"/>
+                    <rect x="40" y="110" width="5" height="25" fill="#6b7280"/>
+                </g>
+
+                <!-- Moving Jaw -->
+                <g class="moving-jaw" transform="translate(${jawOffset}, 0)">
+                    <rect x="25" y="50" width="12" height="50" fill="#6b7280" rx="2"/>
+                    <rect x="25" y="100" width="12" height="40" fill="#6b7280" rx="2"/>
+                    <!-- Inside measuring faces -->
+                    <rect x="37" y="70" width="5" height="25" fill="#9ca3af"/>
+                    <rect x="37" y="110" width="5" height="25" fill="#9ca3af"/>
+                    <!-- Vernier scale on jaw -->
+                    <rect x="25" y="85" width="55" height="12" fill="#e5e7eb" rx="1"/>
+                    ${generateVernierScaleRuler(27, 86, 10)}
+                </g>
+
+                <!-- Depth Probe -->
+                <g class="depth-probe">
+                    <rect x="30" y="145" width="620" height="10" fill="#d1d5db" rx="2"/>
+                </g>
+
+                <!-- Reading Display -->
+                <g class="reading-display">
+                    <rect x="270" y="15" width="120" height="24" fill="#fef3c7" rx="4"/>
+                    <text x="330" y="32" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold">
+                        ${reading.toFixed(1)} mm
+                    </text>
+                </g>
+
+                <!-- Alignment reference line -->
+                <line x1="40" y1="50" x2="40" y2="145" stroke="#ef4444" stroke-width="1" stroke-dasharray="3" opacity="0.5"/>
+            `;
+
+            // Add alignment indicator when vernier lines match
+            if (vernierAlign > 0 && vernierAlign <= 10) {
+                const alignX = 40 + jawOffset + 2 + vernierAlign * 5;
+                svgContent += `
+                    <line x1="${alignX}" y1="85" x2="${alignX}" y2="97"
+                          stroke="#ef4444" stroke-width="2"/>
+                    <circle cx="${alignX}" cy="91" r="3" fill="#ef4444"/>
+                `;
+            }
+
+            try {
+                svg.innerHTML = svgContent;
+                svg.setAttribute('viewBox', '0 0 680 160');
+                svg.className = 'caliper-svg';
+                svg.style.display = 'block';
+                svg.style.visibility = 'visible';
+            } catch (e) {
+                console.error('Error rendering caliper:', e);
+            }
+        }
+
+        // Micrometer scale generation functions
+        function generateMicrometerFixedScaleMm(startX, y, count) {
+            let scales = '';
+            for (let i = 0; i <= count; i++) {
+                const x = startX + i * 10;
+                scales += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y + 15}" stroke="#1f2937" stroke-width="1.5"/>`;
+                if (i > 0 && i <= 25) {
+                    scales += `<text x="${x}" y="${y + 28}" class="micrometer-number" text-anchor="middle" font-size="8">${i}</text>`;
+                }
+            }
+            return scales;
+        }
+
+        function generateMicrometerFixedScaleHalfMm(startX, y, count) {
+            let scales = '';
+            for (let i = 0; i <= count; i++) {
+                const x = startX + i * 5;
+                scales += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y + 8}" stroke="#4b5563" stroke-width="1"/>`;
+            }
+            return scales;
+        }
+
+        function generateMicrometerThimbleScale(startX, y, alignPos) {
+            let scales = '';
+            // Thimble has 50 divisions, each 0.01mm
+            for (let i = 0; i <= 50; i += 5) {
+                const x = startX + i;
+                const isLong = i % 10 === 0;
+                const height = isLong ? 15 : 10;
+                const strokeWidth = isLong ? 1.5 : 1;
+                const color = i === alignPos ? '#ef4444' : '#4b5563';
+                const sw = i === alignPos ? 2 : strokeWidth;
+
+                scales += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y + height}" stroke="${color}" stroke-width="${sw}"/>`;
+
+                if (isLong && i > 0) {
+                    scales += `<text x="${x}" y="${y + 25}" text-anchor="middle" font-size="7" fill="${i === alignPos ? '#ef4444' : '#6b7280'}">${i/10}</text>`;
+                }
+            }
+            return scales;
+        }
+
+        // Render Micrometer SVG
+        function renderMicrometer(reading) {
+            const svg = document.getElementById('instrumentSvg');
+            if (!svg) return;
+
+            // Parse reading - micrometer reads in 0.01mm increments
+            // Range: 0-25mm typically, but we'll use 0-60 for the game
+            const totalHalfMm = reading * 2; // Convert to half-mm units
+            const fixedMm = Math.floor(reading);  // Fixed scale mm (0-25, then repeats)
+            const halfMm = (reading % 1) >= 0.5 ? 0.5 : 0;  // 0.5mm mark
+            const thimblePos = Math.round((reading % 0.5) * 100); // Position on thimble (0-50)
+
+            // Calculate actual position (each 0.5mm = 15 pixels on thimble)
+            const thimbleOffset = (fixedMm * 2 + (halfMm === 0.5 ? 1 : 0)) * 15 + (thimblePos * 0.3);
+
+            let svgContent = `
+                <!-- Micrometer Frame (C-shaped) -->
+                <g class="frame">
+                    <!-- Main frame body -->
+                    <path d="M 80 20 L 80 140 Q 50 150 30 140 L 30 20 Q 50 10 80 20" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+                    <!-- Anvil (left side) -->
+                    <rect x="30" y="100" width="25" height="40" fill="#9ca3af" stroke="#6b7280" stroke-width="1" rx="2"/>
+                    <!-- Anvil face -->
+                    <rect x="50" y="105" width="8" height="30" fill="#d1d5db" stroke="#9ca3af"/>
+                </g>
+
+                <!-- Fixed Scale (Sleeve) -->
+                <g class="fixed-scale">
+                    <rect x="80" y="35" width="180" height="90" fill="#d1d5db" stroke="#9ca3af" stroke-width="1" rx="2"/>
+                    <!-- Horizontal dividing line -->
+                    <line x1="80" y1="75" x2="260" y2="75" stroke="#4b5563" stroke-width="2"/>
+                    <!-- mm marks (top) -->
+                    ${generateMicrometerFixedScaleMm(85, 40, 17)}
+                    <!-- 0.5mm marks (bottom) -->
+                    ${generateMicrometerFixedScaleHalfMm(85, 80, 34)}
+                </g>
+
+                <!-- Thimble (rotating part) -->
+                <g class="thimble" transform="translate(${80 + thimbleOffset}, 0)">
+                    <!-- Thimble cylinder -->
+                    <rect x="0" y="38" width="50" height="85" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1" rx="3"/>
+                    <!-- Thimble beveled edge -->
+                    <path d="M 0 38 L 5 30 L 45 30 L 50 38" fill="#d1d5db" stroke="#9ca3af" stroke-width="1"/>
+                    <!-- Thimble scale -->
+                    ${generateMicrometerThimbleScale(3, 45, thimblePos)}
+                </g>
+
+                <!-- Spindle (moves with thimble) -->
+                <g class="spindle" transform="translate(${80 + thimbleOffset}, 0)">
+                    <rect x="15" y="100" width="20" height="40" fill="#9ca3af" stroke="#6b7280" stroke-width="1"/>
+                    <!-- Spindle face -->
+                    <rect x="25" y="105" width="8" height="30" fill="#d1d5db"/>
+                </g>
+
+                <!-- Ratchet (right end) -->
+                <g class="ratchet" transform="translate(${80 + thimbleOffset + 50}, 0)">
+                    <ellipse cx="0" cy="115" rx="8" ry="12" fill="#6b7280"/>
+                </g>
+
+                <!-- Reading Display -->
+                <g class="reading-display" transform="translate(140, 15)">
+                    <rect x="0" y="0" width="100" height="22" fill="#fef3c7" rx="4"/>
+                    <text x="50" y="16" class="micrometer-reading" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold">
+                        ${reading.toFixed(2)} mm
+                    </text>
+                </g>
+
+                <!-- Alignment line (reference horizontal line) -->
+                <line x1="55" y1="80" x2="280" y2="80" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4"/>
+            `;
+
+            try {
+                svg.innerHTML = svgContent;
+                svg.setAttribute('viewBox', '0 0 320 160');
+                svg.className = 'micrometer-svg';
+                svg.style.display = 'block';
+                svg.style.visibility = 'visible';
+            } catch (e) {
+                console.error('Error rendering micrometer:', e);
+            }
+        }
+
+        // Show hint
+        function showHint() {
+            const guide = document.getElementById('readingGuide');
+            const guideText = document.getElementById('readingGuideText');
+
+            guide.classList.toggle('show');
+
+            if (guide.classList.contains('show')) {
+                const steps = readingGuides[currentInstrument];
+                guideText.innerHTML = steps.map(step => `<li>${step}</li>`).join('');
+            }
+        }
+
+        // Check answer
+        function checkAnswer() {
+            const feedback = document.getElementById('feedback');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackDetail = document.getElementById('feedbackDetail');
+
+            // User's reading comes from slider
+            const userAnswer = currentReading;
+            const correctAnswer = targetReading;
+
+            totalCount++;
+
+            // Check if answer is correct (allow small error for hard mode)
+            const tolerance = currentDifficulty === 'hard' ? 0.02 : 0.1;
+            const isCorrect = Math.abs(userAnswer - correctAnswer) <= tolerance;
+
+            if (isCorrect) {
+                correctCount++;
+                feedback.className = 'feedback show correct';
+                feedbackTitle.innerHTML = '✓ 回答正确！';
+                feedbackDetail.innerHTML = `目标读数: ${correctAnswer.toFixed(2)} mm<br>你的读数: ${userAnswer.toFixed(2)} mm`;
+                adjustValue.classList.add('correct', 'celebrate');
+                setTimeout(() => {
+                    adjustValue.classList.remove('celebrate');
+                }, 500);
+            } else {
+                wrongCount++;
+                feedback.className = 'feedback show wrong';
+                feedbackTitle.innerHTML = '✗ 回答错误';
+                feedbackDetail.innerHTML = `
+                    目标读数: ${correctAnswer.toFixed(2)} mm<br>
+                    你的读数: ${userAnswer.toFixed(2)} mm<br>
+                    <strong>误差: ${Math.abs(userAnswer - correctAnswer).toFixed(2)} mm</strong>
+                `;
+                adjustValue.classList.add('wrong', 'shake');
+                setTimeout(() => {
+                    adjustValue.classList.remove('shake');
+                }, 500);
+            }
+
+            // Update score display
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('wrongCount').textContent = wrongCount;
+            document.getElementById('totalCount').textContent = totalCount;
+        }
+
+        // Next question
+        function nextQuestion() {
+            generateQuestion();
+        }
+
+        // Reset current question
+        function resetQuestion() {
+            // Reset slider
+            resetSlider();
+
+            // Re-render instrument at 0
+            if (currentInstrument === 'caliper') {
+                renderCaliper(0);
+            } else {
+                renderMicrometer(0);
+            }
+
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('readingGuide').className = 'reading-guide';
+        }
+    </script>
+</body>
+</html>

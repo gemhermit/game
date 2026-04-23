@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地理问答 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="地理问答把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="地理问答,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/geography-quiz.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="地理问答 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="地理问答把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/geography-quiz.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="地理问答 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="地理问答把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"地理问答","description":"地理问答把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/geography-quiz.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 900px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .category-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .category-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .category-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .score-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .score-item {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+        .score-value {
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+            font-size: 1.5em;
+        }
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .question-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .question-number {
+            font-size: 1.2em;
+            color: #636e72;
+            margin-bottom: 20px;
+        }
+        .question-text {
+            font-size: 1.5em;
+            color: #2d3436;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .option-btn {
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+        }
+        .option-btn:hover {
+            border-color: #667eea;
+            background: #e3f2fd;
+            transform: translateY(-2px);
+        }
+        .option-btn.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .option-btn.correct {
+            background: #d4edda;
+            border-color: #00b894;
+            color: #155724;
+        }
+        .option-btn.wrong {
+            background: #f8d7da;
+            border-color: #e17055;
+            color: #721c24;
+        }
+        .option-btn.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .option-label {
+            font-weight: bold;
+            margin-right: 10px;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e9ecef;
+            text-align: center;
+            line-height: 30px;
+            margin-bottom: 10px;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-success {
+            background: #00b894;
+            color: white;
+        }
+        .btn-warning {
+            background: #fdcb6e;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .feedback {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            max-width: 700px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .feedback.wrong {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 15px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        .game-complete {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .game-complete h3 {
+            color: #1976d2;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .final-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .final-stat {
+            margin: 10px;
+        }
+        .final-stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2196f3;
+        }
+        .explanation {
+            background: #e8f5e8;
+            border-left: 4px solid #00b894;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .explanation-title {
+            font-weight: bold;
+            color: #00b894;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>地理知识问答</h1>
+        
+        <div class="category-selector">
+            <div class="category-btn active" data-category="world">世界地理</div>
+            <div class="category-btn" data-category="china">中国地理</div>
+            <div class="category-btn" data-category="capitals">首都城市</div>
+            <div class="category-btn" data-category="rivers">河流湖泊</div>
+            <div class="category-btn" data-category="mountains">山脉高原</div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item">
+                得分
+                <span class="score-value" id="score">0</span>
+            </div>
+            <div class="score-item">
+                题目
+                <span class="score-value" id="currentQuestion">1</span> / <span id="totalQuestions">10</span>
+            </div>
+            <div class="score-item">
+                正确数
+                <span class="score-value" id="correctCount">0</span>
+            </div>
+            <div class="score-item">
+                正确率
+                <span class="score-value" id="accuracy">0%</span>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 10%"></div>
+        </div>
+        
+        <div class="game-area">
+            <div class="question-card">
+                <div class="question-number" id="questionNumber">第 1 题</div>
+                <div class="question-text" id="questionText">世界上最大的大洋是？</div>
+            </div>
+            
+            <div class="options-container" id="optionsContainer">
+                <!-- 选项将在这里生成 -->
+            </div>
+            
+            <div class="feedback" id="feedback" style="display: none;">
+                <!-- 反馈信息 -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" id="submitBtn" disabled>提交答案</button>
+                <button class="btn btn-warning" id="skipBtn">跳过题目</button>
+                <button class="btn btn-success" id="nextBtn" style="display: none;">下一题</button>
+                <button class="btn btn-primary" id="restartBtn" style="display: none;">重新开始</button>
+            </div>
+        </div>
+        
+        <div class="game-complete" id="gameComplete" style="display: none;">
+            <h3>恭喜完成！</h3>
+            <div class="final-stats">
+                <div class="final-stat">
+                    总题数
+                    <div class="final-stat-value" id="finalTotal">10</div>
+                </div>
+                <div class="final-stat">
+                    正确数
+                    <div class="final-stat-value" id="finalCorrect">0</div>
+                </div>
+                <div class="final-stat">
+                    最终得分
+                    <div class="final-stat-value" id="finalScore">0</div>
+                </div>
+                <div class="final-stat">
+                    正确率
+                    <div class="final-stat-value" id="finalAccuracy">0%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class GeographyQuiz {
+            constructor() {
+                this.questions = {
+                    world: [
+                        {
+                            question: "世界上最大的大洋是？",
+                            options: ["太平洋", "大西洋", "印度洋", "北冰洋"],
+                            correct: 0,
+                            explanation: "太平洋是世界上最大的大洋，面积约1.65亿平方公里，占地球表面积的三分之一。"
+                        },
+                        {
+                            question: "世界上最长的河流是？",
+                            options: ["亚马逊河", "尼罗河", "长江", "密西西比河"],
+                            correct: 1,
+                            explanation: "尼罗河全长约6650公里，是世界上最长的河流，流经非洲东北部。"
+                        },
+                        {
+                            question: "世界上最高的山峰是？",
+                            options: ["K2峰", "珠穆朗玛峰", "干城章嘉峰", "洛子峰"],
+                            correct: 1,
+                            explanation: "珠穆朗玛峰海拔8848.86米，位于中国和尼泊尔边境，是世界最高峰。"
+                        },
+                        {
+                            question: "世界上最大的沙漠是？",
+                            options: ["撒哈拉沙漠", "戈壁沙漠", "阿拉伯沙漠", "卡拉哈里沙漠"],
+                            correct: 0,
+                            explanation: "撒哈拉沙漠面积约906万平方公里，是世界上最大的热带沙漠。"
+                        },
+                        {
+                            question: "世界上面积最大的国家是？",
+                            options: ["中国", "美国", "俄罗斯", "加拿大"],
+                            correct: 2,
+                            explanation: "俄罗斯面积约1707万平方公里，是世界上面积最大的国家。"
+                        }
+                    ],
+                    china: [
+                        {
+                            question: "中国最长的河流是？",
+                            options: ["黄河", "长江", "珠江", "淮河"],
+                            correct: 1,
+                            explanation: "长江全长约6300公里，是中国最长的河流，也是亚洲最长的河流。"
+                        },
+                        {
+                            question: "中国最大的湖泊是？",
+                            options: ["鄱阳湖", "洞庭湖", "青海湖", "太湖"],
+                            correct: 2,
+                            explanation: "青海湖面积约4583平方公里，是中国最大的湖泊，也是最大的咸水湖。"
+                        },
+                        {
+                            question: "中国的首都是？",
+                            options: ["上海", "北京", "广州", "深圳"],
+                            correct: 1,
+                            explanation: "北京是中华人民共和国的首都，政治、文化中心。"
+                        },
+                        {
+                            question: "中国最高的山峰是？",
+                            options: ["泰山", "华山", "珠穆朗玛峰", "黄山"],
+                            correct: 2,
+                            explanation: "珠穆朗玛峰位于中国西藏与尼泊尔边境，海拔8848.86米。"
+                        },
+                        {
+                            question: "中国面积最大的省份是？",
+                            options: ["新疆", "西藏", "内蒙古", "青海"],
+                            correct: 0,
+                            explanation: "新疆维吾尔自治区面积约166万平方公里，是中国面积最大的省级行政区。"
+                        }
+                    ],
+                    capitals: [
+                        {
+                            question: "法国的首都是？",
+                            options: ["伦敦", "巴黎", "柏林", "罗马"],
+                            correct: 1,
+                            explanation: "巴黎是法国的首都和最大城市，被誉为'光之城'。"
+                        },
+                        {
+                            question: "日本的首都是？",
+                            options: ["大阪", "京都", "东京", "横滨"],
+                            correct: 2,
+                            explanation: "东京是日本的首都，也是世界上人口最多的都市圈之一。"
+                        },
+                        {
+                            question: "澳大利亚的首都是？",
+                            options: ["悉尼", "墨尔本", "堪培拉", "布里斯班"],
+                            correct: 2,
+                            explanation: "堪培拉是澳大利亚的首都，位于悉尼和墨尔本之间。"
+                        },
+                        {
+                            question: "加拿大的首都是？",
+                            options: ["多伦多", "温哥华", "渥太华", "蒙特利尔"],
+                            correct: 2,
+                            explanation: "渥太华是加拿大的首都，位于安大略省东南部。"
+                        },
+                        {
+                            question: "巴西的首都是？",
+                            options: ["里约热内卢", "圣保罗", "巴西利亚", "萨尔瓦多"],
+                            correct: 2,
+                            explanation: "巴西利亚是巴西的首都，1960年建成，是一座计划城市。"
+                        }
+                    ],
+                    rivers: [
+                        {
+                            question: "亚马逊河流经哪个大洲？",
+                            options: ["非洲", "亚洲", "南美洲", "北美洲"],
+                            correct: 2,
+                            explanation: "亚马逊河是南美洲最大的河流，流域面积约700万平方公里。"
+                        },
+                        {
+                            question: "贝加尔湖位于哪个国家？",
+                            options: ["中国", "俄罗斯", "蒙古", "哈萨克斯坦"],
+                            correct: 1,
+                            explanation: "贝加尔湖位于俄罗斯西伯利亚，是世界上最深的淡水湖。"
+                        },
+                        {
+                            question: "苏伊士运河连接哪两个海？",
+                            options: ["地中海和红海", "黑海和里海", "波罗的海和北海", "阿拉伯海和孟加拉湾"],
+                            correct: 0,
+                            explanation: "苏伊士运河连接地中海和红海，是重要的国际航运通道。"
+                        },
+                        {
+                            question: "密西西比河流入哪个海湾？",
+                            options: ["加利福尼亚湾", "墨西哥湾", "哈德逊湾", "切萨皮克湾"],
+                            correct: 1,
+                            explanation: "密西西比河是北美洲最长的河流，最终流入墨西哥湾。"
+                        },
+                        {
+                            question: "维多利亚湖位于哪个大洲？",
+                            options: ["亚洲", "欧洲", "非洲", "南美洲"],
+                            correct: 2,
+                            explanation: "维多利亚湖是非洲最大的湖泊，位于东非高原。"
+                        }
+                    ],
+                    mountains: [
+                        {
+                            question: "阿尔卑斯山脉位于哪个大洲？",
+                            options: ["亚洲", "欧洲", "北美洲", "南美洲"],
+                            correct: 1,
+                            explanation: "阿尔卑斯山脉是欧洲最高的山脉，横跨8个国家。"
+                        },
+                        {
+                            question: "安第斯山脉位于哪个大洲？",
+                            options: ["北美洲", "南美洲", "非洲", "亚洲"],
+                            correct: 1,
+                            explanation: "安第斯山脉是世界上最长的山脉，沿南美洲西海岸延伸。"
+                        },
+                        {
+                            question: "喜马拉雅山脉的最高峰是？",
+                            options: ["K2峰", "干城章嘉峰", "珠穆朗玛峰", "洛子峰"],
+                            correct: 2,
+                            explanation: "珠穆朗玛峰是喜马拉雅山脉和世界的最高峰。"
+                        },
+                        {
+                            question: "青藏高原被称为？",
+                            options: ["世界屋脊", "亚洲水塔", "雪域高原", "以上都是"],
+                            correct: 3,
+                            explanation: "青藏高原平均海拔4000米以上，有多个美誉，被称为世界屋脊、亚洲水塔等。"
+                        },
+                        {
+                            question: "落基山脉位于哪个国家？",
+                            options: ["美国", "加拿大", "美国和加拿大", "墨西哥"],
+                            correct: 2,
+                            explanation: "落基山脉从加拿大不列颠哥伦比亚省延伸到美国新墨西哥州。"
+                        }
+                    ]
+                };
+                
+                this.currentCategory = 'world';
+                this.currentQuestionIndex = 0;
+                this.score = 0;
+                this.correctCount = 0;
+                this.selectedAnswer = null;
+                this.isAnswered = false;
+                this.totalQuestions = 10;
+                
+                this.initElements();
+                this.bindEvents();
+                this.loadQuestion();
+            }
+            
+            initElements() {
+                this.questionNumber = document.getElementById('questionNumber');
+                this.questionText = document.getElementById('questionText');
+                this.optionsContainer = document.getElementById('optionsContainer');
+                this.feedback = document.getElementById('feedback');
+                this.submitBtn = document.getElementById('submitBtn');
+                this.skipBtn = document.getElementById('skipBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.restartBtn = document.getElementById('restartBtn');
+                this.gameComplete = document.getElementById('gameComplete');
+                this.progressFill = document.getElementById('progressFill');
+                
+                this.scoreSpan = document.getElementById('score');
+                this.currentQuestionSpan = document.getElementById('currentQuestion');
+                this.totalQuestionsSpan = document.getElementById('totalQuestions');
+                this.correctCountSpan = document.getElementById('correctCount');
+                this.accuracySpan = document.getElementById('accuracy');
+            }
+            
+            bindEvents() {
+                // 分类选择
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentCategory = e.target.dataset.category;
+                        this.restartGame();
+                    });
+                });
+                
+                this.submitBtn.addEventListener('click', () => this.submitAnswer());
+                this.skipBtn.addEventListener('click', () => this.skipQuestion());
+                this.nextBtn.addEventListener('click', () => this.nextQuestion());
+                this.restartBtn.addEventListener('click', () => this.restartGame());
+            }
+            
+            restartGame() {
+                this.currentQuestionIndex = 0;
+                this.score = 0;
+                this.correctCount = 0;
+                this.selectedAnswer = null;
+                this.isAnswered = false;
+                this.gameComplete.style.display = 'none';
+                this.restartBtn.style.display = 'none';
+                this.loadQuestion();
+                this.updateStats();
+            }
+            
+            loadQuestion() {
+                const questions = this.questions[this.currentCategory];
+                const question = questions[this.currentQuestionIndex % questions.length];
+                
+                this.questionNumber.textContent = `第 ${this.currentQuestionIndex + 1} 题`;
+                this.questionText.textContent = question.question;
+                
+                this.optionsContainer.innerHTML = '';
+                this.feedback.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.submitBtn.disabled = true;
+                this.selectedAnswer = null;
+                this.isAnswered = false;
+                
+                question.options.forEach((option, index) => {
+                    const optionBtn = document.createElement('div');
+                    optionBtn.className = 'option-btn';
+                    optionBtn.innerHTML = `
+                        <div class="option-label">${String.fromCharCode(65 + index)}</div>
+                        ${option}
+                    `;
+                    optionBtn.addEventListener('click', () => this.selectOption(index));
+                    this.optionsContainer.appendChild(optionBtn);
+                });
+                
+                this.updateProgress();
+            }
+            
+            selectOption(index) {
+                if (this.isAnswered) return;
+                
+                // 清除之前的选择
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                
+                // 选择当前选项
+                const selectedBtn = this.optionsContainer.children[index];
+                selectedBtn.classList.add('selected');
+                
+                this.selectedAnswer = index;
+                this.submitBtn.disabled = false;
+            }
+            
+            submitAnswer() {
+                if (this.selectedAnswer === null || this.isAnswered) return;
+                
+                const questions = this.questions[this.currentCategory];
+                const question = questions[this.currentQuestionIndex % questions.length];
+                const isCorrect = this.selectedAnswer === question.correct;
+                
+                this.isAnswered = true;
+                
+                // 显示答案结果
+                document.querySelectorAll('.option-btn').forEach((btn, index) => {
+                    btn.classList.add('disabled');
+                    if (index === question.correct) {
+                        btn.classList.add('correct');
+                    } else if (index === this.selectedAnswer && !isCorrect) {
+                        btn.classList.add('wrong');
+                    }
+                });
+                
+                // 更新分数和统计
+                if (isCorrect) {
+                    this.score += 10;
+                    this.correctCount++;
+                    this.feedback.className = 'feedback correct';
+                    this.feedback.innerHTML = `
+                        <strong>回答正确！</strong><br>
+                        <div class="explanation">
+                            <div class="explanation-title">知识点：</div>
+                            ${question.explanation}
+                        </div>
+                    `;
+                } else {
+                    this.feedback.className = 'feedback wrong';
+                    this.feedback.innerHTML = `
+                        <strong>回答错误！</strong><br>
+                        正确答案是：${question.options[question.correct]}<br>
+                        <div class="explanation">
+                            <div class="explanation-title">知识点：</div>
+                            ${question.explanation}
+                        </div>
+                    `;
+                }
+                
+                this.feedback.style.display = 'block';
+                this.submitBtn.disabled = true;
+                
+                if (this.currentQuestionIndex + 1 >= this.totalQuestions) {
+                    this.nextBtn.textContent = '查看结果';
+                } else {
+                    this.nextBtn.textContent = '下一题';
+                }
+                this.nextBtn.style.display = 'inline-block';
+                
+                this.updateStats();
+            }
+            
+            skipQuestion() {
+                if (this.isAnswered) return;
+                
+                const questions = this.questions[this.currentCategory];
+                const question = questions[this.currentQuestionIndex % questions.length];
+                
+                this.isAnswered = true;
+                
+                // 显示正确答案
+                document.querySelectorAll('.option-btn').forEach((btn, index) => {
+                    btn.classList.add('disabled');
+                    if (index === question.correct) {
+                        btn.classList.add('correct');
+                    }
+                });
+                
+                this.feedback.className = 'feedback wrong';
+                this.feedback.innerHTML = `
+                    <strong>已跳过此题</strong><br>
+                    正确答案是：${question.options[question.correct]}<br>
+                    <div class="explanation">
+                        <div class="explanation-title">知识点：</div>
+                        ${question.explanation}
+                    </div>
+                `;
+                this.feedback.style.display = 'block';
+                
+                this.submitBtn.disabled = true;
+                
+                if (this.currentQuestionIndex + 1 >= this.totalQuestions) {
+                    this.nextBtn.textContent = '查看结果';
+                } else {
+                    this.nextBtn.textContent = '下一题';
+                }
+                this.nextBtn.style.display = 'inline-block';
+            }
+            
+            nextQuestion() {
+                this.currentQuestionIndex++;
+                
+                if (this.currentQuestionIndex >= this.totalQuestions) {
+                    this.showGameComplete();
+                } else {
+                    this.loadQuestion();
+                }
+            }
+            
+            showGameComplete() {
+                const accuracy = Math.round((this.correctCount / this.totalQuestions) * 100);
+                
+                document.getElementById('finalTotal').textContent = this.totalQuestions;
+                document.getElementById('finalCorrect').textContent = this.correctCount;
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('finalAccuracy').textContent = accuracy + '%';
+                
+                this.gameComplete.style.display = 'block';
+                this.restartBtn.style.display = 'inline-block';
+                this.nextBtn.style.display = 'none';
+                this.skipBtn.style.display = 'none';
+                this.submitBtn.style.display = 'none';
+            }
+            
+            updateProgress() {
+                const progress = ((this.currentQuestionIndex + 1) / this.totalQuestions) * 100;
+                this.progressFill.style.width = progress + '%';
+            }
+            
+            updateStats() {
+                this.scoreSpan.textContent = this.score;
+                this.currentQuestionSpan.textContent = this.currentQuestionIndex + 1;
+                this.totalQuestionsSpan.textContent = this.totalQuestions;
+                this.correctCountSpan.textContent = this.correctCount;
+                
+                const accuracy = this.currentQuestionIndex > 0 ? 
+                    Math.round((this.correctCount / (this.currentQuestionIndex + (this.isAnswered ? 1 : 0))) * 100) : 0;
+                this.accuracySpan.textContent = accuracy + '%';
+            }
+        }
+        
+        // 启动游戏
+        new GeographyQuiz();
+    </script>
+</body>
+</html>

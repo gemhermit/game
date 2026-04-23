@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多用电表读数练习 - 在线创意工具小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="多用电表读数训练页面，适合实验课堂和基础电学练习。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="多用电表读数练习,创意工具,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/multimeter.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="多用电表读数练习 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta property="og:description" content="多用电表读数训练页面，适合实验课堂和基础电学练习。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/multimeter.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="多用电表读数练习 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="多用电表读数训练页面，适合实验课堂和基础电学练习。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"多用电表读数练习","description":"多用电表读数训练页面，适合实验课堂和基础电学练习。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/multimeter.html","genre":"创意工具","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #475569;
+            --success-color: #22c55e;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --sidebar-width: 380px;
+            --meter-bg: #1a1a2e;
+            --meter-screen: #0f0f23;
+            --meter-accent: #e94560;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-color);
+            color: #1e293b;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-header .subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* Score Panel */
+        .score-panel {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .score-card {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .score-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .score-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .score-value.correct { color: var(--success-color); }
+        .score-value.wrong { color: var(--error-color); }
+        .score-value.total { color: var(--primary-color); }
+
+        /* Control Section */
+        .control-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Mode Selector */
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .mode-btn {
+            padding: 10px 8px;
+            border: 2px solid #cbd5e1;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            color: var(--secondary-color);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .mode-btn:hover {
+            border-color: var(--primary-color);
+            background: #eff6ff;
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Difficulty Selector */
+        .difficulty-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .difficulty-btn {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #cbd5e1;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .difficulty-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .difficulty-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Answer Section */
+        .answer-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .hint-btn {
+            width: 100%;
+            padding: 10px;
+            background: #fef3c7;
+            color: #92400e;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+
+        .hint-btn:hover {
+            background: #fde68a;
+        }
+
+        /* Feedback */
+        .feedback {
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct {
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+        .feedback.wrong {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feedback-detail {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            position: relative;
+            background-color: #f8fafc;
+            background-image:
+                linear-gradient(rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Multimeter Container - Realistic Design */
+        .multimeter-container {
+            background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            max-width: 90%;
+            width: 380px;
+            position: relative;
+        }
+
+        /* Rubber holster hints */
+        .multimeter-container::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: -5px;
+            width: 8px;
+            height: calc(100% - 20px);
+            background: #2a2a2a;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .multimeter-container::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: -5px;
+            width: 8px;
+            height: calc(100% - 20px);
+            background: #2a2a2a;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* LCD Screen - Realistic Style */
+        .meter-screen {
+            background: #8a9a6a;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 3px solid #333;
+            box-shadow:
+                inset 0 2px 8px rgba(0, 0, 0, 0.3),
+                0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        /* LCD inner frame */
+        .meter-screen::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+
+        .screen-display {
+            font-family: 'Courier New', 'Lucida Console', monospace;
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            text-align: right;
+            letter-spacing: 2px;
+            min-height: 45px;
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        .screen-unit {
+            font-size: 0.9rem;
+            color: #1a1a1a;
+            margin-left: 4px;
+        }
+
+        /* Mode display on LCD */
+        .meter-mode-display {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            padding: 4px 8px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 3px;
+        }
+
+        .mode-indicator {
+            color: #333;
+            font-size: 0.65rem;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+
+        .mode-indicator.active {
+            color: #000;
+        }
+
+        /* Input Jacks - Vertical Layout */
+        .meter-jacks {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            position: absolute;
+            right: 15px;
+            top: 180px;
+        }
+
+        .meter-jack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .jack-hole {
+            width: 22px;
+            height: 22px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            border: 2px solid #444;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .jack-hole.red { border-color: #8b0000; }
+        .jack-hole.com { border-color: #333; }
+
+        .jack-label {
+            font-size: 0.5rem;
+            color: #888;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Rotary Switch with Dial Face */
+        .rotary-switch {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin: 0 auto 15px;
+            margin-right: 60px;
+        }
+
+        /* Dial face with zones */
+        .rotary-switch::before {
+            content: '';
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            background:
+                radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+            border-radius: 50%;
+            box-shadow:
+                inset 0 2px 10px rgba(0, 0, 0, 0.8),
+                0 2px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* Dial zone labels */
+        .dial-zone {
+            position: absolute;
+            font-size: 0.55rem;
+            color: #fff;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .zone-off { top: 10px; left: 50%; transform: translateX(-50%); }
+        .zone-dcv { top: 35px; left: 35px; }
+        .zone-acv { top: 35px; right: 35px; }
+        .zone-dca { top: 50%; right: 10px; transform: translateY(-50%); }
+        .zone-ohm { top: 50%; left: 10px; transform: translateY(-50%); }
+        .zone-diode { bottom: 35px; left: 50%; transform: translateX(-50%); }
+
+        .dial-zone-inner {
+            font-size: 0.45rem;
+            color: #888;
+            font-weight: normal;
+        }
+
+        /* Red Knob */
+        .switch-knob {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(145deg, #cc2936, #8b1a24);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.5),
+                inset 0 2px 3px rgba(255, 255, 255, 0.2),
+                inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+            cursor: grab;
+            transition: transform 0.15s ease-out;
+            z-index: 10;
+        }
+
+        .switch-knob:active {
+            cursor: grabbing;
+        }
+
+        /* Knob grip texture */
+        .switch-knob::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-conic-gradient(
+                from 0deg,
+                rgba(255,255,255,0.1) 0deg 3deg,
+                transparent 3deg 6deg
+            );
+            border-radius: 50%;
+        }
+
+        /* Red pointer */
+        .switch-knob::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 18px;
+            background: linear-gradient(180deg, #ff4757, #cc2936);
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(255, 71, 87, 0.4);
+        }
+
+        /* Switch positions (click stops) */
+        .switch-positions {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 5;
+        }
+
+        .switch-position {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: Arial, sans-serif;
+        }
+
+        .switch-position:hover {
+            color: #888;
+        }
+
+        .switch-position.active {
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        /* Click stop positions around dial */
+        .stop-0 { top: 12px; left: 50%; transform: translateX(-50%); }
+        .stop-1 { top: 45px; left: 35px; }
+        .stop-2 { top: 90px; left: 15px; }
+        .stop-3 { top: 140px; left: 15px; }
+        .stop-4 { bottom: 45px; left: 35px; }
+        .stop-5 { bottom: 12px; left: 50%; transform: translateX(-50%); }
+        .stop-6 { bottom: 45px; right: 35px; }
+        .stop-7 { top: 90px; right: 15px; }
+        .stop-8 { top: 45px; right: 35px; }
+
+        /* Simplified Dial Labels below */
+        .dial-labels {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 8px;
+            margin-right: 60px;
+        }
+
+        .dial-label {
+            padding: 4px 8px;
+            background: #1a1a1a;
+            border-radius: 3px;
+            color: #666;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #333;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+
+        .dial-label:hover {
+            background: #2a2a2a;
+            color: #888;
+        }
+
+        .dial-label.active {
+            background: #cc2936;
+            color: white;
+            border-color: #ff4757;
+        }
+
+        /* Brand label */
+        .meter-brand {
+            text-align: center;
+            color: #555;
+            font-size: 0.6rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 2px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Target Panel */
+        .target-panel {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 1px solid #f59e0b;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .target-label {
+            font-size: 0.85rem;
+            color: #92400e;
+            margin-bottom: 4px;
+        }
+
+        .target-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #b45309;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Reading Guide */
+        .reading-guide {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .reading-guide.show { display: block; }
+
+        .reading-guide h4 {
+            color: #1e40af;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .reading-guide ol {
+            color: #1e3a8a;
+            font-size: 0.85rem;
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
+        /* Animations */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .shake { animation: shake 0.5s ease-in-out; }
+        .celebrate { animation: celebrate 0.5s ease-in-out; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 50vh;
+            }
+            body {
+                flex-direction: column;
+                height: auto;
+            }
+            .multimeter-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>🔌 多用电表读数练习</h1>
+            <div class="subtitle">电压 & 电流 & 电阻</div>
+        </div>
+
+        <div class="sidebar-content">
+            <!-- Score Panel -->
+            <div class="score-panel">
+                <div class="score-card">
+                    <div class="score-label">正确</div>
+                    <div class="score-value correct" id="correctCount">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label">错误</div>
+                    <div class="score-value wrong" id="wrongCount">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label">总计</div>
+                    <div class="score-value total" id="totalCount">0</div>
+                </div>
+            </div>
+
+            <!-- Mode Selector -->
+            <div class="control-section">
+                <div class="section-title">⚡ 测量模式</div>
+                <div class="mode-grid">
+                    <button class="mode-btn active" data-mode="DCV" onclick="selectMode('DCV')">DCV<br>直流电压</button>
+                    <button class="mode-btn" data-mode="ACV" onclick="selectMode('ACV')">ACV<br>交流电压</button>
+                    <button class="mode-btn" data-mode="DCA" onclick="selectMode('DCA')">DCA<br>直流电流</button>
+                    <button class="mode-btn" data-mode="OHM" onclick="selectMode('OHM')">Ω<br>电阻</button>
+                </div>
+            </div>
+
+            <!-- Difficulty Selector -->
+            <div class="control-section">
+                <div class="section-title">🎯 难度选择</div>
+                <div class="difficulty-btns">
+                    <button class="difficulty-btn active" data-difficulty="easy" onclick="selectDifficulty('easy')">简单</button>
+                    <button class="difficulty-btn" data-difficulty="medium" onclick="selectDifficulty('medium')">中等</button>
+                    <button class="difficulty-btn" data-difficulty="hard" onclick="selectDifficulty('hard')">困难</button>
+                </div>
+            </div>
+
+            <!-- Answer Section -->
+            <div class="answer-section">
+                <div class="question-text" id="questionText">
+                    旋转档位开关，选择合适量程，使读数与目标一致
+                </div>
+
+                <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">
+                    提交答案
+                </button>
+
+                <button class="hint-btn" onclick="showHint()">💡 显示测量方法</button>
+
+                <div class="feedback" id="feedback">
+                    <div class="feedback-title" id="feedbackTitle"></div>
+                    <div class="feedback-detail" id="feedbackDetail"></div>
+                </div>
+
+                <div class="reading-guide" id="readingGuide">
+                    <h4>📖 测量方法</h4>
+                    <ol id="readingGuideText"></ol>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="nextQuestion()">下一题</button>
+                    <button class="btn btn-secondary" onclick="resetQuestion()">重置本题</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Target Panel -->
+        <div class="target-panel" id="targetPanel">
+            <div class="target-label">目标读数（需要调到与它一致）</div>
+            <div class="target-value" id="targetValue">-- V</div>
+        </div>
+
+        <!-- Multimeter -->
+        <div class="multimeter-container">
+            <div class="meter-brand">YBEN</div>
+
+            <div class="meter-screen">
+                <div class="meter-mode-display">
+                    <span class="mode-indicator" id="modeDisplay">DCV</span>
+                    <span class="mode-indicator" id="rangeDisplay">200mV</span>
+                </div>
+                <div class="screen-display" id="screenDisplay">
+                    0.00<span class="screen-unit">V</span>
+                </div>
+            </div>
+
+            <!-- Input Jacks - Right Side Vertical -->
+            <div class="meter-jacks">
+                <div class="meter-jack">
+                    <div class="jack-hole red"></div>
+                    <span class="jack-label">5A</span>
+                </div>
+                <div class="meter-jack">
+                    <div class="jack-hole red"></div>
+                    <span class="jack-label">VΩmA</span>
+                </div>
+                <div class="meter-jack">
+                    <div class="jack-hole com"></div>
+                    <span class="jack-label">COM</span>
+                </div>
+            </div>
+
+            <!-- Rotary Switch with Dial Zones -->
+            <div class="rotary-switch">
+                <!-- Zone labels -->
+                <div class="dial-zone zone-off">OFF</div>
+                <div class="dial-zone zone-dcv">V-<div class="dial-zone-inner">DCV</div></div>
+                <div class="dial-zone zone-acv">V~<div class="dial-zone-inner">ACV</div></div>
+                <div class="dial-zone zone-dca">A-<div class="dial-zone-inner">DCA</div></div>
+                <div class="dial-zone zone-ohm">Ω<div class="dial-zone-inner">OHM</div></div>
+                <div class="dial-zone zone-diode">-))</div>
+
+                <div class="switch-positions">
+                    <div class="switch-position stop-0" data-range="off" onclick="selectRange('off')">OFF</div>
+                    <div class="switch-position stop-1" data-range="200m" onclick="selectRange('200m')">200m</div>
+                    <div class="switch-position stop-2" data-range="2" onclick="selectRange('2')">2</div>
+                    <div class="switch-position stop-3" data-range="20" onclick="selectRange('20')">20</div>
+                    <div class="switch-position stop-4" data-range="200" onclick="selectRange('200')">200</div>
+                    <div class="switch-position stop-5" data-range="1000" onclick="selectRange('1000')">1000</div>
+                </div>
+                <div class="switch-knob" id="switchKnob"></div>
+            </div>
+
+            <!-- Dial Labels -->
+            <div class="dial-labels" id="dialLabels">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="instruction-panel" style="margin-top: 20px; text-align: center; color: #64748b;">
+            旋转红色旋钮或点击档位，选择合适量程
+        </div>
+    </div>
+
+    <script>
+        // Game State
+        let currentMode = 'DCV';
+        let currentDifficulty = 'easy';
+        let currentRange = '200m';
+        let targetReading = 0;
+        let currentReading = 0;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let totalCount = 0;
+
+        // Mode configurations
+        const modeConfig = {
+            DCV: {
+                name: '直流电压',
+                unit: 'V',
+                ranges: ['200m', '2', '20', '200', '1000'],
+                easy: { min: 0.1, max: 15, step: 0.1 },
+                medium: { min: 0.01, max: 18, step: 0.01 },
+                hard: { min: 0.001, max: 19.9, step: 0.001 }
+            },
+            ACV: {
+                name: '交流电压',
+                unit: 'V',
+                ranges: ['200m', '2', '20', '200', '1000'],
+                easy: { min: 1, max: 200, step: 1 },
+                medium: { min: 0.1, max: 220, step: 0.1 },
+                hard: { min: 0.01, max: 250, step: 0.01 }
+            },
+            DCA: {
+                name: '直流电流',
+                unit: 'A',
+                ranges: ['200m', '20m', '200μ', '2μ'],
+                easy: { min: 0.01, max: 150, step: 0.01 },
+                medium: { min: 0.001, max: 180, step: 0.001 },
+                hard: { min: 0.0001, max: 199.9, step: 0.0001 }
+            },
+            OHM: {
+                name: '电阻',
+                unit: 'Ω',
+                ranges: ['200', '2k', '20k', '200k', '2M'],
+                easy: { min: 1, max: 150, step: 1 },
+                medium: { min: 0.1, max: 1800, step: 0.1 },
+                hard: { min: 0.01, max: 1990, step: 0.01 }
+            }
+        };
+
+        // Range multipliers
+        const rangeMultipliers = {
+            '200m': 0.2,    // 200mV = 0.2V
+            '2': 2,
+            '20': 20,
+            '200': 200,
+            '1000': 1000,
+            '20m': 0.02,    // 20mA
+            '200μ': 0.0002,  // 200μA
+            '2μ': 0.000002, // 2μA
+            '200': 200,      // 200Ω
+            '2k': 2000,      // 2kΩ
+            '20k': 20000,    // 20kΩ
+            '200k': 200000,  // 200kΩ
+            '2M': 2000000    // 2MΩ
+        };
+
+        // Reading guides
+        const readingGuides = {
+            DCV: [
+                '选择直流电压档位(DCV)',
+                '将红表笔插入VΩ孔，黑表笔插入COM孔',
+                '估计被测电压大小，选择合适的量程',
+                '测量时注意正负极，红表笔接正，黑表笔接负',
+                '读数 = 显示数值 × 量程系数'
+            ],
+            ACV: [
+                '选择交流电压档位(ACV)',
+                '将红表笔插入VΩ孔，黑表笔插入COM孔',
+                '估计被测电压大小，选择合适的量程',
+                '交流电无正负极之分，可任意连接',
+                '读数 = 显示数值 × 量程系数'
+            ],
+            DCA: [
+                '选择直流电流档位(DCA)',
+                '将红表笔插入mA孔(小电流)或10A孔(大电流)',
+                '估计被测电流大小，选择合适的量程',
+                '测量时必须串联在电路中',
+                '注意量程，电流过大会烧毁保险丝'
+            ],
+            OHM: [
+                '选择电阻档位(Ω)',
+                '将红表笔插入VΩ孔，黑表笔插入COM孔',
+                '测量前将两表笔短路，调节欧姆调零旋钮',
+                '估计被测电阻大小，选择合适的量程',
+                '注意：测量时必须断开电源'
+            ]
+        };
+
+        // Knob drag functionality
+        let isDragging = false;
+        let startAngle = 0;
+        let currentAngle = 0;
+        let knobElement = null;
+        let switchCenter = null;
+
+        function initKnobDrag() {
+            knobElement = document.getElementById('switchKnob');
+            const rotarySwitch = document.querySelector('.rotary-switch');
+
+            knobElement.addEventListener('mousedown', startDrag);
+            knobElement.addEventListener('touchstart', startDrag, { passive: false });
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, { passive: false });
+
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+        }
+
+        function startDrag(e) {
+            e.preventDefault();
+            isDragging = true;
+            knobElement.style.transition = 'none';
+
+            const rect = knobElement.getBoundingClientRect();
+            switchCenter = {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+            };
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            startAngle = Math.atan2(clientY - switchCenter.y, clientX - switchCenter.x) * (180 / Math.PI);
+        }
+
+        function drag(e) {
+            if (!isDragging || !switchCenter) return;
+            e.preventDefault();
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            const angle = Math.atan2(clientY - switchCenter.y, clientX - switchCenter.x) * (180 / Math.PI);
+            let deltaAngle = angle - startAngle;
+
+            // Handle angle wrapping
+            if (deltaAngle > 180) deltaAngle -= 360;
+            if (deltaAngle < -180) deltaAngle += 360;
+
+            currentAngle += deltaAngle;
+            startAngle = angle;
+
+            // Constrain angle to valid positions
+            const ranges = modeConfig[currentMode].ranges;
+            const numPositions = ranges.length;
+            const anglePerPosition = 360 / 6; // 6 positions around the dial
+
+            // Calculate which position we're closest to
+            let normalizedAngle = ((currentAngle % 360) + 360) % 360;
+            let positionIndex = Math.round(normalizedAngle / anglePerPosition) % numPositions;
+
+            // Make sure positionIndex is valid
+            positionIndex = Math.max(0, Math.min(positionIndex, numPositions - 1));
+
+            const selectedRange = ranges[positionIndex];
+            if (selectedRange !== currentRange) {
+                selectRange(selectedRange);
+            }
+        }
+
+        function endDrag() {
+            if (isDragging) {
+                isDragging = false;
+                knobElement.style.transition = 'transform 0.15s ease-out';
+                updateSwitchRotation();
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDialLabels();
+            updateModeDisplay();
+            generateQuestion();
+            initKnobDrag();
+        });
+
+        // Update dial labels based on current mode
+        function updateDialLabels() {
+            const container = document.getElementById('dialLabels');
+            const ranges = modeConfig[currentMode].ranges;
+
+            container.innerHTML = ranges.map(range => `
+                <div class="dial-label ${range === currentRange ? 'active' : ''}"
+                     onclick="selectRange('${range}')">
+                    ${formatRange(range)}
+                </div>
+            `).join('');
+
+            // Update switch positions
+            const positions = document.querySelectorAll('.switch-position');
+            positions.forEach((pos, index) => {
+                if (index < ranges.length) {
+                    pos.style.display = 'flex';
+                    pos.textContent = ranges[index];
+                    pos.classList.toggle('active', ranges[index] === currentRange);
+                    pos.dataset.range = ranges[index];
+                } else {
+                    pos.style.display = 'none';
+                }
+            });
+
+            // Update switch knob rotation
+            updateSwitchRotation();
+        }
+
+        function formatRange(range) {
+            if (range.includes('m')) return range.replace('m', 'mA/V');
+            if (range.includes('k')) return range.replace('k', 'kΩ');
+            if (range.includes('M')) return range.replace('M', 'MΩ');
+            if (range.includes('μ')) return range.replace('μ', 'μA');
+            return range + (currentMode === 'OHM' ? 'Ω' : 'V');
+        }
+
+        // Update switch knob rotation
+        function updateSwitchRotation() {
+            const ranges = modeConfig[currentMode].ranges;
+            const index = ranges.indexOf(currentRange);
+            const angle = index * (360 / 6);
+            currentAngle = angle;
+            document.getElementById('switchKnob').style.transform =
+                `translate(-50%, -50%) rotate(${angle}deg)`;
+        }
+
+        // Select mode
+        function selectMode(mode) {
+            currentMode = mode;
+            currentAngle = 0; // Reset angle when changing mode
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === mode);
+            });
+
+            // Set default range
+            currentRange = modeConfig[mode].ranges[0];
+
+            updateDialLabels();
+            updateModeDisplay();
+            generateQuestion();
+        }
+
+        // Select range
+        function selectRange(range) {
+            currentRange = range;
+            updateDialLabels();
+            updateReading();
+        }
+
+        // Update mode display
+        function updateModeDisplay() {
+            document.getElementById('modeDisplay').textContent = currentMode;
+            document.getElementById('rangeDisplay').textContent = formatRange(currentRange);
+        }
+
+        // Update reading based on current range
+        function updateReading() {
+            const range = modeConfig[currentMode].ranges;
+            const index = range.indexOf(currentRange);
+            const multiplier = rangeMultipliers[currentRange];
+
+            // Simulate reading based on target and current range
+            // If range is too small, show overload (1 or OL)
+            // If range is appropriate, show proportional reading
+
+            const target = targetReading;
+            const maxDisplay = multiplier;
+
+            if (target > maxDisplay) {
+                // Over range - show overload
+                if (currentMode === 'OHM') {
+                    document.getElementById('screenDisplay').innerHTML =
+                        'OL<span class="screen-unit">' + modeConfig[currentMode].unit + '</span>';
+                } else {
+                    document.getElementById('screenDisplay').innerHTML =
+                        '1<span class="screen-unit">' + modeConfig[currentMode].unit + '</span>';
+                }
+                currentReading = maxDisplay * 1.1; // Indicate overload
+            } else if (target < maxDisplay * 0.02 && maxDisplay > 1) {
+                // Very small reading - show actual value
+                const displayValue = target;
+                currentReading = target;
+                document.getElementById('screenDisplay').innerHTML =
+                    displayValue.toFixed(getPrecision()) +
+                    '<span class="screen-unit">' + modeConfig[currentMode].unit + '</span>';
+            } else {
+                // Normal reading
+                const displayValue = target;
+                currentReading = target;
+                document.getElementById('screenDisplay').innerHTML =
+                    displayValue.toFixed(getPrecision()) +
+                    '<span class="screen-unit">' + modeConfig[currentMode].unit + '</span>';
+            }
+
+            // Update target panel unit
+            document.getElementById('targetValue').textContent =
+                targetReading.toFixed(getPrecision()) + ' ' + modeConfig[currentMode].unit;
+        }
+
+        function getPrecision() {
+            switch(currentDifficulty) {
+                case 'easy': return 2;
+                case 'medium': return 3;
+                case 'hard': return 4;
+                default: return 2;
+            }
+        }
+
+        // Select difficulty
+        function selectDifficulty(difficulty) {
+            currentDifficulty = difficulty;
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.difficulty === difficulty);
+            });
+
+            generateQuestion();
+        }
+
+        // Generate question
+        function generateQuestion() {
+            const config = modeConfig[currentMode][currentDifficulty];
+            const precision = config.step;
+
+            // Generate target reading
+            targetReading = Math.round((Math.random() * (config.max - config.min) + config.min) / precision) * precision;
+            targetReading = Math.max(config.min, Math.min(config.max, targetReading));
+
+            // Auto-select appropriate range
+            autoSelectRange();
+
+            // Update UI
+            updateReading();
+
+            // Reset feedback
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('readingGuide').className = 'reading-guide';
+        }
+
+        // Auto-select the best range
+        function autoSelectRange() {
+            const ranges = modeConfig[currentMode].ranges;
+
+            // Find the smallest range that can accommodate the target
+            for (let range of ranges) {
+                const max = rangeMultipliers[range];
+                if (targetReading <= max * 0.9) { // Use 90% of max to leave headroom
+                    currentRange = range;
+                    break;
+                }
+            }
+
+            updateDialLabels();
+            updateModeDisplay();
+        }
+
+        // Check answer
+        function checkAnswer() {
+            const feedback = document.getElementById('feedback');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackDetail = document.getElementById('feedbackDetail');
+            const screenDisplay = document.getElementById('screenDisplay');
+
+            const userReading = currentReading;
+            const correctAnswer = targetReading;
+            const maxRange = rangeMultipliers[currentRange];
+
+            totalCount++;
+
+            // Check if the range is correct (not overloaded)
+            const isOverRange = userReading > maxRange;
+
+            // Check if reading is correct (within tolerance)
+            const tolerance = currentDifficulty === 'hard' ? 0.01 :
+                             currentDifficulty === 'medium' ? 0.05 : 0.1;
+
+            const isCorrect = !isOverRange && Math.abs(userReading - correctAnswer) <= tolerance;
+
+            // Also check if they selected a reasonable range
+            const isRangeCorrect = correctAnswer <= maxRange * 0.9;
+
+            if (isCorrect && isRangeCorrect) {
+                correctCount++;
+                feedback.className = 'feedback show correct';
+                feedbackTitle.innerHTML = '✓ 回答正确！';
+                feedbackDetail.innerHTML = `
+                    目标读数: ${correctAnswer.toFixed(getPrecision())} ${modeConfig[currentMode].unit}<br>
+                    你的读数: ${userReading.toFixed(getPrecision())} ${modeConfig[currentMode].unit}<br>
+                    量程: ${currentRange}
+                `;
+                screenDisplay.classList.add('celebrate');
+                setTimeout(() => screenDisplay.classList.remove('celebrate'), 500);
+            } else {
+                wrongCount++;
+                feedback.className = 'feedback show wrong';
+
+                let errorMsg = '';
+                if (isOverRange) {
+                    errorMsg = '⚠️ 量程选择过小，读数超量程！';
+                } else if (!isRangeCorrect) {
+                    errorMsg = '⚠️ 量程选择不当，读数不准确！';
+                } else {
+                    errorMsg = `误差: ${Math.abs(userReading - correctAnswer).toFixed(getPrecision())} ${modeConfig[currentMode].unit}`;
+                }
+
+                feedbackTitle.innerHTML = '✗ 回答错误';
+                feedbackDetail.innerHTML = `
+                    目标读数: ${correctAnswer.toFixed(getPrecision())} ${modeConfig[currentMode].unit}<br>
+                    你的读数: ${userReading.toFixed(getPrecision())} ${modeConfig[currentMode].unit}<br>
+                    量程: ${currentRange}<br>
+                    <strong>${errorMsg}</strong>
+                `;
+                screenDisplay.classList.add('shake');
+                setTimeout(() => screenDisplay.classList.remove('shake'), 500);
+            }
+
+            // Update score display
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('wrongCount').textContent = wrongCount;
+            document.getElementById('totalCount').textContent = totalCount;
+        }
+
+        // Show hint
+        function showHint() {
+            const guide = document.getElementById('readingGuide');
+            const guideText = document.getElementById('readingGuideText');
+
+            guide.classList.toggle('show');
+
+            if (guide.classList.contains('show')) {
+                const steps = readingGuides[currentMode];
+                guideText.innerHTML = steps.map(step => `<li>${step}</li>`).join('');
+            }
+        }
+
+        // Next question
+        function nextQuestion() {
+            generateQuestion();
+        }
+
+        // Reset current question
+        function resetQuestion() {
+            // Reset to smallest range
+            currentRange = modeConfig[currentMode].ranges[0];
+            updateDialLabels();
+            updateReading();
+
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('readingGuide').className = 'reading-guide';
+        }
+    </script>
+</body>
+</html>

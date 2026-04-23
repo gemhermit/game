@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史时间线 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="历史时间线把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="历史时间线,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/history-timeline.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="历史时间线 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="历史时间线把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/history-timeline.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="历史时间线 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="历史时间线把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"历史时间线","description":"历史时间线把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/history-timeline.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #F4A460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .period-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .period-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .period-btn.active {
+            background: #8B4513;
+            color: white;
+            border-color: #8B4513;
+        }
+        .score-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .score-item {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+        .score-value {
+            font-weight: bold;
+            color: #8B4513;
+            display: block;
+            font-size: 1.5em;
+        }
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .instruction {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            max-width: 800px;
+            width: 100%;
+        }
+        .timeline-container {
+            width: 100%;
+            max-width: 900px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 400px;
+        }
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #8B4513;
+            transform: translateX(-50%);
+        }
+        .timeline-slot {
+            position: relative;
+            margin: 30px 0;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        .timeline-slot::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: #8B4513;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+        .timeline-slot.filled::before {
+            background: #00b894;
+        }
+        .timeline-item {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px 20px;
+            width: 45%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .timeline-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .timeline-item.left {
+            margin-right: auto;
+            margin-left: 0;
+        }
+        .timeline-item.right {
+            margin-left: auto;
+            margin-right: 0;
+        }
+        .timeline-item.correct {
+            background: #d4edda;
+            border-color: #00b894;
+        }
+        .timeline-item.wrong {
+            background: #f8d7da;
+            border-color: #e17055;
+        }
+        .event-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+        .event-description {
+            color: #636e72;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        .event-year {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #8B4513;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .events-pool {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+        .events-pool h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d3436;
+        }
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .event-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: grab;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        .event-card:hover {
+            border-color: #8B4513;
+            transform: translateY(-2px);
+        }
+        .event-card.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+            cursor: grabbing;
+        }
+        .event-card.used {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .drop-zone {
+            min-height: 80px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #636e72;
+            font-style: italic;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+        }
+        .drop-zone.drag-over {
+            border-color: #8B4513;
+            background: #fff3cd;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: #8B4513;
+            color: white;
+        }
+        .btn-success {
+            background: #00b894;
+            color: white;
+        }
+        .btn-warning {
+            background: #fdcb6e;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .feedback {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            max-width: 800px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            border-color: #00b894;
+            color: #155724;
+        }
+        .feedback.wrong {
+            background: #f8d7da;
+            border-color: #e17055;
+            color: #721c24;
+        }
+        .game-complete {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .game-complete h3 {
+            color: #1976d2;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .final-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .final-stat {
+            margin: 10px;
+        }
+        .final-stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>历史时间线排序</h1>
+        
+        <div class="period-selector">
+            <div class="period-btn active" data-period="ancient">古代史</div>
+            <div class="period-btn" data-period="medieval">中世纪</div>
+            <div class="period-btn" data-period="modern">近现代史</div>
+            <div class="period-btn" data-period="china">中国历史</div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item">
+                得分
+                <span class="score-value" id="score">0</span>
+            </div>
+            <div class="score-item">
+                轮次
+                <span class="score-value" id="round">1</span>
+            </div>
+            <div class="score-item">
+                正确数
+                <span class="score-value" id="correctCount">0</span>
+            </div>
+            <div class="score-item">
+                正确率
+                <span class="score-value" id="accuracy">0%</span>
+            </div>
+        </div>
+        
+        <div class="game-area">
+            <div class="instruction">
+                将下方的历史事件拖拽到时间线上，按照时间先后顺序排列
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline" id="timeline">
+                    <!-- 时间线插槽将在这里生成 -->
+                </div>
+            </div>
+            
+            <div class="events-pool">
+                <h3>历史事件</h3>
+                <div class="events-grid" id="eventsGrid">
+                    <!-- 事件卡片将在这里生成 -->
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback" style="display: none;">
+                <!-- 反馈信息 -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" id="checkBtn" disabled>检查答案</button>
+                <button class="btn btn-warning" id="hintBtn">提示</button>
+                <button class="btn btn-warning" id="resetBtn">重置</button>
+                <button class="btn btn-success" id="nextBtn" style="display: none;">下一轮</button>
+            </div>
+        </div>
+        
+        <div class="game-complete" id="gameComplete" style="display: none;">
+            <h3>恭喜完成！</h3>
+            <div class="final-stats">
+                <div class="final-stat">
+                    总轮数
+                    <div class="final-stat-value" id="finalRounds">0</div>
+                </div>
+                <div class="final-stat">
+                    正确数
+                    <div class="final-stat-value" id="finalCorrect">0</div>
+                </div>
+                <div class="final-stat">
+                    最终得分
+                    <div class="final-stat-value" id="finalScore">0</div>
+                </div>
+                <div class="final-stat">
+                    正确率
+                    <div class="final-stat-value" id="finalAccuracy">0%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class HistoryTimelineGame {
+            constructor() {
+                this.events = {
+                    ancient: [
+                        { title: "古埃及金字塔建造", description: "吉萨大金字塔建造完成", year: -2580 },
+                        { title: "古巴比伦汉谟拉比法典", description: "世界上最早的成文法典之一", year: -1750 },
+                        { title: "古希腊雅典民主制", description: "克里斯提尼改革建立民主制", year: -508 },
+                        { title: "罗马共和国建立", description: "推翻王制，建立共和政体", year: -509 },
+                        { title: "亚历山大大帝东征", description: "马其顿征服波斯帝国", year: -334 },
+                        { title: "秦始皇统一中国", description: "结束战国时代，建立秦朝", year: -221 },
+                        { title: "罗马帝国建立", description: "屋大维成为奥古斯都", year: -27 },
+                        { title: "耶稣诞生", description: "基督教创始人诞生", year: 0 }
+                    ],
+                    medieval: [
+                        { title: "西罗马帝国灭亡", description: "日耳曼人攻陷罗马", year: 476 },
+                        { title: "伊斯兰教创立", description: "穆罕默德创立伊斯兰教", year: 610 },
+                        { title: "查理曼加冕", description: "法兰克王国查理曼称帝", year: 800 },
+                        { title: "第一次十字军东征", description: "基督教世界对穆斯林的圣战", year: 1096 },
+                        { title: "蒙古帝国建立", description: "成吉思汗统一蒙古各部", year: 1206 },
+                        { title: "黑死病大流行", description: "鼠疫席卷欧洲", year: 1347 },
+                        { title: "君士坦丁堡陷落", description: "奥斯曼帝国攻陷拜占庭", year: 1453 },
+                        { title: "哥伦布发现美洲", description: "开启大航海时代", year: 1492 }
+                    ],
+                    modern: [
+                        { title: "英国工业革命", description: "机器生产取代手工劳动", year: 1760 },
+                        { title: "美国独立战争", description: "北美十三殖民地独立", year: 1775 },
+                        { title: "法国大革命", description: "推翻君主制，建立共和国", year: 1789 },
+                        { title: "拿破仑称帝", description: "法兰西第一帝国建立", year: 1804 },
+                        { title: "第一次世界大战", description: "人类历史上第一次世界大战", year: 1914 },
+                        { title: "俄国十月革命", description: "布尔什维克夺取政权", year: 1917 },
+                        { title: "第二次世界大战", description: "法西斯主义与反法西斯的较量", year: 1939 },
+                        { title: "联合国成立", description: "国际组织维护世界和平", year: 1945 }
+                    ],
+                    china: [
+                        { title: "夏朝建立", description: "中国第一个世袭制王朝", year: -2070 },
+                        { title: "商朝建立", description: "甲骨文和青铜器文明", year: -1600 },
+                        { title: "西周建立", description: "分封制和宗法制", year: -1046 },
+                        { title: "春秋时期开始", description: "礼崩乐坏，百家争鸣", year: -770 },
+                        { title: "战国时期开始", description: "七雄争霸，变法图强", year: -475 },
+                        { title: "秦朝建立", description: "中国第一个统一的封建王朝", year: -221 },
+                        { title: "汉朝建立", description: "刘邦建立西汉王朝", year: -206 },
+                        { title: "唐朝建立", description: "李渊建立唐朝", year: 618 }
+                    ]
+                };
+                
+                this.currentPeriod = 'ancient';
+                this.currentRound = 1;
+                this.score = 0;
+                this.correctCount = 0;
+                this.totalRounds = 0;
+                this.currentEvents = [];
+                this.placedEvents = [];
+                this.draggedElement = null;
+                
+                this.initElements();
+                this.bindEvents();
+                this.startNewRound();
+            }
+            
+            initElements() {
+                this.timeline = document.getElementById('timeline');
+                this.eventsGrid = document.getElementById('eventsGrid');
+                this.feedback = document.getElementById('feedback');
+                this.checkBtn = document.getElementById('checkBtn');
+                this.hintBtn = document.getElementById('hintBtn');
+                this.resetBtn = document.getElementById('resetBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.gameComplete = document.getElementById('gameComplete');
+                
+                this.scoreSpan = document.getElementById('score');
+                this.roundSpan = document.getElementById('round');
+                this.correctCountSpan = document.getElementById('correctCount');
+                this.accuracySpan = document.getElementById('accuracy');
+            }
+            
+            bindEvents() {
+                // 时期选择
+                document.querySelectorAll('.period-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentPeriod = e.target.dataset.period;
+                        this.resetGame();
+                    });
+                });
+                
+                this.checkBtn.addEventListener('click', () => this.checkAnswer());
+                this.hintBtn.addEventListener('click', () => this.showHint());
+                this.resetBtn.addEventListener('click', () => this.resetRound());
+                this.nextBtn.addEventListener('click', () => this.nextRound());
+            }
+            
+            resetGame() {
+                this.currentRound = 1;
+                this.score = 0;
+                this.correctCount = 0;
+                this.totalRounds = 0;
+                this.gameComplete.style.display = 'none';
+                this.startNewRound();
+            }
+            
+            startNewRound() {
+                // 随机选择4个事件
+                const allEvents = this.events[this.currentPeriod];
+                this.currentEvents = this.shuffleArray([...allEvents]).slice(0, 4);
+                this.currentEvents.sort((a, b) => a.year - b.year); // 按年份排序作为正确答案
+                
+                this.placedEvents = new Array(4).fill(null);
+                this.renderTimeline();
+                this.renderEvents();
+                this.updateStats();
+                
+                this.feedback.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.disabled = true;
+            }
+            
+            renderTimeline() {
+                this.timeline.innerHTML = '';
+                
+                for (let i = 0; i < 4; i++) {
+                    const slot = document.createElement('div');
+                    slot.className = 'timeline-slot';
+                    slot.dataset.index = i;
+                    
+                    const dropZone = document.createElement('div');
+                    dropZone.className = `drop-zone ${i % 2 === 0 ? 'left' : 'right'}`;
+                    dropZone.textContent = '拖拽事件到这里';
+                    dropZone.addEventListener('dragover', this.handleDragOver.bind(this));
+                    dropZone.addEventListener('drop', this.handleDrop.bind(this));
+                    
+                    slot.appendChild(dropZone);
+                    this.timeline.appendChild(slot);
+                }
+            }
+            
+            renderEvents() {
+                this.eventsGrid.innerHTML = '';
+                
+                // 打乱事件顺序
+                const shuffledEvents = this.shuffleArray([...this.currentEvents]);
+                
+                shuffledEvents.forEach((event, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'event-card';
+                    card.draggable = true;
+                    card.dataset.eventId = this.currentEvents.indexOf(event);
+                    
+                    card.innerHTML = `
+                        <div class="event-title">${event.title}</div>
+                        <div class="event-description">${event.description}</div>
+                        <div class="event-year">${this.formatYear(event.year)}</div>
+                    `;
+                    
+                    card.addEventListener('dragstart', this.handleDragStart.bind(this));
+                    card.addEventListener('dragend', this.handleDragEnd.bind(this));
+                    
+                    this.eventsGrid.appendChild(card);
+                });
+            }
+            
+            formatYear(year) {
+                return year < 0 ? `公元前${Math.abs(year)}年` : `公元${year}年`;
+            }
+            
+            handleDragStart(e) {
+                this.draggedElement = e.target;
+                e.target.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            }
+            
+            handleDragEnd(e) {
+                e.target.classList.remove('dragging');
+                this.draggedElement = null;
+            }
+            
+            handleDragOver(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                e.target.classList.add('drag-over');
+            }
+            
+            handleDrop(e) {
+                e.preventDefault();
+                e.target.classList.remove('drag-over');
+                
+                if (!this.draggedElement) return;
+                
+                const slotIndex = parseInt(e.target.closest('.timeline-slot').dataset.index);
+                const eventId = parseInt(this.draggedElement.dataset.eventId);
+                
+                // 检查该位置是否已有事件
+                if (this.placedEvents[slotIndex] !== null) {
+                    // 将原事件放回事件池
+                    const originalEventCard = document.querySelector(`[data-event-id="${this.placedEvents[slotIndex]}"]`);
+                    if (originalEventCard) {
+                        originalEventCard.classList.remove('used');
+                        originalEventCard.draggable = true;
+                    }
+                }
+                
+                // 放置新事件
+                this.placedEvents[slotIndex] = eventId;
+                const event = this.currentEvents[eventId];
+                
+                // 更新时间线显示
+                const dropZone = e.target;
+                dropZone.innerHTML = `
+                    <div class="timeline-item ${slotIndex % 2 === 0 ? 'left' : 'right'}">
+                        <div class="event-title">${event.title}</div>
+                        <div class="event-description">${event.description}</div>
+                        <div class="event-year">${this.formatYear(event.year)}</div>
+                    </div>
+                `;
+                
+                // 标记事件卡片为已使用
+                this.draggedElement.classList.add('used');
+                this.draggedElement.draggable = false;
+                
+                // 检查是否可以提交答案
+                this.checkBtn.disabled = this.placedEvents.includes(null);
+            }
+            
+            checkAnswer() {
+                // 检查答案：比较每个位置放置的事件是否是按时间顺序正确的
+                const isCorrect = this.placedEvents.every((eventId, index) => {
+                    return eventId === index; // placedEvents[i] 表示第i个位置的事件id，index是位置
+                    // currentEvents已经按年份排序，所以 currentEvents[i] 是第i早的事件
+                });
+
+                this.totalRounds++;
+
+                // 显示结果
+                document.querySelectorAll('.timeline-slot').forEach((slot, index) => {
+                    const timelineItem = slot.querySelector('.timeline-item');
+                    if (timelineItem) {
+                        if (this.placedEvents[index] === index) {
+                            timelineItem.classList.add('correct');
+                            slot.classList.add('filled');
+                        } else {
+                            timelineItem.classList.add('wrong');
+                        }
+                    }
+                });
+                
+                if (isCorrect) {
+                    this.score += 20;
+                    this.correctCount++;
+                    this.feedback.className = 'feedback correct';
+                    this.feedback.textContent = '恭喜！时间线排序完全正确！';
+                } else {
+                    this.feedback.className = 'feedback wrong';
+                    this.feedback.innerHTML = `
+                        <strong>排序有误！</strong><br>
+                        正确的时间顺序是：<br>
+                        ${this.currentEvents.map((event, index) => 
+                            `${index + 1}. ${event.title} (${this.formatYear(event.year)})`
+                        ).join('<br>')}
+                    `;
+                }
+                
+                this.feedback.style.display = 'block';
+                this.checkBtn.disabled = true;
+                
+                if (this.currentRound >= 5) {
+                    this.nextBtn.textContent = '查看结果';
+                } else {
+                    this.nextBtn.textContent = '下一轮';
+                }
+                this.nextBtn.style.display = 'inline-block';
+                
+                this.updateStats();
+            }
+            
+            showHint() {
+                // 显示最早的事件提示
+                const earliestEvent = this.currentEvents[0];
+                const hintCard = document.querySelector(`[data-event-id="0"]`);
+                
+                if (hintCard && !hintCard.classList.contains('used')) {
+                    hintCard.style.background = '#fff3cd';
+                    hintCard.style.borderColor = '#ffeaa7';
+                    
+                    setTimeout(() => {
+                        hintCard.style.background = '';
+                        hintCard.style.borderColor = '';
+                    }, 3000);
+                }
+                
+                this.feedback.className = 'feedback';
+                this.feedback.innerHTML = `提示：最早的事件是 "${earliestEvent.title}" (${this.formatYear(earliestEvent.year)})`;
+                this.feedback.style.display = 'block';
+            }
+            
+            resetRound() {
+                this.placedEvents = new Array(4).fill(null);
+                this.renderTimeline();
+                
+                // 重置事件卡片
+                document.querySelectorAll('.event-card').forEach(card => {
+                    card.classList.remove('used');
+                    card.draggable = true;
+                });
+                
+                this.feedback.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.disabled = true;
+            }
+            
+            nextRound() {
+                this.currentRound++;
+                
+                if (this.currentRound > 5) {
+                    this.showGameComplete();
+                } else {
+                    this.startNewRound();
+                }
+            }
+            
+            showGameComplete() {
+                const accuracy = Math.round((this.correctCount / this.totalRounds) * 100);
+                
+                document.getElementById('finalRounds').textContent = this.totalRounds;
+                document.getElementById('finalCorrect').textContent = this.correctCount;
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('finalAccuracy').textContent = accuracy + '%';
+                
+                this.gameComplete.style.display = 'block';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.style.display = 'none';
+                this.hintBtn.style.display = 'none';
+                this.resetBtn.textContent = '重新开始';
+                this.resetBtn.onclick = () => this.resetGame();
+            }
+            
+            updateStats() {
+                this.scoreSpan.textContent = this.score;
+                this.roundSpan.textContent = this.currentRound;
+                this.correctCountSpan.textContent = this.correctCount;
+                
+                const accuracy = this.totalRounds > 0 ? 
+                    Math.round((this.correctCount / this.totalRounds) * 100) : 0;
+                this.accuracySpan.textContent = accuracy + '%';
+            }
+            
+            shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+        }
+        
+        // 启动游戏
+        new HistoryTimelineGame();
+    </script>
+</body>
+</html>

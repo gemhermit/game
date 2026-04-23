@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太阳系 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="太阳系把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="太阳系,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/solar-system.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="太阳系 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="太阳系把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/solar-system.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="太阳系 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="太阳系把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"太阳系","description":"太阳系把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/solar-system.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+            --text-secondary: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar - Left Panel */
+        .sidebar {
+            width: 360px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Control Panel */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .control-value {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 13px;
+            color: var(--primary-color);
+            background: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #f1f5f9;
+            color: var(--text-color);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            color: white;
+        }
+
+        /* Planet List */
+        .planet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .planet-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .planet-item:hover {
+            background: #f1f5f9;
+            border-color: var(--primary-color);
+        }
+
+        .planet-item.active {
+            background: #eff6ff;
+            border-color: var(--primary-color);
+        }
+
+        .planet-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .planet-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .planet-info {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Info Panel */
+        .info-panel {
+            margin-top: auto;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .info-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Main Area - Right Side */
+        .main-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #000011 0%, #0a0a2e 50%, #000022 100%);
+            position: relative;
+        }
+
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .canvas-container:active {
+            cursor: grabbing;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Overlay Controls */
+        .overlay-controls {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Tips */
+        .tips {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* Hover Label */
+        .hover-label {
+            position: absolute;
+            padding: 8px 16px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hover-label.visible {
+            opacity: 1;
+        }
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 40vh;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-area {
+                min-height: 60vh;
+            }
+            .canvas-container {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+        <div class="header">
+            <h1>☀️ 太阳系</h1>
+            <p class="subtitle">探索太阳系八大行星</p>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">公转速度</span>
+                    <span class="control-value" id="speedValue">1x</span>
+                </div>
+                <input type="range" id="speedSlider" min="0" max="100" value="30">
+            </div>
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">缩放</span>
+                    <span class="control-value" id="zoomValue">1.0x</span>
+                </div>
+                <input type="range" id="zoomSlider" min="20" max="200" value="100">
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="toggleAnimation()">暂停/继续</button>
+            <button class="btn" onclick="resetView()">重置视角</button>
+        </div>
+
+        <div class="planet-list">
+            <div class="planet-item active" onclick="focusPlanet('sun')">
+                <div class="planet-dot" style="background: #ffd93d; box-shadow: 0 0 10px #ffd93d;"></div>
+                <div>
+                    <div class="planet-name">太阳</div>
+                    <div class="planet-info">恒星</div>
+                </div>
+            </div>
+            <div class="planet-item" onclick="focusPlanet('mercury')">
+                <div class="planet-dot" style="background: #b5b5b5;"></div>
+                <div>
+                    <div class="planet-name">水星</div>
+                    <div class="planet-info">距离太阳最近</div>
+                </div>
+            </div>
+            <div class="planet-item" onclick="focusPlanet('venus')">
+                <div class="planet-dot" style="background: #e6c87a;"></div>
+                <div>
+                    <div class="planet-name">金星</div>
+                    <div class="planet-info">启明星</div>
+                </div>
+            </div>
+            <div class="planet-item" onclick="focusPlanet('earth')">
+                <div class="planet-dot" style="background: #6b93d6;"></div>
+                <div>
+                    <div class="planet-name">地球</div>
+                    <div class="planet-info">我们的家园</div>
+                </div>
+            </div>
+            <div class="planet-item" onclick="focusPlanet('mars')">
+                <div class="planet-dot" style="background: #c1440e;"></div>
+                <div>
+                    <div class="planet-name">火星</div>
+                    <div class="planet-info">红色星球</div>
+                </div>
+            </div>
+            <div class="planet-item" onclick="focusPlanet('jupiter')">
+                <div class="planet-dot" style="background: #d8ca9d;"></div>
+                <div>
+                    <div class="planet-name">木星</div>
+                    <div class="planet-info">最大的行星</div>
+                </div>
+            </div>
+            <div class="planet-item" onclick="focusPlanet('saturn')">
+                <div class="planet-dot" style="background: #ead6b8;"></div>
+                <div>
+                    <div class="planet-name">土星</div>
+                    <div class="planet-info">有美丽光环</div>
+                </div>
+            </div>
+            <div class="planet-item" onclick="focusPlanet('uranus')">
+                <div class="planet-dot" style="background: #d1e7e7;"></div>
+                <div>
+                    <div class="planet-name">天王星</div>
+                    <div class="planet-info">躺着旋转</div>
+                </div>
+            </div>
+            <div class="planet-item" onclick="focusPlanet('neptune')">
+                <div class="planet-dot" style="background: #5b5ddf;"></div>
+                <div>
+                    <div class="planet-name">海王星</div>
+                    <div class="planet-info">最远的行星</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <div class="info-title">📖 行星知识</div>
+            <div class="info-text" id="infoText">
+                太阳系是由太阳和围绕太阳运行的天体组成的系统，包括8颗行星、卫星、小行星、彗星等。太阳位于太阳系中心，占据了太阳系总质量的99.86%。
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Main Area -->
+    <div class="main-area">
+        <div class="tips">💡 拖拽旋转 · 鼠标滚轮缩放 · 点击行星查看详情</div>
+        <div class="canvas-container" id="canvas-container"></div>
+        <div class="hover-label" id="hoverLabel"></div>
+        <div class="overlay-controls">
+            <button class="icon-btn" onclick="toggleAnimation()" title="暂停/继续">⏯️</button>
+            <button class="icon-btn" onclick="resetView()" title="重置">🔄</button>
+            <button class="icon-btn" onclick="speedUp()" title="加速">⚡</button>
+            <button class="icon-btn" onclick="slowDown()" title="减速">🐢</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script>
+        // Scene Setup
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.set(0, 30, 80);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // Planet data: [distance, size, color, speed, name]
+        const planetsData = {
+            'sun': { distance: 0, size: 8, color: 0xffd93d, speed: 0, name: '太阳', info: '太阳是太阳系的中心，是一颗黄矮星，年龄约46亿年。太阳占整个太阳系质量的99.86%，通过核聚变产生能量。' },
+            'mercury': { distance: 15, size: 0.8, color: 0xb5b5b5, speed: 4.7, name: '水星', info: '水星是距离太阳最近的行星，也是太阳系中最小的行星。水星上没有大气层，白天温度可达430°C，夜间降到-180°C。' },
+            'venus': { distance: 22, size: 1.5, color: 0xe6c87a, speed: 3.5, name: '金星', info: '金星是太阳系中最热的行星，表面温度约465°C。金星自转方向与其他行星相反，而且自转非常缓慢。' },
+            'earth': { distance: 30, size: 1.6, color: 0x6b93d6, speed: 2.9, name: '地球', info: '地球是太阳系中第三颗行星，也是目前已知唯一存在生命的星球。地球表面约71%被水覆盖，被称为"蓝色星球"。' },
+            'mars': { distance: 40, size: 1.1, color: 0xc1440e, speed: 2.4, name: '火星', info: '火星被称为"红色星球"，因为表面含有大量氧化铁。火星有太阳系最高的山峰奥林匹斯山（21公里）和最大的峡谷水手号峡谷。' },
+            'jupiter': { distance: 60, size: 4, color: 0xd8ca9d, speed: 1.3, name: '木星', info: '木星是太阳系中最大的行星，是一颗气态巨行星。木星的大红斑是一个巨大的风暴，已持续至少400年。' },
+            'saturn': { distance: 80, size: 3.5, color: 0xead6b8, speed: 0.9, name: '土星', info: '土星以其美丽的光环而闻名，主要由冰块和岩石组成。土星是太阳系中密度最小的行星，如果有一个足够大的浴缸，它会漂浮在水上。' },
+            'uranus': { distance: 100, size: 2.5, color: 0xd1e7e7, speed: 0.6, name: '天王星', info: '天王星是一颗冰巨星，它是"躺着"自转的行星，自转轴与公转轨道几乎平行。天王星的大气中含有甲烷，呈现蓝绿色。' },
+            'neptune': { distance: 115, size: 2.4, color: 0x5b5ddf, speed: 0.5, name: '海王星', info: '海王星是太阳系中距离太阳最远的行星，有着太阳系中最强烈的风暴，风速可达2100公里/小时。海王星的蓝色来自大气中的甲烷。' }
+        };
+
+        const solarSystem = new THREE.Group();
+        scene.add(solarSystem);
+
+        // Create Sun
+        const sunGeometry = new THREE.SphereGeometry(planetsData.sun.size, 32, 32);
+        const sunMaterial = new THREE.MeshBasicMaterial({ color: planetsData.sun.color });
+        const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+
+        // Add sun glow - stronger light
+        const sunGlow = new THREE.PointLight(0xffd93d, 3, 400);
+        sun.add(sunGlow);
+
+        // Sun corona
+        const coronaGeometry = new THREE.SphereGeometry(planetsData.sun.size * 1.2, 32, 32);
+        const coronaMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffd93d,
+            transparent: true,
+            opacity: 0.3
+        });
+        const corona = new THREE.Mesh(coronaGeometry, coronaMaterial);
+        sun.add(corona);
+
+        solarSystem.add(sun);
+
+        // Create planets and orbits
+        const planetMeshes = {};
+        const orbitLines = {};
+        const planetGroups = {};
+
+        // Create Earth texture for solar system
+        function createEarthTextureSolar() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            // Ocean
+            const oceanGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            oceanGradient.addColorStop(0, '#0a3055');
+            oceanGradient.addColorStop(0.5, '#1a6fa8');
+            oceanGradient.addColorStop(1, '#0a3055');
+            ctx.fillStyle = oceanGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const scale = 1024 / 360;
+            const heightScale = 512 / 180;
+            const toCanvas = (lon, lat) => [(lon + 180) * scale, (90 - lat) * heightScale];
+
+            // Continents
+            ctx.fillStyle = '#2d8a4e';
+
+            // Asia (partial)
+            ctx.beginPath();
+            ctx.moveTo(...toCanvas(60, 70));
+            ctx.lineTo(...toCanvas(100, 60));
+            ctx.lineTo(...toCanvas(145, 50));
+            ctx.lineTo(...toCanvas(170, 40));
+            ctx.lineTo(...toCanvas(170, 30));
+            ctx.lineTo(...toCanvas(130, 15));
+            ctx.lineTo(...toCanvas(100, 10));
+            ctx.lineTo(...toCanvas(80, 20));
+            ctx.lineTo(...toCanvas(60, 35));
+            ctx.closePath();
+            ctx.fill();
+
+            // Europe (partial)
+            ctx.beginPath();
+            ctx.moveTo(...toCanvas(-10, 60));
+            ctx.lineTo(...toCanvas(30, 50));
+            ctx.lineTo(...toCanvas(40, 40));
+            ctx.lineTo(...toCanvas(30, 35));
+            ctx.lineTo(...toCanvas(0, 35));
+            ctx.lineTo(...toCanvas(-10, 45));
+            ctx.closePath();
+            ctx.fill();
+
+            // Africa
+            ctx.beginPath();
+            ctx.moveTo(...toCanvas(-15, 35));
+            ctx.lineTo(...toCanvas(40, 30));
+            ctx.lineTo(...toCanvas(50, 0));
+            ctx.lineTo(...toCanvas(45, -30));
+            ctx.lineTo(...toCanvas(20, -35));
+            ctx.lineTo(...toCanvas(-15, -10));
+            ctx.closePath();
+            ctx.fill();
+
+            // North America
+            ctx.beginPath();
+            ctx.moveTo(...toCanvas(-165, 70));
+            ctx.lineTo(...toCanvas(-100, 65));
+            ctx.lineTo(...toCanvas(-60, 50));
+            ctx.lineTo(...toCanvas(-30, 25));
+            ctx.lineTo(...toCanvas(-20, 15));
+            ctx.lineTo(...toCanvas(-15, 5));
+            ctx.lineTo(...toCanvas(25, 10));
+            ctx.lineTo(...toCanvas(60, 25));
+            ctx.lineTo(...toCanvas(90, 50));
+            ctx.lineTo(...toCanvas(120, 55));
+            ctx.lineTo(...toCanvas(170, 65));
+            ctx.lineTo(...toCanvas(-165, 70));
+            ctx.closePath();
+            ctx.fill();
+
+            // South America
+            ctx.beginPath();
+            ctx.moveTo(...toCanvas(-80, 10));
+            ctx.lineTo(...toCanvas(-35, 0));
+            ctx.lineTo(...toCanvas(-35, -35));
+            ctx.lineTo(...toCanvas(-70, -50));
+            ctx.lineTo(...toCanvas(-80, -25));
+            ctx.closePath();
+            ctx.fill();
+
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        const earthTextureSolar = createEarthTextureSolar();
+
+        Object.keys(planetsData).forEach(key => {
+            if (key === 'sun') return;
+
+            const data = planetsData[key];
+
+            // Create orbit line
+            const orbitGeometry = new THREE.RingGeometry(data.distance - 0.1, data.distance + 0.1, 128);
+            const orbitMaterial = new THREE.MeshBasicMaterial({
+                color: 0x444466,
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.3
+            });
+            const orbit = new THREE.Mesh(orbitGeometry, orbitMaterial);
+            orbit.rotation.x = Math.PI / 2;
+            orbitLines[key] = orbit;
+            solarSystem.add(orbit);
+
+            // Create planet group for rotation
+            const planetGroup = new THREE.Group();
+            planetGroup.rotation.y = Math.random() * Math.PI * 2;
+            planetGroups[key] = planetGroup;
+
+            // Create planet
+            const planetGeometry = new THREE.SphereGeometry(data.size, 32, 32);
+            let planetMaterial;
+
+            if (key === 'earth') {
+                // Earth has texture
+                planetMaterial = new THREE.MeshStandardMaterial({
+                    map: earthTextureSolar,
+                    roughness: 0.7,
+                    metalness: 0.1
+                });
+            } else {
+                planetMaterial = new THREE.MeshStandardMaterial({
+                    color: data.color,
+                    roughness: 0.7,
+                    metalness: 0.1,
+                    emissive: data.color,
+                    emissiveIntensity: 0.1
+                });
+            }
+            const planet = new THREE.Mesh(planetGeometry, planetMaterial);
+            planet.position.x = data.distance;
+            planetMeshes[key] = planet;
+            planetGroup.add(planet);
+
+            // Add Saturn's rings
+            if (key === 'saturn') {
+                const ringGeometry = new THREE.RingGeometry(data.size * 1.3, data.size * 2.2, 64);
+                const ringMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xccb89e,
+                    side: THREE.DoubleSide,
+                    transparent: true,
+                    opacity: 0.7
+                });
+                const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+                ring.rotation.x = Math.PI / 2;
+                planet.add(ring);
+            }
+
+            solarSystem.add(planetGroup);
+        });
+
+        // Add stars background
+        function createStars() {
+            const starsGeometry = new THREE.BufferGeometry();
+            const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
+            const starPositions = [];
+
+            for (let i = 0; i < 3000; i++) {
+                const x = (Math.random() - 0.5) * 500;
+                const y = (Math.random() - 0.5) * 500;
+                const z = (Math.random() - 0.5) * 500;
+                starPositions.push(x, y, z);
+            }
+
+            starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));
+            return new THREE.Points(starsGeometry, starsMaterial);
+        }
+
+        const stars = createStars();
+        scene.add(stars);
+
+        // Ambient light - bright enough to see all planets
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        // Sun light - main light source
+        const sunLight = new THREE.PointLight(0xffffee, 3, 400);
+        sunLight.position.set(0, 0, 0);
+        scene.add(sunLight);
+
+        // Fill light - from camera direction to illuminate dark sides
+        const fillLight = new THREE.DirectionalLight(0x8888ff, 0.4);
+        fillLight.position.set(50, 50, 50);
+        scene.add(fillLight);
+
+        // Raycaster for interaction
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let hoveredPlanet = null;
+        let targetCameraPosition = new THREE.Vector3(0, 30, 80);
+        let targetLookAt = new THREE.Vector3(0, 0, 0);
+
+        // Interaction
+        let isAnimating = true;
+        let timeScale = 1;
+        let zoomScale = 1;
+        let isDragging = false;
+        let isAutoRotating = true;
+        let previousMousePosition = { x: 0, y: 0 };
+        let targetRotationX = 0;
+        let targetRotationY = 0;
+        let currentFocus = null;
+        let autoRotateSpeed = 0.2;
+        let hoveredPlanetName = null;
+
+        const hoverLabel = document.getElementById('hoverLabel');
+
+        // Mouse hover effect
+        function onMouseMove(event) {
+            // Update mouse position for raycasting
+            const rect = renderer.domElement.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            // Update hover label position
+            hoverLabel.style.left = event.clientX + 'px';
+            hoverLabel.style.top = (event.clientY - 50) + 'px';
+
+            // Check for planet hover
+            raycaster.setFromCamera(mouse, camera);
+            const allPlanets = [sun, ...Object.values(planetMeshes)];
+            const intersects = raycaster.intersectObjects(allPlanets);
+
+            // Reset previous hover
+            if (hoveredPlanet && (!intersects.length || intersects[0].object !== hoveredPlanet)) {
+                if (hoveredPlanet === sun) {
+                    coronaMaterial.opacity = 0.3;
+                } else {
+                    hoveredPlanet.scale.set(1, 1, 1);
+                }
+                renderer.domElement.style.cursor = 'grab';
+                hoveredPlanet = null;
+                hoveredPlanetName = null;
+                hoverLabel.classList.remove('visible');
+            }
+
+            // Set new hover
+            if (intersects.length > 0) {
+                const obj = intersects[0].object;
+                let planetKey = null;
+
+                if (obj === sun) {
+                    planetKey = 'sun';
+                } else {
+                    planetKey = Object.keys(planetMeshes).find(key => planetMeshes[key] === obj);
+                }
+
+                if (planetKey) {
+                    hoveredPlanet = obj;
+                    hoveredPlanetName = planetsData[planetKey].name;
+                    renderer.domElement.style.cursor = 'pointer';
+
+                    // Update hover label
+                    hoverLabel.textContent = hoveredPlanetName + ' - 点击查看';
+                    hoverLabel.classList.add('visible');
+
+                    if (obj === sun) {
+                        coronaMaterial.opacity = 0.6;
+                    } else {
+                        obj.scale.set(1.3, 1.3, 1.3);
+                    }
+                }
+            }
+
+            // Dragging
+            if (!isDragging || !isAutoRotating) return;
+            const deltaMove = {
+                x: event.clientX - previousMousePosition.x,
+                y: event.clientY - previousMousePosition.y
+            };
+            targetRotationY += deltaMove.x * 0.005;
+            targetRotationX += deltaMove.y * 0.005;
+            targetRotationX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, targetRotationX));
+            previousMousePosition = { x: event.clientX, y: event.clientY };
+        }
+
+        // Mouse click
+        function onClick(event) {
+            if (hoveredPlanet) {
+                if (hoveredPlanet === sun) {
+                    focusPlanet('sun');
+                } else {
+                    const planetKey = Object.keys(planetMeshes).find(key => planetMeshes[key] === hoveredPlanet);
+                    if (planetKey) focusPlanet(planetKey);
+                }
+            }
+        }
+
+        function focusPlanet(planetKey) {
+            currentFocus = planetKey;
+            const data = planetsData[planetKey];
+
+            // Update UI
+            document.querySelectorAll('.planet-item').forEach(item => item.classList.remove('active'));
+            const items = document.querySelectorAll('.planet-item');
+            const index = Object.keys(planetsData).indexOf(planetKey);
+            if (items[index]) items[index].classList.add('active');
+            document.getElementById('infoText').textContent = data.info;
+
+            // Stop auto rotation when focusing on a planet
+            isAutoRotating = false;
+
+            // Calculate camera position
+            if (planetKey === 'sun') {
+                targetCameraPosition.set(0, 20, 40);
+                targetLookAt.set(0, 0, 0);
+            } else {
+                const distance = data.distance + 8;
+                targetCameraPosition.set(distance, 8, distance);
+                targetLookAt.set(data.distance, 0, 0);
+            }
+        }
+
+        // Mouse Events
+        renderer.domElement.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('click', onClick);
+
+        document.addEventListener('mouseup', () => { isDragging = false; });
+
+        // Wheel zoom - smooth
+        renderer.domElement.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            zoomScale -= e.deltaY * 0.001;
+            zoomScale = Math.max(0.2, Math.min(2, zoomScale));
+            document.getElementById('zoomSlider').value = zoomScale * 100;
+            document.getElementById('zoomValue').textContent = zoomScale.toFixed(1) + 'x';
+        });
+
+        // Touch Events
+        renderer.domElement.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+        });
+
+        renderer.domElement.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            const deltaMove = {
+                x: e.touches[0].clientX - previousMousePosition.x,
+                y: e.touches[0].clientY - previousMousePosition.y
+            };
+            targetRotationY += deltaMove.x * 0.005;
+            targetRotationX += deltaMove.y * 0.005;
+            targetRotationX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, targetRotationX));
+            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        });
+
+        renderer.domElement.addEventListener('touchend', () => { isDragging = false; });
+
+        // Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+
+        // Control Functions
+        function toggleAnimation() {
+            isAnimating = !isAnimating;
+        }
+
+        function resetView() {
+            targetRotationX = 0;
+            targetRotationY = 0;
+            targetCameraPosition.set(0, 30, 80);
+            targetLookAt.set(0, 0, 0);
+            zoomScale = 1;
+            isAutoRotating = true;
+            camera.position.set(0, 30, 80);
+            document.getElementById('zoomSlider').value = 100;
+            document.getElementById('zoomValue').textContent = '1.0x';
+            currentFocus = null;
+            document.querySelectorAll('.planet-item').forEach(item => item.classList.remove('active'));
+            document.querySelector('.planet-item:first-child').classList.add('active');
+            document.getElementById('infoText').textContent = '太阳系是由太阳和围绕太阳运行的天体组成的系统，包括8颗行星、卫星、小行星、彗星等。太阳位于太阳系中心，占据了太阳系总质量的99.86%。';
+        }
+
+        function speedUp() {
+            timeScale = Math.min(5, timeScale + 0.5);
+            autoRotateSpeed = Math.min(1, autoRotateSpeed + 0.1);
+            document.getElementById('speedSlider').value = timeScale * 20;
+            document.getElementById('speedValue').textContent = timeScale.toFixed(1) + 'x';
+        }
+
+        function slowDown() {
+            timeScale = Math.max(0.1, timeScale - 0.5);
+            autoRotateSpeed = Math.max(0.05, autoRotateSpeed - 0.1);
+            document.getElementById('speedSlider').value = timeScale * 20;
+            document.getElementById('speedValue').textContent = timeScale.toFixed(1) + 'x';
+        }
+
+        // Speed slider
+        document.getElementById('speedSlider').addEventListener('input', (e) => {
+            timeScale = e.target.value / 20;
+            document.getElementById('speedValue').textContent = timeScale.toFixed(1) + 'x';
+        });
+
+        // Zoom slider
+        document.getElementById('zoomSlider').addEventListener('input', (e) => {
+            zoomScale = e.target.value / 100;
+            document.getElementById('zoomValue').textContent = zoomScale.toFixed(1) + 'x';
+        });
+
+        // Focus on planet
+        function focusPlanet(planetKey) {
+            currentFocus = planetKey;
+            const data = planetsData[planetKey];
+
+            // Update UI
+            document.querySelectorAll('.planet-item').forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById('infoText').textContent = data.info;
+
+            // Focus camera on planet
+            if (planetKey === 'sun') {
+                camera.position.set(0, 30, 50);
+                targetRotationX = 0;
+                targetRotationY = 0;
+            } else {
+                const distance = data.distance + 10;
+                camera.position.set(distance, 10, distance);
+            }
+        }
+
+        // Animation Loop
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (isAnimating) {
+                time += 0.01 * timeScale;
+
+                // Rotate planets around sun
+                Object.keys(planetGroups).forEach(key => {
+                    const data = planetsData[key];
+                    planetGroups[key].rotation.y += data.speed * 0.01 * timeScale;
+
+                    // Rotate planet itself
+                    if (planetMeshes[key]) {
+                        planetMeshes[key].rotation.y += 0.02 * timeScale;
+                    }
+                });
+
+                // Rotate sun
+                sun.rotation.y += 0.005 * timeScale;
+            }
+
+            // Smooth camera transition
+            const targetZ = 80 / zoomScale;
+            camera.position.z += (targetZ - camera.position.z) * 0.1;
+
+            // Camera rotation - only when not focused on a planet
+            if (!currentFocus || isAutoRotating) {
+                solarSystem.rotation.y += (targetRotationY - solarSystem.rotation.y) * 0.1;
+                solarSystem.rotation.x += (targetRotationX - solarSystem.rotation.x) * 0.1;
+            } else {
+                // When focused, smooth look at target
+                const targetPos = targetLookAt.clone();
+                // The camera should look at the solar system center, but offset by rotation
+                const offset = new THREE.Vector3().subVectors(targetPos, solarSystem.position);
+                offset.applyEuler(solarSystem.rotation);
+            }
+
+            // Animate stars slowly
+            stars.rotation.y += 0.0001;
+
+            // Update camera lookAt
+            camera.lookAt(targetLookAt);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>化学配对 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="化学配对把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="化学配对,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/chemistry-matching.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="化学配对 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="化学配对把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/chemistry-matching.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="化学配对 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="化学配对把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"化学配对","description":"化学配对把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/chemistry-matching.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .game-mode-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .mode-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .mode-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .score-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .score-item {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+        .score-value {
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+            font-size: 1.5em;
+        }
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .instruction {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            max-width: 800px;
+            width: 100%;
+        }
+        .matching-container {
+            display: flex;
+            gap: 40px;
+            width: 100%;
+            max-width: 1000px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .column {
+            flex: 1;
+            min-width: 300px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        .column h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d3436;
+            font-size: 1.3em;
+        }
+        .items-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .item-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            user-select: none;
+            position: relative;
+        }
+        .item-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .item-card.selected {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            transform: scale(1.05);
+        }
+        .item-card.matched {
+            background: #d4edda;
+            border-color: #28a745;
+            cursor: not-allowed;
+        }
+        .item-card.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .element-symbol {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        .element-name {
+            font-size: 1.1em;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+        .element-info {
+            font-size: 0.9em;
+            color: #636e72;
+        }
+        .atomic-number {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .connection-line {
+            position: absolute;
+            background: #28a745;
+            height: 3px;
+            z-index: 10;
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .connection-line.show {
+            opacity: 1;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .feedback {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            max-width: 800px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .feedback.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .timer {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #856404;
+        }
+        .game-complete {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .game-complete h3 {
+            color: #1976d2;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .final-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .final-stat {
+            margin: 10px;
+        }
+        .final-stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2196f3;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>化学元素配对</h1>
+        
+        <div class="game-mode-selector">
+            <div class="mode-btn active" data-mode="symbol-name">符号-名称</div>
+            <div class="mode-btn" data-mode="name-property">名称-性质</div>
+            <div class="mode-btn" data-mode="symbol-property">符号-性质</div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item">
+                得分
+                <span class="score-value" id="score">0</span>
+            </div>
+            <div class="score-item">
+                配对数
+                <span class="score-value" id="matchedCount">0</span>
+            </div>
+            <div class="score-item">
+                正确率
+                <span class="score-value" id="accuracy">0%</span>
+            </div>
+            <div class="score-item">
+                连击
+                <span class="score-value" id="streak">0</span>
+            </div>
+        </div>
+        
+        <div class="game-area">
+            <div class="instruction" id="instruction">
+                点击左右两列的卡片进行配对，将化学元素符号与对应的中文名称配对
+            </div>
+            
+            <div class="timer" id="timer" style="display: none;">
+                剩余时间: <span id="timeLeft">60</span> 秒
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+            
+            <div class="matching-container">
+                <div class="column">
+                    <h3 id="leftColumnTitle">化学符号</h3>
+                    <div class="items-grid" id="leftColumn">
+                        <!-- 左列项目 -->
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <h3 id="rightColumnTitle">中文名称</h3>
+                    <div class="items-grid" id="rightColumn">
+                        <!-- 右列项目 -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback" style="display: none;">
+                <!-- 反馈信息 -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" id="startBtn">开始游戏</button>
+                <button class="btn btn-warning" id="hintBtn" style="display: none;">提示</button>
+                <button class="btn btn-warning" id="resetBtn" style="display: none;">重置</button>
+                <button class="btn btn-success" id="nextBtn" style="display: none;">下一轮</button>
+            </div>
+        </div>
+        
+        <div class="game-complete" id="gameComplete" style="display: none;">
+            <h3>游戏完成！</h3>
+            <div class="final-stats">
+                <div class="final-stat">
+                    总得分
+                    <div class="final-stat-value" id="finalScore">0</div>
+                </div>
+                <div class="final-stat">
+                    配对数
+                    <div class="final-stat-value" id="finalMatched">0</div>
+                </div>
+                <div class="final-stat">
+                    正确率
+                    <div class="final-stat-value" id="finalAccuracy">0%</div>
+                </div>
+                <div class="final-stat">
+                    最高连击
+                    <div class="final-stat-value" id="finalStreak">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ChemistryMatchingGame {
+            constructor() {
+                this.elements = [
+                    { symbol: 'H', name: '氢', property: '最轻的元素，易燃气体', atomicNumber: 1 },
+                    { symbol: 'He', name: '氦', property: '惰性气体，密度小', atomicNumber: 2 },
+                    { symbol: 'Li', name: '锂', property: '最轻的金属，活泼', atomicNumber: 3 },
+                    { symbol: 'C', name: '碳', property: '有机物基础元素', atomicNumber: 6 },
+                    { symbol: 'N', name: '氮', property: '空气主要成分，惰性', atomicNumber: 7 },
+                    { symbol: 'O', name: '氧', property: '支持燃烧，生命必需', atomicNumber: 8 },
+                    { symbol: 'F', name: '氟', property: '最活泼的非金属', atomicNumber: 9 },
+                    { symbol: 'Ne', name: '氖', property: '惰性气体，发红光', atomicNumber: 10 },
+                    { symbol: 'Na', name: '钠', property: '活泼金属，遇水反应', atomicNumber: 11 },
+                    { symbol: 'Mg', name: '镁', property: '轻金属，燃烧发白光', atomicNumber: 12 },
+                    { symbol: 'Al', name: '铝', property: '轻金属，抗腐蚀', atomicNumber: 13 },
+                    { symbol: 'Si', name: '硅', property: '半导体材料', atomicNumber: 14 },
+                    { symbol: 'P', name: '磷', property: '易燃，有毒', atomicNumber: 15 },
+                    { symbol: 'S', name: '硫', property: '黄色固体，易燃', atomicNumber: 16 },
+                    { symbol: 'Cl', name: '氯', property: '黄绿色气体，有毒', atomicNumber: 17 },
+                    { symbol: 'K', name: '钾', property: '活泼金属，紫色火焰', atomicNumber: 19 },
+                    { symbol: 'Ca', name: '钙', property: '骨骼主要成分', atomicNumber: 20 },
+                    { symbol: 'Fe', name: '铁', property: '最重要的金属', atomicNumber: 26 },
+                    { symbol: 'Cu', name: '铜', property: '良导体，红色金属', atomicNumber: 29 },
+                    { symbol: 'Zn', name: '锌', property: '镀锌防锈', atomicNumber: 30 },
+                    { symbol: 'Ag', name: '银', property: '贵金属，最佳导体', atomicNumber: 47 },
+                    { symbol: 'Au', name: '金', property: '贵金属，化学稳定', atomicNumber: 79 }
+                ];
+                
+                this.gameMode = 'symbol-name';
+                this.currentElements = [];
+                this.selectedLeft = null;
+                this.selectedRight = null;
+                this.matchedPairs = [];
+                this.score = 0;
+                this.matchedCount = 0;
+                this.totalAttempts = 0;
+                this.streak = 0;
+                this.maxStreak = 0;
+                this.gameStarted = false;
+                this.timeLeft = 60;
+                this.timer = null;
+                
+                this.initElements();
+                this.bindEvents();
+            }
+            
+            initElements() {
+                this.leftColumn = document.getElementById('leftColumn');
+                this.rightColumn = document.getElementById('rightColumn');
+                this.leftColumnTitle = document.getElementById('leftColumnTitle');
+                this.rightColumnTitle = document.getElementById('rightColumnTitle');
+                this.instruction = document.getElementById('instruction');
+                this.feedback = document.getElementById('feedback');
+                this.timer = document.getElementById('timer');
+                this.timeLeftSpan = document.getElementById('timeLeft');
+                this.progressFill = document.getElementById('progressFill');
+                
+                this.startBtn = document.getElementById('startBtn');
+                this.hintBtn = document.getElementById('hintBtn');
+                this.resetBtn = document.getElementById('resetBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.gameComplete = document.getElementById('gameComplete');
+                
+                this.scoreSpan = document.getElementById('score');
+                this.matchedCountSpan = document.getElementById('matchedCount');
+                this.accuracySpan = document.getElementById('accuracy');
+                this.streakSpan = document.getElementById('streak');
+            }
+            
+            bindEvents() {
+                // 游戏模式选择
+                document.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.gameMode = e.target.dataset.mode;
+                        this.updateModeDisplay();
+                        if (this.gameStarted) {
+                            this.resetGame();
+                        }
+                    });
+                });
+                
+                this.startBtn.addEventListener('click', () => this.startGame());
+                this.hintBtn.addEventListener('click', () => this.showHint());
+                this.resetBtn.addEventListener('click', () => this.resetGame());
+                this.nextBtn.addEventListener('click', () => this.nextRound());
+                
+                this.updateModeDisplay();
+            }
+            
+            updateModeDisplay() {
+                const modes = {
+                    'symbol-name': {
+                        left: '化学符号',
+                        right: '中文名称',
+                        instruction: '点击左右两列的卡片进行配对，将化学元素符号与对应的中文名称配对'
+                    },
+                    'name-property': {
+                        left: '中文名称',
+                        right: '元素性质',
+                        instruction: '点击左右两列的卡片进行配对，将元素名称与对应的性质配对'
+                    },
+                    'symbol-property': {
+                        left: '化学符号',
+                        right: '元素性质',
+                        instruction: '点击左右两列的卡片进行配对，将化学符号与对应的性质配对'
+                    }
+                };
+                
+                const mode = modes[this.gameMode];
+                this.leftColumnTitle.textContent = mode.left;
+                this.rightColumnTitle.textContent = mode.right;
+                this.instruction.textContent = mode.instruction;
+            }
+            
+            startGame() {
+                this.gameStarted = true;
+                this.startBtn.style.display = 'none';
+                this.hintBtn.style.display = 'inline-block';
+                this.resetBtn.style.display = 'inline-block';
+                this.timer.style.display = 'block';
+                
+                this.generateRound();
+                this.startTimer();
+            }
+            
+            generateRound() {
+                // 随机选择8个元素
+                this.currentElements = this.shuffleArray([...this.elements]).slice(0, 8);
+                this.matchedPairs = [];
+                this.selectedLeft = null;
+                this.selectedRight = null;
+                
+                this.renderColumns();
+                this.updateProgress();
+            }
+            
+            renderColumns() {
+                this.leftColumn.innerHTML = '';
+                this.rightColumn.innerHTML = '';
+                
+                const leftItems = [];
+                const rightItems = [];
+                
+                this.currentElements.forEach((element, index) => {
+                    let leftContent, rightContent;
+                    
+                    switch (this.gameMode) {
+                        case 'symbol-name':
+                            leftContent = {
+                                type: 'symbol',
+                                symbol: element.symbol,
+                                atomicNumber: element.atomicNumber
+                            };
+                            rightContent = {
+                                type: 'name',
+                                name: element.name
+                            };
+                            break;
+                        case 'name-property':
+                            leftContent = {
+                                type: 'name',
+                                name: element.name
+                            };
+                            rightContent = {
+                                type: 'property',
+                                property: element.property
+                            };
+                            break;
+                        case 'symbol-property':
+                            leftContent = {
+                                type: 'symbol',
+                                symbol: element.symbol,
+                                atomicNumber: element.atomicNumber
+                            };
+                            rightContent = {
+                                type: 'property',
+                                property: element.property
+                            };
+                            break;
+                    }
+                    
+                    leftItems.push({ ...leftContent, id: index });
+                    rightItems.push({ ...rightContent, id: index });
+                });
+                
+                // 打乱右列顺序
+                const shuffledRightItems = this.shuffleArray(rightItems);
+                
+                // 渲染左列
+                leftItems.forEach(item => {
+                    const card = this.createItemCard(item, 'left');
+                    this.leftColumn.appendChild(card);
+                });
+                
+                // 渲染右列
+                shuffledRightItems.forEach(item => {
+                    const card = this.createItemCard(item, 'right');
+                    this.rightColumn.appendChild(card);
+                });
+            }
+            
+            createItemCard(item, side) {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.dataset.id = item.id;
+                card.dataset.side = side;
+                
+                let content = '';
+                
+                if (item.type === 'symbol') {
+                    content = `
+                        <div class="element-symbol">${item.symbol}</div>
+                        <div class="atomic-number">${item.atomicNumber}</div>
+                    `;
+                } else if (item.type === 'name') {
+                    content = `<div class="element-name">${item.name}</div>`;
+                } else if (item.type === 'property') {
+                    content = `<div class="element-info">${item.property}</div>`;
+                }
+                
+                card.innerHTML = content;
+                card.addEventListener('click', () => this.selectItem(card));
+                
+                return card;
+            }
+            
+            selectItem(card) {
+                if (card.classList.contains('matched')) return;
+                
+                const side = card.dataset.side;
+                const id = parseInt(card.dataset.id);
+                
+                if (side === 'left') {
+                    // 取消之前的选择
+                    if (this.selectedLeft) {
+                        this.selectedLeft.classList.remove('selected');
+                    }
+                    
+                    if (this.selectedLeft === card) {
+                        this.selectedLeft = null;
+                    } else {
+                        this.selectedLeft = card;
+                        card.classList.add('selected');
+                    }
+                } else {
+                    // 取消之前的选择
+                    if (this.selectedRight) {
+                        this.selectedRight.classList.remove('selected');
+                    }
+                    
+                    if (this.selectedRight === card) {
+                        this.selectedRight = null;
+                    } else {
+                        this.selectedRight = card;
+                        card.classList.add('selected');
+                    }
+                }
+                
+                // 检查是否可以配对
+                if (this.selectedLeft && this.selectedRight) {
+                    this.checkMatch();
+                }
+            }
+            
+            checkMatch() {
+                const leftId = parseInt(this.selectedLeft.dataset.id);
+                const rightId = parseInt(this.selectedRight.dataset.id);
+                
+                this.totalAttempts++;
+                
+                if (leftId === rightId) {
+                    // 配对成功
+                    this.selectedLeft.classList.remove('selected');
+                    this.selectedRight.classList.remove('selected');
+                    this.selectedLeft.classList.add('matched');
+                    this.selectedRight.classList.add('matched');
+                    
+                    this.matchedPairs.push(leftId);
+                    this.matchedCount++;
+                    this.streak++;
+                    this.maxStreak = Math.max(this.maxStreak, this.streak);
+                    
+                    // 计算得分（连击奖励）
+                    const baseScore = 10;
+                    const streakBonus = Math.min(this.streak - 1, 5) * 2;
+                    this.score += baseScore + streakBonus;
+                    
+                    this.showFeedback('correct', `配对正确！+${baseScore + streakBonus}分`);
+                    
+                    // 检查是否完成所有配对
+                    if (this.matchedPairs.length === this.currentElements.length) {
+                        this.completeRound();
+                    }
+                } else {
+                    // 配对错误
+                    this.selectedLeft.classList.add('wrong');
+                    this.selectedRight.classList.add('wrong');
+                    this.streak = 0;
+                    
+                    setTimeout(() => {
+                        this.selectedLeft.classList.remove('selected', 'wrong');
+                        this.selectedRight.classList.remove('selected', 'wrong');
+                    }, 1000);
+                    
+                    this.showFeedback('wrong', '配对错误，请重试！');
+                }
+                
+                this.selectedLeft = null;
+                this.selectedRight = null;
+                this.updateStats();
+                this.updateProgress();
+            }
+            
+            showFeedback(type, message) {
+                this.feedback.className = `feedback ${type}`;
+                this.feedback.textContent = message;
+                this.feedback.style.display = 'block';
+                
+                setTimeout(() => {
+                    this.feedback.style.display = 'none';
+                }, 2000);
+            }
+            
+            completeRound() {
+                clearInterval(this.gameTimer);
+                
+                // 时间奖励
+                const timeBonus = Math.max(0, this.timeLeft) * 2;
+                this.score += timeBonus;
+                
+                this.showFeedback('correct', `本轮完成！时间奖励：+${timeBonus}分`);
+                this.nextBtn.style.display = 'inline-block';
+            }
+            
+            showHint() {
+                if (this.selectedLeft && !this.selectedRight) {
+                    // 高亮对应的右侧卡片
+                    const leftId = parseInt(this.selectedLeft.dataset.id);
+                    const rightCard = document.querySelector(`[data-side="right"][data-id="${leftId}"]`);
+                    if (rightCard && !rightCard.classList.contains('matched')) {
+                        rightCard.style.background = '#fff3cd';
+                        rightCard.style.borderColor = '#ffeaa7';
+                        
+                        setTimeout(() => {
+                            rightCard.style.background = '';
+                            rightCard.style.borderColor = '';
+                        }, 3000);
+                    }
+                } else if (this.selectedRight && !this.selectedLeft) {
+                    // 高亮对应的左侧卡片
+                    const rightId = parseInt(this.selectedRight.dataset.id);
+                    const leftCard = document.querySelector(`[data-side="left"][data-id="${rightId}"]`);
+                    if (leftCard && !leftCard.classList.contains('matched')) {
+                        leftCard.style.background = '#fff3cd';
+                        leftCard.style.borderColor = '#ffeaa7';
+                        
+                        setTimeout(() => {
+                            leftCard.style.background = '';
+                            leftCard.style.borderColor = '';
+                        }, 3000);
+                    }
+                } else {
+                    this.showFeedback('', '请先选择一个卡片，然后点击提示！');
+                }
+            }
+            
+            resetGame() {
+                clearInterval(this.gameTimer);
+                this.gameStarted = false;
+                this.score = 0;
+                this.matchedCount = 0;
+                this.totalAttempts = 0;
+                this.streak = 0;
+                this.maxStreak = 0;
+                this.timeLeft = 60;
+                
+                this.startBtn.style.display = 'inline-block';
+                this.hintBtn.style.display = 'none';
+                this.resetBtn.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.timer.style.display = 'none';
+                this.gameComplete.style.display = 'none';
+                
+                this.leftColumn.innerHTML = '';
+                this.rightColumn.innerHTML = '';
+                this.feedback.style.display = 'none';
+                
+                this.updateStats();
+                this.updateProgress();
+            }
+            
+            nextRound() {
+                this.timeLeft = 60;
+                this.nextBtn.style.display = 'none';
+                this.generateRound();
+                this.startTimer();
+            }
+            
+            startTimer() {
+                this.timeLeftSpan.textContent = this.timeLeft;
+                
+                this.gameTimer = setInterval(() => {
+                    this.timeLeft--;
+                    this.timeLeftSpan.textContent = this.timeLeft;
+                    
+                    if (this.timeLeft <= 0) {
+                        this.gameOver();
+                    }
+                }, 1000);
+            }
+            
+            gameOver() {
+                clearInterval(this.gameTimer);
+                
+                const accuracy = this.totalAttempts > 0 ? 
+                    Math.round((this.matchedCount / this.totalAttempts) * 100) : 0;
+                
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('finalMatched').textContent = this.matchedCount;
+                document.getElementById('finalAccuracy').textContent = accuracy + '%';
+                document.getElementById('finalStreak').textContent = this.maxStreak;
+                
+                this.gameComplete.style.display = 'block';
+                this.hintBtn.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.resetBtn.textContent = '重新开始';
+            }
+            
+            updateStats() {
+                this.scoreSpan.textContent = this.score;
+                this.matchedCountSpan.textContent = this.matchedCount;
+                this.streakSpan.textContent = this.streak;
+                
+                const accuracy = this.totalAttempts > 0 ? 
+                    Math.round((this.matchedCount / this.totalAttempts) * 100) : 0;
+                this.accuracySpan.textContent = accuracy + '%';
+            }
+            
+            updateProgress() {
+                const progress = this.currentElements.length > 0 ? 
+                    (this.matchedPairs.length / this.currentElements.length) * 100 : 0;
+                this.progressFill.style.width = progress + '%';
+            }
+            
+            shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+        }
+        
+        // 启动游戏
+        new ChemistryMatchingGame();
+    </script>
+</body>
+</html>

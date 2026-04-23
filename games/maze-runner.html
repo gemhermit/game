@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迷宫探险 (Maze Runner) - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="迷宫探险 (Maze Runner)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="迷宫探险 (Maze Runner),益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/maze-runner.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="迷宫探险 (Maze Runner) - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="迷宫探险 (Maze Runner)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/maze-runner.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="迷宫探险 (Maze Runner) - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="迷宫探险 (Maze Runner)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"迷宫探险 (Maze Runner)","description":"迷宫探险 (Maze Runner)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/maze-runner.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #1e293b; /* Slate-800 */
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        #canvas-container {
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            background: #0f172a;
+        }
+
+        canvas {
+            display: block;
+        }
+        
+        #ui-overlay {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 0 10px;
+        }
+        
+        .stat-box {
+            background: rgba(0,0,0,0.3);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #fbbf24;
+        }
+
+        #controls {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+        }
+        
+        .d-pad-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.1s;
+        }
+        
+        .d-pad-btn:active { background: rgba(255,255,255,0.3); }
+        
+        .hidden { display: none !important; }
+        
+        #win-modal {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="ui-overlay">
+        <div class="stat-box">Level: <span id="level">1</span></div>
+        <button id="hintBtn" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded shadow pointer-events-auto transition">
+            💡 提示
+        </button>
+    </div>
+
+    <div id="canvas-container">
+        <canvas id="mazeCanvas"></canvas>
+        
+        <div id="start-modal" class="absolute top-0 left-0 w-full h-full bg-slate-900/95 flex flex-col items-center justify-center z-50 p-8 text-center">
+            <h1 class="text-5xl font-bold text-indigo-400 mb-4">迷宫探险</h1>
+            <p class="text-xl text-gray-300 mb-2">目标: 控制 <span class="text-red-500 font-bold">●</span> 到达 <span class="text-green-500 font-bold">■</span></p>
+            <p class="text-sm text-gray-400 mb-8">电脑: 方向键 / WASD<br>手机: 按住拖动方向</p>
+            <button id="startBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition">
+                开始挑战
+            </button>
+        </div>
+
+        <div id="win-modal" class="hidden">
+            <h1 class="text-5xl font-bold text-green-400 mb-4">通关成功!</h1>
+            <p class="text-xl mb-8">准备好迎接下一关了吗?</p>
+            <button id="nextLevelBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition">
+                下一关
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Controls -->
+    <div id="controls" class="md:hidden">
+        <div></div>
+        <div class="d-pad-btn" id="upBtn">↑</div>
+        <div></div>
+        <div class="d-pad-btn" id="leftBtn">←</div>
+        <div class="d-pad-btn" id="downBtn">↓</div>
+        <div class="d-pad-btn" id="rightBtn">→</div>
+    </div>
+    
+    <div class="mt-4 text-gray-400 text-sm md:block hidden">
+        使用方向键或 WASD 移动
+    </div>
+    <div class="mt-4 text-gray-400 text-sm md:hidden block">
+    </div>
+
+<script>
+class MazeGame {
+    constructor() {
+        this.canvas = document.getElementById('mazeCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.levelEl = document.getElementById('level');
+        this.winModal = document.getElementById('win-modal');
+        this.startModal = document.getElementById('start-modal');
+        this.nextBtn = document.getElementById('nextLevelBtn');
+        this.startBtn = document.getElementById('startBtn');
+        this.hintBtn = document.getElementById('hintBtn');
+        
+        // Config
+        this.cellSize = 20; // Default, will adjust
+        this.cols = 15;
+        this.rows = 15;
+        this.level = 1;
+        
+        // State
+        this.maze = []; // 2D array: object { top, right, bottom, left, visited }
+        this.player = { c: 0, r: 0 };
+        this.trail = [];
+        this.goal = { c: 0, r: 0 };
+        this.isPlaying = false; // Wait for start
+        this.hintPath = [];
+        
+        // Touch state
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.isDragging = false;
+
+        this.initEvents();
+        // this.startLevel(); // Wait for button
+    }
+
+    initEvents() {
+        this.startBtn.addEventListener('click', () => {
+            this.startModal.classList.add('hidden');
+            this.startLevel();
+        });
+        
+        this.hintBtn.addEventListener('click', () => this.showHint());
+
+        window.addEventListener('keydown', (e) => this.handleKey(e));
+        
+        // Touch Drag Control
+        this.canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (!this.isPlaying) return;
+            this.touchStartX = e.touches[0].clientX;
+            this.touchStartY = e.touches[0].clientY;
+            this.isDragging = true;
+        }, { passive: false });
+        
+        this.canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (!this.isPlaying || !this.isDragging) return;
+
+            const x = e.touches[0].clientX;
+            const y = e.touches[0].clientY;
+            const dx = x - this.touchStartX;
+            const dy = y - this.touchStartY;
+            const threshold = 25; // Sensitivity in pixels
+
+            // Check if moved enough to trigger a step
+            if (Math.abs(dx) > threshold || Math.abs(dy) > threshold) {
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    // Horizontal
+                    this.move(dx > 0 ? 1 : -1, 0);
+                } else {
+                    // Vertical
+                    this.move(0, dy > 0 ? 1 : -1);
+                }
+                // Reset anchor to current position to allow continuous dragging
+                this.touchStartX = x;
+                this.touchStartY = y;
+            }
+        }, { passive: false });
+
+        this.canvas.addEventListener('touchend', () => {
+            this.isDragging = false;
+        });
+        
+        // Button controls
+        document.getElementById('upBtn').addEventListener('touchstart', (e) => { e.preventDefault(); this.move(0, -1); });
+        document.getElementById('downBtn').addEventListener('touchstart', (e) => { e.preventDefault(); this.move(0, 1); });
+        document.getElementById('leftBtn').addEventListener('touchstart', (e) => { e.preventDefault(); this.move(-1, 0); });
+        document.getElementById('rightBtn').addEventListener('touchstart', (e) => { e.preventDefault(); this.move(1, 0); });
+        
+        this.nextBtn.addEventListener('click', () => {
+            this.level++;
+            this.startLevel();
+        });
+        
+        // Resize handler
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+    }
+    
+    resize() {
+        const maxSize = Math.min(window.innerWidth - 40, window.innerHeight - 200);
+        // Ensure multiple of cols/rows
+        this.canvas.width = maxSize;
+        this.canvas.height = maxSize;
+        this.cellSize = maxSize / this.cols; // Approximation
+        this.render();
+    }
+
+    startLevel() {
+        this.winModal.classList.add('hidden');
+        this.isPlaying = true;
+        this.levelEl.textContent = this.level;
+        
+        // Increase difficulty
+        this.cols = 10 + this.level * 2;
+        this.rows = 10 + this.level * 2;
+        if (this.cols > 40) { this.cols = 40; this.rows = 40; } // Cap size
+        
+        this.generateMaze();
+        this.player = { c: 0, r: 0 };
+        this.trail = [];
+        this.goal = { c: this.cols - 1, r: this.rows - 1 };
+        
+        this.resize(); // Recalculate cell size
+    }
+
+    generateMaze() {
+        // Initialize grid
+        this.maze = [];
+        for (let r = 0; r < this.rows; r++) {
+            const row = [];
+            for (let c = 0; c < this.cols; c++) {
+                row.push({
+                    c, r,
+                    walls: { top: true, right: true, bottom: true, left: true },
+                    visited: false
+                });
+            }
+            this.maze.push(row);
+        }
+
+        // Recursive Backtracker
+        const stack = [];
+        const start = this.maze[0][0];
+        start.visited = true;
+        stack.push(start);
+
+        while (stack.length > 0) {
+            const current = stack[stack.length - 1];
+            const next = this.getUnvisitedNeighbor(current);
+
+            if (next) {
+                next.visited = true;
+                this.removeWalls(current, next);
+                stack.push(next);
+            } else {
+                stack.pop();
+            }
+        }
+    }
+
+    getUnvisitedNeighbor(cell) {
+        const neighbors = [];
+        const { c, r } = cell;
+        
+        if (r > 0 && !this.maze[r-1][c].visited) neighbors.push(this.maze[r-1][c]); // Top
+        if (c < this.cols-1 && !this.maze[r][c+1].visited) neighbors.push(this.maze[r][c+1]); // Right
+        if (r < this.rows-1 && !this.maze[r+1][c].visited) neighbors.push(this.maze[r+1][c]); // Bottom
+        if (c > 0 && !this.maze[r][c-1].visited) neighbors.push(this.maze[r][c-1]); // Left
+        
+        if (neighbors.length === 0) return undefined;
+        return neighbors[Math.floor(Math.random() * neighbors.length)];
+    }
+
+    removeWalls(a, b) {
+        const dx = a.c - b.c;
+        const dy = a.r - b.r;
+        
+        if (dx === 1) { a.walls.left = false; b.walls.right = false; }
+        else if (dx === -1) { a.walls.right = false; b.walls.left = false; }
+        
+        if (dy === 1) { a.walls.top = false; b.walls.bottom = false; }
+        else if (dy === -1) { a.walls.bottom = false; b.walls.top = false; }
+    }
+
+    handleKey(e) {
+        if (!this.isPlaying) return;
+        
+        switch(e.key) {
+            case 'ArrowUp': case 'w': this.move(0, -1); break;
+            case 'ArrowDown': case 's': this.move(0, 1); break;
+            case 'ArrowLeft': case 'a': this.move(-1, 0); break;
+            case 'ArrowRight': case 'd': this.move(1, 0); break;
+        }
+    }
+
+    move(dc, dr) {
+        const { c, r } = this.player;
+        const cell = this.maze[r][c];
+        
+        // Check walls
+        if (dr === -1 && cell.walls.top) return;
+        if (dr === 1 && cell.walls.bottom) return;
+        if (dc === -1 && cell.walls.left) return;
+        if (dc === 1 && cell.walls.right) return;
+        
+        // Clear hint on move
+        this.hintPath = [];
+
+        // Add to trail before moving
+        this.trail.push({ c, r });
+        
+        // Update position
+        this.player.c += dc;
+        this.player.r += dr;
+        
+        this.checkWin();
+        this.render();
+    }
+
+    showHint() {
+        if (!this.isPlaying) return;
+        
+        // BFS to find shortest path to goal
+        const queue = [{ c: this.player.c, r: this.player.r, path: [] }];
+        const visited = new Set();
+        visited.add(`${this.player.c},${this.player.r}`);
+
+        while (queue.length > 0) {
+            const current = queue.shift();
+            
+            if (current.c === this.goal.c && current.r === this.goal.r) {
+                this.hintPath = current.path;
+                this.render();
+                return;
+            }
+
+            const directions = [
+                { dc: 0, dr: -1, wall: 'top' },
+                { dc: 0, dr: 1, wall: 'bottom' },
+                { dc: -1, dr: 0, wall: 'left' },
+                { dc: 1, dr: 0, wall: 'right' }
+            ];
+
+            for (const dir of directions) {
+                const cell = this.maze[current.r][current.c];
+                // Check if wall blocks exit
+                if (!cell.walls[dir.wall]) {
+                    const nc = current.c + dir.dc;
+                    const nr = current.r + dir.dr;
+                    const key = `${nc},${nr}`;
+                    
+                    if (nc >= 0 && nc < this.cols && nr >= 0 && nr < this.rows && !visited.has(key)) {
+                        visited.add(key);
+                        queue.push({
+                            c: nc, r: nr,
+                            path: [...current.path, { c: nc, r: nr }]
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    checkWin() {
+        if (this.player.c === this.goal.c && this.player.r === this.goal.r) {
+            this.isPlaying = false;
+            // Confetti or just modal
+            this.winModal.classList.remove('hidden');
+        }
+    }
+
+    render() {
+        const w = this.canvas.width;
+        const h = this.canvas.height;
+        this.ctx.clearRect(0, 0, w, h);
+        
+        // Draw Maze Walls
+        this.ctx.strokeStyle = '#94a3b8'; // Slate-400
+        this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        
+        const cs = this.cellSize;
+        
+        for (let r = 0; r < this.rows; r++) {
+            for (let c = 0; c < this.cols; c++) {
+                const cell = this.maze[r][c];
+                const x = c * cs;
+                const y = r * cs;
+                
+                if (cell.walls.top) { this.ctx.moveTo(x, y); this.ctx.lineTo(x + cs, y); }
+                if (cell.walls.right) { this.ctx.moveTo(x + cs, y); this.ctx.lineTo(x + cs, y + cs); }
+                if (cell.walls.bottom) { this.ctx.moveTo(x + cs, y + cs); this.ctx.lineTo(x, y + cs); }
+                if (cell.walls.left) { this.ctx.moveTo(x, y + cs); this.ctx.lineTo(x, y); }
+            }
+        }
+        this.ctx.stroke();
+        
+        // Draw Trail
+        this.ctx.fillStyle = 'rgba(239, 68, 68, 0.3)'; // Faint red
+        this.trail.forEach(pos => {
+             this.ctx.fillRect(pos.c * cs + cs/4, pos.r * cs + cs/4, cs/2, cs/2);
+        });
+
+        // Draw Hint Path
+        if (this.hintPath.length > 0) {
+            this.ctx.fillStyle = 'rgba(251, 191, 36, 0.6)'; // Amber
+            this.hintPath.forEach(pos => {
+                this.ctx.beginPath();
+                this.ctx.arc(pos.c * cs + cs/2, pos.r * cs + cs/2, cs/5, 0, Math.PI * 2);
+                this.ctx.fill();
+            });
+        }
+        
+        // Draw Goal
+        this.ctx.fillStyle = '#22c55e'; // Green
+        this.ctx.fillRect(this.goal.c * cs + 4, this.goal.r * cs + 4, cs - 8, cs - 8);
+        
+        // Draw Player
+        this.ctx.fillStyle = '#ef4444'; // Red
+        this.ctx.beginPath();
+        this.ctx.arc(this.player.c * cs + cs/2, this.player.r * cs + cs/2, cs/3, 0, Math.PI * 2);
+        this.ctx.fill();
+    }
+}
+
+new MazeGame();
+</script>
+</body>
+</html>

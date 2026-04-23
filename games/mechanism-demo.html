@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常用机械结构演示 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="常用机械结构演示把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="常用机械结构演示,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/mechanism-demo.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="常用机械结构演示 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="常用机械结构演示把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/mechanism-demo.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="常用机械结构演示 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="常用机械结构演示把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"常用机械结构演示","description":"常用机械结构演示把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/mechanism-demo.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 50%, #d0d5dc 100%);
+            color: #1a1a2e;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .header {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0066ff, #00cc66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.45);
+        }
+
+        /* Mechanism Selector */
+        .section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(0, 0, 0, 0.4);
+            margin-bottom: 12px;
+        }
+
+        .mechanism-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .mechanism-btn {
+            padding: 12px 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.7);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mechanism-btn:hover {
+            background: rgba(0, 102, 255, 0.08);
+            border-color: rgba(0, 102, 255, 0.3);
+            color: #0066ff;
+            transform: translateY(-2px);
+        }
+
+        .mechanism-btn.active {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.12), rgba(0, 204, 102, 0.12));
+            border-color: #0066ff;
+            color: #0066ff;
+            box-shadow: 0 4px 16px rgba(0, 102, 255, 0.15);
+        }
+
+        .mechanism-btn .icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Controls */
+        .control-panel {
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .control-group {
+            margin-bottom: 16px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .control-label {
+            font-size: 13px;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .control-value {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 12px;
+            color: #0066ff;
+            background: rgba(0, 102, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #0066ff, #00cc66);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 102, 255, 0.3);
+            transition: transform 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        /* Toggle Row */
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .toggle-label {
+            font-size: 13px;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 22px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            border-radius: 22px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            transition: 0.3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        input:checked + .toggle-slider {
+            background: linear-gradient(135deg, #0066ff, #00cc66);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(18px);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .info-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #00aa55;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-text {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.65);
+            line-height: 1.7;
+        }
+
+        .info-formula {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.08), rgba(0, 204, 102, 0.08));
+            border: 1px solid rgba(0, 102, 255, 0.15);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 13px;
+            color: #0066ff;
+            text-align: center;
+        }
+
+        /* Theory Box */
+        .theory-box {
+            background: linear-gradient(135deg, rgba(255, 170, 0, 0.08), rgba(255, 100, 0, 0.08));
+            border: 1px solid rgba(255, 170, 0, 0.2);
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .theory-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #cc7700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theory-text {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(0, 102, 255, 0.04) 0%, transparent 70%);
+        }
+
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Overlay Controls */
+        .overlay-controls {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 8px 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: rgba(0, 0, 0, 0.7);
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: rgba(0, 102, 255, 0.1);
+            color: #0066ff;
+            transform: scale(1.05);
+        }
+
+        .icon-btn.active {
+            background: linear-gradient(135deg, #0066ff, #00cc66);
+            color: white;
+        }
+
+        /* Speed Indicator */
+        .speed-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: #1a1a2e;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .speed-dot {
+            width: 8px;
+            height: 8px;
+            background: #00aa55;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        .speed-dot.paused {
+            background: #ff4444;
+            animation: none;
+        }
+
+        /* Current Mechanism Title */
+        .current-mechanism {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .current-mechanism h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+
+        .current-mechanism p {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            }
+            .main-content {
+                height: 450px;
+            }
+            .mechanism-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="header">
+            <h1>常用机械结构演示</h1>
+            <div class="subtitle">通用技术 · 交互式教学</div>
+        </div>
+
+        <div class="section-title">选择机构类型</div>
+        <div class="mechanism-grid">
+            <button class="mechanism-btn active" data-type="fourbar">
+                <span class="icon">🔗</span>
+                <span>铰链四杆</span>
+            </button>
+            <button class="mechanism-btn" data-type="slider">
+                <span class="icon">↔</span>
+                <span>曲柄滑块</span>
+            </button>
+            <button class="mechanism-btn" data-type="cam">
+                <span class="icon">◎</span>
+                <span>凸轮机构</span>
+            </button>
+            <button class="mechanism-btn" data-type="gear">
+                <span class="icon">⚙</span>
+                <span>齿轮传动</span>
+            </button>
+            <button class="mechanism-btn" data-type="belt">
+                <span class="icon">∞</span>
+                <span>皮带传动</span>
+            </button>
+            <button class="mechanism-btn" data-type="chain">
+                <span class="icon">⛓</span>
+                <span>链传动</span>
+            </button>
+            <button class="mechanism-btn" data-type="screw">
+                <span class="icon">⇅</span>
+                <span>螺旋千斤顶</span>
+            </button>
+            <button class="mechanism-btn" data-type="ratchet">
+                <span class="icon">◁</span>
+                <span>棘轮机构</span>
+            </button>
+            <button class="mechanism-btn" data-type="hydraulic">
+                <span class="icon">▮</span>
+                <span>液压传动</span>
+            </button>
+            <button class="mechanism-btn" data-type="spring">
+                <span class="icon">〰</span>
+                <span>弹簧机构</span>
+            </button>
+        </div>
+
+        <div class="control-panel" id="fourbarControls" style="display: none;">
+            <div class="section-title" style="margin-bottom: 8px;">杆件长度调节</div>
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">曲柄长度</span>
+                    <span class="control-value" id="crankLenVal">1.2</span>
+                </div>
+                <input type="range" id="crankLenSlider" min="0.5" max="2" value="1.2" step="0.1">
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">连杆长度</span>
+                    <span class="control-value" id="couplerLenVal">2.0</span>
+                </div>
+                <input type="range" id="couplerLenSlider" min="1" max="3" value="2" step="0.1">
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">摇杆长度</span>
+                    <span class="control-value" id="rockerLenVal">1.8</span>
+                </div>
+                <input type="range" id="rockerLenSlider" min="0.8" max="2.5" value="1.8" step="0.1">
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">机架长度</span>
+                    <span class="control-value" id="baseLenVal">2.2</span>
+                </div>
+                <input type="range" id="baseLenSlider" min="1.5" max="3" value="2.2" step="0.1">
+            </div>
+        </div>
+
+        <div class="control-panel" id="basicControls">
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">运动速度</span>
+                    <span class="control-value" id="speedVal">1.0x</span>
+                </div>
+                <input type="range" id="speedSlider" min="0.1" max="3" value="1" step="0.1">
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">显示比例</span>
+                    <span class="control-value" id="sizeVal">1.0</span>
+                </div>
+                <input type="range" id="sizeSlider" min="0.6" max="1.4" value="1" step="0.1">
+            </div>
+
+            <div class="toggle-row">
+                <span class="toggle-label">显示运动轨迹</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="trailToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="toggle-row">
+                <span class="toggle-label">显示标注</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="labelToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-title">
+                <span>◈</span> 机构简介
+            </div>
+            <div class="info-text" id="infoText">
+                铰链四杆机构是最基本的平面连杆机构，由四个构件通过铰链连接而成。
+            </div>
+            <div class="info-formula" id="infoFormula">
+                曲柄存在条件: a + b ≤ c + d
+            </div>
+        </div>
+
+        <div class="theory-box">
+            <div class="theory-title">
+                <span>◆</span> 应用场景
+            </div>
+            <div class="theory-text" id="theoryText">
+                广泛应用于各类机械中，如搅拌机、破碎机、缝纫机摆轮等。
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="current-mechanism">
+            <h2 id="mechTitle">铰链四杆机构</h2>
+            <p id="mechSubtitle">Four-Bar Linkage Mechanism</p>
+        </div>
+
+        <div class="speed-indicator">
+            <div class="speed-dot" id="speedDot"></div>
+            <span id="speedText">运行中</span>
+        </div>
+
+        <div class="canvas-container" id="canvasContainer">
+            <canvas id="mechanismCanvas"></canvas>
+        </div>
+
+        <div class="overlay-controls">
+            <button class="icon-btn active" id="playBtn" title="播放/暂停">▶</button>
+            <button class="icon-btn" id="resetBtn" title="重置">↺</button>
+            <button class="icon-btn" id="directionBtn" title="反向">⇄</button>
+        </div>
+    </main>
+
+    <script>
+        // Mechanism data
+        const mechanismData = {
+            fourbar: {
+                name: '铰链四杆机构',
+                subtitle: 'Four-Bar Linkage',
+                info: '铰链四杆机构是最基本的平面连杆机构，由四个构件通过铰链连接而成，包含曲柄、摇杆、连杆和机架。',
+                formula: '曲柄存在条件: a + b ≤ c + d (a为最短杆)',
+                theory: '广泛应用于各类机械中，如搅拌机、破碎机、缝纫机摆轮、牛头刨床等。'
+            },
+            slider: {
+                name: '曲柄滑块机构',
+                subtitle: 'Slider-Crank Mechanism',
+                info: '曲柄滑块机构由曲柄、连杆和滑块组成，可将旋转运动转换为直线往复运动。',
+                formula: '行程 H = 2r (r为曲柄半径)',
+                theory: '常用于冲床、压缩机、内燃机（汽油机、柴油机）、往复式水泵等。'
+            },
+            cam: {
+                name: '凸轮机构',
+                subtitle: 'Cam Mechanism',
+                info: '凸轮机构由凸轮和从动件组成，可将匀速转动转换为复杂的往复运动，运动规律取决于凸轮轮廓曲线。',
+                formula: '运动规律取决于凸轮轮廓曲线',
+                theory: '广泛应用于自动机床、内燃机配气机构、缝纫机、闹钟等需要复杂运动规律的场合。'
+            },
+            gear: {
+                name: '齿轮传动',
+                subtitle: 'Gear Mechanism',
+                info: '齿轮传动依靠齿轮的啮合传递动力，可实现增速、减速、变向和传递大功率。',
+                formula: '传动比 i = n₁/n₂ = z₂/z₁ = d₂/d₁',
+                theory: '是应用最广泛的机械传动形式，精度高、效率高(可达98%以上)，结构紧凑。'
+            },
+            belt: {
+                name: '皮带传动',
+                subtitle: 'Belt Drive',
+                info: '皮带传动依靠摩擦力传递动力，具有过载保护作用，适用于中心距较大的传动。',
+                formula: '传动比 i = n₁/n₂ = d₂/d₁',
+                theory: '适用于中心距较大的传动，可缓冲吸振，但传动比不精确，效率较低。'
+            },
+            chain: {
+                name: '链传动',
+                subtitle: 'Chain Drive',
+                info: '链传动依靠链条啮合传递动力，适合中心距较大的传动，传动比精确。',
+                formula: '传动比 i = n₁/n₂ = z₂/z₁',
+                theory: '常用于自行车、摩托车、传动链条、输送带等中低速传动。'
+            },
+            screw: {
+                name: '螺旋千斤顶',
+                subtitle: 'Screw Jack',
+                info: '螺旋千斤顶利用螺旋传动将旋转运动转换为直线运动，具有自锁性。',
+                formula: '导程 S = nP (n为头数，P为螺距)',
+                theory: '具有自锁性，常用于举升重物，如汽车千斤顶、机床升降台等。'
+            },
+            ratchet: {
+                name: '棘轮机构',
+                subtitle: 'Ratchet Mechanism',
+                info: '棘轮机构是间歇运动机构，由棘轮和棘爪组成，可实现单向间歇运动。',
+                formula: '运动角 = 360°/齿数',
+                theory: '用于千斤顶、钟表自动上弦、输送带止动、机械式计数器等。'
+            },
+            hydraulic: {
+                name: '液压传动',
+                subtitle: 'Hydraulic Drive',
+                info: '液压传动利用液体压力传递动力，输出力大而平稳，易于控制。',
+                formula: 'F₂/F₁ = A₂/A₁ (帕斯卡原理)',
+                theory: '广泛应用于工程机械(挖掘机、起重机)、机床、飞机液压系统等。'
+            },
+            spring: {
+                name: '弹簧机构',
+                subtitle: 'Spring Mechanism',
+                info: '弹簧机构储存和释放能量，实现缓冲、减振、复位等功能。',
+                formula: 'F = kx (胡克定律)',
+                theory: '用于汽车悬挂、仪器仪表复位、玩具发条、弹簧门等。'
+            }
+        };
+
+        class MechanismSim {
+            constructor() {
+                this.canvas = document.getElementById('mechanismCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.container = document.getElementById('canvasContainer');
+
+                this.config = {
+                    type: 'fourbar',
+                    speed: 1.0,
+                    size: 1.0,
+                    showTrail: true,
+                    showLabels: true,
+                    isPlaying: true,
+                    direction: 1
+                };
+
+                this.physics = {
+                    angle: 0,
+                    trailPoints: []
+                };
+
+                this.ui = {
+                    speedSlider: document.getElementById('speedSlider'),
+                    sizeSlider: document.getElementById('sizeSlider'),
+                    speedVal: document.getElementById('speedVal'),
+                    sizeVal: document.getElementById('sizeVal'),
+                    trailToggle: document.getElementById('trailToggle'),
+                    labelToggle: document.getElementById('labelToggle'),
+                    infoText: document.getElementById('infoText'),
+                    infoFormula: document.getElementById('infoFormula'),
+                    theoryText: document.getElementById('theoryText'),
+                    mechTitle: document.getElementById('mechTitle'),
+                    mechSubtitle: document.getElementById('mechSubtitle'),
+                    mechanismBtns: document.querySelectorAll('.mechanism-btn'),
+                    playBtn: document.getElementById('playBtn'),
+                    resetBtn: document.getElementById('resetBtn'),
+                    directionBtn: document.getElementById('directionBtn'),
+                    speedDot: document.getElementById('speedDot'),
+                    speedText: document.getElementById('speedText'),
+                    // Four-bar controls
+                    fourbarControls: document.getElementById('fourbarControls'),
+                    basicControls: document.getElementById('basicControls'),
+                    crankLenSlider: document.getElementById('crankLenSlider'),
+                    couplerLenSlider: document.getElementById('couplerLenSlider'),
+                    rockerLenSlider: document.getElementById('rockerLenSlider'),
+                    baseLenSlider: document.getElementById('baseLenSlider'),
+                    crankLenVal: document.getElementById('crankLenVal'),
+                    couplerLenVal: document.getElementById('couplerLenVal'),
+                    rockerLenVal: document.getElementById('rockerLenVal'),
+                    baseLenVal: document.getElementById('baseLenVal')
+                };
+
+                // Four-bar link lengths
+                this.fourbar = {
+                    crankLen: 1.2,
+                    couplerLen: 2.0,
+                    rockerLen: 1.8,
+                    baseLen: 2.2
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.bindEvents();
+                this.setMechanism('fourbar'); // Initialize with four-bar controls
+                this.animate();
+            }
+
+            bindEvents() {
+                this.ui.speedSlider.addEventListener('input', (e) => {
+                    this.config.speed = parseFloat(e.target.value);
+                    this.ui.speedVal.textContent = `${this.config.speed.toFixed(1)}x`;
+                });
+
+                this.ui.sizeSlider.addEventListener('input', (e) => {
+                    this.config.size = parseFloat(e.target.value);
+                    this.ui.sizeVal.textContent = this.config.size.toFixed(1);
+                });
+
+                this.ui.trailToggle.addEventListener('change', (e) => {
+                    this.config.showTrail = e.target.checked;
+                    if (!e.target.checked) this.physics.trailPoints = [];
+                });
+
+                this.ui.labelToggle.addEventListener('change', (e) => {
+                    this.config.showLabels = e.target.checked;
+                });
+
+                this.ui.mechanismBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.ui.mechanismBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.setMechanism(btn.dataset.type);
+                    });
+                });
+
+                this.ui.playBtn.addEventListener('click', () => {
+                    this.config.isPlaying = !this.config.isPlaying;
+                    this.ui.playBtn.textContent = this.config.isPlaying ? '▶' : '⏸';
+                    this.ui.playBtn.classList.toggle('active', this.config.isPlaying);
+                    this.ui.speedDot.classList.toggle('paused', !this.config.isPlaying);
+                    this.ui.speedText.textContent = this.config.isPlaying ? '运行中' : '已暂停';
+                });
+
+                this.ui.resetBtn.addEventListener('click', () => {
+                    this.physics.angle = 0;
+                    this.physics.trailPoints = [];
+                });
+
+                this.ui.directionBtn.addEventListener('click', () => {
+                    this.config.direction *= -1;
+                });
+
+                // Four-bar mechanism controls
+                this.ui.crankLenSlider.addEventListener('input', (e) => {
+                    this.fourbar.crankLen = parseFloat(e.target.value);
+                    this.ui.crankLenVal.textContent = this.fourbar.crankLen.toFixed(1);
+                    this.updateFourbarFormula();
+                    this.physics.trailPoints = [];
+                });
+
+                this.ui.couplerLenSlider.addEventListener('input', (e) => {
+                    this.fourbar.couplerLen = parseFloat(e.target.value);
+                    this.ui.couplerLenVal.textContent = this.fourbar.couplerLen.toFixed(1);
+                    this.updateFourbarFormula();
+                    this.physics.trailPoints = [];
+                });
+
+                this.ui.rockerLenSlider.addEventListener('input', (e) => {
+                    this.fourbar.rockerLen = parseFloat(e.target.value);
+                    this.ui.rockerLenVal.textContent = this.fourbar.rockerLen.toFixed(1);
+                    this.updateFourbarFormula();
+                    this.physics.trailPoints = [];
+                });
+
+                this.ui.baseLenSlider.addEventListener('input', (e) => {
+                    this.fourbar.baseLen = parseFloat(e.target.value);
+                    this.ui.baseLenVal.textContent = this.fourbar.baseLen.toFixed(1);
+                    this.updateFourbarFormula();
+                    this.physics.trailPoints = [];
+                });
+            }
+
+            resize() {
+                this.canvas.width = this.container.clientWidth;
+                this.canvas.height = this.container.clientHeight;
+            }
+
+            setMechanism(type) {
+                this.config.type = type;
+                this.physics.angle = 0;
+                this.physics.trailPoints = [];
+
+                const data = mechanismData[type];
+                this.ui.mechTitle.textContent = data.name;
+                this.ui.mechSubtitle.textContent = data.subtitle;
+                this.ui.infoText.textContent = data.info;
+                this.ui.infoFormula.textContent = data.formula;
+                this.ui.theoryText.textContent = data.theory;
+
+                // Show/hide four-bar specific controls
+                if (type === 'fourbar') {
+                    this.ui.fourbarControls.style.display = 'block';
+                    this.ui.basicControls.style.display = 'none';
+                    this.updateFourbarFormula();
+                } else {
+                    this.ui.fourbarControls.style.display = 'none';
+                    this.ui.basicControls.style.display = 'block';
+                }
+            }
+
+            updateFourbarFormula() {
+                const { crankLen, couplerLen, rockerLen, baseLen } = this.fourbar;
+                // Find the shortest杆
+                const lengths = [crankLen, couplerLen, rockerLen, baseLen];
+                const a = Math.min(...lengths);
+                const b = lengths.filter(l => l !== a).sort((x, y) => x - y)[0];
+                const c = lengths.filter(l => l !== a).sort((x, y) => x - y)[1];
+                const d = lengths.filter(l => l !== a).sort((x, y) => x - y)[2];
+
+                const canRotate = a + b <= c + d;
+                const condition = `${a.toFixed(1)} + ${b.toFixed(1)} ${canRotate ? '≤' : '>'} ${c.toFixed(1)} + ${d.toFixed(1)}`;
+
+                this.ui.infoFormula.innerHTML = `
+                    曲柄存在条件: a + b ≤ c + d<br>
+                    当前: ${condition}<br>
+                    <span style="color: ${canRotate ? '#00aa55' : '#ff6644'}">${canRotate ? '✓ 可作曲柄' : '✗ 无法整周转动'}</span>
+                `;
+            }
+
+            animate() {
+                this.updatePhysics();
+                this.draw();
+                requestAnimationFrame(() => this.animate());
+            }
+
+            updatePhysics() {
+                if (!this.config.isPlaying) return;
+                this.physics.angle += 0.025 * this.config.speed * this.config.direction;
+            }
+
+            draw() {
+                const ctx = this.ctx;
+                const w = this.canvas.width;
+                const h = this.canvas.height;
+
+                ctx.clearRect(0, 0, w, h);
+
+                // Light background
+                ctx.fillStyle = '#fafbfc';
+                ctx.fillRect(0, 0, w, h);
+
+                // Grid
+                ctx.strokeStyle = 'rgba(0, 102, 255, 0.08)';
+                ctx.lineWidth = 1;
+                const gridSize = 40;
+                for (let x = 0; x < w; x += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, h);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < h; y += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(w, y);
+                    ctx.stroke();
+                }
+
+                ctx.save();
+                ctx.translate(w / 2, h / 2);
+                ctx.scale(this.config.size, this.config.size);
+
+                switch (this.config.type) {
+                    case 'fourbar': this.drawFourbar(ctx); break;
+                    case 'slider': this.drawSlider(ctx); break;
+                    case 'cam': this.drawCam(ctx); break;
+                    case 'gear': this.drawGear(ctx); break;
+                    case 'belt': this.drawBelt(ctx); break;
+                    case 'chain': this.drawChain(ctx); break;
+                    case 'screw': this.drawScrew(ctx); break;
+                    case 'ratchet': this.drawRatchet(ctx); break;
+                    case 'hydraulic': this.drawHydraulic(ctx); break;
+                    case 'spring': this.drawSpring(ctx); break;
+                }
+
+                ctx.restore();
+            }
+
+            // Drawing helpers
+            drawLink(ctx, x1, y1, x2, y2, color = '#64748b', width = 6) {
+                ctx.beginPath();
+                ctx.strokeStyle = color;
+                ctx.lineWidth = width;
+                ctx.lineCap = 'round';
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+
+            drawJoint(ctx, x, y, r = 10, color = '#0066ff') {
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            drawLabel(ctx, text, x, y) {
+                if (!this.config.showLabels) return;
+                ctx.font = '13px "Noto Sans SC", sans-serif';
+                ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                ctx.textAlign = 'center';
+                ctx.fillText(text, x, y);
+            }
+
+            // ===== Four-bar Mechanism =====
+            drawFourbar(ctx) {
+                const angle = this.physics.angle;
+                const scale = 70;
+
+                const { crankLen, rockerLen, couplerLen, baseLen } = this.fourbar;
+
+                const cx = 0, cy = 0;
+
+                const A = { x: cx + crankLen * scale * Math.cos(angle), y: cy + crankLen * scale * Math.sin(angle) };
+                const D = { x: cx - baseLen/2 * scale, y: cy };
+
+                const rockAngle = angle * 1.5 + Math.PI * 0.3;
+                const C = {
+                    x: D.x + baseLen * scale + rockerLen * scale * 0.7 * Math.cos(rockAngle),
+                    y: D.y + rockerLen * scale * 0.7 * Math.sin(rockAngle)
+                };
+
+                // Trail
+                if (this.config.showTrail) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'rgba(0, 170, 85, 0.25)';
+                    ctx.lineWidth = 3;
+                    const trail = this.physics.trailPoints;
+                    if (trail.length > 1) {
+                        ctx.moveTo(trail[0].x, trail[0].y);
+                        for (let i = 1; i < trail.length; i++) {
+                            ctx.lineTo(trail[i].x, trail[i].y);
+                        }
+                    }
+                    ctx.stroke();
+                    this.physics.trailPoints.push({...C});
+                    if (this.physics.trailPoints.length > 80) this.physics.trailPoints.shift();
+                }
+
+                // Draw links
+                this.drawLink(ctx, D.x, D.y, A.x, A.y, '#0066ff', 8);
+                this.drawLink(ctx, A.x, A.y, C.x, C.y, '#00aa55', 6);
+                this.drawLink(ctx, C.x, C.y, D.x + baseLen * scale, D.y, '#ff6644', 6);
+
+                // Base
+                ctx.fillStyle = '#e2e8f0';
+                ctx.fillRect(D.x - 10, D.y - 8, baseLen * scale + 20, 16);
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(D.x - 10, D.y - 8, baseLen * scale + 20, 16);
+
+                // Joints
+                this.drawJoint(ctx, D.x, D.y, 12);
+                this.drawJoint(ctx, D.x + baseLen * scale, D.y, 12);
+                this.drawJoint(ctx, A.x, A.y, 10);
+                this.drawJoint(ctx, C.x, C.y, 10);
+
+                this.drawLabel(ctx, '曲柄', A.x, A.y - 18);
+                this.drawLabel(ctx, '摇杆', C.x + 30, C.y);
+                this.drawLabel(ctx, '连杆', (A.x + C.x)/2, (A.y + C.y)/2 - 12);
+            }
+
+            // ===== Slider-Crank Mechanism =====
+            drawSlider(ctx) {
+                const angle = this.physics.angle;
+                const crankR = 50;
+                const connLen = 100;
+
+                // Calculate slider position using proper geometry
+                // Slider moves on horizontal line at y = 50
+                const sliderY = 50;
+                // The slider x position is determined by the geometry
+                const crankX = crankR * Math.cos(angle);
+                const crankY = crankR * Math.sin(angle);
+
+                // Calculate slider x using the connecting rod length constraint
+                // (sliderX - crankX)^2 + (sliderY - crankY)^2 = connLen^2
+                const dx = Math.sqrt(connLen * connLen - (sliderY - crankY) * (sliderY - crankY));
+                const sliderX = crankX + dx;
+
+                // Trail
+                if (this.config.showTrail) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'rgba(0, 170, 85, 0.25)';
+                    ctx.lineWidth = 3;
+                    const trail = this.physics.trailPoints;
+                    if (trail.length > 1) {
+                        ctx.moveTo(trail[0].x, trail[0].y);
+                        for (let i = 1; i < trail.length; i++) {
+                            ctx.lineTo(trail[i].x, trail[i].y);
+                        }
+                    }
+                    ctx.stroke();
+                    this.physics.trailPoints.push({x: sliderX, y: sliderY});
+                    if (this.physics.trailPoints.length > 80) this.physics.trailPoints.shift();
+                }
+
+                // Guide/Track
+                ctx.fillStyle = '#e2e8f0';
+                ctx.fillRect(-120, 40, 300, 20);
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(-120, 40, 300, 20);
+
+                // Track grooves
+                ctx.beginPath();
+                ctx.moveTo(-120, 47);
+                ctx.lineTo(180, 47);
+                ctx.moveTo(-120, 53);
+                ctx.lineTo(180, 53);
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Crank pivot (at origin)
+                ctx.beginPath();
+                ctx.arc(0, 0, 8, 0, Math.PI * 2);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fill();
+
+                // Crank arm
+                this.drawLink(ctx, 0, 0, crankX, crankY, '#0066ff', 8);
+
+                // Crank pin
+                this.drawJoint(ctx, crankX, crankY, 8, '#0066ff');
+
+                // Connecting rod
+                this.drawLink(ctx, crankX, crankY, sliderX, sliderY, '#00aa55', 8);
+
+                // Connecting rod big end
+                ctx.beginPath();
+                ctx.arc(crankX, crankY, 6, 0, Math.PI * 2);
+                ctx.fillStyle = '#00aa55';
+                ctx.fill();
+
+                // Slider/Piston
+                ctx.fillStyle = '#0066ff';
+                ctx.beginPath();
+                ctx.roundRect(sliderX - 25, sliderY - 12, 50, 24, 4);
+                ctx.fill();
+                ctx.strokeStyle = '#0052cc';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Slider pin
+                this.drawJoint(ctx, sliderX, sliderY, 6, '#0066ff');
+
+                // Crank center
+                this.drawJoint(ctx, 0, 0, 10, '#64748b');
+
+                // Labels
+                this.drawLabel(ctx, '曲柄', crankX / 2, crankY - 15);
+                this.drawLabel(ctx, '连杆', (crankX + sliderX) / 2, (crankY + sliderY) / 2 - 8);
+                this.drawLabel(ctx, '滑块', sliderX, sliderY + 35);
+            }
+
+            // ===== Cam Mechanism =====
+            drawCam(ctx) {
+                const angle = this.physics.angle;
+                const camR = 50;
+                const followerR = 25;
+
+                ctx.save();
+                ctx.rotate(angle);
+
+                ctx.beginPath();
+                for (let a = 0; a < Math.PI * 2; a += 0.05) {
+                    const r = camR + 18 * Math.sin(a * 2);
+                    if (a === 0) ctx.moveTo(r * Math.cos(a), r * Math.sin(a));
+                    else ctx.lineTo(r * Math.cos(a), r * Math.sin(a));
+                }
+                ctx.closePath();
+
+                const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, camR + 20);
+                gradient.addColorStop(0, '#94a3b8');
+                gradient.addColorStop(1, '#64748b');
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                ctx.strokeStyle = '#0066ff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(0, 0, 12, 0, Math.PI * 2);
+                ctx.fillStyle = '#0066ff';
+                ctx.fill();
+
+                ctx.restore();
+
+                const followerOffset = 15 * Math.sin(angle * 2);
+                const fy = -camR - 30 + followerOffset;
+
+                ctx.fillStyle = '#e2e8f0';
+                ctx.fillRect(-20, -camR - 70, 40, 45);
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(-20, -camR - 70, 40, 45);
+
+                ctx.fillStyle = '#00aa55';
+                ctx.fillRect(-8, fy, 16, -fy - camR + 20);
+
+                ctx.beginPath();
+                ctx.arc(0, fy, followerR, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff6644';
+                ctx.fill();
+                ctx.strokeStyle = '#ee4433';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                this.drawLabel(ctx, '凸轮', 0, -85);
+                this.drawLabel(ctx, '从动件', 0, fy - 35);
+            }
+
+            // ===== Gear Mechanism =====
+            drawGear(ctx) {
+                const angle = this.physics.angle;
+                const teeth1 = 16;
+                const teeth2 = 32;
+                const module = 3.5;
+                const pitchR1 = teeth1 * module / 2;
+                const pitchR2 = teeth2 * module / 2;
+                const centerDist = pitchR1 + pitchR2;
+
+                ctx.save();
+                ctx.rotate(angle);
+                this.drawGearShape(ctx, 0, 0, pitchR1, teeth1, '#0066ff');
+                this.drawJoint(ctx, 0, 0, 10, '#00aa55');
+                ctx.restore();
+
+                ctx.save();
+                ctx.translate(centerDist, 0);
+                ctx.rotate(-angle * teeth1 / teeth2);
+                this.drawGearShape(ctx, 0, 0, pitchR2, teeth2, '#00aa55');
+                this.drawJoint(ctx, 0, 0, 10, '#0066ff');
+                ctx.restore();
+
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.arc(0, 0, pitchR1, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(0, 102, 255, 0.4)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(centerDist, 0, pitchR2, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(0, 170, 85, 0.4)';
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                this.drawLabel(ctx, '主动轮', 0, pitchR1 + 25);
+                this.drawLabel(ctx, '从动轮', centerDist, pitchR2 + 25);
+            }
+
+            drawGearShape(ctx, x, y, r, teeth, color) {
+                const addendum = r * 0.2;
+                const dedendum = r * 0.15;
+
+                ctx.beginPath();
+                for (let i = 0; i < teeth; i++) {
+                    const a1 = (i * 2 * Math.PI) / teeth;
+                    const a2 = ((i + 0.35) * 2 * Math.PI) / teeth;
+                    const a3 = ((i + 0.65) * 2 * Math.PI) / teeth;
+                    const a4 = ((i + 1) * 2 * Math.PI) / teeth;
+
+                    if (i === 0) ctx.moveTo((r + addendum) * Math.cos(a1), (r + addendum) * Math.sin(a1));
+                    ctx.lineTo((r + addendum) * Math.cos(a2), (r + addendum) * Math.sin(a2));
+                    ctx.lineTo((r - dedendum) * Math.cos(a3), (r - dedendum) * Math.sin(a3));
+                    ctx.lineTo((r - dedendum) * Math.cos(a4), (r - dedendum) * Math.sin(a4));
+                }
+                ctx.closePath();
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(x, y, r * 0.4, 0, Math.PI * 2);
+                ctx.fillStyle = '#fafbfc';
+                ctx.fill();
+            }
+
+            // ===== Belt Mechanism =====
+            drawBelt(ctx) {
+                const angle = this.physics.angle;
+                const r1 = 50;  // Smaller pulley
+                const r2 = 70;  // Larger pulley
+                const dist = 200;
+                const x1 = -dist / 2;
+                const x2 = dist / 2;
+
+                // Calculate tangent angles for belt path
+                const tangent = Math.atan2(r2 - r1, dist);
+                const angle1 = Math.PI + tangent;  // Top tangent angle
+                const angle2 = -tangent;           // Bottom tangent angle
+
+                // Belt path - outer edge
+                ctx.beginPath();
+                ctx.moveTo(x1 + r1 * Math.cos(angle2), r1 * Math.sin(angle2));
+                ctx.lineTo(x2 + r2 * Math.cos(angle2), r2 * Math.sin(angle2));
+                ctx.arc(x2, 0, r2, angle2, angle1, false);
+                ctx.lineTo(x1 + r1 * Math.cos(angle1), r1 * Math.sin(angle1));
+                ctx.arc(x1, 0, r1, angle1, angle2, true);
+                ctx.closePath();
+
+                // Belt gradient (V-belt look)
+                const beltGrad = ctx.createLinearGradient(x1, -r1-15, x2, r2+15);
+                beltGrad.addColorStop(0, '#8B7355');
+                beltGrad.addColorStop(0.3, '#A08060');
+                beltGrad.addColorStop(0.5, '#B8956E');
+                beltGrad.addColorStop(0.7, '#A08060');
+                beltGrad.addColorStop(1, '#8B7355');
+                ctx.fillStyle = beltGrad;
+                ctx.fill();
+
+                // Belt edges
+                ctx.strokeStyle = '#5D4E37';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Belt inner groove (V-shape)
+                ctx.beginPath();
+                ctx.moveTo(x1 + (r1-5) * Math.cos(angle2), (r1-5) * Math.sin(angle2));
+                ctx.lineTo(x2 + (r2-8) * Math.cos(angle2), (r2-8) * Math.sin(angle2));
+                ctx.arc(x2, 0, r2-8, angle2, angle1, false);
+                ctx.lineTo(x1 + (r1-5) * Math.cos(angle1), (r1-5) * Math.sin(angle1));
+                ctx.arc(x1, 0, r1-5, angle1, angle2, true);
+                ctx.closePath();
+                ctx.strokeStyle = '#4A3F2F';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // === Small Pulley (Driver - Left) ===
+                ctx.save();
+                ctx.translate(x1, 0);
+                ctx.rotate(angle);
+
+                // Pulley body
+                ctx.beginPath();
+                ctx.arc(0, 0, r1, 0, Math.PI * 2);
+                const grad1 = ctx.createRadialGradient(0, 0, 0, 0, 0, r1);
+                grad1.addColorStop(0, '#B8C4CE');
+                grad1.addColorStop(0.5, '#8899A6');
+                grad1.addColorStop(1, '#5A6772');
+                ctx.fillStyle = grad1;
+                ctx.fill();
+                ctx.strokeStyle = '#4A5568';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // V-groove
+                ctx.beginPath();
+                ctx.arc(0, 0, r1 - 10, 0, Math.PI * 2);
+                ctx.strokeStyle = '#3D4A54';
+                ctx.lineWidth = 8;
+                ctx.stroke();
+
+                // Center hub
+                ctx.beginPath();
+                ctx.arc(0, 0, 12, 0, Math.PI * 2);
+                ctx.fillStyle = '#4A5568';
+                ctx.fill();
+                ctx.strokeStyle = '#2D3748';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Mounting plate
+                ctx.fillStyle = '#6B7B8A';
+                ctx.fillRect(-r1 - 5, -8, 20, 16);
+                ctx.strokeStyle = '#4A5568';
+                ctx.strokeRect(-r1 - 5, -8, 20, 16);
+
+                ctx.restore();
+
+                // === Large Pulley (Driven - Right) ===
+                ctx.save();
+                ctx.translate(x2, 0);
+                ctx.rotate(-angle * r1 / r2);  // Slower rotation
+
+                // Pulley body
+                ctx.beginPath();
+                ctx.arc(0, 0, r2, 0, Math.PI * 2);
+                const grad2 = ctx.createRadialGradient(0, 0, 0, 0, 0, r2);
+                grad2.addColorStop(0, '#B8C4CE');
+                grad2.addColorStop(0.5, '#8899A6');
+                grad2.addColorStop(1, '#5A6772');
+                ctx.fillStyle = grad2;
+                ctx.fill();
+                ctx.strokeStyle = '#38A169';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // V-groove
+                ctx.beginPath();
+                ctx.arc(0, 0, r2 - 12, 0, Math.PI * 2);
+                ctx.strokeStyle = '#3D4A54';
+                ctx.lineWidth = 10;
+                ctx.stroke();
+
+                // Center hub
+                ctx.beginPath();
+                ctx.arc(0, 0, 14, 0, Math.PI * 2);
+                ctx.fillStyle = '#38A169';
+                ctx.fill();
+                ctx.strokeStyle = '#276749';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Mounting plate
+                ctx.fillStyle = '#6B7B8A';
+                ctx.fillRect(-r2 - 5, -10, 25, 20);
+                ctx.strokeStyle = '#4A5568';
+                ctx.strokeRect(-r2 - 5, -10, 25, 20);
+
+                ctx.restore();
+
+                // === Labels ===
+                // Transmission ratio
+                const ratio = (r2 / r1).toFixed(1);
+                ctx.font = 'bold 14px "Noto Sans SC"';
+                ctx.fillStyle = '#0066ff';
+                ctx.textAlign = 'center';
+                ctx.fillText(`i = 1:${ratio}`, (x1 + x2) / 2, -r2 - 20);
+
+                this.drawLabel(ctx, '主动轮\n(小)', x1, r1 + 40);
+                this.drawLabel(ctx, '从动轮\n(大)', x2, r2 + 45);
+
+                // Direction arrows
+                const arrowY = r1 + 60;
+                ctx.font = '12px "Noto Sans SC"';
+                ctx.fillStyle = '#00aa55';
+                ctx.fillText('转速快 →', x1, arrowY);
+                ctx.fillText('转速慢 →', x2 - 30, arrowY);
+            }
+
+            // ===== Chain Mechanism =====
+            drawChain(ctx) {
+                const angle = this.physics.angle;
+                const r1 = 45;   // Small sprocket
+                const r2 = 65;   // Large sprocket
+                const teeth1 = 12;
+                const teeth2 = 18;
+                const dist = 190;
+                const x1 = -dist / 2;
+                const x2 = dist / 2;
+
+                // Chain path parameters
+                const tangent = Math.atan2(r2 - r1, dist);
+
+                // === Draw Chain First (behind sprockets) ===
+
+                // Outer chain
+                ctx.beginPath();
+                ctx.moveTo(x1 + r1 * Math.cos(-tangent), r1 * Math.sin(-tangent));
+                ctx.lineTo(x2 + r2 * Math.cos(-tangent), r2 * Math.sin(-tangent));
+                ctx.arc(x2, 0, r2, -tangent, Math.PI + tangent, true);
+                ctx.lineTo(x1 + r1 * Math.cos(Math.PI - tangent), r1 * Math.sin(Math.PI - tangent));
+                ctx.arc(x1, 0, r1, Math.PI - tangent, -tangent, false);
+                ctx.closePath();
+                ctx.strokeStyle = '#4A4A4A';
+                ctx.lineWidth = 14;
+                ctx.stroke();
+
+                // Inner chain edge
+                ctx.strokeStyle = '#6A6A6A';
+                ctx.lineWidth = 8;
+                ctx.stroke();
+
+                // Chain rollers (animated)
+                const linkSpacing = 18;
+                const chainLen = 2 * (Math.PI * (r1 + r2) / 2 + dist);
+                const numLinks = Math.floor(chainLen / linkSpacing);
+
+                for (let i = 0; i < numLinks; i++) {
+                    const offset = (angle * r1 * 2) % linkSpacing;
+                    const pos = (i * linkSpacing + offset) % chainLen;
+
+                    // Calculate position along chain path
+                    let lx, ly;
+                    const pos1 = r1 * Math.PI;
+                    const pos2 = pos1 + dist;
+
+                    if (pos < pos1) {
+                        // Top arc (small sprocket)
+                        const a = -tangent + pos / r1;
+                        lx = x1 + r1 * Math.cos(a);
+                        ly = r1 * Math.sin(a);
+                    } else if (pos < pos2) {
+                        // Top tangent line
+                        const t = (pos - pos1) / dist;
+                        lx = x1 + (r1 * Math.cos(-tangent)) + t * (x2 + r2 * Math.cos(-tangent) - x1 - r1 * Math.cos(-tangent));
+                        ly = (1 - t) * r1 * Math.sin(-tangent) + t * r2 * Math.sin(-tangent);
+                    } else if (pos < pos2 + r2 * Math.PI) {
+                        // Bottom arc (large sprocket)
+                        const a = Math.PI + tangent + (pos - pos2) / r2;
+                        lx = x2 + r2 * Math.cos(a);
+                        ly = r2 * Math.sin(a);
+                    } else {
+                        // Bottom tangent line
+                        const t = (pos - pos2 - r2 * Math.PI) / dist;
+                        lx = x2 + r2 * Math.cos(Math.PI + tangent) - t * (x2 + r2 * Math.cos(Math.PI + tangent) - x1 - r1 * Math.cos(Math.PI + tangent));
+                        ly = (1 - t) * r2 * Math.sin(Math.PI + tangent) + t * r1 * Math.sin(Math.PI + tangent);
+                    }
+
+                    // Draw roller
+                    ctx.beginPath();
+                    ctx.arc(lx, ly, 4, 0, Math.PI * 2);
+                    ctx.fillStyle = i % 2 === 0 ? '#C9A227' : '#9A7B1A';
+                    ctx.fill();
+                    ctx.strokeStyle = '#5A4A0A';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+
+                // === Small Sprocket (Driver - Left) ===
+                ctx.save();
+                ctx.translate(x1, 0);
+                ctx.rotate(angle);
+
+                // Sprocket body
+                ctx.beginPath();
+                ctx.arc(0, 0, r1, 0, Math.PI * 2);
+                const grad1 = ctx.createRadialGradient(0, 0, 0, 0, 0, r1);
+                grad1.addColorStop(0, '#A8B4BA');
+                grad1.addColorStop(0.7, '#78848E');
+                grad1.addColorStop(1, '#4A5258');
+                ctx.fillStyle = grad1;
+                ctx.fill();
+                ctx.strokeStyle = '#0066ff';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Teeth
+                for (let i = 0; i < teeth1; i++) {
+                    const a = (i * 2 * Math.PI) / teeth1;
+                    const toothR = r1 - 5;
+                    ctx.beginPath();
+                    ctx.arc(toothR * Math.cos(a), toothR * Math.sin(a), 7, 0, Math.PI * 2);
+                    ctx.fillStyle = '#505860';
+                    ctx.fill();
+                }
+
+                // Center hub
+                ctx.beginPath();
+                ctx.arc(0, 0, 14, 0, Math.PI * 2);
+                ctx.fillStyle = '#0066ff';
+                ctx.fill();
+                ctx.strokeStyle = '#0044AA';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Keyway
+                ctx.fillStyle = '#003366';
+                ctx.fillRect(-3, -r1 + 8, 6, 14);
+
+                ctx.restore();
+
+                // === Large Sprocket (Driven - Right) ===
+                ctx.save();
+                ctx.translate(x2, 0);
+                ctx.rotate(-angle * teeth1 / teeth2);  // Slower rotation
+
+                // Sprocket body
+                ctx.beginPath();
+                ctx.arc(0, 0, r2, 0, Math.PI * 2);
+                const grad2 = ctx.createRadialGradient(0, 0, 0, 0, 0, r2);
+                grad2.addColorStop(0, '#A8B4BA');
+                grad2.addColorStop(0.7, '#78848E');
+                grad2.addColorStop(1, '#4A5258');
+                ctx.fillStyle = grad2;
+                ctx.fill();
+                ctx.strokeStyle = '#00aa55';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Teeth
+                for (let i = 0; i < teeth2; i++) {
+                    const a = (i * 2 * Math.PI) / teeth2;
+                    const toothR = r2 - 7;
+                    ctx.beginPath();
+                    ctx.arc(toothR * Math.cos(a), toothR * Math.sin(a), 8, 0, Math.PI * 2);
+                    ctx.fillStyle = '#505860';
+                    ctx.fill();
+                }
+
+                // Center hub
+                ctx.beginPath();
+                ctx.arc(0, 0, 16, 0, Math.PI * 2);
+                ctx.fillStyle = '#00aa55';
+                ctx.fill();
+                ctx.strokeStyle = '#008844';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Keyway
+                ctx.fillStyle = '#005522';
+                ctx.fillRect(-4, -r2 + 10, 8, 18);
+
+                ctx.restore();
+
+                // === Labels ===
+                const ratio = (teeth2 / teeth1).toFixed(1);
+                ctx.font = 'bold 14px "Noto Sans SC"';
+                ctx.fillStyle = '#0066ff';
+                ctx.textAlign = 'center';
+                ctx.fillText(`i = 1:${ratio}`, (x1 + x2) / 2, -r2 - 20);
+
+                this.drawLabel(ctx, '主动链轮', x1, r1 + 40);
+                this.drawLabel(ctx, '从动链轮', x2, r2 + 45);
+
+                // Direction arrows
+                const arrowY = r1 + 65;
+                ctx.font = '12px "Noto Sans SC"';
+                ctx.fillStyle = '#00aa55';
+                ctx.fillText('转速快 →', x1, arrowY);
+                ctx.fillText('转速慢 →', x2 - 30, arrowY);
+            }
+
+            // ===== Screw Mechanism (Screw Jack) =====
+            drawScrew(ctx) {
+                const angle = this.physics.angle;
+                const lead = 8;  // Lead (distance per rotation)
+                const turns = 6;  // Number of thread turns
+
+                // Calculate vertical movement based on rotation
+                // Negative because rotation lifts the load
+                const lift = (angle * lead) % (turns * lead);
+                const baseY = 50;
+
+                // Base/Housing
+                ctx.fillStyle = '#e2e8f0';
+                ctx.beginPath();
+                ctx.roundRect(-60, baseY, 120, 30, 6);
+                ctx.fill();
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Housing detail
+                ctx.fillStyle = '#cbd5e1';
+                ctx.fillRect(-50, baseY + 5, 100, 20);
+
+                // Threaded screw (rotates and moves up)
+                const screwTop = baseY - lift - 20;
+                const screwBottom = baseY + 20;
+                const screwWidth = 24;
+
+                // Screw body
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(-screwWidth/2, screwTop, screwWidth, screwBottom - screwTop);
+
+                // Thread grooves (helical pattern)
+                ctx.strokeStyle = '#64748b';
+                ctx.lineWidth = 2;
+                for (let i = 0; i < turns; i++) {
+                    const t = i / turns;
+                    const y1 = screwBottom - t * (screwBottom - screwTop);
+                    const y2 = screwBottom - (t + 0.5) * (screwBottom - screwTop);
+                    const offset = (angle % (Math.PI * 2)) / (Math.PI * 2) * lead;
+
+                    ctx.beginPath();
+                    ctx.moveTo(-screwWidth/2 - 2, y1 + offset);
+                    ctx.lineTo(screwWidth/2 + 2, y2 + offset);
+                    ctx.stroke();
+                }
+
+                // Screw threads (diagonal lines)
+                ctx.strokeStyle = '#0066ff';
+                ctx.lineWidth = 2;
+                for (let i = 0; i < turns * 2; i++) {
+                    const y = screwTop + 5 + i * (screwBottom - screwTop - 10) / (turns * 2);
+                    if (y < screwBottom - 5) {
+                        ctx.beginPath();
+                        ctx.moveTo(-screwWidth/2, y);
+                        ctx.lineTo(screwWidth/2, y + 4);
+                        ctx.stroke();
+                    }
+                }
+
+                // Load platform (moves with screw)
+                const platformY = screwTop - 15;
+                ctx.fillStyle = '#d4a017';
+                ctx.beginPath();
+                ctx.roundRect(-40, platformY - 10, 80, 25, 4);
+                ctx.fill();
+                ctx.strokeStyle = '#a08020';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Load/Weight on top
+                ctx.fillStyle = '#ff6644';
+                ctx.beginPath();
+                ctx.roundRect(-30, platformY - 50, 60, 40, 6);
+                ctx.fill();
+                ctx.strokeStyle = '#ee4433';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Weight text
+                ctx.font = 'bold 14px "Noto Sans SC"';
+                ctx.fillStyle = '#fff';
+                ctx.textAlign = 'center';
+                ctx.fillText('重物', 0, platformY - 20);
+
+                // Force arrow
+                ctx.beginPath();
+                ctx.moveTo(0, platformY - 55);
+                ctx.lineTo(0, platformY - 80);
+                ctx.strokeStyle = '#00aa55';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                // Arrow head
+                ctx.beginPath();
+                ctx.moveTo(-6, platformY - 70);
+                ctx.lineTo(0, platformY - 80);
+                ctx.lineTo(6, platformY - 70);
+                ctx.fillStyle = '#00aa55';
+                ctx.fill();
+
+                // Handle arm (rotates)
+                const handleAngle = angle;
+                const handleLen = 50;
+                const handleY = baseY + 15;
+
+                ctx.save();
+                ctx.translate(0, handleY);
+                ctx.rotate(handleAngle);
+
+                // Handle bar
+                ctx.fillStyle = '#ff6644';
+                ctx.beginPath();
+                ctx.roundRect(-handleLen, -6, handleLen, 12, 6);
+                ctx.fill();
+                ctx.strokeStyle = '#ee4433';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Handle knob
+                ctx.beginPath();
+                ctx.arc(handleLen, 0, 10, 0, Math.PI * 2);
+                ctx.fillStyle = '#d4a017';
+                ctx.fill();
+                ctx.strokeStyle = '#a08020';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Handle center pivot
+                ctx.beginPath();
+                ctx.arc(0, 0, 8, 0, Math.PI * 2);
+                ctx.fillStyle = '#64748b';
+                ctx.fill();
+
+                ctx.restore();
+
+                // Labels
+                ctx.font = '13px "Noto Sans SC"';
+                ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                this.drawLabel(ctx, '手柄', handleLen + 20, handleY);
+                this.drawLabel(ctx, '螺杆', 0, (screwTop + screwBottom) / 2);
+                this.drawLabel(ctx, '重物', 0, platformY - 65);
+                this.drawLabel(ctx, '底座', 0, baseY + 45);
+            }
+
+            // ===== Ratchet Mechanism =====
+            drawRatchet(ctx) {
+                const angle = this.physics.angle;
+                const r = 55;
+                const teeth = 10;
+
+                // Determine if pawl is engaging or releasing
+                // Pawl clicks when passing teeth
+                const toothAngle = (2 * Math.PI) / teeth;
+                const currentPhase = (angle % toothAngle) / toothAngle;
+                const isClicking = currentPhase < 0.3 || currentPhase > 0.7;
+                const pawlAngle = isClicking ? 0.3 : 0.5;
+
+                // Ratchet wheel (rotates continuously)
+                ctx.save();
+                ctx.rotate(angle);
+
+                // Main wheel body
+                ctx.beginPath();
+                ctx.arc(0, 0, r, 0, Math.PI * 2);
+                const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
+                grad.addColorStop(0, '#a8a8a8');
+                grad.addColorStop(0.7, '#787878');
+                grad.addColorStop(1, '#585858');
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                // Outer rim
+                ctx.beginPath();
+                ctx.arc(0, 0, r + 3, 0, Math.PI * 2);
+                ctx.strokeStyle = '#404040';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Teeth (asymmetric - sloped for engagement)
+                for (let i = 0; i < teeth; i++) {
+                    const a = (i * 2 * Math.PI) / teeth;
+                    const nextA = ((i + 0.5) * 2 * Math.PI) / teeth;
+
+                    // Draw tooth (asymmetric - steep on one side, sloped on other)
+                    ctx.beginPath();
+                    ctx.moveTo(r * Math.cos(a), r * Math.sin(a));
+                    // Steep side
+                    ctx.lineTo((r + 15) * Math.cos(a * 0.97), (r + 15) * Math.sin(a * 0.97));
+                    // Sloped side to next tooth
+                    ctx.lineTo((r + 15) * Math.cos(nextA * 1.03), (r + 15) * Math.sin(nextA * 1.03));
+                    ctx.lineTo(r * Math.cos(nextA), r * Math.sin(nextA));
+                    ctx.closePath();
+                    ctx.fillStyle = '#606060';
+                    ctx.fill();
+                    ctx.strokeStyle = '#404040';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+
+                // Inner hub
+                ctx.beginPath();
+                ctx.arc(0, 0, 22, 0, Math.PI * 2);
+                ctx.fillStyle = '#505050';
+                ctx.fill();
+                ctx.strokeStyle = '#404040';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Spokes
+                ctx.strokeStyle = '#606060';
+                ctx.lineWidth = 4;
+                for (let i = 0; i < 4; i++) {
+                    const a = i * Math.PI / 2;
+                    ctx.beginPath();
+                    ctx.moveTo(12 * Math.cos(a), 12 * Math.sin(a));
+                    ctx.lineTo(18 * Math.cos(a), 18 * Math.sin(a));
+                    ctx.stroke();
+                }
+
+                // Center axle
+                ctx.beginPath();
+                ctx.arc(0, 0, 8, 0, Math.PI * 2);
+                ctx.fillStyle = '#303030';
+                ctx.fill();
+
+                ctx.restore();
+
+                // Pawl (pivots at center, engages with teeth)
+                const pawlPivotX = 0;
+                const pawlPivotY = 0;
+
+                // Calculate pawl position based on wheel rotation
+                // Pawl should rock back and forth as teeth pass
+                const rockAmount = 0.4;
+                const pawlRock = Math.sin(angle * teeth) * rockAmount;
+
+                ctx.save();
+                ctx.translate(pawlPivotX, pawlPivotY);
+                ctx.rotate(pawlRock);
+
+                // Pawl body
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(r + 5, 8);
+                ctx.lineTo(r + 20, 6);
+                ctx.lineTo(r + 20, -6);
+                ctx.lineTo(r + 5, -8);
+                ctx.closePath();
+
+                const pawlGrad = ctx.createLinearGradient(0, 0, r + 20, 0);
+                pawlGrad.addColorStop(0, '#ff8055');
+                pawlGrad.addColorStop(1, '#cc4422');
+                ctx.fillStyle = pawlGrad;
+                ctx.fill();
+                ctx.strokeStyle = '#992211';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Pawl tip (engages with teeth)
+                ctx.beginPath();
+                ctx.moveTo(r + 5, -8);
+                ctx.lineTo(r + 10, -10);
+                ctx.lineTo(r + 10, 10);
+                ctx.lineTo(r + 5, 8);
+                ctx.closePath();
+                ctx.fillStyle = '#dd5533';
+                ctx.fill();
+
+                // Pawl pivot
+                ctx.beginPath();
+                ctx.arc(0, 0, 6, 0, Math.PI * 2);
+                ctx.fillStyle = '#505050';
+                ctx.fill();
+                ctx.strokeStyle = '#303030';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                ctx.restore();
+
+                // Pawl spring (shows the return force)
+                ctx.beginPath();
+                ctx.moveTo(-15, 10);
+                ctx.quadraticCurveTo(-25, 0, -15, -10);
+                ctx.strokeStyle = '#ffcc00';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Stop (fixed pawl on other side)
+                ctx.fillStyle = '#505050';
+                ctx.beginPath();
+                ctx.roundRect(r + 25, -20, 15, 40, 3);
+                ctx.fill();
+                ctx.strokeStyle = '#303030';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Direction arrow
+                ctx.font = 'bold 12px "Noto Sans SC"';
+                ctx.fillStyle = '#0066ff';
+                ctx.textAlign = 'center';
+
+                // Animated rotation indicator
+                const arrowX = -r - 30;
+                const arrowY = 0;
+                ctx.save();
+                ctx.translate(arrowX, arrowY);
+
+                // Circular arrow
+                ctx.beginPath();
+                ctx.arc(0, 0, 15, 0, Math.PI * 1.5);
+                ctx.strokeStyle = '#0066ff';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Arrow head
+                ctx.beginPath();
+                ctx.moveTo(15, -15);
+                ctx.lineTo(20, -5);
+                ctx.lineTo(10, -5);
+                ctx.closePath();
+                ctx.fillStyle = '#0066ff';
+                ctx.fill();
+
+                ctx.restore();
+
+                // Labels
+                this.drawLabel(ctx, '棘轮', 0, r + 40);
+                this.drawLabel(ctx, '棘爪', r + 40, 0);
+                this.drawLabel(ctx, '止动', r + 40, -35);
+            }
+
+            // ===== Hydraulic Mechanism =====
+            drawHydraulic(ctx) {
+                const angle = this.physics.angle;
+                const pumpX = -90;
+                const cylinderX = 70;
+
+                ctx.fillStyle = '#e2e8f0';
+                ctx.beginPath();
+                ctx.roundRect(pumpX - 40, -45, 80, 90, 8);
+                ctx.fill();
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                const pistonOffset = 20 * Math.sin(angle);
+                ctx.fillStyle = '#0066ff';
+                ctx.fillRect(pumpX - 12 + pistonOffset, -35, 24, 70);
+
+                ctx.beginPath();
+                ctx.moveTo(pumpX + 40, 0);
+                ctx.lineTo(pumpX + 55, 0);
+                ctx.lineTo(pumpX + 55, 35);
+                ctx.lineTo(cylinderX - 45, 35);
+                ctx.lineTo(cylinderX - 45, 10);
+                ctx.strokeStyle = '#0066ff';
+                ctx.lineWidth = 10;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(pumpX + 55, -25);
+                ctx.lineTo(pumpX + 55, -45);
+                ctx.lineTo(cylinderX - 45, -45);
+                ctx.lineTo(cylinderX - 45, -25);
+                ctx.strokeStyle = '#6699cc';
+                ctx.lineWidth = 8;
+                ctx.stroke();
+
+                ctx.fillStyle = '#e2e8f0';
+                ctx.beginPath();
+                ctx.roundRect(cylinderX - 40, -60, 80, 120, 8);
+                ctx.fill();
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                const cylOffset = 30 * Math.sin(angle);
+                ctx.fillStyle = '#00aa55';
+                ctx.fillRect(cylinderX - 30 + cylOffset, -50, 25, 100);
+
+                ctx.fillStyle = '#64748b';
+                ctx.fillRect(cylinderX - 18 + cylOffset, -100, 12, 55);
+
+                ctx.fillStyle = '#d4a017';
+                ctx.beginPath();
+                ctx.roundRect(cylinderX - 35, -130, 70, 30, 6);
+                ctx.fill();
+                ctx.strokeStyle = '#a08020';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(cylinderX, -95);
+                ctx.lineTo(cylinderX, -140);
+                ctx.strokeStyle = '#ff6644';
+                ctx.lineWidth = 5;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(cylinderX - 8, -125);
+                ctx.lineTo(cylinderX, -140);
+                ctx.lineTo(cylinderX + 8, -125);
+                ctx.fillStyle = '#ff6644';
+                ctx.fill();
+
+                this.drawLabel(ctx, '液压泵', pumpX, 60);
+                this.drawLabel(ctx, '液压缸', cylinderX, 80);
+            }
+
+            // ===== Spring Mechanism =====
+            drawSpring(ctx) {
+                const angle = this.physics.angle;
+                const coils = 10;
+                const springR = 18;
+                const compression = 25 * Math.sin(angle);
+
+                ctx.fillStyle = '#e2e8f0';
+                ctx.beginPath();
+                ctx.roundRect(-50, -10, 100, 15, 4);
+                ctx.fill();
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.strokeStyle = '#0066ff';
+                ctx.lineWidth = 6;
+                ctx.lineCap = 'round';
+
+                const springLen = 100 - compression;
+                for (let i = 0; i < coils; i++) {
+                    const y1 = 5 + springLen * i / coils;
+                    const y2 = 5 + springLen * (i + 0.5) / coils;
+                    const y3 = 5 + springLen * (i + 1) / coils;
+                    ctx.moveTo(-springR, y1);
+                    ctx.quadraticCurveTo(springR, (y1 + y2) / 2, -springR, y2);
+                    ctx.quadraticCurveTo(springR, (y2 + y3) / 2, -springR, y3);
+                }
+                ctx.stroke();
+
+                const endY = 5 + springLen;
+                ctx.fillStyle = '#00aa55';
+                ctx.beginPath();
+                ctx.roundRect(-50, endY, 100, 15, 4);
+                ctx.fill();
+                ctx.strokeStyle = '#008844';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                const massY = endY + 45;
+                ctx.beginPath();
+                ctx.arc(0, massY, 30, 0, Math.PI * 2);
+                const massGrad = ctx.createRadialGradient(0, massY - 10, 0, 0, massY, 30);
+                massGrad.addColorStop(0, '#d4a017');
+                massGrad.addColorStop(1, '#a08020');
+                ctx.fillStyle = massGrad;
+                ctx.fill();
+                ctx.strokeStyle = '#a08020';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(0, endY - 8);
+                ctx.lineTo(0, endY + 8);
+                ctx.strokeStyle = '#ff6644';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                this.drawLabel(ctx, '弹簧', 30, 50);
+                this.drawLabel(ctx, 'm', 0, massY + 5);
+                this.drawLabel(ctx, 'F = kx', 40, endY + 25);
+            }
+        }
+
+        // Initialize
+        new MechanismSim();
+    </script>
+</body>
+</html>

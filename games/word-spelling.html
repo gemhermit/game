@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语单词拼写 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="英语单词拼写闯关小游戏，适合课堂练习和单词复习。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="英语单词拼写,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/word-spelling.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="英语单词拼写 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="英语单词拼写闯关小游戏，适合课堂练习和单词复习。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/word-spelling.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="英语单词拼写 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="英语单词拼写闯关小游戏，适合课堂练习和单词复习。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"英语单词拼写","description":"英语单词拼写闯关小游戏，适合课堂练习和单词复习。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/word-spelling.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            position: relative;
+        }
+        .left-panel {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            max-width: 400px;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+        .right-panel {
+            flex: 2;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .word-info {
+            background: rgba(255,255,255,0.2);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .word-display {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #fdcb6e;
+        }
+        .word-phonetic {
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #74b9ff;
+            font-style: italic;
+        }
+        .word-meaning {
+            font-size: 1.1em;
+            line-height: 1.6;
+            text-align: center;
+            color: #ecf0f1;
+        }
+        .word-example {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            border-left: 4px solid #fdcb6e;
+            font-style: italic;
+        }
+        .difficulty-selector {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .difficulty-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fdcb6e;
+        }
+        .difficulty-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(116, 185, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .difficulty-btn:hover {
+            background: rgba(116, 185, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        .difficulty-btn.active {
+            background: #74b9ff;
+        }
+        .score-panel {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+        }
+        .score-label {
+            font-weight: bold;
+        }
+        .score-value {
+            color: #fdcb6e;
+            font-weight: bold;
+        }
+        .game-area {
+            width: 100%;
+            max-width: 600px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .audio-section {
+            margin: 30px 0;
+        }
+        .audio-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .audio-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .spelling-area {
+            margin: 30px 0;
+        }
+        .letter-slots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .letter-slot {
+            width: 50px;
+            height: 60px;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            background: white;
+            transition: all 0.3s ease;
+            color: #2d3436;
+        }
+        .letter-slot.filled {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        .letter-slot.correct {
+            border-color: #00b894;
+            background: rgba(0, 184, 148, 0.2);
+            animation: bounce 0.5s ease;
+        }
+        .letter-slot.wrong {
+            border-color: #e17055;
+            background: rgba(225, 112, 85, 0.2);
+            animation: shake 0.5s ease;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .letter-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.5em;
+            text-align: center;
+            margin: 20px 0;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        .letter-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+        }
+        .virtual-keyboard {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+            margin: 20px 0;
+            max-width: 500px;
+        }
+        .key {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            color: #2d3436;
+        }
+        .key:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .key.used {
+            background: #ddd;
+            color: #999;
+            cursor: not-allowed;
+        }
+        .key.correct {
+            background: #00b894;
+            color: white;
+        }
+        .key.wrong {
+            background: #e17055;
+            color: white;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .game-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .game-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .btn-check {
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+        }
+        .btn-hint {
+            background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+        }
+        .btn-clear {
+            background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+        }
+        .btn-next {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .result-panel {
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+            text-align: center;
+            display: none;
+        }
+        .result-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .result-content {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .hint-panel {
+            background: rgba(253, 203, 110, 0.1);
+            border: 2px solid #fdcb6e;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            color: #2d3436;
+            text-align: center;
+            display: none;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        .import-panel {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        .import-btn {
+            flex: 1;
+            display: block;
+            padding: 10px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .import-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: #fdcb6e;
+        }
+    </style>
+</head>
+<body>
+    <div class="left-panel">
+        <h1>📝 单词拼写练习</h1>
+
+        <div class="word-info">
+            <div class="word-display" id="wordDisplay">APPLE</div>
+            <div class="word-phonetic" id="wordPhonetic">/ˈæpəl/</div>
+            <div class="word-meaning" id="wordMeaning">n. 苹果</div>
+            <div class="word-example" id="wordExample">
+                例句：I eat an apple every day.<br>
+                我每天吃一个苹果。
+            </div>
+        </div>
+
+        <div class="difficulty-selector">
+            <div class="difficulty-title">难度选择</div>
+            <button class="difficulty-btn active" data-level="easy">🟢 简单 (3-5字母)</button>
+            <button class="difficulty-btn" data-level="medium">🟡 中等 (6-8字母)</button>
+            <button class="difficulty-btn" data-level="hard">🔴 困难 (9+字母)</button>
+        </div>
+
+        <div class="score-panel">
+            <div class="score-row">
+                <span class="score-label">正确拼写:</span>
+                <span class="score-value" id="correctCount">0</span>
+            </div>
+            <div class="score-row">
+                <span class="score-label">错误次数:</span>
+                <span class="score-value" id="wrongCount">0</span>
+            </div>
+            <div class="score-row">
+                <span class="score-label">正确率:</span>
+                <span class="score-value" id="accuracy">0%</span>
+            </div>
+            <div class="score-row">
+                <span class="score-label">连续正确:</span>
+                <span class="score-value" id="streak">0</span>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="import-panel">
+            <button class="import-btn" id="downloadBtn">📥 下载词库模板</button>
+            <label class="import-btn" for="importInput">📁 导入词库</label>
+            <input type="file" id="importInput" accept=".json,.txt" style="display: none;">
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="game-area">
+            <div class="audio-section">
+                <button class="audio-btn" id="playAudioBtn">🔊 播放发音</button>
+            </div>
+
+            <div class="spelling-area">
+                <div class="letter-slots" id="letterSlots">
+                    <!-- 字母槽将通过JavaScript生成 -->
+                </div>
+
+                <input type="text" class="letter-input" id="letterInput" placeholder="输入单词拼写..." maxlength="20">
+
+                <div class="virtual-keyboard" id="virtualKeyboard">
+                    <!-- 虚拟键盘将通过JavaScript生成 -->
+                </div>
+            </div>
+
+            <div class="hint-panel" id="hintPanel">
+                <div id="hintContent">提示：这个单词以字母 'A' 开头</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="game-btn btn-check" id="checkBtn">✅ 检查拼写</button>
+            <button class="game-btn btn-hint" id="hintBtn">💡 获取提示</button>
+            <button class="game-btn btn-clear" id="clearBtn">🧹 清空</button>
+            <button class="game-btn btn-next" id="nextBtn">➡️ 下一个</button>
+        </div>
+
+        <div class="result-panel" id="resultPanel">
+            <div class="result-title" id="resultTitle">拼写正确!</div>
+            <div class="result-content" id="resultContent">
+                恭喜你！单词拼写完全正确。
+            </div>
+        </div>
+    </div>
+</body>
+
+    <script>
+        class WordSpellingGame {
+            constructor() {
+                this.currentWord = null;
+                this.currentInput = '';
+                this.correctCount = 0;
+                this.wrongCount = 0;
+                this.streak = 0;
+                this.difficulty = 'easy';
+                this.hintLevel = 0;
+                
+                this.wordLists = {
+                    easy: [
+                        {word: 'APPLE', phonetic: '/ˈæpəl/', meaning: 'n. 苹果', example: 'I eat an apple every day. 我每天吃一个苹果。'},
+                        {word: 'CAT', phonetic: '/kæt/', meaning: 'n. 猫', example: 'The cat is sleeping. 猫在睡觉。'},
+                        {word: 'DOG', phonetic: '/dɔːɡ/', meaning: 'n. 狗', example: 'My dog is very friendly. 我的狗很友好。'},
+                        {word: 'BOOK', phonetic: '/bʊk/', meaning: 'n. 书', example: 'I love reading books. 我喜欢读书。'},
+                        {word: 'WATER', phonetic: '/ˈwɔːtər/', meaning: 'n. 水', example: 'Water is essential for life. 水是生命必需的。'},
+                        {word: 'HOUSE', phonetic: '/haʊs/', meaning: 'n. 房子', example: 'This is my house. 这是我的房子。'},
+                        {word: 'TREE', phonetic: '/triː/', meaning: 'n. 树', example: 'The tree is very tall. 这棵树很高。'},
+                        {word: 'HAPPY', phonetic: '/ˈhæpi/', meaning: 'adj. 快乐的', example: 'I am happy today. 我今天很快乐。'},
+                        {word: 'SUN', phonetic: '/sʌn/', meaning: 'n. 太阳', example: 'The sun is shining brightly. 阳光明媚。'},
+                        {word: 'MOON', phonetic: '/muːn/', meaning: 'n. 月亮', example: 'The moon is very bright tonight. 今晚月亮很亮。'},
+                        {word: 'FISH', phonetic: '/fɪʃ/', meaning: 'n. 鱼', example: 'The fish swims in the water. 鱼在水中游。'},
+                        {word: 'BIRD', phonetic: '/bɜːrd/', meaning: 'n. 鸟', example: 'The bird is singing. 鸟儿在唱歌。'},
+                        {word: 'STAR', phonetic: '/stɑːr/', meaning: 'n. 星星', example: 'I see many stars at night. 晚上我能看到很多星星。'},
+                        {word: 'KING', phonetic: '/kɪŋ/', meaning: 'n. 国王', example: 'The king lives in the palace. 国王住在宫殿里。'},
+                        {word: 'RAIN', phonetic: '/reɪn/', meaning: 'n. 雨', example: 'The rain is falling heavily. 雨下得很大。'},
+                        {word: 'FISH', phonetic: '/fɪʃ/', meaning: 'n. 鱼', example: 'I caught a big fish. 我钓到了一条大鱼。'},
+                        {word: 'BALL', phonetic: '/bɔːl/', meaning: 'n. 球', example: 'The child is playing with a ball. 孩子在玩球。'},
+                        {word: 'HAND', phonetic: '/hænd/', meaning: 'n. 手', example: 'Raise your hand please. 请举手。'},
+                        {word: 'HEAD', phonetic: '/hed/', meaning: 'n. 头', example: 'My head hurts. 我的头疼。'},
+                        {word: 'FACE', phonetic: '/feɪs/', meaning: 'n. 脸', example: 'Her face is very beautiful. 她的脸很漂亮。'}
+                    ],
+                    medium: [
+                        {word: 'COMPUTER', phonetic: '/kəmˈpjuːtər/', meaning: 'n. 电脑', example: 'I use my computer for work. 我用电脑工作。'},
+                        {word: 'ELEPHANT', phonetic: '/ˈelɪfənt/', meaning: 'n. 大象', example: 'Elephants are large animals. 大象是大型动物。'},
+                        {word: 'BEAUTIFUL', phonetic: '/ˈbjuːtɪfəl/', meaning: 'adj. 美丽的', example: 'The sunset is beautiful. 日落很美丽。'},
+                        {word: 'KITCHEN', phonetic: '/ˈkɪtʃən/', meaning: 'n. 厨房', example: 'Mom is cooking in the kitchen. 妈妈在厨房做饭。'},
+                        {word: 'STUDENT', phonetic: '/ˈstuːdənt/', meaning: 'n. 学生', example: 'She is a good student. 她是个好学生。'},
+                        {word: 'TEACHER', phonetic: '/ˈtiːtʃər/', meaning: 'n. 老师', example: 'Our teacher is very kind. 我们的老师很和蔼。'},
+                        {word: 'LIBRARY', phonetic: '/ˈlaɪbrəri/', meaning: 'n. 图书馆', example: 'I study in the library. 我在图书馆学习。'},
+                        {word: 'FRIEND', phonetic: '/frend/', meaning: 'n. 朋友', example: 'She is my best friend. 她是我最好的朋友。'},
+                        {word: 'FAMILY', phonetic: '/ˈfæmɪli/', meaning: 'n. 家庭', example: 'I love my family. 我爱我的家庭。'},
+                        {word: 'MORNING', phonetic: '/ˈmɔːrnɪŋ/', meaning: 'n. 早晨', example: 'I wake up every morning. 我每天早上醒来。'},
+                        {word: 'EVENING', phonetic: '/ˈiːvnɪŋ/', meaning: 'n. 晚上', example: 'I usually read in the evening. 我通常晚上看书。'},
+                        {word: 'WEEKEND', phonetic: '/ˈwiːkend/', meaning: 'n. 周末', example: 'What do you do on weekends? 你周末做什么？'},
+                        {word: 'SUMMER', phonetic: '/ˈsʌmər/', meaning: 'n. 夏天', example: 'Summer is the hottest season. 夏天是最热的季节。'},
+                        {word: 'WINTER', phonetic: '/ˈwɪntər/', meaning: 'n. 冬天', example: 'It snows in winter. 冬天下雪。'},
+                        {word: 'SPRING', phonetic: '/sprɪŋ/', meaning: 'n. 春天', example: 'Flowers bloom in spring. 春天花开。'},
+                        {word: 'AUTUMN', phonetic: '/ˈɔːtəm/', meaning: 'n. 秋天', example: 'Leaves fall in autumn. 秋天树叶落下。'},
+                        {word: 'BREAK', phonetic: '/breɪk/', meaning: 'v. 打破', example: 'Don\'t break the glass. 别打破玻璃。'},
+                        {word: 'DREAM', phonetic: '/driːm/', meaning: 'n. 梦', example: 'I had a strange dream last night. 我昨晚做了个奇怪的梦。'},
+                        {word: 'WORLD', phonetic: '/wɜːrld/', meaning: 'n. 世界', example: 'The world is very big. 世界很大。'}
+                    ],
+                    hard: [
+                        {word: 'EXTRAORDINARY', phonetic: '/ɪkˈstrɔːrdəneri/', meaning: 'adj. 非凡的', example: 'She has extraordinary talent. 她有非凡的天赋。'},
+                        {word: 'RESPONSIBILITY', phonetic: '/rɪˌspɑːnsəˈbɪləti/', meaning: 'n. 责任', example: 'It is our responsibility to protect the environment. 保护环境是我们的责任。'},
+                        {word: 'COMMUNICATION', phonetic: '/kəˌmjuːnɪˈkeɪʃən/', meaning: 'n. 交流', example: 'Good communication is important. 良好的交流很重要。'},
+                        {word: 'INTERNATIONAL', phonetic: '/ˌɪntərˈnæʃənəl/', meaning: 'adj. 国际的', example: 'This is an international conference. 这是一个国际会议。'},
+                        {word: 'UNDERSTANDING', phonetic: '/ˌʌndərˈstændɪŋ/', meaning: 'n. 理解', example: 'Mutual understanding is key to friendship. 相互理解是友谊的关键。'},
+                        {word: 'ENVIRONMENT', phonetic: '/ɪnˈvaɪrənmənt/', meaning: 'n. 环境', example: 'We should protect the environment. 我们应该保护环境。'},
+                        {word: 'CONGRATULATION', phonetic: '/kənˌɡrætʃuˈleɪʃən/', meaning: 'n. 祝贺', example: 'Congratulations on your success! 祝贺你成功！'},
+                        {word: 'DETERMINATION', phonetic: '/dɪˌtɜːrmɪˈneɪʃən/', meaning: 'n. 决心', example: 'Determination is the key to success. 决心是成功的关键。'},
+                        {word: 'IMAGINATION', phonetic: '/ɪˌmædʒɪˈneɪʃən/', meaning: 'n. 想象力', example: 'Children have rich imagination. 孩子有丰富的想象力。'},
+                        {word: 'PHILOSOPHY', phonetic: '/fɪˈlɒsəfi/', meaning: 'n. 哲学', example: 'He studies philosophy in college. 他在大学学哲学。'},
+                        {word: 'ARCHITECTURE', phonetic: '/ˈɑːrkɪtektʃər/', meaning: 'n. 建筑学', example: 'She studies architecture. 她学习建筑学。'},
+                        {word: 'TECHNOLOGY', phonetic: '/tekˈnɒlədʒi/', meaning: 'n. 技术', example: 'Technology changes our life. 技术改变我们的生活。'},
+                        {word: 'OPPORTUNITY', phonetic: '/ˌɒpərˈtuːnɪti/', meaning: 'n. 机会', example: 'This is a good opportunity. 这是个好机会。'},
+                        {word: 'ADMINISTRATION', phonetic: '/ədˌmɪnɪˈstreɪʃən/', meaning: 'n. 管理', example: 'He works in administration. 他做行政工作。'}
+                    ]
+                };
+                
+                this.generateKeyboard();
+                this.bindEvents();
+                this.newWord();
+                this.updateStats();
+            }
+            
+            generateKeyboard() {
+                const keyboard = document.getElementById('virtualKeyboard');
+                const letters = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+                
+                keyboard.innerHTML = '';
+                for (let letter of letters) {
+                    const key = document.createElement('div');
+                    key.className = 'key';
+                    key.textContent = letter;
+                    key.dataset.letter = letter;
+                    keyboard.appendChild(key);
+                }
+            }
+            
+            newWord() {
+                const wordList = this.wordLists[this.difficulty];
+                this.currentWord = wordList[Math.floor(Math.random() * wordList.length)];
+                this.currentInput = '';
+                this.hintLevel = 0;
+
+                this.updateWordDisplay();
+                this.generateLetterSlots();
+                this.clearInput();
+                this.hideResult();
+                this.hideHint();
+                this.updateProgress();
+
+                // 更新键盘状态以反映新单词的字母需求
+                this.updateKeyboardState();
+            }
+            
+            updateWordDisplay() {
+                document.getElementById('wordDisplay').textContent = '???';
+                document.getElementById('wordPhonetic').textContent = this.currentWord.phonetic;
+                document.getElementById('wordMeaning').textContent = this.currentWord.meaning;
+                document.getElementById('wordExample').innerHTML = this.currentWord.example;
+            }
+            
+            generateLetterSlots() {
+                const container = document.getElementById('letterSlots');
+                container.innerHTML = '';
+                
+                for (let i = 0; i < this.currentWord.word.length; i++) {
+                    const slot = document.createElement('div');
+                    slot.className = 'letter-slot';
+                    slot.dataset.index = i;
+                    container.appendChild(slot);
+                }
+            }
+            
+            updateLetterSlots() {
+                const slots = document.querySelectorAll('.letter-slot');
+                const word = this.currentWord.word;
+                
+                slots.forEach((slot, index) => {
+                    const letter = this.currentInput[index] || '';
+                    slot.textContent = letter;
+                    
+                    slot.classList.remove('filled', 'correct', 'wrong');
+                    
+                    if (letter) {
+                        slot.classList.add('filled');
+                        if (letter === word[index]) {
+                            slot.classList.add('correct');
+                        } else {
+                            slot.classList.add('wrong');
+                        }
+                    }
+                });
+            }
+            
+            addLetter(letter) {
+                if (this.currentInput.length < this.currentWord.word.length) {
+                    this.currentInput += letter;
+                    this.updateLetterSlots();
+                    this.updateInputField();
+
+                    // 更新键盘状态 - 只有当字母使用次数达到目标时才禁用
+                    this.updateKeyboardState();
+                }
+            }
+            
+            removeLetter() {
+                if (this.currentInput.length > 0) {
+                    const removedLetter = this.currentInput[this.currentInput.length - 1];
+                    this.currentInput = this.currentInput.slice(0, -1);
+                    this.updateLetterSlots();
+                    this.updateInputField();
+
+                    // 更新键盘状态
+                    this.updateKeyboardState();
+                }
+            }
+
+            updateKeyboardState() {
+                // 统计目标单词中每个字母应该出现的次数
+                const targetCount = {};
+                for (let letter of this.currentWord.word) {
+                    targetCount[letter] = (targetCount[letter] || 0) + 1;
+                }
+
+                // 统计用户当前输入中每个字母已经使用的次数
+                const currentCount = {};
+                for (let letter of this.currentInput) {
+                    currentCount[letter] = (currentCount[letter] || 0) + 1;
+                }
+
+                // 更新每个键盘按键的状态
+                document.querySelectorAll('.key').forEach(key => {
+                    const letter = key.dataset.letter;
+                    const used = currentCount[letter] || 0;
+                    const needed = targetCount[letter] || 0;
+
+                    // 如果使用次数已达到或超过需求，禁用按钮
+                    if (used >= needed) {
+                        key.classList.add('used');
+                    } else {
+                        key.classList.remove('used');
+                    }
+
+                    // 保留correct/wrong状态
+                    if (!key.classList.contains('correct') && !key.classList.contains('wrong')) {
+                        key.classList.remove('used');
+                    }
+                });
+            }
+            
+            updateInputField() {
+                document.getElementById('letterInput').value = this.currentInput;
+            }
+            
+            checkSpelling() {
+                if (this.currentInput.length === 0) {
+                    this.showResult('请输入拼写', '请先输入单词的拼写。', '#e17055');
+                    return;
+                }
+                
+                if (this.currentInput === this.currentWord.word) {
+                    this.correctCount++;
+                    this.streak++;
+                    
+                    document.getElementById('wordDisplay').textContent = this.currentWord.word;
+                    
+                    let message = '恭喜你！单词拼写完全正确。';
+                    if (this.streak >= 5) {
+                        message += `\n太棒了！你已经连续拼对${this.streak}个单词了！`;
+                    }
+                    
+                    this.showResult('拼写正确!', message, '#00b894');
+                    this.markKeyboardCorrect();
+                } else {
+                    this.wrongCount++;
+                    this.streak = 0;
+                    
+                    let feedback = `拼写错误。正确拼写是：${this.currentWord.word}\n`;
+                    feedback += `你的拼写：${this.currentInput}`;
+                    
+                    this.showResult('拼写错误', feedback, '#e17055');
+                    this.markKeyboardWrong();
+                }
+                
+                this.updateStats();
+            }
+            
+            markKeyboardCorrect() {
+                for (let letter of this.currentInput) {
+                    const key = document.querySelector(`[data-letter="${letter}"]`);
+                    if (key) {
+                        key.classList.remove('wrong');
+                        key.classList.add('correct');
+                    }
+                }
+            }
+            
+            markKeyboardWrong() {
+                for (let i = 0; i < this.currentInput.length; i++) {
+                    const letter = this.currentInput[i];
+                    const correctLetter = this.currentWord.word[i];
+                    const key = document.querySelector(`[data-letter="${letter}"]`);
+                    
+                    if (key && letter !== correctLetter) {
+                        key.classList.remove('correct');
+                        key.classList.add('wrong');
+                    }
+                }
+            }
+            
+            showHint() {
+                const word = this.currentWord.word;
+                let hintText = '';
+                
+                switch (this.hintLevel) {
+                    case 0:
+                        hintText = `提示：这个单词有${word.length}个字母，以字母 '${word[0]}' 开头`;
+                        break;
+                    case 1:
+                        hintText = `提示：前两个字母是 '${word.substring(0, 2)}'`;
+                        break;
+                    case 2:
+                        const halfLength = Math.ceil(word.length / 2);
+                        hintText = `提示：前半部分是 '${word.substring(0, halfLength)}'`;
+                        break;
+                    default:
+                        hintText = `提示：完整拼写是 '${word}'`;
+                        break;
+                }
+                
+                document.getElementById('hintContent').textContent = hintText;
+                document.getElementById('hintPanel').style.display = 'block';
+                
+                this.hintLevel++;
+                
+                setTimeout(() => {
+                    this.hideHint();
+                }, 4000);
+            }
+            
+            playAudio() {
+                // 模拟语音播放
+                const btn = document.getElementById('playAudioBtn');
+                btn.textContent = '🔊 播放中...';
+                btn.disabled = true;
+                
+                // 使用Web Speech API（如果支持）
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(this.currentWord.word);
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.8;
+                    speechSynthesis.speak(utterance);
+                    
+                    utterance.onend = () => {
+                        btn.textContent = '🔊 播放发音';
+                        btn.disabled = false;
+                    };
+                } else {
+                    setTimeout(() => {
+                        btn.textContent = '🔊 播放发音';
+                        btn.disabled = false;
+                    }, 2000);
+                }
+            }
+            
+            clearInput() {
+                this.currentInput = '';
+                this.updateLetterSlots();
+                this.updateInputField();
+                this.resetKeyboard();
+                this.hideHint();
+            }
+            
+            resetKeyboard() {
+                document.querySelectorAll('.key').forEach(key => {
+                    key.classList.remove('used', 'correct', 'wrong');
+                });
+            }
+            
+            showResult(title, content, color) {
+                const resultPanel = document.getElementById('resultPanel');
+                const resultTitle = document.getElementById('resultTitle');
+                const resultContent = document.getElementById('resultContent');
+                
+                resultTitle.textContent = title;
+                resultContent.textContent = content;
+                resultPanel.style.background = `linear-gradient(135deg, ${color} 0%, ${color}dd 100%)`;
+                resultPanel.style.display = 'block';
+                
+                setTimeout(() => {
+                    resultPanel.style.display = 'none';
+                }, 4000);
+            }
+            
+            hideResult() {
+                document.getElementById('resultPanel').style.display = 'none';
+            }
+            
+            hideHint() {
+                document.getElementById('hintPanel').style.display = 'none';
+            }
+            
+            updateProgress() {
+                const progress = (this.currentInput.length / this.currentWord.word.length) * 100;
+                document.getElementById('progressFill').style.width = `${progress}%`;
+            }
+            
+            updateStats() {
+                document.getElementById('correctCount').textContent = this.correctCount;
+                document.getElementById('wrongCount').textContent = this.wrongCount;
+                document.getElementById('streak').textContent = this.streak;
+                
+                const total = this.correctCount + this.wrongCount;
+                const accuracy = total > 0 ? Math.round((this.correctCount / total) * 100) : 0;
+                document.getElementById('accuracy').textContent = `${accuracy}%`;
+            }
+            
+            setDifficulty(level) {
+                this.difficulty = level;
+                
+                document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-level="${level}"]`).classList.add('active');
+                
+                this.newWord();
+            }
+            
+            bindEvents() {
+                // 难度选择
+                document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (btn.dataset.level) {
+                            this.setDifficulty(btn.dataset.level);
+                        }
+                    });
+                });
+
+                // 虚拟键盘
+                document.getElementById('virtualKeyboard').addEventListener('click', (e) => {
+                    if (e.target.classList.contains('key') && !e.target.classList.contains('used')) {
+                        this.addLetter(e.target.dataset.letter);
+                    }
+                });
+
+                // 输入框
+                document.getElementById('letterInput').addEventListener('input', (e) => {
+                    const value = e.target.value.toUpperCase();
+                    this.currentInput = value.slice(0, this.currentWord.word.length);
+                    this.updateLetterSlots();
+                    this.updateProgress();
+                });
+
+                // 键盘事件
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace') {
+                        this.removeLetter();
+                        this.updateProgress();
+                    } else if (e.key === 'Enter') {
+                        this.checkSpelling();
+                    } else if (/^[A-Za-z]$/.test(e.key)) {
+                        this.addLetter(e.key.toUpperCase());
+                        this.updateProgress();
+                    }
+                });
+
+                // 控制按钮
+                document.getElementById('checkBtn').addEventListener('click', () => {
+                    this.checkSpelling();
+                });
+
+                document.getElementById('hintBtn').addEventListener('click', () => {
+                    this.showHint();
+                });
+
+                document.getElementById('clearBtn').addEventListener('click', () => {
+                    this.clearInput();
+                });
+
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    this.newWord();
+                });
+
+                document.getElementById('playAudioBtn').addEventListener('click', () => {
+                    this.playAudio();
+                });
+
+                // 下载词库模板
+                document.getElementById('downloadBtn').addEventListener('click', () => {
+                    this.downloadTemplate();
+                });
+
+                // 导入词库 - label自动触发file input
+                document.getElementById('importInput').addEventListener('change', (e) => {
+                    this.importWordList(e.target.files[0]);
+                });
+            }
+
+            downloadTemplate() {
+                const template = [
+                    { word: "EXAMPLE", phonetic: "/ɪɡˈzæmpəl/", meaning: "n. 例子", example: "This is an example sentence. 这是个例句。" },
+                    { word: "CUSTOM", phonetic: "/ˈkʌstəm/", meaning: "n. 习惯", example: "It is a custom in this country. 这是这个国家的习俗。" },
+                    { word: "TEMPLATE", phonetic: "/ˈtemplət/", meaning: "n. 模板", example: "Use this template to add more words. 使用此模板添加更多单词。" }
+                ];
+
+                const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'word-list-template.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            importWordList(file) {
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const content = e.target.result;
+                        let newWords = [];
+
+                        // 尝试解析JSON格式
+                        if (file.name.endsWith('.json')) {
+                            const data = JSON.parse(content);
+                            if (Array.isArray(data)) {
+                                newWords = data;
+                            } else if (data.words && Array.isArray(data.words)) {
+                                newWords = data.words;
+                            }
+                        } else {
+                            // 尝试解析TXT格式：每行一个单词，单词|音标|释义|例句
+                            const lines = content.split('\n');
+                            for (let line of lines) {
+                                line = line.trim();
+                                if (!line) continue;
+                                const parts = line.split('|');
+                                if (parts.length >= 2) {
+                                    newWords.push({
+                                        word: parts[0].trim().toUpperCase(),
+                                        phonetic: parts[1] || '',
+                                        meaning: parts[2] || '',
+                                        example: parts[3] || ''
+                                    });
+                                }
+                            }
+                        }
+
+                        if (newWords.length > 0) {
+                            // 根据单词长度分类
+                            newWords.forEach(word => {
+                                const len = word.word.length;
+                                if (len <= 5) {
+                                    this.wordLists.easy.push(word);
+                                } else if (len <= 8) {
+                                    this.wordLists.medium.push(word);
+                                } else {
+                                    this.wordLists.hard.push(word);
+                                }
+                            });
+
+                            // 显示导入成功
+                            const resultPanel = document.getElementById('resultPanel');
+                            document.getElementById('resultTitle').textContent = '导入成功!';
+                            document.getElementById('resultContent').textContent = `成功导入 ${newWords.length} 个单词！当前词库共有 ${this.wordLists.easy.length + this.wordLists.medium.length + this.wordLists.hard.length} 个单词。`;
+                            resultPanel.style.background = 'linear-gradient(135deg, #00b894 0%, #00a085 100%)';
+                            resultPanel.style.display = 'block';
+                            setTimeout(() => {
+                                resultPanel.style.display = 'none';
+                            }, 4000);
+
+                            this.newWord();
+                        } else {
+                            alert('未能解析到有效的单词，请检查文件格式。\nJSON格式：[{word: "APPLE", phonetic: "/æpəl/", meaning: "n. 苹果", example: "..."}]\nTXT格式：APPLE|/æpəl/|n. 苹果|例句...');
+                        }
+                    } catch (err) {
+                        alert('导入失败：' + err.message);
+                    }
+                    // 清空input以便可以重复导入同一文件
+                    document.getElementById('importInput').value = '';
+                };
+                reader.readAsText(file);
+            }
+        }
+        
+        // 启动游戏
+        new WordSpellingGame();
+    </script>
+</body>
+</html>

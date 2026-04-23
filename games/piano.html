@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钢琴练习 - 在线创意工具小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="在线钢琴练习工具，支持键盘与点击演奏，轻松上手。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="钢琴练习,创意工具,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/piano.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="钢琴练习 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta property="og:description" content="在线钢琴练习工具，支持键盘与点击演奏，轻松上手。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/piano.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="钢琴练习 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="在线钢琴练习工具，支持键盘与点击演奏，轻松上手。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"钢琴练习","description":"在线钢琴练习工具，支持键盘与点击演奏，轻松上手。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/piano.html","genre":"创意工具","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            --white-key-width: 50px;
+            --white-key-height: 200px;
+            --black-key-width: 34px;
+            --black-key-height: 130px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            touch-action: manipulation;
+        }
+
+        .piano {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .key {
+            cursor: pointer;
+            transition: all 0.08s ease;
+            position: relative;
+        }
+
+        .key:active, .key.pressed {
+            transform: translateY(2px);
+        }
+
+        .white-key {
+            width: var(--white-key-width);
+            height: var(--white-key-height);
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+            border: 1px solid #d1d1d1;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 -4px 8px rgba(0, 0, 0, 0.05);
+            margin: 0 2px;
+            z-index: 1;
+        }
+
+        .white-key:active, .white-key.pressed {
+            background: linear-gradient(180deg, #e8e8e8 0%, #dcdcdc 100%);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .black-key {
+            width: var(--black-key-width);
+            height: var(--black-key-height);
+            background: linear-gradient(180deg, #333 0%, #111 100%);
+            border-radius: 0 0 4px 4px;
+            position: absolute;
+            z-index: 2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .black-key:active, .black-key.pressed {
+            background: linear-gradient(180deg, #222 0%, #000 100%);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .key-label {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: #999;
+            pointer-events: none;
+        }
+
+        .black-key .key-label {
+            color: #666;
+            font-size: 9px;
+            bottom: 10px;
+        }
+
+        .preset-btn {
+            transition: all 0.2s ease;
+        }
+
+        .preset-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .preset-btn.active {
+            ring: 2px;
+            ring-color: #8b5cf6;
+        }
+
+        .note-indicator {
+            position: fixed;
+            pointer-events: none;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 10px rgba(139, 92, 246, 0.8);
+            animation: noteFloat 0.8s ease-out forwards;
+            z-index: 100;
+        }
+
+        @keyframes noteFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(1.2);
+            }
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: #4b5563;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(139, 92, 246, 0.5);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            cursor: pointer;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --white-key-width: 28px;
+                --white-key-height: 140px;
+                --black-key-width: 20px;
+                --black-key-height: 90px;
+            }
+        }
+
+        .piano-container {
+            overflow-x: auto;
+            max-width: 100%;
+            padding-bottom: 10px;
+        }
+
+        .piano-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .piano-container::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 3px;
+        }
+
+        .piano-container::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 3px;
+        }
+
+        .piano {
+            display: flex;
+            justify-content: flex-start;
+            position: relative;
+            padding: 20px;
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            min-width: max-content;
+        }
+
+        .piano-body {
+            background: linear-gradient(180deg, #3d3d3d 0%, #252525 50%, #1a1a1a 100%);
+            padding: 15px 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .brand-text {
+            text-align: center;
+            color: #666;
+            font-size: 10px;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <h1 class="text-4xl font-bold mb-2 text-white">钢琴练习</h1>
+    <p class="text-gray-400 mb-8 text-center max-w-md">点击琴键或使用键盘弹奏。支持电脑键盘和手机触摸。</p>
+
+    <div class="mb-6 flex flex-wrap gap-3 justify-center">
+        <button class="preset-btn bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition ring-2 ring-purple-400" onclick="game.setMode('full', this)">
+            全键位 (C3-C5)
+        </button>
+        <button class="preset-btn bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition" onclick="game.setMode('mid', this)">
+            中音区 (C4-C5)
+        </button>
+        <button class="preset-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition" onclick="game.setMode('high', this)">
+            高音区 (C5-C6)
+        </button>
+    </div>
+
+    <div class="piano-body">
+        <div class="piano-container">
+            <div class="piano" id="piano">
+                <!-- Keys will be generated by JavaScript -->
+            </div>
+        </div>
+        <div class="brand-text">Musical Studio</div>
+    </div>
+
+    <!-- 自动演奏控制 -->
+    <div class="mt-6 flex flex-col items-center gap-4">
+        <div class="flex flex-wrap gap-2 justify-center">
+            <select id="songSelect" class="bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600">
+                <option value="">选择乐曲...</option>
+                <option value="twinkle">小星星</option>
+                <option value=" OdeToJoy">欢乐颂</option>
+                <option value="Canon">卡农</option>
+                <option value="FurElise">致爱丽丝</option>
+                <option value="Mary">玛丽有只小羊羔</option>
+                <option value="London">伦敦桥</option>
+            </select>
+            <button id="playBtn" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                ▶ 播放
+            </button>
+            <button id="stopBtn" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                ⏹ 停止
+            </button>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-gray-400 text-sm">速度:</span>
+            <input type="range" class="volume-slider w-24" id="tempo" min="40" max="180" value="100">
+            <span class="text-gray-400 text-sm" id="tempoValue">100 BPM</span>
+        </div>
+        <div id="playingStatus" class="text-purple-400 font-medium h-6"></div>
+    </div>
+
+    <div class="mt-8 flex items-center gap-4">
+        <span class="text-gray-400 text-sm">音量:</span>
+        <input type="range" class="volume-slider w-32" id="volume" min="0" max="100" value="70">
+        <span class="text-gray-400 text-sm" id="volumeValue">70%</span>
+    </div>
+
+    <div class="mt-6 text-gray-500 text-sm text-center">
+        <p>键盘快捷键: <span class="text-gray-300">Z X C V B N M , . /</span> (白键) / <span class="text-gray-300">S D G H J L</span> (黑键)</p>
+        <p class="mt-1">或使用数字行: <span class="text-gray-300">1-7</span> (白键) / <span class="text-gray-300">Q W R T Y I O</span> (黑键)</p>
+    </div>
+
+<script>
+class PianoGame {
+    constructor() {
+        this.audioCtx = null;
+        this.volume = 0.7;
+        this.currentMode = 'full'; // full, mid, high
+        this.currentOctave = 4;
+
+        // Note frequencies (A4 = 440Hz)
+        this.noteFrequencies = {
+            'C3': 130.81,
+            'C#3': 138.59,
+            'D3': 146.83,
+            'D#3': 155.56,
+            'E3': 164.81,
+            'F3': 174.61,
+            'F#3': 185.00,
+            'G3': 196.00,
+            'G#3': 207.65,
+            'A3': 220.00,
+            'A#3': 233.08,
+            'B3': 246.94,
+            'C4': 261.63,
+            'C#4': 277.18,
+            'D4': 293.66,
+            'D#4': 311.13,
+            'E4': 329.63,
+            'F4': 349.23,
+            'F#4': 369.99,
+            'G4': 392.00,
+            'G#4': 415.30,
+            'A4': 440.00,
+            'A#4': 466.16,
+            'B4': 493.88,
+            'C5': 523.25,
+            'C#5': 554.37,
+            'D5': 587.33,
+            'D#5': 622.25,
+            'E5': 659.25,
+            'F5': 698.46,
+            'F#5': 739.99,
+            'G5': 783.99,
+            'G#5': 830.61,
+            'A5': 880.00,
+            'A#5': 932.33,
+            'B5': 987.77,
+            'C6': 1046.50
+        };
+
+        // Keyboard mapping for full mode (2 octaves)
+        this.keyboardMap = {
+            // Lower octave (C3-B3)
+            'z': 'C3', 's': 'C#3', 'x': 'D3', 'd': 'D#3', 'c': 'E3',
+            'v': 'F3', 'g': 'F#3', 'b': 'G3', 'h': 'G#3', 'n': 'A3',
+            'j': 'A#3', 'm': 'B3',
+            // Upper octave (C4-B4)
+            ',': 'C4', 'l': 'C#4', '.': 'D4', ';': 'D#4', '/': 'E4',
+            // Extended mapping using number row
+            '1': 'C4', 'q': 'C#4', '2': 'D4', 'w': 'D#4', '3': 'E4',
+            '4': 'F4', 'r': 'F#4', '5': 'G4', 't': 'G#4', '6': 'A4',
+            'y': 'A#4', '7': 'B4', '8': 'C5', 'i': 'C#5', '9': 'D5',
+            'o': 'D#5', '0': 'E5'
+        };
+
+        // Mode configurations
+        this.modes = {
+            'full': { startOctave: 3, octaveCount: 3 },   // C3-C5 (2 octaves)
+            'mid': { startOctave: 4, octaveCount: 1 },    // C4-C5
+            'high': { startOctave: 5, octaveCount: 1 }    // C5-C6
+        };
+
+        // 乐曲数据 (音符, 时值) - 时值: 1=四分音符, 0.5=八分音符, 2=二分音符, 4=全音符
+        this.songs = {
+            'twinkle': {
+                name: '小星星',
+                notes: [
+                    ['C4',1],['C4',1],['G4',1],['G4',1],['A4',1],['A4',1],['G4',2],
+                    ['F4',1],['F4',1],['E4',1],['E4',1],['D4',1],['D4',1],['C4',2],
+                    ['G4',1],['G4',1],['F4',1],['F4',1],['E4',1],['E4',1],['D4',2],
+                    ['G4',1],['G4',1],['F4',1],['F4',1],['E4',1],['E4',1],['D4',2],
+                    ['C4',1],['C4',1],['G4',1],['G4',1],['A4',1],['A4',1],['G4',2],
+                    ['F4',1],['F4',1],['E4',1],['E4',1],['D4',1],['D4',1],['C4',2]
+                ]
+            },
+            'OdeToJoy': {
+                name: '欢乐颂',
+                notes: [
+                    ['E4',1],['E4',1],['F4',1],['G4',1],['G4',1],['F4',1],['E4',1],['D4',1],
+                    ['C4',1],['C4',1],['D4',1],['E4',1],['E4',1.5],['D4',0.5],['D4',2],
+                    ['E4',1],['E4',1],['F4',1],['G4',1],['G4',1],['F4',1],['E4',1],['D4',1],
+                    ['C4',1],['C4',1],['D4',1],['E4',1],['D4',1],['C4',1],['C4',1],
+                    ['D4',1],['D4',1],['E4',1],['C4',1],['D4',1],['E4',1.5],['F4',0.5],['E4',1],['C4',1],
+                    ['D4',1],['E4',1],['F4',1.5],['E4',0.5],['D4',1],['C4',1],['D4',1],['E4',1],
+                    ['D4',1],['C4',1],['C4',1]
+                ]
+            },
+            'Canon': {
+                name: '卡农',
+                notes: [
+                    ['D4',1],['B3',1],['C4',1],['A3',1],
+                    ['D4',1],['B3',1],['C4',1],['A3',1],
+                    ['D4',1],['B3',1],['C4',1],['A3',1],
+                    ['D4',1],['B3',1],['C4',1],['A3',1],
+                    ['E4',1],['C4',1],['D4',1],['B3',1],
+                    ['E4',1],['C4',1],['D4',1],['B3',1],
+                    ['E4',1],['C4',1],['D4',1],['B3',1],
+                    ['E4',1],['C4',1],['D4',1],['B3',1],
+                    ['F4',1],['D4',1],['E4',1],['C4',1],
+                    ['F4',1],['D4',1],['E4',1],['C4',1],
+                    ['G4',1],['E4',1],['F4',1],['D4',1]
+                ]
+            },
+            'FurElise': {
+                name: '致爱丽丝',
+                notes: [
+                    ['E5',0.5],['D#5',0.5],['E5',0.5],['D#5',0.5],['E5',0.5],['B4',0.5],['D5',0.5],['C5',0.5],
+                    ['A4',1],['C4',0.5],['E4',0.5],['A4',0.5],['B4',1],
+                    ['E4',0.5],['G#4',0.5],['B4',0.5],['C5',0.5],['E5',0.5],['D#5',0.5],
+                    ['E5',0.5],['D#5',0.5],['E5',0.5],['D#5',0.5],['E5',0.5],['B4',0.5],['D5',0.5],['C5',0.5],
+                    ['A4',1]
+                ]
+            },
+            'Mary': {
+                name: '玛丽有只小羊羔',
+                notes: [
+                    ['E4',1],['D4',1],['C4',1],['D4',1],
+                    ['E4',1],['E4',1],['E4',2],
+                    ['D4',1],['D4',1],['D4',2],
+                    ['E4',1],['G4',1],['G4',1],
+                    ['E4',1],['D4',1],['C4',2]
+                ]
+            },
+            'London': {
+                name: '伦敦桥',
+                notes: [
+                    ['G4',1],['A4',1],['G4',1],['F4',1],['E4',1],['F4',1],['G4',1],
+                    ['D4',1],['E4',1],['F4',1],['G4',1],['G4',1],['G4',1],
+                    ['G4',1],['A4',1],['G4',1],['F4',1],['E4',1],['F4',1],['G4',1],
+                    ['D4',1],['E4',1],['F4',1],['G4',1],['C4',1],['C4',1],
+                    ['G4',1],['A4',1],['G4',1],['F4',1],['E4',1],['F4',1],['G4',1],
+                    ['D4',1],['E4',1],['F4',1],['G4',1],['G4',1],['G4',1]
+                ]
+            }
+        };
+
+        // 自动演奏状态
+        this.isPlaying = false;
+        this.currentSong = null;
+        this.tempo = 100;
+        this.playTimeout = null;
+
+        this.init();
+    }
+
+    init() {
+        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        this.createPiano();
+        this.setupVolumeControl();
+        this.setupKeyboard();
+        this.setupAutoPlay();
+    }
+
+    // 设置自动演奏
+    setupAutoPlay() {
+        const songSelect = document.getElementById('songSelect');
+        const playBtn = document.getElementById('playBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const tempoSlider = document.getElementById('tempo');
+        const tempoValue = document.getElementById('tempoValue');
+        const playingStatus = document.getElementById('playingStatus');
+
+        // 乐曲选择
+        songSelect.addEventListener('change', (e) => {
+            playBtn.disabled = !e.target.value;
+        });
+
+        // 速度控制
+        tempoSlider.addEventListener('input', (e) => {
+            this.tempo = parseInt(e.target.value);
+            tempoValue.textContent = `${this.tempo} BPM`;
+        });
+
+        // 播放按钮
+        playBtn.addEventListener('click', () => {
+            const songKey = songSelect.value;
+            if (songKey && this.songs[songKey]) {
+                this.playSong(this.songs[songKey]);
+            }
+        });
+
+        // 停止按钮
+        stopBtn.addEventListener('click', () => {
+            this.stopSong();
+        });
+    }
+
+    // 播放乐曲
+    playSong(song) {
+        if (this.isPlaying) {
+            this.stopSong();
+        }
+
+        this.isPlaying = true;
+        this.currentSong = song;
+
+        // 更新UI状态
+        document.getElementById('playBtn').disabled = true;
+        document.getElementById('stopBtn').disabled = false;
+        document.getElementById('songSelect').disabled = true;
+        document.getElementById('playingStatus').textContent = `正在播放: ${song.name}`;
+
+        // 切换到全键位模式以确保所有音符都能演奏
+        this.setMode('full');
+
+        let currentIndex = 0;
+        const beatDuration = 60000 / this.tempo; // 每拍的毫秒数
+
+        const playNextNote = () => {
+            if (!this.isPlaying || currentIndex >= song.notes.length) {
+                this.stopSong();
+                return;
+            }
+
+            const [note, duration] = song.notes[currentIndex];
+            this.playNoteByName(note);
+
+            // 安排下一个音符
+            currentIndex++;
+            const noteDuration = beatDuration * duration;
+            this.playTimeout = setTimeout(playNextNote, noteDuration);
+        };
+
+        playNextNote();
+    }
+
+    // 停止播放
+    stopSong() {
+        this.isPlaying = false;
+        this.currentSong = null;
+
+        if (this.playTimeout) {
+            clearTimeout(this.playTimeout);
+            this.playTimeout = null;
+        }
+
+        // 更新UI状态
+        document.getElementById('playBtn').disabled = !document.getElementById('songSelect').value;
+        document.getElementById('stopBtn').disabled = true;
+        document.getElementById('songSelect').disabled = false;
+        document.getElementById('playingStatus').textContent = '';
+    }
+
+    // 通过音符名播放
+    playNoteByName(noteName) {
+        const keyElement = document.querySelector(`.key[data-note="${noteName}"]`);
+        if (keyElement) {
+            this.playNote(keyElement);
+
+            // 短暂延迟后释放
+            setTimeout(() => {
+                this.releaseNote(keyElement);
+            }, 200);
+        }
+    }
+
+    createPiano() {
+        const piano = document.getElementById('piano');
+        piano.innerHTML = '';
+
+        const mode = this.modes[this.currentMode];
+        const startOctave = mode.startOctave;
+        const octaveCount = mode.octaveCount;
+
+        const whiteKeyWidth = 52; // Width + margin
+
+        for (let oct = 0; oct < octaveCount; oct++) {
+            const currentOctave = startOctave + oct;
+            const whiteKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+            const blackKeyNotes = ['C#', 'D#', null, 'F#', 'G#', 'A#'];
+
+            for (let i = 0; i < 7; i++) {
+                const note = whiteKeys[i];
+                const fullNote = note + currentOctave;
+                const whiteKeyIndex = oct * 7 + i;
+
+                // White key
+                const whiteKey = this.createKey('white', fullNote, whiteKeyIndex, currentOctave);
+                piano.appendChild(whiteKey);
+
+                // Black key (if exists)
+                if (blackKeyNotes[i]) {
+                    const blackNote = blackKeyNotes[i] + currentOctave;
+                    const blackKey = this.createKey('black', blackNote, whiteKeyIndex, currentOctave);
+                    const offset = (whiteKeyIndex + 1) * whiteKeyWidth - 20;
+                    blackKey.style.left = `${offset}px`;
+                    piano.appendChild(blackKey);
+                }
+            }
+        }
+    }
+
+    createKey(type, note, index, octave) {
+        const key = document.createElement('div');
+        key.className = `key ${type}-key`;
+        key.dataset.note = note;
+        key.dataset.type = type;
+        key.dataset.frequency = this.noteFrequencies[note] || 440;
+
+        // Add label for white keys
+        if (type === 'white') {
+            const label = document.createElement('span');
+            label.className = 'key-label';
+            // Only show C notes and the note name
+            const noteName = note.replace(/\d+/, '');
+            label.textContent = note;
+            key.appendChild(label);
+        }
+
+        // Add event listeners
+        key.addEventListener('mousedown', () => this.playNote(key));
+        key.addEventListener('mouseup', () => this.releaseNote(key));
+        key.addEventListener('mouseleave', () => this.releaseNote(key));
+
+        // Touch events
+        key.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.playNote(key);
+        });
+        key.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.releaseNote(key);
+        });
+
+        return key;
+    }
+
+    setupVolumeControl() {
+        const volumeSlider = document.getElementById('volume');
+        const volumeValue = document.getElementById('volumeValue');
+
+        volumeSlider.addEventListener('input', (e) => {
+            this.volume = e.target.value / 100;
+            volumeValue.textContent = `${e.target.value}%`;
+        });
+    }
+
+    setupKeyboard() {
+        document.addEventListener('keydown', (e) => {
+            if (e.repeat) return;
+
+            const key = e.key.toLowerCase();
+            const note = this.keyboardMap[key];
+
+            if (note) {
+                const keyElement = document.querySelector(`.key[data-note="${note}"]`);
+                if (keyElement) {
+                    this.playNote(keyElement);
+                }
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            const key = e.key.toLowerCase();
+            const note = this.keyboardMap[key];
+
+            if (note) {
+                const keyElement = document.querySelector(`.key[data-note="${note}"]`);
+                if (keyElement) {
+                    this.releaseNote(keyElement);
+                }
+            }
+        });
+    }
+
+    playNote(keyElement) {
+        if (!this.audioCtx) return;
+
+        // Resume audio context if suspended (required by browsers)
+        if (this.audioCtx.state === 'suspended') {
+            this.audioCtx.resume();
+        }
+
+        const frequency = parseFloat(keyElement.dataset.frequency);
+        const note = keyElement.dataset.note;
+
+        // Visual feedback
+        keyElement.classList.add('pressed');
+
+        // Show note indicator
+        this.showNoteIndicator(note, keyElement);
+
+        // Create oscillator
+        const oscillator = this.audioCtx.createOscillator();
+        const gainNode = this.audioCtx.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioCtx.destination);
+
+        // Use a more piano-like sound with multiple oscillators
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(frequency, this.audioCtx.currentTime);
+
+        // Add harmonics for richer sound
+        const oscillator2 = this.audioCtx.createOscillator();
+        const gainNode2 = this.audioCtx.createGain();
+
+        oscillator2.type = 'triangle';
+        oscillator2.frequency.setValueAtTime(frequency * 2, this.audioCtx.currentTime);
+
+        oscillator2.connect(gainNode2);
+        gainNode2.connect(this.audioCtx.destination);
+
+        // Set volume with envelope
+        const now = this.audioCtx.currentTime;
+        gainNode.gain.setValueAtTime(0, now);
+        gainNode.gain.linearRampToValueAtTime(this.volume * 0.6, now + 0.01);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+
+        gainNode2.gain.setValueAtTime(0, now);
+        gainNode2.gain.linearRampToValueAtTime(this.volume * 0.2, now + 0.01);
+        gainNode2.gain.exponentialRampToValueAtTime(0.001, now + 0.75);
+
+        oscillator.start(now);
+        oscillator.stop(now + 1.5);
+
+        oscillator2.start(now);
+        oscillator2.stop(now + 0.75);
+
+        // Store oscillator for release
+        keyElement.dataset.oscillator = oscillator;
+        keyElement.dataset.gainNode = gainNode;
+    }
+
+    releaseNote(keyElement) {
+        keyElement.classList.remove('pressed');
+    }
+
+    showNoteIndicator(note, keyElement) {
+        const rect = keyElement.getBoundingClientRect();
+        const indicator = document.createElement('div');
+        indicator.className = 'note-indicator';
+        indicator.textContent = note;
+        indicator.style.left = `${rect.left + rect.width / 2}px`;
+        indicator.style.top = `${rect.top - 20}px`;
+        document.body.appendChild(indicator);
+
+        setTimeout(() => {
+            indicator.remove();
+        }, 800);
+    }
+
+    setOctave(octave) {
+        this.currentOctave = octave;
+        this.createPiano();
+    }
+
+    setMode(mode, btn) {
+        this.currentMode = mode;
+        this.createPiano();
+        // Update active button
+        document.querySelectorAll('.preset-btn').forEach(b => {
+            b.classList.remove('ring-2', 'ring-purple-400');
+        });
+        if (btn) btn.classList.add('ring-2', 'ring-purple-400');
+    }
+}
+
+// Initialize game
+const game = new PianoGame();
+</script>
+
+</body>
+</html>

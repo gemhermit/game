@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七巧板 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="七巧板是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="七巧板,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/tangram.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="七巧板 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="七巧板是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/tangram.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="七巧板 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="七巧板是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"七巧板","description":"七巧板是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/tangram.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #6366f1;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        .control-group { margin-bottom: 20px; }
+        .control-label { font-weight: 600; margin-bottom: 8px; display: block; font-size: 14px; }
+
+        .shape-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .shape-btn {
+            aspect-ratio: 1;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .shape-btn:hover { background: #f1f5f9; }
+        .shape-btn.active {
+            border-color: var(--primary-color);
+            background: #e0e7ff;
+        }
+        
+        .shape-preview {
+            width: 30px;
+            height: 30px;
+            background: #cbd5e1;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); /* Placeholder */
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: auto;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #4f46e5; }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
+        }
+
+        #gameCanvas {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            color: #1e293b;
+            padding: 30px 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .toast.show { 
+            transform: translate(-50%, -50%) scale(1); 
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .toast-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+            animation: bounce 1s infinite;
+        }
+
+        .toast-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .toast-desc {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .instructions {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>七巧板</h1>
+        <div class="subtitle">移动、旋转拼图，拼出目标形状。</div>
+
+        <div class="control-group">
+            <label class="control-label">选择关卡</label>
+            <div class="shape-selector" id="levelSelector">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+
+        <div class="instructions">
+            <strong>操作指南：</strong><br>
+            • 拖动：按住左键移动<br>
+            • 旋转：选中后按住右键旋转，或使用滚轮<br>
+            • 吸附：靠近目标位置自动吸附
+        </div>
+
+        <button class="btn" id="resetBtn">🔄 重置当前关卡</button>
+    </div>
+
+    <div class="main-area">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <div class="toast" id="toast">
+        <span class="toast-icon">🎉</span>
+        <div class="toast-title">拼图完成！</div>
+        <div class="toast-desc">太棒了，你成功拼出了目标形状！</div>
+    </div>
+
+    <script>
+        // 基础形状定义（标准七巧板，归一化坐标，中心点为(0,0)）
+        // 比例说明：假设大正方形边长为 4，面积 16
+        // 大三角：底 4 高 2，面积 4 (x2)
+        // 中三角：底 2√2 高 √2，面积 2 (x1)
+        // 小三角：底 2 高 1，面积 1 (x2)
+        // 正方形：边长 √2，面积 2 (x1)
+        // 平行四边形：底 2 高 1，面积 2 (x1)
+        const BASE_SHAPES = [
+            // 0: 大三角 1
+            { type: 'big', color: '#ef4444', points: [[-1, -0.5], [1, -0.5], [0, 0.5]] },
+            // 1: 大三角 2
+            { type: 'big', color: '#f97316', points: [[-1, -0.5], [1, -0.5], [0, 0.5]] },
+            // 2: 中三角
+            { type: 'mid', color: '#f59e0b', points: [[-0.5, -0.5], [0.5, -0.5], [-0.5, 0.5]] }, // 直角边长 1 (scale后为100) -> 斜边 √2
+            // 修正中三角：如果 scale=100 (对应小三角直角边)，大三角直角边200。
+            // 让我们统一使用 scale = 50 作为基准单位。
+            // 坐标系：
+            // 小三角：直角边 2单位。(-1,-0.5) to (1,-0.5) is length 2. height 1. 
+            // 让我们重新定义一套简单的整数坐标系，便于计算拼图。
+            // 设单位长度 u = 1.
+            // 小三角：(0,0), (2,0), (1,1) -> 宽2高1. 
+            // 中三角：(0,0), (2,2), (0,2) -> 直角边2.
+            // 大三角：(0,0), (4,0), (2,2) -> 宽4高2.
+            // 正方形：(1,0), (2,1), (1,2), (0,1) -> 倾斜的，边长√2.
+            // 平行四边形：(0,0), (2,0), (3,1), (1,1) -> 宽3高1.
+            
+            // 下面是基于中心点的定义 (scale = 50px 对应 1单位)
+        ];
+
+        // 重新定义形状，确保比例正确
+        // 使用 scale = 100px 表示直角边长的一半? 不，直接定义顶点更直观。
+        // 我们设定 scale = 100px。
+        
+        const SHAPE_DEFS = {
+            big: { 
+                points: [[-2, -1], [2, -1], [0, 1]], // 底4高2
+                color: '#ef4444' 
+            },
+            mid: {
+                points: [[-1, -1], [1, -1], [-1, 1]], // 直角在右下? 
+                color: '#f59e0b'
+            },
+            small: {
+                points: [[-1, -0.5], [1, -0.5], [0, 0.5]], // 底2高1，面积1。
+                color: '#84cc16'
+            },
+            square: {
+                points: [[-1, -1], [1, -1], [1, 1], [-1, 1]], // 边长2
+                color: '#06b6d4'
+            },
+            para: {
+                points: [[-1.5, -0.5], [0.5, -0.5], [1.5, 0.5], [-0.5, 0.5]], // 底2高1，偏移1。面积2。
+                color: '#8b5cf6'
+            }
+        };
+
+        // 实例化7个块
+        const PIECES_CONFIG = [
+            { type: 'big', color: '#ef4444' },
+            { type: 'big', color: '#f97316' },
+            { type: 'mid', color: '#f59e0b' },
+            { type: 'small', color: '#84cc16' },
+            { type: 'small', color: '#10b981' },
+            { type: 'square', color: '#06b6d4' },
+            { type: 'para', color: '#8b5cf6' }
+        ];
+
+        // 关卡数据 (Target Slots)
+        // x, y 坐标基于 Canvas 中心 (400, 300) 的偏移
+        // scale = 50
+        const LEVELS = [
+            {
+                name: "自由拼图",
+                slots: [] // 无目标，仅供自由玩耍
+            },
+            {
+                name: "双山 (入门)",
+                slots: [
+                    { type: 'big', x: -50, y: 0, r: Math.PI }, // 左山
+                    { type: 'big', x: 150, y: 0, r: Math.PI }  // 右山
+                ]
+            },
+            {
+                name: "小房子",
+                slots: [
+                    // Roof
+                    { type: 'big', x: 0, y: -50, r: Math.PI }, // Base y=0. Peak y=-100. (Width 200).
+                    // Wall
+                    { type: 'square', x: 0, y: 50, r: 0 }, // Center (0,50). Size 100x100. (-50,0)-(50,100).
+                    // Chimney (Para)
+                    { type: 'para', x: 75, y: -25, r: Math.PI/2 } // Rough guess
+                ]
+            },
+            {
+                name: "猫",
+                slots: [
+                    // Head (Square) Rot 45
+                    { type: 'square', x: 0, y: -100, r: Math.PI/4 },
+                    // Ears (Small Tri)
+                    { type: 'small', x: -35, y: -135, r: Math.PI*0.75 }, 
+                    { type: 'small', x: 35, y: -135, r: -Math.PI*0.75 },
+                    // Body (Big Tri)
+                    { type: 'big', x: 0, y: 0, r: 0 }, // Points Down
+                    // Tail (Para)
+                    { type: 'para', x: 100, y: 50, r: 0 }
+                ]
+            }
+        ];
+        
+        class TangramGame {
+            constructor() {
+                this.canvas = document.getElementById('gameCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.pieces = [];
+                this.selectedPiece = null;
+                this.scale = 50; // Scale unit: 50px = 1 unit
+                this.currentLevelIdx = 0;
+                
+                this.initLevelSelector();
+                this.loadLevel(0);
+                this.bindEvents();
+            }
+
+            initLevelSelector() {
+                const container = document.getElementById('levelSelector');
+                container.innerHTML = '';
+                LEVELS.forEach((level, idx) => {
+                    const btn = document.createElement('div');
+                    btn.className = 'shape-btn';
+                    if (idx === this.currentLevelIdx) btn.classList.add('active');
+                    btn.innerHTML = `<span>${level.name}</span>`; // Simple text for now
+                    btn.onclick = () => {
+                        this.loadLevel(idx);
+                        // update active
+                        document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    };
+                    container.appendChild(btn);
+                });
+            }
+
+            loadLevel(idx) {
+                this.currentLevelIdx = idx;
+                const level = LEVELS[idx];
+                
+                // Initialize pieces scattered randomly on the left
+                this.pieces = PIECES_CONFIG.map((conf, i) => {
+                    const def = SHAPE_DEFS[conf.type];
+                    return {
+                        id: i,
+                        type: conf.type,
+                        points: def.points,
+                        color: def.color,
+                        // Scatter area: x: 50-250, y: 50-550
+                        x: 100 + Math.random() * 150,
+                        y: 100 + Math.random() * 400,
+                        rotation: Math.random() * Math.PI * 2,
+                        isDragging: false,
+                        isSnapped: false
+                    };
+                });
+                
+                document.getElementById('toast').classList.remove('show');
+                this.draw();
+            }
+
+            bindEvents() {
+                this.canvas.addEventListener('mousedown', e => this.handleStart(e));
+                this.canvas.addEventListener('mousemove', e => this.handleMove(e));
+                this.canvas.addEventListener('mouseup', e => this.handleEnd(e));
+                
+                // Rotation with wheel
+                this.canvas.addEventListener('wheel', e => {
+                    if (this.selectedPiece) {
+                        e.preventDefault();
+                        const delta = e.deltaY > 0 ? 15 : -15;
+                        this.selectedPiece.rotation += delta * Math.PI / 180;
+                        this.draw();
+                    }
+                });
+
+                document.getElementById('resetBtn').addEventListener('click', () => {
+                    this.loadLevel(this.currentLevelIdx);
+                });
+            }
+
+            getMousePos(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                return {
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top
+                };
+            }
+
+            handleStart(e) {
+                if (document.getElementById('toast').classList.contains('show')) return;
+
+                const pos = this.getMousePos(e);
+                // Check collision (reverse order to pick top)
+                for (let i = this.pieces.length - 1; i >= 0; i--) {
+                    if (this.isPointInPiece(pos, this.pieces[i])) {
+                        this.selectedPiece = this.pieces[i];
+                        this.selectedPiece.isDragging = true;
+                        this.selectedPiece.isSnapped = false; // Unsnap when dragging
+                        
+                        // Move to top
+                        this.pieces.splice(i, 1);
+                        this.pieces.push(this.selectedPiece);
+                        
+                        this.lastMouse = pos;
+                        
+                        this.draw();
+                        return;
+                    }
+                }
+            }
+
+            handleMove(e) {
+                if (!this.selectedPiece) return;
+                const pos = this.getMousePos(e);
+                
+                if (e.buttons === 1) { // Left drag move
+                    this.selectedPiece.x += pos.x - this.lastMouse.x;
+                    this.selectedPiece.y += pos.y - this.lastMouse.y;
+                } else if (e.buttons === 2) { // Right drag rotate
+                    const dy = pos.y - this.lastMouse.y;
+                    this.selectedPiece.rotation += dy * 0.05;
+                }
+                
+                this.lastMouse = pos;
+                this.draw();
+            }
+
+            handleEnd(e) {
+                if (this.selectedPiece) {
+                    this.selectedPiece.isDragging = false;
+                    
+                    // Snap rotation to 45 degrees
+                    const deg = this.selectedPiece.rotation * 180 / Math.PI;
+                    const snap = 45;
+                    let rem = deg % snap;
+                    if (rem > snap/2) rem -= snap;
+                    if (rem < -snap/2) rem += snap;
+                    
+                    if (Math.abs(rem) < 10) { // Tolerance 10 deg
+                        this.selectedPiece.rotation -= rem * Math.PI / 180;
+                    }
+
+                    // Check snapping to target slots
+                    this.checkSnap();
+                    
+                    this.selectedPiece = null;
+                    this.draw();
+                    this.checkWin();
+                }
+            }
+            
+            checkSnap() {
+                const level = LEVELS[this.currentLevelIdx];
+                const piece = this.selectedPiece;
+                const centerX = this.canvas.width / 2 + 100; // Target area center offset
+                const centerY = this.canvas.height / 2;
+
+                // Find matching slot
+                // Piece must match slot type, position within threshold, rotation within threshold
+                for (let slot of level.slots) {
+                    if (slot.type === piece.type) {
+                        // Calculate target absolute position
+                        const targetX = centerX + slot.x;
+                        const targetY = centerY + slot.y;
+                        
+                        const dist = Math.hypot(piece.x - targetX, piece.y - targetY);
+                        
+                        // Normalize rotations to 0-2PI for comparison?
+                        // Actually just check difference modulo 2PI
+                        let rotDiff = piece.rotation - slot.r;
+                        rotDiff = rotDiff % (Math.PI * 2);
+                        if (rotDiff < 0) rotDiff += Math.PI * 2;
+                        if (rotDiff > Math.PI) rotDiff = Math.PI * 2 - rotDiff;
+                        
+                        // Snap threshold: 20px distance, 0.1 rad rotation
+                        if (dist < 20 && rotDiff < 0.2) {
+                            // Snap!
+                            piece.x = targetX;
+                            piece.y = targetY;
+                            piece.rotation = slot.r;
+                            piece.isSnapped = true;
+                            // Play sound?
+                            break; 
+                        }
+                    }
+                }
+            }
+            
+            checkWin() {
+                const level = LEVELS[this.currentLevelIdx];
+                if (!level.slots || level.slots.length === 0) return; // 自由模式不判胜
+
+                // Win if all pieces are snapped?
+                // Or if all slots are filled?
+                // Since slots map 1:1 to pieces, if all pieces are snapped, we win.
+                // However, two identical pieces might snap to the same slot? 
+                // Logic above allows that. But physically they would overlap.
+                // Let's iterate all pieces and count snapped.
+                const snappedCount = this.pieces.filter(p => p.isSnapped).length;
+                
+                // Also need to ensure no two pieces are in the same slot?
+                // Simple check: count 7 snapped.
+                if (snappedCount === 7) {
+                    // Double check overlap?
+                    // Assuming user can see if they overlap.
+                    document.getElementById('toast').classList.add('show');
+                }
+            }
+
+            isPointInPiece(pt, piece) {
+                // Transform point to piece local space
+                const dx = pt.x - piece.x;
+                const dy = pt.y - piece.y;
+                const cos = Math.cos(-piece.rotation);
+                const sin = Math.sin(-piece.rotation);
+                const lx = dx * cos - dy * sin;
+                const ly = dx * sin + dy * cos;
+                
+                // Check polygon
+                return this.pointInPolygon([lx, ly], piece.points.map(p => [p[0]*this.scale, p[1]*this.scale]));
+            }
+
+            pointInPolygon(point, vs) {
+                let x = point[0], y = point[1];
+                let inside = false;
+                for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+                    let xi = vs[i][0], yi = vs[i][1];
+                    let xj = vs[j][0], yj = vs[j][1];
+                    let intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                    if (intersect) inside = !inside;
+                }
+                return inside;
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                const centerX = this.canvas.width / 2 + 100;
+                const centerY = this.canvas.height / 2;
+
+                // Draw Target Slots (Shadow)
+                const level = LEVELS[this.currentLevelIdx];
+                this.ctx.save();
+                this.ctx.translate(centerX, centerY);
+                
+                // Draw title
+                this.ctx.fillStyle = '#94a3b8';
+                this.ctx.font = '24px Arial';
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText(level.name, 0, -200);
+
+                level.slots.forEach(slot => {
+                    const def = SHAPE_DEFS[slot.type];
+                    this.ctx.save();
+                    this.ctx.translate(slot.x, slot.y);
+                    this.ctx.rotate(slot.r);
+                    
+                    this.ctx.beginPath();
+                    def.points.forEach((pt, i) => {
+                        if (i === 0) this.ctx.moveTo(pt[0]*this.scale, pt[1]*this.scale);
+                        else this.ctx.lineTo(pt[0]*this.scale, pt[1]*this.scale);
+                    });
+                    this.ctx.closePath();
+                    
+                    this.ctx.fillStyle = '#e2e8f0'; // Light gray shadow
+                    this.ctx.fill();
+                    this.ctx.strokeStyle = '#cbd5e1';
+                    this.ctx.lineWidth = 1;
+                    this.ctx.stroke();
+                    
+                    this.ctx.restore();
+                });
+                this.ctx.restore();
+
+                // Draw pieces
+                this.pieces.forEach(p => {
+                    this.ctx.save();
+                    this.ctx.translate(p.x, p.y);
+                    this.ctx.rotate(p.rotation);
+                    
+                    this.ctx.beginPath();
+                    p.points.forEach((pt, i) => {
+                        if (i === 0) this.ctx.moveTo(pt[0]*this.scale, pt[1]*this.scale);
+                        else this.ctx.lineTo(pt[0]*this.scale, pt[1]*this.scale);
+                    });
+                    this.ctx.closePath();
+                    
+                    this.ctx.fillStyle = p.color;
+                    // Add shadow if dragging
+                    if (p.isDragging) {
+                        this.ctx.shadowColor = 'rgba(0,0,0,0.3)';
+                        this.ctx.shadowBlur = 10;
+                        this.ctx.shadowOffsetY = 5;
+                    }
+                    this.ctx.fill();
+                    
+                    this.ctx.shadowColor = 'transparent';
+                    this.ctx.strokeStyle = '#fff';
+                    this.ctx.lineWidth = 2;
+                    this.ctx.stroke();
+                    
+                    if (p === this.selectedPiece) {
+                        this.ctx.strokeStyle = '#333';
+                        this.ctx.lineWidth = 3;
+                        this.ctx.stroke();
+                    }
+                    
+                    this.ctx.restore();
+                });
+            }
+        }
+
+        // Prevent context menu globally for right click rotate
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        new TangramGame();
+    </script>
+</body>
+</html>

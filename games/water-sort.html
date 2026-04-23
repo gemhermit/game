@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水排序 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="水排序是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="水排序,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/water-sort.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="水排序 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="水排序是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/water-sort.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="水排序 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="水排序是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"水排序","description":"水排序是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/water-sort.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --text-color: #1e293b;
+            --accent-color: #0284c7;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #0369a1;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        .control-group { margin-bottom: 20px; }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #0369a1; }
+        .btn-secondary { background: #e2e8f0; color: #475569; }
+        .btn-secondary:hover { background: #cbd5e1; }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .tubes-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 800px;
+        }
+
+        .tube {
+            width: 60px;
+            height: 240px;
+            border: 4px solid #94a3b8;
+            border-top: none;
+            border-radius: 0 0 25px 25px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            overflow: hidden;
+            background: rgba(255,255,255,0.8);
+            /* Performance */
+            will-change: transform;
+            transform: translate3d(0,0,0);
+        }
+
+        .tube.selected {
+            transform: translateY(-20px);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(2, 132, 199, 0.3);
+        }
+
+        /* Pouring animation */
+        .tube.pouring {
+            transform: translateY(-40px) rotate(-45deg); /* Increased rotation */
+            z-index: 20; /* Higher z-index */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+        }
+
+        .tube.pouring-right {
+            transform: translateY(-40px) rotate(45deg);
+            z-index: 20;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .tube.pouring-to {
+            transform: scale(1.05); /* Gentle scale instead of rotate */
+            transition: transform 0.3s ease;
+        }
+
+        /* Stream of water during pour */
+        .pour-stream {
+            position: absolute;
+            width: 8px; /* Slightly thicker */
+            background: inherit;
+            top: -10px; /* Start higher */
+            left: 50%;
+            transform: translateX(-50%); /* Start centered */
+            height: 0; /* Start hidden */
+            border-radius: 4px;
+            z-index: 5;
+            pointer-events: none;
+            /* Animation handled via JS for dynamic positioning */
+            transform-origin: top center;
+        }
+
+        @keyframes pourStreamAnim {
+             0% { height: 0; opacity: 0; }
+             20% { height: 100px; opacity: 0.9; }
+             100% { height: 120px; opacity: 0.8; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
+        }
+
+        /* Confetti for Win */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f00;
+            animation: confettiFall 3s linear forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Improved Liquid transition */
+        .liquid {
+            width: 100%;
+            height: 25%;
+            position: absolute;
+            bottom: 0;
+            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            /* Glass effect */
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .liquid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: inherit;
+            opacity: 0.3;
+            border-radius: 40%;
+            animation: wave 3s infinite linear;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0) rotate(0deg); }
+            100% { transform: translateX(-25%) rotate(360deg); }
+        }
+
+        /* Splash effect */
+        .splash {
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            left: 0;
+            background: inherit;
+            border-radius: 50%;
+            transform: scaleX(1.2);
+            opacity: 0.8;
+            animation: splashPulse 0.4s infinite alternate;
+            z-index: 5;
+            /* Filter blur for liquid merging effect - expensive but looks good. Maybe reduce if laggy. */
+            /* filter: blur(2px); */ 
+            will-change: transform, opacity;
+        }
+        
+        @keyframes splashPulse {
+            0% { transform: scaleX(1.1) scaleY(0.8); }
+            100% { transform: scaleX(1.3) scaleY(1.2); }
+        }
+
+        /* Bubble animation - Keep it but refine */
+        .bubble {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            bottom: 0;
+            animation: bubbleRise 1s infinite ease-in;
+            z-index: 6;
+        }
+
+        @keyframes bubbleRise {
+            0% { transform: translateY(0) scale(1); opacity: 0.6; }
+            100% { transform: translateY(-60px) scale(0.5); opacity: 0; }
+        }
+
+        /* Colors */
+        .color-0 { background: #ef4444; } /* Red */
+        .color-1 { background: #3b82f6; } /* Blue */
+        .color-2 { background: #22c55e; } /* Green */
+        .color-3 { background: #eab308; } /* Yellow */
+        .color-4 { background: #a855f7; } /* Purple */
+        .color-5 { background: #f97316; } /* Orange */
+        .color-6 { background: #ec4899; } /* Pink */
+        .color-7 { background: #14b8a6; } /* Cyan */
+
+        .level-badge {
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-family: monospace;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+        }
+
+        .toast {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+            background: white;
+            color: #16a34a;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            transition: transform 0.3s, opacity 0.3s;
+            z-index: 100;
+            border: 2px solid #16a34a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>水排序</h1>
+        <div class="subtitle">将相同颜色的水倒入同一个试管中。</div>
+
+        <div class="level-badge">关卡: <span id="levelDisplay">1</span></div>
+
+        <div class="control-group">
+            <button class="btn" id="resetBtn">🔄 重置本关</button>
+            <button class="btn btn-secondary" id="undoBtn">↩️ 撤销</button>
+            <button class="btn btn-secondary" id="addTubeBtn">➕ 增加空管 (+1)</button>
+            <button class="btn" id="nextLevelBtn" style="display:none; background: #16a34a;">➡️ 下一关</button>
+        </div>
+
+        <div style="margin-top: auto; font-size: 13px; color: #64748b; line-height: 1.6;">
+            <strong>规则：</strong><br>
+            • 点击试管倒水<br>
+            • 只能倒在同色水面上或空管中<br>
+            • 试管满时不能再倒
+        </div>
+    </div>
+
+    <div class="main-area">
+        <div class="tubes-container" id="gameBoard">
+            <!-- Tubes generated here -->
+        </div>
+    </div>
+
+    <div class="toast" id="toast">🎉 完美！</div>
+
+    <script>
+        class WaterSortGame {
+            constructor() {
+                this.boardEl = document.getElementById('gameBoard');
+                this.levelDisplay = document.getElementById('levelDisplay');
+                this.resetBtn = document.getElementById('resetBtn');
+                this.undoBtn = document.getElementById('undoBtn');
+                this.addTubeBtn = document.getElementById('addTubeBtn');
+                this.nextLevelBtn = document.getElementById('nextLevelBtn');
+                this.toast = document.getElementById('toast');
+
+                this.level = 1;
+                this.tubes = [];
+                this.history = [];
+                this.selectedTube = null;
+                this.tubeCapacity = 4;
+                this.isAnimating = false;
+
+                this.bindEvents();
+                this.initLevel();
+            }
+
+            bindEvents() {
+                this.resetBtn.addEventListener('click', () => this.initLevel());
+                this.undoBtn.addEventListener('click', () => this.undo());
+                this.addTubeBtn.addEventListener('click', () => this.addEmptyTube());
+                this.nextLevelBtn.addEventListener('click', () => {
+                    this.level++;
+                    this.initLevel();
+                });
+            }
+
+            initLevel() {
+                this.history = [];
+                this.selectedTube = null;
+                this.isAnimating = false;
+                this.levelDisplay.textContent = this.level;
+                this.nextLevelBtn.style.display = 'none';
+                this.addTubeBtn.disabled = false;
+
+                // Generate level data
+                // Level 1: 2 colors, 3 tubes
+                // Level 2: 3 colors, 5 tubes
+                // Level N: min(N+1, 8) colors, colors+2 tubes
+                const numColors = Math.min(this.level + 2, 8);
+                const numTubes = numColors + 2;
+                
+                // Create initial liquid segments
+                let liquids = [];
+                for(let i=0; i<numColors; i++) {
+                    for(let j=0; j<4; j++) liquids.push(i);
+                }
+                
+                // Shuffle
+                for(let i = liquids.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [liquids[i], liquids[j]] = [liquids[j], liquids[i]];
+                }
+
+                // Distribute to tubes
+                this.tubes = [];
+                for(let i=0; i<numTubes; i++) {
+                    const tube = [];
+                    if (i < numColors) {
+                        for(let j=0; j<4; j++) {
+                            tube.push(liquids.pop());
+                        }
+                    }
+                    this.tubes.push(tube);
+                }
+
+                this.render();
+            }
+
+            render() {
+                this.boardEl.innerHTML = '';
+                this.tubes.forEach((tube, idx) => {
+                    const tubeEl = document.createElement('div');
+                    tubeEl.className = 'tube';
+                    if (this.selectedTube === idx) tubeEl.classList.add('selected');
+                    
+                    tubeEl.onclick = () => this.handleTubeClick(idx);
+
+                    // Render liquids with merging
+                    // Group adjacent same colors
+                    let currentBottom = 0;
+                    
+                    if (tube.length > 0) {
+                        let currentGroup = { color: tube[0], count: 1 };
+                        
+                        for (let i = 1; i < tube.length; i++) {
+                            if (tube[i] === currentGroup.color) {
+                                currentGroup.count++;
+                            } else {
+                                // Render previous group
+                                this.createLiquidElement(tubeEl, currentGroup.color, currentGroup.count, currentBottom);
+                                currentBottom += currentGroup.count * 25;
+                                // Start new group
+                                currentGroup = { color: tube[i], count: 1 };
+                            }
+                        }
+                        // Render last group
+                        this.createLiquidElement(tubeEl, currentGroup.color, currentGroup.count, currentBottom);
+                    }
+
+                    this.boardEl.appendChild(tubeEl);
+                });
+            }
+
+            createLiquidElement(container, color, count, bottomPct) {
+                const liquidEl = document.createElement('div');
+                liquidEl.className = `liquid color-${color}`;
+                liquidEl.style.height = (count * 25) + '%';
+                liquidEl.style.bottom = bottomPct + '%';
+                // Store color data for easy checking later
+                liquidEl.dataset.color = color;
+                container.appendChild(liquidEl);
+            }
+
+            handleTubeClick(idx) {
+                if (this.isAnimating) return;
+
+                if (this.selectedTube === null) {
+                    // Select source
+                    if (this.tubes[idx].length > 0) {
+                        this.selectedTube = idx;
+                        this.render();
+                    }
+                } else {
+                    if (this.selectedTube === idx) {
+                        // Deselect
+                        this.selectedTube = null;
+                        this.render();
+                    } else {
+                        // Try move
+                        this.tryMove(this.selectedTube, idx);
+                    }
+                }
+            }
+
+            async tryMove(fromIdx, toIdx) {
+                if (this.isAnimating) return;
+
+                const fromTube = this.tubes[fromIdx];
+                const toTube = this.tubes[toIdx];
+
+                if (toTube.length >= this.tubeCapacity) {
+                    // Target full
+                    this.shakeTube(toIdx);
+                    this.selectedTube = null;
+                    this.render();
+                    return;
+                }
+
+                const colorToMove = fromTube[fromTube.length - 1];
+
+                // Check if move is valid
+                // 1. Target empty OR
+                // 2. Target top color matches moving color
+                if (toTube.length === 0 || toTube[toTube.length - 1] === colorToMove) {
+                    
+                    // Count how many to move FIRST, considering capacity
+                    let moveCount = 0;
+                    // Peek at fromTube without modifying it yet
+                    // We need to count from the top (end of array)
+                    // The items to move are at indices: length-1, length-2, etc.
+                    for (let i = fromTube.length - 1; i >= 0; i--) {
+                        if (fromTube[i] === colorToMove) {
+                            // Check if target has space
+                            if (toTube.length + moveCount < this.tubeCapacity) {
+                                moveCount++;
+                            } else {
+                                // Target full, stop counting
+                                break;
+                            }
+                        } else {
+                            // Different color, stop counting
+                            break;
+                        }
+                    }
+                    
+                    if (moveCount > 0) {
+                        // Valid move with count > 0
+                        this.saveState();
+                        
+                        // Now actually remove from source
+                        for(let i=0; i<moveCount; i++) {
+                            fromTube.pop();
+                        }
+
+                        // Animate
+                        await this.animatePour(fromIdx, toIdx, colorToMove, moveCount);
+
+                        // Update target tube
+                        for (let i = 0; i < moveCount; i++) {
+                            toTube.push(colorToMove);
+                        }
+
+                        this.selectedTube = null;
+                        this.render();
+                        this.checkWin();
+                    } else {
+                        // Move valid but no space? Treat as invalid/full
+                        this.shakeTube(toIdx);
+                        this.selectedTube = null;
+                        this.render();
+                    }
+                } else {
+                    // Invalid move
+                    this.shakeTube(toIdx);
+                    this.selectedTube = null;
+                    this.render();
+                }
+            }
+
+            async animatePour(fromIdx, toIdx, color, count) {
+                this.isAnimating = true;
+
+                const fromTubeEl = this.boardEl.children[fromIdx];
+                const toTubeEl = this.boardEl.children[toIdx];
+
+                // Calculate positions to determine pour direction
+                const fromRect = fromTubeEl.getBoundingClientRect();
+                const toRect = toTubeEl.getBoundingClientRect();
+                const isRight = toRect.left > fromRect.left;
+
+                // 1. Tilt Animation
+                if (isRight) {
+                    fromTubeEl.classList.add('pouring-right');
+                } else {
+                    fromTubeEl.classList.add('pouring');
+                }
+                toTubeEl.classList.add('pouring-to');
+
+                // Wait for tilt transition to complete (300ms defined in CSS)
+                await this.delay(300);
+
+                // 2. Create Stream
+                const stream = document.createElement('div');
+                stream.className = 'pour-stream';
+                stream.style.background = this.getColorValue(color);
+                
+                // Position stream relative to source tube
+                if (isRight) {
+                    stream.style.right = '-12px'; // Adjusted for border
+                    stream.style.left = 'auto';
+                    stream.style.transformOrigin = 'top right';
+                    stream.style.transform = 'rotate(-45deg)'; 
+                } else {
+                    stream.style.left = '-12px';
+                    stream.style.transformOrigin = 'top left';
+                    stream.style.transform = 'rotate(45deg)'; 
+                }
+                
+                fromTubeEl.appendChild(stream);
+
+                // 3. Calculate Dynamic Height
+                // Now that tube is tilted and stream is attached, we can get its screen coordinates
+                const streamRect = stream.getBoundingClientRect();
+                const targetRect = toTubeEl.getBoundingClientRect();
+                
+                // Calculate target surface Y position
+                // Tube content height is roughly height - bottom border
+                // But we use % for liquids. 25% of 240px = 60px.
+                // We need to account for border (4px) and radius maybe?
+                // Let's rely on the liquids inside.
+                const existingLiquids = toTubeEl.querySelectorAll('.liquid').length;
+                const liquidUnitHeight = targetRect.height / 4; // Approx
+                // Better: get the actual bottom position in screen space
+                const targetBottom = targetRect.bottom - 4; // Minus border
+                const targetSurfaceY = targetBottom - (existingLiquids * (targetRect.height * 0.25));
+
+                // Distance from spout (stream top) to target surface
+                // Stream top is streamRect.top
+                let streamHeight = targetSurfaceY - streamRect.top;
+                
+                // Safety check: if negative or too small, default to something visible
+                if (streamHeight < 20) streamHeight = 20;
+                
+                // Apply height
+                stream.style.height = streamHeight + 'px';
+                stream.style.opacity = '0.9';
+                // Remove the animation class that was overriding height, use transition instead
+                stream.style.transition = 'height 0.2s ease-in, opacity 0.2s';
+                
+                // Force reflow to ensure transition happens
+                stream.offsetHeight; 
+                
+                // 4. Fill Animation
+                const pourDuration = 500; // ms per unit
+                const step = pourDuration / count;
+
+                // Add splash effect at target surface
+                const splash = document.createElement('div');
+                splash.className = 'splash';
+                splash.style.background = this.getColorValue(color);
+                splash.style.bottom = (existingLiquids * 25) + '%';
+                toTubeEl.appendChild(splash);
+
+                for (let i = 0; i < count; i++) {
+                    await this.addLiquidToTube(toTubeEl, color, step);
+                    // Update splash position
+                    splash.style.bottom = ((existingLiquids + i + 1) * 25) + '%';
+                    
+                    // Update stream height as liquid rises
+                    // New surface is higher, so height is smaller
+                    // One unit is roughly targetRect.height * 0.25
+                    const riseAmount = targetRect.height * 0.25;
+                    streamHeight -= riseAmount;
+                    if (streamHeight < 0) streamHeight = 0;
+                    stream.style.height = streamHeight + 'px';
+                }
+
+                // Remove splash
+                splash.remove();
+
+                // Fade out stream
+                stream.style.opacity = '0';
+                stream.style.height = '0px';
+                await this.delay(200);
+                stream.remove();
+
+                // 5. Reset Tubes
+                fromTubeEl.classList.remove('pouring');
+                fromTubeEl.classList.remove('pouring-right');
+                toTubeEl.classList.remove('pouring-to');
+
+                this.isAnimating = false;
+            }
+
+            async addLiquidToTube(tubeEl, color, delayMs) {
+                await this.delay(delayMs);
+
+                // Find top liquid element
+                // Since we append in order, last child that is a liquid is the top one
+                // But wait, tubeEl contains 'pour-stream', 'splash', 'bubble' too potentially?
+                // Our liquid elements have class 'liquid'.
+                
+                const liquids = Array.from(tubeEl.querySelectorAll('.liquid'));
+                const topLiquid = liquids[liquids.length - 1];
+                
+                // Check if we can merge
+                let canMerge = false;
+                if (topLiquid && parseInt(topLiquid.dataset.color) === color) {
+                    canMerge = true;
+                }
+                
+                if (canMerge) {
+                    // Animate height increase
+                    // Current height
+                    const currentHeight = parseFloat(topLiquid.style.height);
+                    // New height
+                    const newHeight = currentHeight + 25;
+                    
+                    topLiquid.style.height = newHeight + '%';
+                } else {
+                    // Create new liquid
+                    // Calculate bottom position based on previous liquids
+                    let bottom = 0;
+                    if (topLiquid) {
+                        bottom = parseFloat(topLiquid.style.bottom) + parseFloat(topLiquid.style.height);
+                    }
+                    
+                    const newLiquid = document.createElement('div');
+                    newLiquid.className = `liquid color-${color}`;
+                    newLiquid.dataset.color = color;
+                    newLiquid.style.height = '0%';
+                    newLiquid.style.bottom = bottom + '%';
+                    
+                    tubeEl.appendChild(newLiquid);
+    
+                    // Force reflow
+                    newLiquid.offsetHeight;
+    
+                    // Animate height
+                    newLiquid.style.height = '25%';
+                }
+
+                // Add bubble
+                this.addBubble(tubeEl, color);
+            }
+
+            addBubble(tubeEl, color) {
+                // Add multiple small bubbles
+                for(let i=0; i<3; i++) {
+                    setTimeout(() => {
+                        const bubble = document.createElement('div');
+                        bubble.className = 'bubble';
+                        // Random position
+                        bubble.style.left = (20 + Math.random() * 60) + '%';
+                        bubble.style.width = (4 + Math.random() * 4) + 'px';
+                        bubble.style.height = bubble.style.width;
+                        tubeEl.appendChild(bubble);
+                        setTimeout(() => bubble.remove(), 800);
+                    }, i * 100);
+                }
+            }
+
+            getColorValue(colorIndex) {
+                const colors = ['#ef4444', '#3b82f6', '#22c55e', '#eab308', '#a855f7', '#f97316', '#ec4899', '#14b8a6'];
+                return colors[colorIndex % colors.length];
+            }
+
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            shakeTube(idx) {
+                const tubeEl = this.boardEl.children[idx];
+                tubeEl.style.animation = 'none';
+                tubeEl.offsetHeight; // Trigger reflow
+                tubeEl.style.animation = 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both';
+                setTimeout(() => tubeEl.style.animation = '', 400);
+            }
+
+            saveState() {
+                // Deep copy
+                this.history.push(JSON.parse(JSON.stringify(this.tubes)));
+                if (this.history.length > 10) this.history.shift();
+            }
+
+            undo() {
+                if (this.history.length > 0) {
+                    this.tubes = this.history.pop();
+                    this.selectedTube = null;
+                    this.render();
+                }
+            }
+
+            addEmptyTube() {
+                this.saveState();
+                this.tubes.push([]);
+                this.addTubeBtn.disabled = true;
+                this.render();
+            }
+
+            checkWin() {
+                // Win if all tubes are either empty or full of same color
+                const won = this.tubes.every(tube => {
+                    if (tube.length === 0) return true;
+                    if (tube.length !== this.tubeCapacity) return false;
+                    const firstColor = tube[0];
+                    return tube.every(c => c === firstColor);
+                });
+
+                if (won) {
+                    this.toast.classList.add('show');
+                    setTimeout(() => this.toast.classList.remove('show'), 3000);
+                    this.nextLevelBtn.style.display = 'block';
+                    this.celebrate();
+                }
+            }
+            
+            celebrate() {
+                // Generate confetti
+                const colors = ['#ef4444', '#3b82f6', '#22c55e', '#eab308', '#a855f7'];
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = (Math.random() * 1) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }
+            }
+        }
+
+        new WaterSortGame();
+    </script>
+</body>
+</html>

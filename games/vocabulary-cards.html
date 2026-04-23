@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>词汇卡片 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="词汇卡片把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="词汇卡片,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/vocabulary-cards.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="词汇卡片 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="词汇卡片把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/vocabulary-cards.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="词汇卡片 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="词汇卡片把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"词汇卡片","description":"词汇卡片把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/vocabulary-cards.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .left-panel {
+            flex: 1;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            display: flex;
+            flex-direction: column;
+        }
+        .right-panel {
+            flex: 1.5;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            color: #2d3436;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .stats-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .stat-label {
+            color: #636e72;
+            font-weight: bold;
+        }
+        .stat-value {
+            color: #00b894;
+            font-weight: bold;
+        }
+        .category-selector {
+            margin: 20px 0;
+        }
+        .category-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #fd79a8;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+        .category-btn:hover {
+            background: #e84393;
+            transform: translateY(-2px);
+        }
+        .category-btn.active {
+            background: #00b894;
+        }
+        .card-container {
+            perspective: 1000px;
+            width: 400px;
+            height: 300px;
+            margin: 20px 0;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 30px;
+        }
+        .card-front {
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            color: white;
+        }
+        .card-back {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .word {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .phonetic {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        .meaning {
+            font-size: 1.8em;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        .example {
+            font-size: 1.2em;
+            font-style: italic;
+            text-align: center;
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: #00b894;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #00a085;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #fd79a8;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #e84393;
+            transform: translateY(-2px);
+        }
+        .btn-warning {
+            background: #fdcb6e;
+            color: white;
+        }
+        .btn-warning:hover {
+            background: #e17055;
+            transform: translateY(-2px);
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00b894, #55efc4);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        .flip-hint {
+            color: #636e72;
+            font-size: 1em;
+            margin: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h1>英语单词记忆</h1>
+            
+            <div class="stats-panel">
+                <h3 style="color: #2d3436; margin-bottom: 15px;">学习统计</h3>
+                <div class="stat-item">
+                    <span class="stat-label">当前分类：</span>
+                    <span class="stat-value" id="currentCategory">基础词汇</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">已学习：</span>
+                    <span class="stat-value" id="learnedCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">总词汇：</span>
+                    <span class="stat-value" id="totalCount">20</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">正确率：</span>
+                    <span class="stat-value" id="accuracy">0%</span>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="category-selector">
+                <h3 style="color: #2d3436; margin-bottom: 15px;">选择分类</h3>
+                <button class="category-btn active" data-category="basic">基础词汇</button>
+                <button class="category-btn" data-category="animals">动物词汇</button>
+                <button class="category-btn" data-category="colors">颜色词汇</button>
+                <button class="category-btn" data-category="food">食物词汇</button>
+                <button class="category-btn" data-category="family">家庭词汇</button>
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="card-container">
+                <div class="card" id="flashCard">
+                    <div class="card-face card-front">
+                        <div class="word" id="wordText">Hello</div>
+                        <div class="phonetic" id="phoneticText">/həˈloʊ/</div>
+                        <div class="flip-hint">点击卡片查看释义</div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div class="meaning" id="meaningText">你好；喂</div>
+                        <div class="example" id="exampleText">Hello, how are you?<br>你好，你好吗？</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn btn-warning" id="prevBtn">上一个</button>
+                <button class="control-btn btn-primary" id="knowBtn">认识</button>
+                <button class="control-btn btn-secondary" id="unknowBtn">不认识</button>
+                <button class="control-btn btn-warning" id="nextBtn">下一个</button>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn btn-primary" id="shuffleBtn">随机顺序</button>
+                <button class="control-btn btn-secondary" id="resetBtn">重新开始</button>
+                <button class="control-btn btn-warning" id="speakBtn">发音</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const vocabularies = {
+            basic: {
+                name: '基础词汇',
+                words: [
+                    { word: 'Hello', phonetic: '/həˈloʊ/', meaning: '你好；喂', example: 'Hello, how are you?\n你好，你好吗？' },
+                    { word: 'Thank', phonetic: '/θæŋk/', meaning: '感谢', example: 'Thank you very much.\n非常感谢你。' },
+                    { word: 'Please', phonetic: '/pliːz/', meaning: '请', example: 'Please help me.\n请帮助我。' },
+                    { word: 'Sorry', phonetic: '/ˈsɔːri/', meaning: '对不起', example: 'Sorry, I am late.\n对不起，我迟到了。' },
+                    { word: 'Good', phonetic: '/ɡʊd/', meaning: '好的', example: 'Good morning!\n早上好！' },
+                    { word: 'Yes', phonetic: '/jes/', meaning: '是的', example: 'Yes, I agree.\n是的，我同意。' },
+                    { word: 'No', phonetic: '/noʊ/', meaning: '不', example: 'No, thank you.\n不，谢谢。' },
+                    { word: 'Love', phonetic: '/lʌv/', meaning: '爱', example: 'I love you.\n我爱你。' },
+                    { word: 'Happy', phonetic: '/ˈhæpi/', meaning: '快乐的', example: 'I am happy today.\n我今天很快乐。' },
+                    { word: 'Beautiful', phonetic: '/ˈbjuːtɪfl/', meaning: '美丽的', example: 'She is beautiful.\n她很美丽。' }
+                ]
+            },
+            animals: {
+                name: '动物词汇',
+                words: [
+                    { word: 'Cat', phonetic: '/kæt/', meaning: '猫', example: 'The cat is sleeping.\n猫在睡觉。' },
+                    { word: 'Dog', phonetic: '/dɔːɡ/', meaning: '狗', example: 'My dog is friendly.\n我的狗很友好。' },
+                    { word: 'Bird', phonetic: '/bɜːrd/', meaning: '鸟', example: 'The bird can fly.\n鸟会飞。' },
+                    { word: 'Fish', phonetic: '/fɪʃ/', meaning: '鱼', example: 'Fish live in water.\n鱼生活在水中。' },
+                    { word: 'Elephant', phonetic: '/ˈelɪfənt/', meaning: '大象', example: 'The elephant is big.\n大象很大。' },
+                    { word: 'Lion', phonetic: '/ˈlaɪən/', meaning: '狮子', example: 'The lion is strong.\n狮子很强壮。' },
+                    { word: 'Tiger', phonetic: '/ˈtaɪɡər/', meaning: '老虎', example: 'Tigers are dangerous.\n老虎很危险。' },
+                    { word: 'Rabbit', phonetic: '/ˈræbɪt/', meaning: '兔子', example: 'The rabbit is cute.\n兔子很可爱。' },
+                    { word: 'Horse', phonetic: '/hɔːrs/', meaning: '马', example: 'The horse runs fast.\n马跑得很快。' },
+                    { word: 'Monkey', phonetic: '/ˈmʌŋki/', meaning: '猴子', example: 'Monkeys like bananas.\n猴子喜欢香蕉。' }
+                ]
+            },
+            colors: {
+                name: '颜色词汇',
+                words: [
+                    { word: 'Red', phonetic: '/red/', meaning: '红色', example: 'The apple is red.\n苹果是红色的。' },
+                    { word: 'Blue', phonetic: '/bluː/', meaning: '蓝色', example: 'The sky is blue.\n天空是蓝色的。' },
+                    { word: 'Green', phonetic: '/ɡriːn/', meaning: '绿色', example: 'Grass is green.\n草是绿色的。' },
+                    { word: 'Yellow', phonetic: '/ˈjeloʊ/', meaning: '黄色', example: 'The sun is yellow.\n太阳是黄色的。' },
+                    { word: 'Black', phonetic: '/blæk/', meaning: '黑色', example: 'The cat is black.\n猫是黑色的。' },
+                    { word: 'White', phonetic: '/waɪt/', meaning: '白色', example: 'Snow is white.\n雪是白色的。' },
+                    { word: 'Purple', phonetic: '/ˈpɜːrpl/', meaning: '紫色', example: 'The flower is purple.\n花是紫色的。' },
+                    { word: 'Orange', phonetic: '/ˈɔːrɪndʒ/', meaning: '橙色', example: 'The orange is orange.\n橙子是橙色的。' },
+                    { word: 'Pink', phonetic: '/pɪŋk/', meaning: '粉色', example: 'She likes pink.\n她喜欢粉色。' },
+                    { word: 'Brown', phonetic: '/braʊn/', meaning: '棕色', example: 'The bear is brown.\n熊是棕色的。' }
+                ]
+            },
+            food: {
+                name: '食物词汇',
+                words: [
+                    { word: 'Apple', phonetic: '/ˈæpl/', meaning: '苹果', example: 'I eat an apple.\n我吃一个苹果。' },
+                    { word: 'Banana', phonetic: '/bəˈnænə/', meaning: '香蕉', example: 'Bananas are yellow.\n香蕉是黄色的。' },
+                    { word: 'Bread', phonetic: '/bred/', meaning: '面包', example: 'I like bread.\n我喜欢面包。' },
+                    { word: 'Milk', phonetic: '/mɪlk/', meaning: '牛奶', example: 'Milk is white.\n牛奶是白色的。' },
+                    { word: 'Water', phonetic: '/ˈwɔːtər/', meaning: '水', example: 'I drink water.\n我喝水。' },
+                    { word: 'Rice', phonetic: '/raɪs/', meaning: '米饭', example: 'We eat rice.\n我们吃米饭。' },
+                    { word: 'Chicken', phonetic: '/ˈtʃɪkɪn/', meaning: '鸡肉', example: 'Chicken is delicious.\n鸡肉很美味。' },
+                    { word: 'Egg', phonetic: '/eɡ/', meaning: '鸡蛋', example: 'I cook an egg.\n我煮一个鸡蛋。' },
+                    { word: 'Cake', phonetic: '/keɪk/', meaning: '蛋糕', example: 'The cake is sweet.\n蛋糕很甜。' },
+                    { word: 'Tea', phonetic: '/tiː/', meaning: '茶', example: 'I drink tea.\n我喝茶。' }
+                ]
+            },
+            family: {
+                name: '家庭词汇',
+                words: [
+                    { word: 'Father', phonetic: '/ˈfɑːðər/', meaning: '父亲', example: 'My father is kind.\n我的父亲很善良。' },
+                    { word: 'Mother', phonetic: '/ˈmʌðər/', meaning: '母亲', example: 'My mother cooks well.\n我的母亲做饭很好。' },
+                    { word: 'Brother', phonetic: '/ˈbrʌðər/', meaning: '兄弟', example: 'My brother is tall.\n我的兄弟很高。' },
+                    { word: 'Sister', phonetic: '/ˈsɪstər/', meaning: '姐妹', example: 'My sister is smart.\n我的姐妹很聪明。' },
+                    { word: 'Baby', phonetic: '/ˈbeɪbi/', meaning: '婴儿', example: 'The baby is cute.\n婴儿很可爱。' },
+                    { word: 'Child', phonetic: '/tʃaɪld/', meaning: '孩子', example: 'The child is playing.\n孩子在玩耍。' },
+                    { word: 'Family', phonetic: '/ˈfæməli/', meaning: '家庭', example: 'I love my family.\n我爱我的家庭。' },
+                    { word: 'Home', phonetic: '/hoʊm/', meaning: '家', example: 'Home is warm.\n家很温暖。' },
+                    { word: 'Grandpa', phonetic: '/ˈɡrænpɑː/', meaning: '爷爷', example: 'Grandpa tells stories.\n爷爷讲故事。' },
+                    { word: 'Grandma', phonetic: '/ˈɡrænmɑː/', meaning: '奶奶', example: 'Grandma is kind.\n奶奶很慈祥。' }
+                ]
+            }
+        };
+        
+        let currentCategory = 'basic';
+        let currentIndex = 0;
+        let learnedWords = new Set();
+        let correctAnswers = 0;
+        let totalAnswers = 0;
+        let isFlipped = false;
+        
+        const card = document.getElementById('flashCard');
+        const wordText = document.getElementById('wordText');
+        const phoneticText = document.getElementById('phoneticText');
+        const meaningText = document.getElementById('meaningText');
+        const exampleText = document.getElementById('exampleText');
+        
+        function updateCard() {
+            const words = vocabularies[currentCategory].words;
+            const currentWord = words[currentIndex];
+            
+            wordText.textContent = currentWord.word;
+            phoneticText.textContent = currentWord.phonetic;
+            meaningText.textContent = currentWord.meaning;
+            exampleText.innerHTML = currentWord.example.replace('\n', '<br>');
+            
+            // 重置卡片状态
+            card.classList.remove('flipped');
+            isFlipped = false;
+            
+            updateStats();
+        }
+        
+        function updateStats() {
+            const words = vocabularies[currentCategory].words;
+            const categoryName = vocabularies[currentCategory].name;
+            
+            document.getElementById('currentCategory').textContent = categoryName;
+            document.getElementById('learnedCount').textContent = learnedWords.size;
+            document.getElementById('totalCount').textContent = words.length;
+            
+            const accuracy = totalAnswers > 0 ? Math.round((correctAnswers / totalAnswers) * 100) : 0;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+            
+            const progress = (learnedWords.size / words.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+        
+        function flipCard() {
+            card.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+        
+        function nextWord() {
+            const words = vocabularies[currentCategory].words;
+            currentIndex = (currentIndex + 1) % words.length;
+            updateCard();
+        }
+        
+        function prevWord() {
+            const words = vocabularies[currentCategory].words;
+            currentIndex = (currentIndex - 1 + words.length) % words.length;
+            updateCard();
+        }
+        
+        function markAsKnown() {
+            const words = vocabularies[currentCategory].words;
+            const wordKey = `${currentCategory}-${currentIndex}`;
+            learnedWords.add(wordKey);
+            correctAnswers++;
+            totalAnswers++;
+            nextWord();
+        }
+        
+        function markAsUnknown() {
+            totalAnswers++;
+            nextWord();
+        }
+        
+        function shuffleWords() {
+            const words = vocabularies[currentCategory].words;
+            currentIndex = Math.floor(Math.random() * words.length);
+            updateCard();
+        }
+        
+        function resetProgress() {
+            learnedWords.clear();
+            correctAnswers = 0;
+            totalAnswers = 0;
+            currentIndex = 0;
+            updateCard();
+        }
+        
+        function speakWord() {
+            const words = vocabularies[currentCategory].words;
+            const currentWord = words[currentIndex];
+            
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(currentWord.word);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('您的浏览器不支持语音合成功能');
+            }
+        }
+        
+        function changeCategory(category) {
+            currentCategory = category;
+            currentIndex = 0;
+            learnedWords.clear();
+            correctAnswers = 0;
+            totalAnswers = 0;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+            
+            updateCard();
+        }
+        
+        // 事件监听
+        card.addEventListener('click', flipCard);
+        document.getElementById('nextBtn').addEventListener('click', nextWord);
+        document.getElementById('prevBtn').addEventListener('click', prevWord);
+        document.getElementById('knowBtn').addEventListener('click', markAsKnown);
+        document.getElementById('unknowBtn').addEventListener('click', markAsUnknown);
+        document.getElementById('shuffleBtn').addEventListener('click', shuffleWords);
+        document.getElementById('resetBtn').addEventListener('click', resetProgress);
+        document.getElementById('speakBtn').addEventListener('click', speakWord);
+        
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                changeCategory(btn.dataset.category);
+            });
+        });
+        
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case ' ':
+                    e.preventDefault();
+                    flipCard();
+                    break;
+                case 'ArrowLeft':
+                    prevWord();
+                    break;
+                case 'ArrowRight':
+                    nextWord();
+                    break;
+                case '1':
+                    markAsKnown();
+                    break;
+                case '2':
+                    markAsUnknown();
+                    break;
+                case 's':
+                    speakWord();
+                    break;
+            }
+        });
+        
+        // 初始化
+        updateCard();
+    </script>
+</body>
+</html>

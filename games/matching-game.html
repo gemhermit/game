@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消消乐 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="消消乐是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="消消乐,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/matching-game.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="消消乐 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="消消乐是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/matching-game.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="消消乐 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="消消乐是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"消消乐","description":"消消乐是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/matching-game.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-color: #faf8ef;
+            --grid-bg: #bbada0;
+            --cell-bg: #cdc1b4;
+            --text-color: #776e65;
+            --primary-color: #8f7a66;
+            --primary-color-2: #f2b179;
+        }
+
+        body {
+            font-family: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e0e0e0;
+            background: white;
+        }
+
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-color-2);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .level-select {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .level-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid var(--primary-color);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .level-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .level-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .stats-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: var(--grid-bg);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #eee4da;
+            font-weight: bold;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .stat-box:nth-child(2) .stat-label,
+        .stat-box:nth-child(2) .stat-value {
+            color: #c9e3f6;
+        }
+
+        .stat-box:nth-child(3) .stat-label,
+        .stat-box:nth-child(3) .stat-value {
+            color: #c8f7c5;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--primary-color-2);
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .message {
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+            animation: slideIn 0.25s ease;
+        }
+
+        .message.success {
+            background: #edcfc2;
+            color: var(--text-color);
+        }
+
+        .message.warning {
+            background: var(--primary-color-2);
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-color);
+            padding: 20px;
+            min-height: 0;
+        }
+
+        .game-container {
+            position: relative;
+            background: var(--grid-bg);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-board {
+            display: grid;
+            position: relative;
+            min-height: 0;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            position: relative;
+            background: var(--cell-bg);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .cell:hover {
+            transform: scale(1.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .cell.selected {
+            box-shadow: 0 0 0 3px var(--primary-color-2), 0 4px 15px rgba(242, 177, 121, 0.4);
+            transform: scale(1.05);
+        }
+
+        .cell.matched {
+            animation: pop 0.3s ease forwards;
+        }
+
+        .cell.falling {
+            animation: fall 0.3s ease forwards;
+        }
+
+        .cell.hint {
+            animation: hint-glow 1s infinite;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes hint-glow {
+            0%, 100% { box-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700; }
+            50% { box-shadow: 0 0 15px #ffd700, 0 0 25px #ffd700; }
+        }
+
+        @keyframes score-float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+        }
+
+        .score-popup {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color-2);
+            pointer-events: none;
+            animation: score-float 0.8s ease forwards;
+            z-index: 100;
+        }
+
+        .special-bomb::after {
+            content: '💥';
+            position: absolute;
+            font-size: 12px;
+            top: -5px;
+            right: -5px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .special-rainbow::after {
+            content: '🌈';
+            position: absolute;
+            font-size: 10px;
+            top: -3px;
+            right: -3px;
+        }
+
+        .combo-display {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary-color-2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        .combo-display.show {
+            animation: combo-pop 0.8s ease forwards;
+        }
+
+        @keyframes combo-pop {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+        }
+
+        .game-over-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(238, 228, 218, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .game-over-modal.show {
+            display: flex;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: #faf8ef;
+            padding: 35px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            animation: scaleIn 0.25s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .final-score {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary-color-2);
+            margin: 20px 0;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .header {
+                margin-bottom: 0;
+                margin-right: auto;
+            }
+
+            .title {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                display: none;
+            }
+
+            .stats-bar {
+                flex-direction: row;
+                margin-bottom: 0;
+                gap: 8px;
+            }
+
+            .stat-box {
+                padding: 8px 12px;
+            }
+
+            .stat-label {
+                font-size: 10px;
+            }
+
+            .stat-value {
+                font-size: 16px;
+            }
+
+            .controls {
+                display: none;
+            }
+
+            .main-area {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                padding: 10px;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .stat-box {
+                padding: 6px 10px;
+            }
+
+            .stat-value {
+                font-size: 14px;
+            }
+
+            .cell {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="header">
+            <h1 class="title">消消乐</h1>
+            <p class="subtitle">交换相邻宝石，三个或更多相同宝石连线消除</p>
+        </div>
+
+        <div class="level-select">
+            <button class="level-btn active" data-mode="easy">简单</button>
+            <button class="level-btn" data-mode="hard">困难</button>
+            <button class="level-btn" data-mode="time">限时</button>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-box">
+                <span class="stat-label">步数</span>
+                <span class="stat-value" id="moves">30</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">分数</span>
+                <span class="stat-value" id="score">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">连击</span>
+                <span class="stat-value" id="combo">0</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-secondary" id="hintBtn">提示</button>
+            <button class="btn btn-primary" id="restartBtn">重新开始</button>
+        </div>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <div class="main-area">
+        <div class="game-container">
+            <div class="game-board" id="board"></div>
+        </div>
+    </div>
+
+    <div class="combo-display" id="comboDisplay"></div>
+
+    <div class="game-over-modal" id="gameOverModal">
+        <div class="modal-content">
+            <h2 class="modal-title">游戏结束!</h2>
+            <p>最终得分</p>
+            <div class="final-score" id="finalScore">0</div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" id="closeModal">关闭</button>
+                <button class="btn btn-primary" id="playAgain">再玩一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const GEM_TYPES = ['💎', '🔮', '🌸', '🍀', '⭐', '🔷'];
+        const BOARD_SIZE = 8;
+        const INITIAL_MOVES = 30;
+        const TIME_MODES = {
+            easy: { moves: 40, time: 0 },
+            hard: { moves: 25, time: 0 },
+            time: { moves: 0, time: 180 }
+        };
+
+        let currentMode = 'easy';
+        let board = [];
+        let selectedCell = null;
+        let score = 0;
+        let moves = INITIAL_MOVES;
+        let timeLeft = 0;
+        let timer = null;
+        let combo = 0;
+        let isProcessing = false;
+        let gameOver = false;
+
+        const boardEl = document.getElementById('board');
+        const scoreEl = document.getElementById('score');
+        const movesEl = document.getElementById('moves');
+        const comboEl = document.getElementById('combo');
+        const messageEl = document.getElementById('message');
+        const comboDisplayEl = document.getElementById('comboDisplay');
+        const gameOverModal = document.getElementById('gameOverModal');
+        const finalScoreEl = document.getElementById('finalScore');
+
+        function updateBoardSize() {
+            const container = document.querySelector('.game-container');
+            const mainArea = document.querySelector('.main-area');
+
+            // 获取主区域尺寸
+            let w = mainArea.clientWidth || 400;
+            let h = mainArea.clientHeight || 400;
+
+            // 留出边距
+            w = w - 30;
+            h = h - 30;
+
+            // 计算格子大小（8x8 网格）
+            const gap = 6;
+            const cellSize = Math.min(
+                Math.floor((w - gap * 7) / 8),
+                Math.floor((h - gap * 7) / 8),
+                55
+            );
+            const size = Math.max(cellSize, 35);
+
+            // 设置容器尺寸
+            container.style.width = `${size * 8 + gap * 7 + 20}px`;
+            container.style.height = `${size * 8 + gap * 7 + 20}px`;
+
+            // 设置 grid
+            boardEl.style.display = 'grid';
+            boardEl.style.gridTemplateColumns = `repeat(8, ${size}px)`;
+            boardEl.style.gridTemplateRows = `repeat(8, ${size}px)`;
+            boardEl.style.gap = `${gap}px`;
+
+            // 更新格子字体
+            setTimeout(() => {
+                document.querySelectorAll('.cell').forEach(cell => {
+                    if (cell.textContent) {
+                        cell.style.fontSize = `${size * 0.55}px`;
+                    }
+                });
+            }, 50);
+        }
+
+        function init() {
+            const modeConfig = TIME_MODES[currentMode];
+
+            board = [];
+            selectedCell = null;
+            score = 0;
+            moves = modeConfig.moves;
+            timeLeft = modeConfig.time;
+            combo = 0;
+            isProcessing = false;
+            gameOver = false;
+
+            // 清除计时器
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+
+            updateUI();
+            hideMessage();
+            gameOverModal.classList.remove('show');
+
+            for (let row = 0; row < BOARD_SIZE; row++) {
+                board[row] = [];
+                for (let col = 0; col < BOARD_SIZE; col++) {
+                    let gem;
+                    do {
+                        gem = getRandomGem();
+                    } while (wouldMatch(row, col, gem));
+                    board[row][col] = { type: gem, special: null };
+                }
+            }
+
+            renderBoard();
+
+            // 如果是限时模式，开始计时
+            if (currentMode === 'time') {
+                startTimer();
+            }
+
+            // 延迟一点时间确保 DOM 已渲染
+            setTimeout(updateBoardSize, 200);
+        }
+
+        function getRandomGem() {
+            return GEM_TYPES[Math.floor(Math.random() * GEM_TYPES.length)];
+        }
+
+        function wouldMatch(row, col, gem) {
+            if (col >= 2 && board[row][col-1]?.type === gem && board[row][col-2]?.type === gem) {
+                return true;
+            }
+            if (row >= 2 && board[row-1]?.[col]?.type === gem && board[row-2]?.[col]?.type === gem) {
+                return true;
+            }
+            return false;
+        }
+
+        function renderBoard() {
+            boardEl.innerHTML = '';
+
+            for (let row = 0; row < BOARD_SIZE; row++) {
+                for (let col = 0; col < BOARD_SIZE; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+
+                    if (board[row][col]) {
+                        cell.textContent = board[row][col].type;
+                        if (board[row][col].special === 'bomb') {
+                            cell.classList.add('special-bomb');
+                        } else if (board[row][col].special === 'rainbow') {
+                            cell.classList.add('special-rainbow');
+                        }
+                    }
+
+                    cell.addEventListener('click', () => handleCellClick(row, col));
+
+                    let touchStartX = 0;
+                    let touchStartY = 0;
+
+                    cell.addEventListener('touchstart', (e) => {
+                        touchStartX = e.touches[0].clientX;
+                        touchStartY = e.touches[0].clientY;
+                    }, { passive: true });
+
+                    cell.addEventListener('touchend', (e) => {
+                        if (isProcessing || gameOver) return;
+
+                        const touchEndX = e.changedTouches[0].clientX;
+                        const touchEndY = e.changedTouches[0].clientY;
+
+                        const diffX = touchEndX - touchStartX;
+                        const diffY = touchEndY - touchStartY;
+
+                        if (Math.abs(diffX) < 30 && Math.abs(diffY) < 30) return;
+
+                        let targetRow = row;
+                        let targetCol = col;
+
+                        if (Math.abs(diffX) > Math.abs(diffY)) {
+                            if (diffX > 0) targetCol = Math.min(col + 1, BOARD_SIZE - 1);
+                            else targetCol = Math.max(col - 1, 0);
+                        } else {
+                            if (diffY > 0) targetRow = Math.min(row + 1, BOARD_SIZE - 1);
+                            else targetRow = Math.max(row - 1, 0);
+                        }
+
+                        if (selectedCell && selectedCell.row === row && selectedCell.col === col) {
+                            const prevCell = getCellElement(selectedCell.row, selectedCell.col);
+                            prevCell.classList.remove('selected');
+                            swapGems(selectedCell, { row: targetRow, col: targetCol });
+                            selectedCell = null;
+                        } else {
+                            if (selectedCell) {
+                                const prevCell = getCellElement(selectedCell.row, selectedCell.col);
+                                prevCell.classList.remove('selected');
+                            }
+                            selectedCell = { row, col };
+                            cell.classList.add('selected');
+                        }
+                    }, { passive: true });
+
+                    boardEl.appendChild(cell);
+                }
+            }
+        }
+
+        function getCellElement(row, col) {
+            return boardEl.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+        }
+
+        function handleCellClick(row, col) {
+            if (isProcessing || gameOver || !board[row][col]) return;
+
+            const cell = getCellElement(row, col);
+
+            if (selectedCell === null) {
+                selectedCell = { row, col };
+                cell.classList.add('selected');
+            } else if (selectedCell.row === row && selectedCell.col === col) {
+                cell.classList.remove('selected');
+                selectedCell = null;
+            } else if (isAdjacent(selectedCell, { row, col })) {
+                const prevCell = getCellElement(selectedCell.row, selectedCell.col);
+                prevCell.classList.remove('selected');
+
+                if (board[selectedCell.row][selectedCell.col].special === 'rainbow' ||
+                    board[row][col].special === 'rainbow') {
+                    handleRainbowSwap(selectedCell, { row, col });
+                    return;
+                }
+
+                swapGems(selectedCell, { row, col });
+                selectedCell = null;
+            } else {
+                const prevCell = getCellElement(selectedCell.row, selectedCell.col);
+                prevCell.classList.remove('selected');
+                selectedCell = { row, col };
+                cell.classList.add('selected');
+            }
+        }
+
+        function isAdjacent(cell1, cell2) {
+            const rowDiff = Math.abs(cell1.row - cell2.row);
+            const colDiff = Math.abs(cell1.col - cell2.col);
+            return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
+        }
+
+        async function swapGems(cell1, cell2) {
+            isProcessing = true;
+
+            const temp = board[cell1.row][cell1.col];
+            board[cell1.row][cell1.col] = board[cell2.row][cell2.col];
+            board[cell2.row][cell2.col] = temp;
+
+            renderBoard();
+
+            const matches = findMatches();
+
+            if (matches.length === 0) {
+                await sleep(200);
+                const temp2 = board[cell1.row][cell1.col];
+                board[cell1.row][cell1.col] = board[cell2.row][cell2.col];
+                board[cell2.row][cell2.col] = temp2;
+                renderBoard();
+                showMessage('无效的移动!', 'warning');
+                isProcessing = false;
+                return;
+            }
+
+            if (currentMode !== 'time') {
+                moves--;
+            }
+            combo = 0;
+            updateUI();
+
+            await processMatches();
+        }
+
+        async function handleRainbowSwap(rainbowCell, targetCell) {
+            isProcessing = true;
+
+            const targetType = board[targetCell.row][targetCell.col].type;
+
+            const cellsToMatch = [];
+            for (let row = 0; row < BOARD_SIZE; row++) {
+                for (let col = 0; col < BOARD_SIZE; col++) {
+                    if (board[row][col] && board[row][col].type === targetType) {
+                        cellsToMatch.push({ row, col });
+                    }
+                }
+            }
+
+            board[rainbowCell.row][rainbowCell.col] = null;
+            if (currentMode !== 'time') {
+                moves--;
+            combo = 0;
+            updateUI();
+
+            cellsToMatch.forEach(cell => {
+                const cellEl = getCellElement(cell.row, cell.col);
+                if (cellEl) cellEl.classList.add('matched');
+            });
+
+            await sleep(300);
+
+            const matchScore = cellsToMatch.length * 10;
+            addScore(matchScore);
+
+            cellsToMatch.forEach(cell => {
+                board[cell.row][cell.col] = null;
+            });
+
+            if (cellsToMatch.length >= 5) {
+                board[targetCell.row][targetCell.col] = { type: '🌈', special: 'rainbow' };
+            } else if (cellsToMatch.length >= 4) {
+                board[targetCell.row][targetCell.col] = { type: '💥', special: 'bomb' };
+            }
+
+            renderBoard();
+            await processMatches();
+        }
+
+        function findMatches() {
+            const matches = new Set();
+
+            for (let row = 0; row < BOARD_SIZE; row++) {
+                for (let col = 0; col < BOARD_SIZE - 2; col++) {
+                    const gem = board[row][col]?.type;
+                    if (gem && gem !== '🌈') {
+                        let matchLength = 1;
+                        while (col + matchLength < BOARD_SIZE && board[row][col + matchLength]?.type === gem) {
+                            matchLength++;
+                        }
+                        if (matchLength >= 3) {
+                            for (let i = 0; i < matchLength; i++) {
+                                matches.add(`${row},${col + i}`);
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (let col = 0; col < BOARD_SIZE; col++) {
+                for (let row = 0; row < BOARD_SIZE - 2; row++) {
+                    const gem = board[row][col]?.type;
+                    if (gem && gem !== '🌈') {
+                        let matchLength = 1;
+                        while (row + matchLength < BOARD_SIZE && board[row + matchLength]?.[col]?.type === gem) {
+                            matchLength++;
+                        }
+                        if (matchLength >= 3) {
+                            for (let i = 0; i < matchLength; i++) {
+                                matches.add(`${row + i},${col}`);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return Array.from(matches).map(pos => {
+                const [row, col] = pos.split(',').map(Number);
+                return { row, col };
+            });
+        }
+
+        async function processMatches() {
+            let matches = findMatches();
+
+            while (matches.length > 0) {
+                combo++;
+                if (combo > 1) {
+                    showCombo(combo);
+                }
+
+                const bombMatches = matches.filter(m =>
+                    board[m.row][m.col]?.special === 'bomb'
+                );
+
+                for (const bomb of bombMatches) {
+                    const affected = getBombAffectedCells(bomb.row, bomb.col);
+                    affected.forEach(cell => {
+                        if (!matches.some(m => m.row === cell.row && m.col === cell.col)) {
+                            matches.push(cell);
+                        }
+                    });
+                }
+
+                matches.forEach(m => {
+                    const cell = getCellElement(m.row, m.col);
+                    if (cell) cell.classList.add('matched');
+                });
+
+                await sleep(300);
+
+                const baseScore = matches.length * 10;
+                const comboMultiplier = Math.min(combo, 5);
+                const specialBonus = bombMatches.length * 50;
+                const totalScore = (baseScore * comboMultiplier) + specialBonus;
+                addScore(totalScore);
+
+                if (matches.length >= 5) {
+                    const centerMatch = matches[Math.floor(matches.length / 2)];
+                    board[centerMatch.row][centerMatch.col] = { type: '🌈', special: 'rainbow' };
+                } else if (matches.length >= 4) {
+                    const centerMatch = matches[Math.floor(matches.length / 2)];
+                    board[centerMatch.row][centerMatch.col] = { type: '💥', special: 'bomb' };
+                }
+
+                matches.forEach(m => {
+                    board[m.row][m.col] = null;
+                });
+
+                renderBoard();
+                await sleep(100);
+
+                await dropGems();
+                await fillBoard();
+
+                matches = findMatches();
+            }
+
+            if (!hasValidMoves()) {
+                showMessage('没有可用的移动! 重新洗牌...', 'warning');
+                await sleep(1000);
+                reshuffle();
+            }
+
+            if (moves <= 0 || (currentMode === 'time' && timeLeft <= 0)) {
+                endGame();
+            }
+
+            isProcessing = false;
+        }
+
+        function getBombAffectedCells(row, col) {
+            const cells = [];
+            for (let r = row - 1; r <= row + 1; r++) {
+                for (let c = col - 1; c <= col + 1; c++) {
+                    if (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE) {
+                        cells.push({ row: r, col: c });
+                    }
+                }
+            }
+            return cells;
+        }
+
+        async function dropGems() {
+            let dropped = false;
+
+            for (let col = 0; col < BOARD_SIZE; col++) {
+                let emptyRow = BOARD_SIZE - 1;
+
+                for (let row = BOARD_SIZE - 1; row >= 0; row--) {
+                    if (board[row][col]) {
+                        if (row !== emptyRow) {
+                            board[emptyRow][col] = board[row][col];
+                            board[row][col] = null;
+                            dropped = true;
+                        }
+                        emptyRow--;
+                    }
+                }
+            }
+
+            if (dropped) {
+                renderBoard();
+                await sleep(200);
+            }
+        }
+
+        async function fillBoard() {
+            for (let col = 0; col < BOARD_SIZE; col++) {
+                for (let row = 0; row < BOARD_SIZE; row++) {
+                    if (!board[row][col]) {
+                        board[row][col] = { type: getRandomGem(), special: null };
+                    }
+                }
+            }
+
+            renderBoard();
+            await sleep(200);
+        }
+
+        function addScore(points) {
+            score += points;
+            updateUI();
+        }
+
+        function updateUI() {
+            scoreEl.textContent = score;
+            if (currentMode === 'time') {
+                movesEl.textContent = timeLeft;
+                document.querySelector('.stat-box:first-child .stat-label').textContent = '时间';
+            } else {
+                movesEl.textContent = moves;
+                document.querySelector('.stat-box:first-child .stat-label').textContent = '步数';
+            }
+            comboEl.textContent = combo;
+        }
+
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                updateUI();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function showMessage(text, type) {
+            messageEl.textContent = text;
+            messageEl.className = `message show ${type}`;
+            setTimeout(() => {
+                messageEl.classList.remove('show');
+            }, 2000);
+        }
+
+        function hideMessage() {
+            messageEl.classList.remove('show');
+        }
+
+        function showCombo(count) {
+            comboDisplayEl.textContent = `${count} 连击!`;
+            comboDisplayEl.classList.add('show');
+            setTimeout(() => {
+                comboDisplayEl.classList.remove('show');
+            }, 800);
+        }
+
+        function hasValidMoves() {
+            for (let row = 0; row < BOARD_SIZE; row++) {
+                for (let col = 0; col < BOARD_SIZE; col++) {
+                    if (col < BOARD_SIZE - 1) {
+                        swap(row, col, row, col + 1);
+                        if (findMatches().length > 0) {
+                            swap(row, col, row, col + 1);
+                            return true;
+                        }
+                        swap(row, col, row, col + 1);
+                    }
+                    if (row < BOARD_SIZE - 1) {
+                        swap(row, col, row + 1, col);
+                        if (findMatches().length > 0) {
+                            swap(row, col, row + 1, col);
+                            return true;
+                        }
+                        swap(row, col, row + 1, col);
+                    }
+                }
+            }
+            return false;
+        }
+
+        function swap(r1, c1, r2, c2) {
+            const temp = board[r1][c1];
+            board[r1][c1] = board[r2][c2];
+            board[r2][c2] = temp;
+        }
+
+        async function reshuffle() {
+            const gems = [];
+            for (let row = 0; row < BOARD_SIZE; row++) {
+                for (let col = 0; col < BOARD_SIZE; col++) {
+                    if (board[row][col]) {
+                        gems.push(board[row][col].type);
+                    }
+                }
+            }
+
+            for (let i = gems.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [gems[i], gems[j]] = [gems[j], gems[i]];
+            }
+
+            let index = 0;
+            for (let row = 0; row < BOARD_SIZE; row++) {
+                for (let col = 0; col < BOARD_SIZE; col++) {
+                    board[row][col] = { type: gems[index++], special: null };
+                }
+            }
+
+            renderBoard();
+            await sleep(300);
+
+            const matches = findMatches();
+            if (matches.length > 0) {
+                await processMatches();
+            }
+
+            if (!hasValidMoves()) {
+                await reshuffle();
+            }
+        }
+
+        function showHint() {
+            if (isProcessing || gameOver) return;
+
+            for (let row = 0; row < BOARD_SIZE; row++) {
+                for (let col = 0; col < BOARD_SIZE; col++) {
+                    if (col < BOARD_SIZE - 1) {
+                        swap(row, col, row, col + 1);
+                        if (findMatches().length > 0) {
+                            swap(row, col, row, col + 1);
+
+                            const cell1 = getCellElement(row, col);
+                            const cell2 = getCellElement(row, col + 1);
+                            cell1.classList.add('hint');
+                            cell2.classList.add('hint');
+
+                            setTimeout(() => {
+                                cell1.classList.remove('hint');
+                                cell2.classList.remove('hint');
+                            }, 2000);
+                            return;
+                        }
+                        swap(row, col, row, col + 1);
+                    }
+                    if (row < BOARD_SIZE - 1) {
+                        swap(row, col, row + 1, col);
+                        if (findMatches().length > 0) {
+                            swap(row, col, row + 1, col);
+
+                            const cell1 = getCellElement(row, col);
+                            const cell2 = getCellElement(row + 1, col);
+                            cell1.classList.add('hint');
+                            cell2.classList.add('hint');
+
+                            setTimeout(() => {
+                                cell1.classList.remove('hint');
+                                cell2.classList.remove('hint');
+                            }, 2000);
+                            return;
+                        }
+                        swap(row, col, row + 1, col);
+                    }
+                }
+            }
+
+            showMessage('没有可用的移动!', 'warning');
+            setTimeout(() => reshuffle(), 1000);
+        }
+
+        function endGame() {
+            gameOver = true;
+            finalScoreEl.textContent = score;
+            gameOverModal.classList.add('show');
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        document.getElementById('restartBtn').addEventListener('click', init);
+        document.getElementById('playAgain').addEventListener('click', init);
+        document.getElementById('closeModal').addEventListener('click', () => {
+            gameOverModal.classList.remove('show');
+        });
+        document.getElementById('hintBtn').addEventListener('click', showHint);
+
+        // 模式切换
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMode = btn.dataset.mode;
+                init();
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (board.length > 0) {
+                updateBoardSize();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (isProcessing || gameOver || !selectedCell) return;
+
+            const { row, col } = selectedCell;
+            let newRow = row, newCol = col;
+
+            switch(e.key) {
+                case 'ArrowUp': newRow = Math.max(0, row - 1); break;
+                case 'ArrowDown': newRow = Math.min(BOARD_SIZE - 1, row + 1); break;
+                case 'ArrowLeft': newCol = Math.max(0, col - 1); break;
+                case 'ArrowRight': newCol = Math.min(BOARD_SIZE - 1, col + 1); break;
+                case 'Enter':
+                case ' ':
+                    const cell = getCellElement(row, col);
+                    cell.classList.remove('selected');
+                    selectedCell = null;
+                    return;
+                default: return;
+            }
+
+            e.preventDefault();
+
+            const prevCell = getCellElement(row, col);
+            prevCell.classList.remove('selected');
+
+            if (isAdjacent({ row, col }, { row: newRow, col: newCol })) {
+                swapGems({ row, col }, { row: newRow, col: newCol });
+                selectedCell = null;
+            } else {
+                selectedCell = { row: newRow, col: newCol };
+                const newCell = getCellElement(newRow, newCol);
+                newCell.classList.add('selected');
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>

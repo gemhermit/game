@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一笔画 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="一笔画把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="一笔画,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/onestroke.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="一笔画 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="一笔画把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/onestroke.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="一笔画 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="一笔画把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"一笔画","description":"一笔画把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/onestroke.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #6366f1; /* Indigo */
+            --secondary-color: #475569;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --sidebar-width: 350px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-color);
+            color: #1e293b;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: 4px 0 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .control-section {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: #4f46e5;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid #cbd5e1;
+            color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .level-btn {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--secondary-color);
+            transition: all 0.2s;
+        }
+
+        .level-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .level-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .level-btn.completed {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .level-btn.generated {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Difficulty buttons */
+        .difficulty-badges {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .diff-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .diff-easy { background: #dcfce7; color: #16a34a; }
+        .diff-medium { background: #fef3c7; color: #d97706; }
+        .diff-hard { background: #fee2e2; color: #dc2626; }
+
+        .level-btn.generated:hover {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        }
+
+        /* Main Area */
+        .main-area {
+            flex: 1;
+            position: relative;
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        #gameCanvas {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            cursor: crosshair;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(10px);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>🎨 一笔画挑战</h1>
+        </div>
+        <div class="sidebar-content">
+            <div class="control-section">
+                <div class="section-title">游戏说明</div>
+                <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">
+                    规则很简单：用一笔画出所有线条，不能重复经过同一条线。
+                    <br><br>
+                    1. 点击起点开始<br>
+                    2. 拖动连接下一个点<br>
+                    3. 走完所有路径即可过关
+                </p>
+            </div>
+
+            <div class="control-section">
+                <div class="section-title">
+                    <span>当前关卡: <span id="currentLevelDisplay">1</span></span>
+                    <span id="levelType" style="font-size: 0.8rem; color: var(--primary-color);"></span>
+                </div>
+                <button class="btn" id="resetBtn">重置本关</button>
+                <button class="btn btn-secondary" id="undoBtn">撤销一步</button>
+                <button class="btn" id="showAnswerBtn" style="background: var(--success-color);">💡 显示答案</button>
+            </div>
+
+            <div class="control-section">
+                <div class="section-title">关卡选择</div>
+                <div class="level-grid" id="levelGrid">
+                    <!-- Levels will be generated here -->
+                </div>
+            </div>
+
+            <div class="control-section">
+                <div class="section-title">生成新关卡</div>
+                <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                    <button class="btn btn-secondary" id="genEasyBtn" style="flex: 1; font-size: 0.85rem; display: none;">简单</button>
+                    <button class="btn btn-secondary" id="genMediumBtn" style="flex: 1; font-size: 0.85rem;">中等</button>
+                    <button class="btn btn-secondary" id="genHardBtn" style="flex: 1; font-size: 0.85rem;">困难</button>
+                </div>
+                <button class="btn" id="genRandomBtn" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">🎲 随机生成</button>
+            </div>
+
+            <div class="control-section">
+                <div class="section-title">游戏统计</div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #64748b;">
+                    <span>已通关:</span>
+                    <span id="completedCount" style="color: var(--success-color); font-weight: 600;">0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #64748b; margin-top: 8px;">
+                    <span>总关卡:</span>
+                    <span id="totalCount" style="font-weight: 600;">20</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-area">
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Game Levels Configuration
+        const PRESET_LEVELS = [
+            {
+                id: 1,
+                nodes: [
+                    {x: 150, y: 450}, {x: 450, y: 450}, {x: 300, y: 150}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [2, 0]
+                ],
+                name: '三角形'
+            },
+            {
+                id: 2,
+                nodes: [
+                    {x: 150, y: 150}, {x: 450, y: 150},
+                    {x: 450, y: 450}, {x: 150, y: 450}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [2, 3], [3, 0], [0, 2]
+                ],
+                name: '正方形'
+            },
+            {
+                id: 3,
+                nodes: [
+                    {x: 300, y: 100}, {x: 500, y: 300},
+                    {x: 300, y: 500}, {x: 100, y: 300},
+                    {x: 300, y: 300}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [2, 3], [3, 0],
+                    [0, 4], [1, 4]
+                ],
+                name: '菱形'
+            },
+            {
+                id: 4,
+                nodes: [
+                    {x: 150, y: 300}, {x: 450, y: 300},
+                    {x: 300, y: 150},
+                    {x: 150, y: 500}, {x: 450, y: 500}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [2, 0],
+                    [0, 3], [3, 4], [4, 1],
+                    [0, 4], [1, 3]
+                ],
+                name: '房子'
+            },
+            {
+                id: 5,
+                nodes: [
+                    {x: 300, y: 150}, {x: 443, y: 254},
+                    {x: 388, y: 421}, {x: 212, y: 421},
+                    {x: 157, y: 254}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [2, 3], [3, 4], [4, 0],
+                    [0, 2], [2, 4], [4, 1], [1, 3], [3, 0]
+                ],
+                name: '五角星'
+            },
+            {
+                id: 6,
+                nodes: [
+                    {x: 100, y: 400}, {x: 200, y: 400}, {x: 300, y: 400}, {x: 400, y: 400},
+                    {x: 150, y: 250}, {x: 250, y: 250}, {x: 350, y: 250}
+                ],
+                edges: [
+                    [0, 4], [4, 1], [1, 5], [5, 2], [2, 6], [6, 3],
+                    [0, 1], [1, 2], [2, 3]
+                ],
+                name: '山脉'
+            },
+            {
+                id: 7,
+                nodes: [
+                    {x: 150, y: 150}, {x: 300, y: 150}, {x: 450, y: 150},
+                    {x: 150, y: 350}, {x: 300, y: 350}, {x: 450, y: 350},
+                    {x: 300, y: 250}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [0, 3], [1, 6], [2, 5],
+                    [3, 4], [4, 5], [3, 6], [4, 6], [5, 6],
+                    [1, 3]
+                ],
+                name: '六边形'
+            },
+            {
+                id: 8,
+                nodes: [
+                    {x: 300, y: 100}, {x: 200, y: 200}, {x: 400, y: 200},
+                    {x: 150, y: 350}, {x: 450, y: 350},
+                    {x: 300, y: 500}
+                ],
+                edges: [
+                    [0, 1], [0, 2], [1, 2],
+                    [1, 3], [2, 4], [3, 5], [4, 5],
+                    [1, 4], [2, 3], [3, 4]
+                ],
+                name: '蝴蝶结'
+            },
+            {
+                id: 9,
+                nodes: [
+                    {x: 200, y: 150}, {x: 400, y: 150},
+                    {x: 100, y: 300}, {x: 500, y: 300},
+                    {x: 200, y: 450}, {x: 400, y: 450},
+                    {x: 300, y: 300}
+                ],
+                edges: [
+                    [0, 6], [1, 6], [2, 6], [3, 6], [4, 6], [5, 6],
+                    [0, 1], [2, 4], [3, 5]
+                ],
+                name: '箭头'
+            },
+            {
+                id: 10,
+                nodes: [
+                    {x: 300, y: 100}, {x: 400, y: 200}, {x: 400, y: 400},
+                    {x: 300, y: 500}, {x: 200, y: 400}, {x: 200, y: 200}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0],
+                    [1, 4], [2, 5], [1, 5]
+                ],
+                name: '六角星'
+            },
+            {
+                id: 11,
+                nodes: [
+                    {x: 150, y: 150}, {x: 450, y: 150},
+                    {x: 150, y: 350}, {x: 450, y: 350},
+                    {x: 300, y: 250}
+                ],
+                edges: [
+                    [0, 1], [1, 3], [3, 2],
+                    [0, 4], [1, 4], [2, 4], [3, 4]
+                ],
+                name: '回字'
+            },
+            {
+                id: 12,
+                nodes: [
+                    {x: 300, y: 60}, {x: 450, y: 180}, {x: 450, y: 380},
+                    {x: 300, y: 500}, {x: 150, y: 380}, {x: 150, y: 180}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0],
+                    [0, 3], [1, 4], [2, 5], [0, 2], [1, 3]
+                ],
+                name: '六芒星'
+            },
+            {
+                id: 13,
+                nodes: [
+                    {x: 300, y: 100}, {x: 400, y: 200}, {x: 200, y: 200},
+                    {x: 450, y: 300}, {x: 150, y: 300},
+                    {x: 500, y: 400}, {x: 100, y: 400},
+                    {x: 300, y: 500}
+                ],
+                edges: [
+                    [0, 1], [0, 2], [1, 3], [2, 4], [3, 5], [4, 6],
+                    [1, 4], [2, 3], [1, 7], [3, 7], [4, 7], [5, 7], [6, 7]
+                ],
+                name: '宝塔'
+            },
+            {
+                id: 14,
+                nodes: [
+                    {x: 300, y: 80}, {x: 420, y: 150}, {x: 500, y: 280},
+                    {x: 420, y: 410}, {x: 300, y: 480}, {x: 180, y: 410},
+                    {x: 100, y: 280}, {x: 180, y: 150}, {x: 300, y: 280}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0],
+                    [0, 8], [1, 8], [2, 8], [3, 8], [4, 8], [5, 8], [6, 8], [7, 8],
+                    [0, 2], [1, 3], [4, 6]
+                ],
+                name: '八卦'
+            },
+            {
+                id: 15,
+                nodes: [
+                    {x: 150, y: 150}, {x: 450, y: 150},
+                    {x: 100, y: 280}, {x: 500, y: 280},
+                    {x: 200, y: 400}, {x: 400, y: 400},
+                    {x: 300, y: 520},
+                    {x: 300, y: 300}
+                ],
+                edges: [
+                    [0, 1], [1, 3], [3, 5], [5, 6], [6, 4], [4, 2], [2, 0],
+                    [2, 3], [0, 4], [1, 5],
+                    [7, 0], [7, 1], [7, 2], [7, 3], [7, 4], [7, 5]
+                ],
+                name: '皇家徽章'
+            },
+            {
+                id: 16,
+                nodes: [
+                    {x: 180, y: 250}, {x: 300, y: 250}, {x: 420, y: 250},
+                    {x: 240, y: 380}, {x: 360, y: 380}
+                ],
+                edges: [
+                    [0, 1], [1, 2],
+                    [0, 3], [1, 3],
+                    [1, 4], [2, 4],
+                    [3, 4]
+                ],
+                name: '双塔桥'
+            },
+            {
+                id: 17,
+                nodes: [
+                    {x: 200, y: 150}, {x: 400, y: 150},
+                    {x: 200, y: 350}, {x: 400, y: 350},
+                    {x: 300, y: 250}, {x: 300, y: 450}
+                ],
+                edges: [
+                    [0, 1], [1, 3], [3, 2], [2, 0],
+                    [0, 4], [1, 4], [3, 4], [2, 4],
+                    [0, 5], [1, 5], [3, 5], [2, 5]
+                ],
+                name: '钻石'
+            },
+            {
+                id: 18,
+                nodes: [
+                    {x: 150, y: 120}, {x: 300, y: 80}, {x: 450, y: 120},
+                    {x: 100, y: 280}, {x: 200, y: 200}, {x: 400, y: 200}, {x: 500, y: 280},
+                    {x: 150, y: 440}, {x: 300, y: 480}, {x: 450, y: 440},
+                    {x: 300, y: 280}
+                ],
+                edges: [
+                    [0, 1], [1, 2], [0, 3], [1, 4], [2, 5], [2, 6],
+                    [3, 7], [4, 8], [5, 9], [6, 9],
+                    [7, 8], [8, 9], [3, 10], [4, 10], [5, 10], [6, 10],
+                    [0, 10], [2, 10], [7, 10], [9, 10],
+                    [0, 4], [1, 3], [5, 6]
+                ],
+                name: '风筝'
+            },
+            {
+                id: 19,
+                nodes: [
+                    {x: 300, y: 100}, {x: 200, y: 180}, {x: 400, y: 180},
+                    {x: 100, y: 280}, {x: 500, y: 280}, {x: 150, y: 380}, {x: 450, y: 380},
+                    {x: 200, y: 450}, {x: 400, y: 450}, {x: 300, y: 300}
+                ],
+                edges: [
+                    [0, 1], [0, 2], [1, 3], [2, 4], [3, 5], [4, 6],
+                    [1, 9], [2, 9], [3, 9], [4, 9], [5, 9], [6, 9],
+                    [5, 7], [6, 8], [7, 8], [7, 9], [8, 9],
+                    [1, 2], [3, 4], [5, 6]
+                ],
+                name: '雪花'
+            },
+            {
+                id: 20,
+                nodes: [
+                    {x: 200, y: 100}, {x: 400, y: 100},
+                    {x: 100, y: 220}, {x: 300, y: 220}, {x: 500, y: 220},
+                    {x: 100, y: 360}, {x: 300, y: 360}, {x: 500, y: 360},
+                    {x: 200, y: 480}, {x: 400, y: 480}
+                ],
+                edges: [
+                    [0, 2], [2, 5], [5, 8], [8, 9], [9, 7], [7, 4], [4, 1], [1, 0],
+                    [0, 3], [1, 3], [2, 3], [4, 3],
+                    [5, 6], [7, 6], [8, 6], [9, 6],
+                    [3, 6],
+                    [2, 6], [5, 3],
+                    [4, 6], [7, 3]
+                ],
+                name: '终极挑战'
+            }
+        ];
+
+        // 关卡生成器
+        class LevelGenerator {
+            constructor() {
+                this.canvasWidth = 600;
+                this.canvasHeight = 600;
+                this.padding = 80;
+                this.nodeRadius = 12;
+            }
+
+            // 获取特定难度的预设关卡
+            getPresetsByDifficulty(difficulty) {
+                return PRESET_LEVELS.filter(level => {
+                    const edgeCount = level.edges.length;
+                    if (difficulty === 'easy') return edgeCount <= 8;
+                    if (difficulty === 'medium') return edgeCount > 8 && edgeCount <= 15;
+                    if (difficulty === 'hard') return edgeCount > 15;
+                    return true;
+                });
+            }
+
+            getRandomPreset(difficulty) {
+                const candidates = this.getPresetsByDifficulty(difficulty);
+                if (candidates.length === 0) return this.cloneLevel(PRESET_LEVELS[0]);
+                const randIndex = Math.floor(Math.random() * candidates.length);
+                return this.cloneLevel(candidates[randIndex]);
+            }
+
+            cloneLevel(level) {
+                return {
+                    ...level,
+                    nodes: level.nodes.map(n => ({...n})),
+                    edges: level.edges.map(e => [...e])
+                };
+            }
+
+            // 几何辅助方法：检查两条线段是否相交
+            // p1, p2 是第一条线段的端点
+            // p3, p4 是第二条线段的端点
+            checkIntersection(p1, p2, p3, p4) {
+                // 如果端点共享，不算相交
+                if (this.isSamePoint(p1, p3) || this.isSamePoint(p1, p4) || 
+                    this.isSamePoint(p2, p3) || this.isSamePoint(p2, p4)) {
+                    return false;
+                }
+
+                const ccw = (a, b, c) => (c.y - a.y) * (b.x - a.x) > (b.y - a.y) * (c.x - a.x);
+                return ccw(p1, p3, p4) !== ccw(p2, p3, p4) && ccw(p1, p2, p3) !== ccw(p1, p2, p4);
+            }
+
+            isSamePoint(p1, p2) {
+                return Math.abs(p1.x - p2.x) < 1 && Math.abs(p1.y - p2.y) < 1;
+            }
+
+            // 生成节点布局
+            generateNodes(count) {
+                const nodes = [];
+                const layoutType = Math.random() > 0.5 ? 'circle' : 'grid';
+
+                if (layoutType === 'circle') {
+                    const cx = this.canvasWidth / 2;
+                    const cy = this.canvasHeight / 2;
+                    const radius = Math.min(this.canvasWidth, this.canvasHeight) / 2 - this.padding;
+                    
+                    for (let i = 0; i < count; i++) {
+                        const angle = (i / count) * Math.PI * 2 - Math.PI / 2; // Start from top
+                        // Add some jitter
+                        const r = radius * (0.8 + Math.random() * 0.2); 
+                        nodes.push({
+                            x: cx + Math.cos(angle) * r,
+                            y: cy + Math.sin(angle) * r
+                        });
+                    }
+                } else {
+                    // Grid layout with perturbation
+                    const cols = 3;
+                    const rows = Math.ceil(count / cols);
+                    const cellW = (this.canvasWidth - 2 * this.padding) / (cols - 1);
+                    const cellH = (this.canvasHeight - 2 * this.padding) / (rows - 1);
+                    
+                    // Create grid points
+                    let gridPoints = [];
+                    for(let r=0; r<rows; r++) {
+                        for(let c=0; c<cols; c++) {
+                            gridPoints.push({
+                                x: this.padding + c * cellW,
+                                y: this.padding + r * cellH
+                            });
+                        }
+                    }
+                    
+                    // Shuffle and pick count
+                    gridPoints.sort(() => Math.random() - 0.5);
+                    nodes.push(...gridPoints.slice(0, count));
+                    
+                    // Add jitter
+                    nodes.forEach(n => {
+                        n.x += (Math.random() - 0.5) * 30;
+                        n.y += (Math.random() - 0.5) * 30;
+                    });
+                }
+                return nodes;
+            }
+
+            // 检查边是否存在
+            hasEdge(edges, u, v) {
+                return edges.some(e => (e[0] === u && e[1] === v) || (e[0] === v && e[1] === u));
+            }
+
+            // 尝试生成真随机关卡
+            generateProcedural(difficulty) {
+                const maxAttempts = 50;
+                for (let attempt = 0; attempt < maxAttempts; attempt++) {
+                    const level = this.tryGenerateOne(difficulty);
+                    if (level) return level;
+                }
+                console.warn("Procedural generation failed, falling back to preset");
+                return this.getRandomPreset(difficulty);
+            }
+
+            tryGenerateOne(difficulty) {
+                // 配置参数
+                let minNodes, maxNodes, minEdges;
+                if (difficulty === 'medium') {
+                    minNodes = 6; maxNodes = 8;
+                    minEdges = 10;
+                } else { // hard
+                    minNodes = 8; maxNodes = 12;
+                    minEdges = 16;
+                }
+
+                const nodeCount = Math.floor(Math.random() * (maxNodes - minNodes + 1)) + minNodes;
+                const nodes = this.generateNodes(nodeCount);
+                const edges = [];
+
+                // 1. 生成最小生成树确保连通 (Random Prim's or Kruskal's simplified)
+                // 这里用简单的随机加边直到连通
+                const connected = new Set([0]);
+                const available = Array.from({length: nodeCount}, (_, i) => i).filter(i => i !== 0);
+                
+                // 初始连通
+                while (available.length > 0) {
+                    const u = Array.from(connected)[Math.floor(Math.random() * connected.size)];
+                    // Find closest available node to u to avoid long messy lines
+                    let bestV = -1;
+                    let minDist = Infinity;
+                    
+                    available.forEach(v => {
+                        const d = Math.hypot(nodes[u].x - nodes[v].x, nodes[u].y - nodes[v].y);
+                        if (d < minDist) {
+                            // Check intersection against existing edges
+                            let intersects = false;
+                            for (const edge of edges) {
+                                if (this.checkIntersection(nodes[u], nodes[v], nodes[edge[0]], nodes[edge[1]])) {
+                                    intersects = true;
+                                    break;
+                                }
+                            }
+                            if (!intersects) {
+                                minDist = d;
+                                bestV = v;
+                            }
+                        }
+                    });
+
+                    if (bestV !== -1) {
+                        edges.push([u, bestV]);
+                        connected.add(bestV);
+                        const idx = available.indexOf(bestV);
+                        available.splice(idx, 1);
+                    } else {
+                        // 如果无法连接，可能陷入死角，重试整个生成
+                        return null;
+                    }
+                }
+
+                // 2. 添加更多随机边，直到达到目标边数
+                let attempts = 0;
+                while (edges.length < minEdges && attempts < 200) {
+                    attempts++;
+                    const u = Math.floor(Math.random() * nodeCount);
+                    const v = Math.floor(Math.random() * nodeCount);
+                    
+                    if (u === v || this.hasEdge(edges, u, v)) continue;
+                    
+                    // 检查相交
+                    let intersects = false;
+                    for (const edge of edges) {
+                        if (this.checkIntersection(nodes[u], nodes[v], nodes[edge[0]], nodes[edge[1]])) {
+                            intersects = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!intersects) {
+                        edges.push([u, v]);
+                    }
+                }
+
+                // 3. 修复欧拉路径 (0 或 2 个奇度点)
+                const fixedEdges = this.fixEulerian(nodes, edges);
+                if (!fixedEdges) return null;
+
+                // 最终检查边数是否足够
+                if (fixedEdges.length < minEdges * 0.8) return null; // 允许稍微少一点
+
+                return {
+                    id: Date.now(),
+                    nodes: nodes,
+                    edges: fixedEdges,
+                    difficulty: difficulty === 'medium' ? '中等' : '困难',
+                    name: `随机-${difficulty === 'medium' ? '中' : '难'}`
+                };
+            }
+
+            fixEulerian(nodes, edges) {
+                // 计算度数
+                const getDegrees = (currentEdges) => {
+                    const degs = new Array(nodes.length).fill(0);
+                    currentEdges.forEach(e => { degs[e[0]]++; degs[e[1]]++; });
+                    return degs;
+                };
+
+                let degrees = getDegrees(edges);
+                let oddIndices = degrees.map((d, i) => d % 2 === 1 ? i : -1).filter(i => i !== -1);
+
+                // 如果奇度点数量 <= 2，已经满足
+                if (oddIndices.length <= 2) return edges;
+
+                // 尝试消除奇度点
+                // 策略：在两个奇度点之间 添加边 或 删除边
+                // 为了保持不相交，优先尝试删除边（如果不破坏连通性），或者添加不相交的边
+                
+                let attempts = 0;
+                while (oddIndices.length > 2 && attempts < 50) {
+                    attempts++;
+                    // 随机选两个奇度点
+                    const idx1 = Math.floor(Math.random() * oddIndices.length);
+                    let idx2 = Math.floor(Math.random() * oddIndices.length);
+                    while (idx1 === idx2) idx2 = Math.floor(Math.random() * oddIndices.length);
+                    
+                    const u = oddIndices[idx1];
+                    const v = oddIndices[idx2];
+
+                    // 检查是否存在边
+                    const edgeIdx = edges.findIndex(e => (e[0] === u && e[1] === v) || (e[0] === v && e[1] === u));
+                    
+                    if (edgeIdx !== -1) {
+                        // 边存在，尝试删除
+                        // 删除前检查连通性 (简单BFS)
+                        const tempEdges = edges.filter((_, i) => i !== edgeIdx);
+                        if (this.checkConnected(nodes.length, tempEdges)) {
+                            edges = tempEdges;
+                        }
+                    } else {
+                        // 边不存在，尝试添加
+                        // 检查相交
+                        let intersects = false;
+                        for (const edge of edges) {
+                            if (this.checkIntersection(nodes[u], nodes[v], nodes[edge[0]], nodes[edge[1]])) {
+                                intersects = true;
+                                break;
+                            }
+                        }
+                        if (!intersects) {
+                            edges.push([u, v]);
+                        }
+                    }
+                    
+                    // 重新计算
+                    degrees = getDegrees(edges);
+                    oddIndices = degrees.map((d, i) => d % 2 === 1 ? i : -1).filter(i => i !== -1);
+                }
+
+                if (oddIndices.length <= 2) return edges;
+                return null; // 修复失败
+            }
+
+            checkConnected(nodeCount, edges) {
+                if (edges.length === 0) return false;
+                const adj = Array.from({length: nodeCount}, () => []);
+                edges.forEach(e => {
+                    adj[e[0]].push(e[1]);
+                    adj[e[1]].push(e[0]);
+                });
+                
+                const visited = new Set();
+                const queue = [0]; // Start from 0 (assuming 0 is part of the graph)
+                // actually we should start from a node that has edges
+                let startNode = -1;
+                for(let i=0; i<nodeCount; i++) if (adj[i].length > 0) { startNode = i; break; }
+                if (startNode === -1) return false;
+
+                queue[0] = startNode;
+                visited.add(startNode);
+                
+                while(queue.length > 0) {
+                    const u = queue.shift();
+                    for(const v of adj[u]) {
+                        if (!visited.has(v)) {
+                            visited.add(v);
+                            queue.push(v);
+                        }
+                    }
+                }
+                
+                // Check if all nodes with edges are visited
+                for(let i=0; i<nodeCount; i++) {
+                    if (adj[i].length > 0 && !visited.has(i)) return false;
+                }
+                return true;
+            }
+
+            // 生成简单关卡 - 禁用，直接返回null或中等
+            generateEasy() {
+               return this.generateMedium(); 
+            }
+
+            // 生成中等关卡 - 真随机
+            generateMedium() {
+                const level = this.generateProcedural('medium');
+                level.difficulty = '中等';
+                return level;
+            }
+
+            // 生成困难关卡 - 真随机
+            generateHard() {
+                const level = this.generateProcedural('hard');
+                level.difficulty = '困难';
+                return level;
+            }
+
+            // 随机生成关卡 - 只生成中等或困难
+            generateRandom() {
+                return Math.random() > 0.5 ? this.generateMedium() : this.generateHard();
+            }
+
+            // 确保图是欧拉图（保留接口兼容性）
+            ensureEulerian(level) {
+                return level;
+            }
+        }
+
+        // 关卡管理器
+        class LevelManager {
+            constructor() {
+                this.presetLevels = PRESET_LEVELS.map((level, i) => ({
+                    ...level,
+                    type: 'preset'
+                }));
+                this.generatedLevels = [];
+                this.currentLevelIndex = 0;
+            }
+
+            getAllLevels() {
+                return [...this.presetLevels, ...this.generatedLevels];
+            }
+
+            addGeneratedLevel(level) {
+                level.id = 1000 + this.generatedLevels.length;
+                level.type = 'generated';
+                level.generatedAt = Date.now();
+                this.generatedLevels.push(level);
+                return this.generatedLevels.length - 1 + this.presetLevels.length;
+            }
+
+            getLevel(index) {
+                const all = this.getAllLevels();
+                return all[index];
+            }
+
+            getTotalCount() {
+                return this.getAllLevels().length;
+            }
+        }
+
+        class Game {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.levelManager = new LevelManager();
+                this.generator = new LevelGenerator();
+                this.currentLevelIndex = 0;
+                this.path = [];
+                this.completedLevels = new Set();
+
+                this.isDragging = false;
+                this.lastMousePos = null;
+                this.isShowingAnswer = false;
+
+                this.bindEvents();
+                this.initLevel(0);
+                this.renderLevelsGrid();
+                this.updateStats();
+            }
+
+            initLevel(index) {
+                if (index < 0 || index >= this.levelManager.getTotalCount()) return;
+
+                this.currentLevelIndex = index;
+                this.level = this.levelManager.getLevel(index);
+                this.path = [];
+                this.isDragging = false;
+                this.isShowingAnswer = false;
+
+                document.getElementById('currentLevelDisplay').textContent = index + 1;
+
+                // 显示关卡类型
+                const typeSpan = document.getElementById('levelType');
+                if (this.level.type === 'generated') {
+                    typeSpan.textContent = `(${this.level.difficulty || '随机'})`;
+                } else {
+                    typeSpan.textContent = `(${this.level.name || ''})`;
+                }
+
+                this.updateLevelButtons();
+                this.render();
+            }
+
+            bindEvents() {
+                this.canvas.addEventListener('mousedown', this.handleStart.bind(this));
+                this.canvas.addEventListener('mousemove', this.handleMove.bind(this));
+                this.canvas.addEventListener('mouseup', this.handleEnd.bind(this));
+                this.canvas.addEventListener('mouseleave', this.handleEnd.bind(this));
+
+                this.canvas.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    this.handleStart({ clientX: touch.clientX, clientY: touch.clientY });
+                });
+                this.canvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    this.handleMove({ clientX: touch.clientX, clientY: touch.clientY });
+                });
+                this.canvas.addEventListener('touchend', this.handleEnd.bind(this));
+
+                document.getElementById('resetBtn').addEventListener('click', () => {
+                    this.path = [];
+                    this.isShowingAnswer = false;
+                    this.render();
+                });
+
+                document.getElementById('undoBtn').addEventListener('click', () => {
+                    if (this.path.length > 0) {
+                        this.path.pop();
+                        this.render();
+                    }
+                });
+
+                document.getElementById('showAnswerBtn').addEventListener('click', () => {
+                    this.showAnswer();
+                });
+
+                // 生成关卡按钮
+                document.getElementById('genEasyBtn').addEventListener('click', () => {
+                    this.generateNewLevel('easy');
+                });
+
+                document.getElementById('genMediumBtn').addEventListener('click', () => {
+                    this.generateNewLevel('medium');
+                });
+
+                document.getElementById('genHardBtn').addEventListener('click', () => {
+                    this.generateNewLevel('hard');
+                });
+
+                document.getElementById('genRandomBtn').addEventListener('click', () => {
+                    this.generateNewLevel('random');
+                });
+            }
+
+            generateNewLevel(difficulty) {
+                let level;
+                switch (difficulty) {
+                    case 'easy':
+                        level = this.generator.generateEasy();
+                        break;
+                    case 'medium':
+                        level = this.generator.generateMedium();
+                        break;
+                    case 'hard':
+                        level = this.generator.generateHard();
+                        break;
+                    default:
+                        level = this.generator.generateRandom();
+                }
+
+                const newIndex = this.levelManager.addGeneratedLevel(level);
+                this.renderLevelsGrid();
+                this.updateStats();
+                this.initLevel(newIndex);
+
+                this.showToast(`生成了新关卡: ${level.name}`);
+            }
+
+            // Find Eulerian path using Hierholzer's algorithm
+            findEulerianPath() {
+                const nodes = this.level.nodes;
+                const edges = this.level.edges;
+
+                if (nodes.length < 2 || edges.length === 0) return null;
+
+                // Build adjacency list
+                const adj = new Map();
+                for (let i = 0; i < nodes.length; i++) adj.set(i, []);
+
+                // Track edges (undirected)
+                const edgeUsed = edges.map(() => false);
+
+                edges.forEach((edge, idx) => {
+                    adj.get(edge[0]).push({ to: edge[1], idx });
+                    adj.get(edge[1]).push({ to: edge[0], idx });
+                });
+
+                // Find start node (odd degree if exists, else any)
+                const degrees = nodes.map((_, i) => adj.get(i).length);
+                let start = degrees.findIndex(d => d % 2 === 1);
+                if (start === -1) start = 0;
+
+                // Hierholzer's algorithm
+                const stack = [start];
+                const path = [];
+
+                while (stack.length > 0) {
+                    const v = stack[stack.length - 1];
+                    const neighbors = adj.get(v);
+
+                    while (neighbors.length > 0 && edgeUsed[neighbors[neighbors.length - 1].idx]) {
+                        neighbors.pop();
+                    }
+
+                    if (neighbors.length === 0) {
+                        path.push(stack.pop());
+                    } else {
+                        const next = neighbors.pop();
+                        if (!edgeUsed[next.idx]) {
+                            edgeUsed[next.idx] = true;
+                            stack.push(next.to);
+                        }
+                    }
+                }
+
+                return path.length === edges.length + 1 ? path.reverse() : null;
+            }
+
+            showAnswer() {
+                const solution = this.findEulerianPath();
+                if (solution) {
+                    this.path = solution;
+                    this.isShowingAnswer = true;
+                    this.render();
+                    this.completedLevels.add(this.currentLevel);
+                    this.updateLevelButtons();
+                    this.showToast('🎉 答案已显示！(数字代表顺序)');
+                } else {
+                    this.showToast('无法找到解法');
+                }
+            }
+
+            getMousePos(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                return {
+                    x: (e.clientX - rect.left) * (this.canvas.width / rect.width),
+                    y: (e.clientY - rect.top) * (this.canvas.height / rect.height)
+                };
+            }
+
+            getNodeAtPos(pos) {
+                const radius = 20; // Hit radius
+                return this.level.nodes.findIndex(node => {
+                    const dx = node.x - pos.x;
+                    const dy = node.y - pos.y;
+                    return dx * dx + dy * dy < radius * radius;
+                });
+            }
+
+            handleStart(e) {
+                const pos = this.getMousePos(e);
+                const nodeIndex = this.getNodeAtPos(pos);
+
+                if (nodeIndex !== -1) {
+                    if (this.isShowingAnswer) {
+                        this.isShowingAnswer = false;
+                        this.path = [];
+                    }
+
+                    if (this.path.length === 0) {
+                        this.path.push(nodeIndex);
+                        this.isDragging = true;
+                        this.render();
+                    } else if (nodeIndex === this.path[this.path.length - 1]) {
+                         this.isDragging = true;
+                    }
+                }
+            }
+
+            handleMove(e) {
+                const pos = this.getMousePos(e);
+                this.lastMousePos = pos;
+
+                if (this.isDragging) {
+                    const nodeIndex = this.getNodeAtPos(pos);
+                    const lastNodeIndex = this.path[this.path.length - 1];
+
+                    if (nodeIndex !== -1 && nodeIndex !== lastNodeIndex) {
+                        if (this.isValidMove(lastNodeIndex, nodeIndex)) {
+                            this.path.push(nodeIndex);
+                            this.checkWin();
+                        }
+                    }
+                    this.render();
+                }
+            }
+
+            handleEnd() {
+                this.isDragging = false;
+                this.lastMousePos = null;
+                this.render();
+            }
+
+            isValidMove(from, to) {
+                // Check if edge exists
+                const edgeExists = this.level.edges.some(edge => 
+                    (edge[0] === from && edge[1] === to) || 
+                    (edge[0] === to && edge[1] === from)
+                );
+
+                if (!edgeExists) return false;
+
+                // Check if edge already visited
+                // We iterate through path to see if this segment [from, to] or [to, from] exists
+                for (let i = 0; i < this.path.length - 1; i++) {
+                    const p1 = this.path[i];
+                    const p2 = this.path[i+1];
+                    if ((p1 === from && p2 === to) || (p1 === to && p2 === from)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            checkWin() {
+                let visitedEdgesCount = this.path.length - 1;
+
+                if (visitedEdgesCount === this.level.edges.length) {
+                    this.completedLevels.add(this.currentLevelIndex);
+                    this.showToast('🎉 恭喜通关！');
+                    this.updateLevelButtons();
+                    this.updateStats();
+                    setTimeout(() => {
+                        if (this.currentLevelIndex < this.levelManager.getTotalCount() - 1) {
+                            this.initLevel(this.currentLevelIndex + 1);
+                        }
+                    }, 1500);
+                }
+            }
+
+            showToast(msg) {
+                const toast = document.getElementById('toast');
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            }
+
+            updateStats() {
+                document.getElementById('completedCount').textContent = this.completedLevels.size;
+                document.getElementById('totalCount').textContent = this.levelManager.getTotalCount();
+            }
+
+            renderLevelsGrid() {
+                const grid = document.getElementById('levelGrid');
+                grid.innerHTML = '';
+                const allLevels = this.levelManager.getAllLevels();
+
+                allLevels.forEach((level, index) => {
+                    const btn = document.createElement('button');
+                    let className = 'level-btn';
+                    if (index === this.currentLevelIndex) className += ' active';
+                    if (this.completedLevels.has(index)) className += ' completed';
+                    if (level.type === 'generated') className += ' generated';
+
+                    btn.className = className;
+                    btn.textContent = level.type === 'generated' ? '★' : (index + 1);
+                    btn.title = level.name || `关卡 ${index + 1}`;
+                    btn.onclick = () => this.initLevel(index);
+                    grid.appendChild(btn);
+                });
+            }
+
+            updateLevelButtons() {
+                const btns = document.querySelectorAll('.level-btn');
+                btns.forEach((btn, index) => {
+                    btn.className = 'level-btn';
+                    if (index === this.currentLevelIndex) btn.classList.add('active');
+                    if (this.completedLevels.has(index)) btn.classList.add('completed');
+                });
+            }
+
+            render() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Draw Edges (Background)
+                this.ctx.lineWidth = 6;
+                this.ctx.lineCap = 'round';
+                this.ctx.strokeStyle = '#e2e8f0';
+
+                this.level.edges.forEach(edge => {
+                    const n1 = this.level.nodes[edge[0]];
+                    const n2 = this.level.nodes[edge[1]];
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(n1.x, n1.y);
+                    this.ctx.lineTo(n2.x, n2.y);
+                    this.ctx.stroke();
+                });
+
+                // Draw Visited Path
+                if (this.path.length > 0) {
+                    // Glow effect
+                    this.ctx.shadowColor = '#6366f1';
+                    this.ctx.shadowBlur = 10;
+                    this.ctx.strokeStyle = '#6366f1';
+                    this.ctx.beginPath();
+                    const startNode = this.level.nodes[this.path[0]];
+                    this.ctx.moveTo(startNode.x, startNode.y);
+
+                    for (let i = 1; i < this.path.length; i++) {
+                        const node = this.level.nodes[this.path[i]];
+                        this.ctx.lineTo(node.x, node.y);
+                    }
+                    this.ctx.stroke();
+                    this.ctx.shadowBlur = 0;
+
+                    // Draw arrows and sequence numbers
+                    if (this.isShowingAnswer) {
+                        for (let i = 0; i < this.path.length - 1; i++) {
+                            const n1 = this.level.nodes[this.path[i]];
+                            const n2 = this.level.nodes[this.path[i+1]];
+                            this.drawArrow(n1, n2, i + 1);
+                        }
+                    }
+                }
+
+                // Draw Drag Line
+                if (this.isDragging && this.lastMousePos && this.path.length > 0) {
+                    const lastNode = this.level.nodes[this.path[this.path.length - 1]];
+                    this.ctx.strokeStyle = 'rgba(99, 102, 241, 0.6)';
+                    this.ctx.lineWidth = 4;
+                    this.ctx.setLineDash([10, 10]);
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(lastNode.x, lastNode.y);
+                    this.ctx.lineTo(this.lastMousePos.x, this.lastMousePos.y);
+                    this.ctx.stroke();
+                    this.ctx.setLineDash([]);
+                }
+
+                // Draw Nodes
+                this.level.nodes.forEach((node, index) => {
+                    const isVisited = this.path.includes(index);
+                    const isStart = this.path.length > 0 && index === this.path[0];
+                    const isCurrent = this.path.length > 0 && index === this.path[this.path.length - 1];
+
+                    // Glow for active nodes
+                    if (isStart || isCurrent) {
+                        this.ctx.shadowColor = isStart ? '#22c55e' : '#f59e0b';
+                        this.ctx.shadowBlur = 15;
+                    }
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(node.x, node.y, 14, 0, Math.PI * 2);
+
+                    if (isStart) {
+                        this.ctx.fillStyle = '#22c55e';
+                    } else if (isCurrent) {
+                        this.ctx.fillStyle = '#f59e0b';
+                    } else if (isVisited) {
+                        this.ctx.fillStyle = '#6366f1';
+                    } else {
+                        this.ctx.fillStyle = '#94a3b8';
+                    }
+
+                    this.ctx.fill();
+                    this.ctx.shadowBlur = 0;
+
+                    // White border
+                    this.ctx.lineWidth = 3;
+                    this.ctx.strokeStyle = 'white';
+                    this.ctx.stroke();
+
+                    // Node number (Removed as per request)
+                    /*
+                    this.ctx.fillStyle = 'white';
+                    this.ctx.font = 'bold 10px sans-serif';
+                    this.ctx.textAlign = 'center';
+                    this.ctx.textBaseline = 'middle';
+                    this.ctx.fillText(index + 1, node.x, node.y);
+                    */
+                });
+            }
+
+            drawArrow(from, to, index) {
+                const headlen = 10; // length of head in pixels
+                const dx = to.x - from.x;
+                const dy = to.y - from.y;
+                const angle = Math.atan2(dy, dx);
+                
+                // Midpoint
+                const mx = (from.x + to.x) / 2;
+                const my = (from.y + to.y) / 2;
+
+                this.ctx.save();
+                this.ctx.strokeStyle = '#22c55e'; // Green arrow
+                this.ctx.fillStyle = '#22c55e';
+                this.ctx.lineWidth = 3;
+
+                // Draw arrow head at midpoint
+                this.ctx.beginPath();
+                this.ctx.moveTo(mx, my);
+                this.ctx.lineTo(mx - headlen * Math.cos(angle - Math.PI / 6), my - headlen * Math.sin(angle - Math.PI / 6));
+                this.ctx.moveTo(mx, my);
+                this.ctx.lineTo(mx - headlen * Math.cos(angle + Math.PI / 6), my - headlen * Math.sin(angle + Math.PI / 6));
+                this.ctx.stroke();
+                
+                // Draw sequence number
+                this.ctx.fillStyle = '#ffffff';
+                this.ctx.strokeStyle = '#22c55e';
+                this.ctx.lineWidth = 2;
+                this.ctx.beginPath();
+                // Position circle slightly offset perpendicular to line
+                const offset = 15;
+                const cx = mx + offset * Math.sin(angle);
+                const cy = my - offset * Math.cos(angle);
+                
+                this.ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+                this.ctx.fill();
+                this.ctx.stroke();
+                
+                this.ctx.fillStyle = '#22c55e';
+                this.ctx.font = 'bold 10px sans-serif';
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
+                this.ctx.fillText(index, cx, cy);
+
+                this.ctx.restore();
+            }
+        }
+
+        // Initialize Game
+        window.onload = () => {
+            const canvas = document.getElementById('gameCanvas');
+            // Handle HiDPI screens
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            
+            new Game(canvas);
+        };
+    </script>
+</body>
+</html>

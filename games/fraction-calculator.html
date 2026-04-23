@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分数计算器 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="分数计算器把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="分数计算器,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/fraction-calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="分数计算器 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="分数计算器把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/fraction-calculator.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="分数计算器 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="分数计算器把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"分数计算器","description":"分数计算器把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/fraction-calculator.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+            --text-secondary: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Theory Card */
+        .theory-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .theory-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-color);
+        }
+
+        .theory-content {
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .rule-item {
+            background: white;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        /* Stats Card */
+        .stats-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-color);
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+        }
+
+        .stat-value.success { color: var(--success-color); }
+        .stat-value.danger { color: var(--danger-color); }
+        .stat-value.primary { color: var(--primary-color); }
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        /* Mode Selector */
+        .mode-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .mode-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .mode-btn {
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mode-btn:hover {
+            background: #f8fafc;
+            color: var(--text-color);
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Hint Box */
+        .hint-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        .hint-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hint-text {
+            font-size: 12px;
+            color: #b45309;
+            line-height: 1.6;
+        }
+
+        .hint-step {
+            background: rgba(253, 203, 110, 0.3);
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 12px;
+            border-left: 3px solid #f59e0b;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f1f5f9;
+            position: relative;
+            padding: 24px;
+        }
+
+        .game-area {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            position: relative;
+        }
+
+        .question-header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        /* Difficulty & Operation Selector */
+        .selector-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .selector-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .selector-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .selector-btn:hover {
+            background: #f8fafc;
+            color: var(--text-color);
+        }
+
+        .selector-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Problem Display */
+        .problem-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .fraction {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .fraction-num {
+            padding: 6px 16px;
+        }
+
+        .fraction-line {
+            width: 100%;
+            height: 4px;
+            background: var(--text-color);
+            border-radius: 2px;
+        }
+
+        .fraction-denom {
+            padding: 6px 16px;
+        }
+
+        .operator {
+            font-size: 44px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .equals {
+            font-size: 44px;
+            font-weight: 700;
+            color: var(--success-color);
+        }
+
+        /* Answer Input */
+        .answer-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .answer-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .answer-field {
+            width: 90px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        /* Numeric Keypad */
+        .keypad-toggle {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--secondary-color);
+            color: white;
+            margin-top: 16px;
+        }
+
+        .keypad-toggle:hover {
+            background: #475569;
+        }
+
+        .keypad-toggle.active {
+            background: var(--primary-color);
+        }
+
+        .keypad {
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+            padding: 20px;
+            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .keypad.show {
+            display: grid;
+        }
+
+        .keypad-btn {
+            padding: 18px 14px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            font-size: 22px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: var(--text-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .keypad-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .keypad-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+        }
+
+        .keypad-btn:active {
+            transform: translateY(1px) scale(0.97);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .keypad-btn:focus {
+            outline: none;
+        }
+
+        .keypad-btn:focus-visible {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .keypad-btn.zero {
+            grid-column: span 2;
+        }
+
+        .keypad-btn.digit {
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+        }
+
+        .keypad-btn.digit:hover {
+            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+        }
+
+        .keypad-btn.action {
+            background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+            color: var(--text-secondary);
+        }
+
+        .keypad-btn.action:hover {
+            background: linear-gradient(145deg, #e2e8f0, #cbd5e1);
+            color: var(--text-color);
+        }
+
+        .keypad-btn.delete {
+            background: linear-gradient(145deg, #fee2e2, #fecaca);
+            color: #dc2626;
+        }
+
+        .keypad-btn.delete:hover {
+            background: linear-gradient(145deg, #fecaca, #fca5a5);
+        }
+
+        .keypad-btn.clear {
+            background: linear-gradient(145deg, #fef3c7, #fde68a);
+            color: #d97706;
+        }
+
+        .keypad-btn.clear:hover {
+            background: linear-gradient(145deg, #fde68a, #fbbf24);
+        }
+
+        .keypad-btn.switch {
+            background: linear-gradient(145deg, #dbeafe, #bfdbfe);
+            color: #2563eb;
+        }
+
+        .keypad-btn.switch:hover {
+            background: linear-gradient(145deg, #bfdbfe, #93c5fd);
+        }
+
+        .keypad-btn.submit {
+            background: linear-gradient(145deg, #22c55e, #16a34a);
+            color: white;
+        }
+
+        .keypad-btn.submit:hover {
+            background: linear-gradient(145deg, #16a34a, #15803d);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
+        }
+
+        /* Focus indicator for answer fields */
+        .answer-field.focused {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .answer-field:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-check {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: #16a34a;
+        }
+
+        .btn-hint {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-hint:hover {
+            background: #d97706;
+        }
+
+        .btn-new {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-new:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-clear {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #475569;
+        }
+
+        /* Result Panel */
+        .result-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .result-panel.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .result-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .result-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .result-title.success { color: var(--success-color); }
+        .result-title.error { color: var(--danger-color); }
+
+        .result-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 300px;
+            line-height: 1.6;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+
+            .main-content {
+                height: auto;
+                min-height: 500px;
+                padding: 16px;
+            }
+
+            .problem-container {
+                gap: 8px;
+                margin: 16px 0;
+            }
+
+            .fraction {
+                font-size: 24px;
+            }
+
+            .operator, .equals {
+                font-size: 28px;
+            }
+
+            .answer-field {
+                width: 55px;
+                padding: 8px;
+                font-size: 16px;
+            }
+
+            .controls {
+                flex-wrap: wrap;
+            }
+
+            .keypad {
+                max-width: 100%;
+            }
+
+            .keypad-btn {
+                padding: 14px 10px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="header">
+            <h1>分数运算</h1>
+            <div class="subtitle">数学练习</div>
+        </div>
+
+        <div class="theory-card">
+            <div class="theory-title">📐 运算法则</div>
+            <div class="theory-content">
+                <div class="rule-item">加法：分母相同直接相加，分母不同先通分</div>
+                <div class="rule-item">减法：分母相同直接相减，分母不同先通分</div>
+                <div class="rule-item">乘法：分子相乘，分母相乘</div>
+                <div class="rule-item">除法：乘以倒数</div>
+            </div>
+        </div>
+
+        <div class="theory-card">
+            <div class="theory-title">🔍 通分方法</div>
+            <div class="theory-content">
+                <div class="rule-item">1. 找最小公倍数</div>
+                <div class="rule-item">2. 分子分母同时乘以相同数</div>
+                <div class="rule-item">3. 保持分数值不变</div>
+            </div>
+        </div>
+
+        <div class="stats-card">
+            <div class="stats-grid">
+                <div class="stat-row">
+                    <span class="stat-label">正确</span>
+                    <span class="stat-value success" id="correctCount">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">错误</span>
+                    <span class="stat-value danger" id="wrongCount">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">正确率</span>
+                    <span class="stat-value primary" id="accuracy">0%</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">连续</span>
+                    <span class="stat-value" id="streak">0</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="hint-box" id="hintBox" style="display: none;">
+            <div class="hint-title">💡 解题提示</div>
+            <div id="hintContent"></div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="game-area">
+            <div class="question-header">
+                <div class="question-text">计算结果（填写最简分数）</div>
+            </div>
+
+            <div class="selector-row">
+                <div class="selector-group">
+                    <button class="selector-btn active" data-level="easy">简单</button>
+                    <button class="selector-btn" data-level="medium">中等</button>
+                    <button class="selector-btn" data-level="hard">困难</button>
+                </div>
+            </div>
+
+            <div class="selector-row">
+                <div class="selector-group">
+                    <button class="selector-btn active" data-op="+">➕ 加</button>
+                    <button class="selector-btn" data-op="-">➖ 减</button>
+                    <button class="selector-btn" data-op="*">✖️ 乘</button>
+                    <button class="selector-btn" data-op="/">➗ 除</button>
+                </div>
+            </div>
+
+            <div class="problem-container" id="problemContainer">
+                <!-- 题目将在这里显示 -->
+            </div>
+
+            <div class="controls">
+                <button class="action-btn btn-check" id="checkBtn">✅ 检查</button>
+                <button class="action-btn btn-hint" id="hintBtn">💡 提示</button>
+                <button class="action-btn btn-new" id="newBtn">🎲 新题</button>
+                <button class="action-btn btn-clear" id="clearBtn">🧹 清空</button>
+            </div>
+
+            <button class="keypad-toggle" id="keypadToggle">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="4" y="4" width="16" height="16" rx="2"/>
+                    <line x1="8" y1="8" x2="16" y2="8"/>
+                    <line x1="8" y1="12" x2="16" y2="12"/>
+                    <line x1="8" y1="16" x2="12" y2="16"/>
+                </svg>
+                数字键盘
+            </button>
+
+            <div class="keypad" id="keypad">
+                <button class="keypad-btn digit" data-value="7">7</button>
+                <button class="keypad-btn digit" data-value="8">8</button>
+                <button class="keypad-btn digit" data-value="9">9</button>
+                <button class="keypad-btn clear" data-action="clear" title="清空">⌫</button>
+                <button class="keypad-btn digit" data-value="4">4</button>
+                <button class="keypad-btn digit" data-value="5">5</button>
+                <button class="keypad-btn digit" data-value="6">6</button>
+                <button class="keypad-btn delete" data-action="back" title="退格">⊘</button>
+                <button class="keypad-btn digit" data-value="1">1</button>
+                <button class="keypad-btn digit" data-value="2">2</button>
+                <button class="keypad-btn digit" data-value="3">3</button>
+                <button class="keypad-btn switch" data-action="switch" title="切换输入框">⇄</button>
+                <button class="keypad-btn digit zero" data-value="0">0</button>
+                <button class="keypad-btn submit" data-action="submit" title="提交答案">✓</button>
+            </div>
+
+            <div class="result-panel" id="resultPanel">
+                <div class="result-icon" id="resultIcon">✅</div>
+                <div class="result-title" id="resultTitle">回答正确!</div>
+                <div class="result-text" id="resultText">恭喜你答对了</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        class FractionCalculatorGame {
+            constructor() {
+                this.currentProblem = null;
+                this.correctCount = 0;
+                this.wrongCount = 0;
+                this.streak = 0;
+                this.difficulty = 'easy';
+                this.operation = '+';
+                this.lastProblemSignature = '';
+
+                this.difficulties = {
+                    easy: { range: [1, 6], allowImproper: false },
+                    medium: { range: [1, 12], allowImproper: true },
+                    hard: { range: [1, 20], allowImproper: true }
+                };
+
+                this.bindEvents();
+                this.generateNewProblem();
+                this.updateStats();
+            }
+
+            gcd(a, b) {
+                return b === 0 ? a : this.gcd(b, a % b);
+            }
+
+            lcm(a, b) {
+                return (a * b) / this.gcd(a, b);
+            }
+
+            simplifyFraction(num, den) {
+                const g = this.gcd(Math.abs(num), Math.abs(den));
+                return [num / g, den / g];
+            }
+
+            generateFraction(difficulty) {
+                const config = this.difficulties[difficulty];
+                let num, den;
+
+                do {
+                    num = this.randomBetween(1, config.range[1]);
+                    den = this.randomBetween(2, config.range[1]);
+                } while (num >= den && !config.allowImproper);
+
+                return this.simplifyFraction(num, den);
+            }
+
+            randomBetween(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            generateNewProblem() {
+                // Max retries to prevent infinite loop in edge cases (though unlikely)
+                for (let i = 0; i < 5; i++) {
+                    const [num1, den1] = this.generateFraction(this.difficulty);
+                    const [num2, den2] = this.generateFraction(this.difficulty);
+
+                    // Create a signature to check for duplicates
+                    const signature = `${num1}/${den1}${this.operation}${num2}/${den2}`;
+                    if (signature === this.lastProblemSignature) {
+                        continue;
+                    }
+
+                    let resultNum, resultDen;
+                    let isValid = true;
+
+                    switch (this.operation) {
+                        case '+':
+                            const lcmAdd = this.lcm(den1, den2);
+                            resultNum = (num1 * lcmAdd / den1) + (num2 * lcmAdd / den2);
+                            resultDen = lcmAdd;
+                            break;
+                        case '-':
+                            const lcmSub = this.lcm(den1, den2);
+                            resultNum = (num1 * lcmSub / den1) - (num2 * lcmSub / den2);
+                            resultDen = lcmSub;
+                            if (resultNum <= 0) {
+                                isValid = false;
+                            }
+                            break;
+                        case '*':
+                            resultNum = num1 * num2;
+                            resultDen = den1 * den2;
+                            break;
+                        case '/':
+                            resultNum = num1 * den2;
+                            resultDen = den1 * num2;
+                            break;
+                    }
+
+                    if (!isValid) continue;
+
+                    const [simplifiedNum, simplifiedDen] = this.simplifyFraction(resultNum, resultDen);
+
+                    this.lastProblemSignature = signature;
+                    this.currentProblem = {
+                        fraction1: [num1, den1],
+                        fraction2: [num2, den2],
+                        operation: this.operation,
+                        result: [simplifiedNum, simplifiedDen]
+                    };
+
+                    this.displayProblem();
+                    this.clearAnswers();
+                    this.hideResult();
+                    this.hideHint();
+                    return;
+                }
+                
+                // If we failed 5 times (highly unlikely), just take the last generated one or force a new recursion
+                // But for safety, we'll just recurse once more without loop
+                // Or better, since we modified the logic to use a loop, we might have skipped 'isValid' check failures.
+                // Let's just recursively call if we fall through, but that's risky.
+                // Actually, the previous implementation was recursive. Let's stick to recursive but with signature check.
+                
+                // Reverting to recursive approach for simplicity and safety, but with signature check added
+                // Wait, I can just rewrite the function content completely.
+                
+                // Let's use the recursive approach as it was cleaner for retries, 
+                // but add the signature check.
+                
+                const [num1, den1] = this.generateFraction(this.difficulty);
+                const [num2, den2] = this.generateFraction(this.difficulty);
+                
+                // Check duplicate
+                const signature = `${num1}/${den1}${this.operation}${num2}/${den2}`;
+                if (signature === this.lastProblemSignature) {
+                    return this.generateNewProblem();
+                }
+
+                let resultNum, resultDen;
+
+                switch (this.operation) {
+                    case '+':
+                        const lcmAdd = this.lcm(den1, den2);
+                        resultNum = (num1 * lcmAdd / den1) + (num2 * lcmAdd / den2);
+                        resultDen = lcmAdd;
+                        break;
+                    case '-':
+                        const lcmSub = this.lcm(den1, den2);
+                        resultNum = (num1 * lcmSub / den1) - (num2 * lcmSub / den2);
+                        resultDen = lcmSub;
+                        if (resultNum <= 0) {
+                            return this.generateNewProblem();
+                        }
+                        break;
+                    case '*':
+                        resultNum = num1 * num2;
+                        resultDen = den1 * den2;
+                        break;
+                    case '/':
+                        resultNum = num1 * den2;
+                        resultDen = den1 * num2;
+                        break;
+                }
+
+                const [simplifiedNum, simplifiedDen] = this.simplifyFraction(resultNum, resultDen);
+
+                this.lastProblemSignature = signature;
+                this.currentProblem = {
+                    fraction1: [num1, den1],
+                    fraction2: [num2, den2],
+                    operation: this.operation,
+                    result: [simplifiedNum, simplifiedDen]
+                };
+
+                this.displayProblem();
+                this.clearAnswers();
+                this.hideResult();
+                this.hideHint();
+            }
+
+            displayProblem() {
+                const problem = this.currentProblem;
+                const container = document.getElementById('problemContainer');
+
+                const operatorSymbol = {
+                    '+': '+',
+                    '-': '−',
+                    '*': '×',
+                    '/': '÷'
+                };
+
+                container.innerHTML = `
+                    <div class="fraction">
+                        <div class="fraction-num">${problem.fraction1[0]}</div>
+                        <div class="fraction-line"></div>
+                        <div class="fraction-denom">${problem.fraction1[1]}</div>
+                    </div>
+                    <span class="operator">${operatorSymbol[problem.operation]}</span>
+                    <div class="fraction">
+                        <div class="fraction-num">${problem.fraction2[0]}</div>
+                        <div class="fraction-line"></div>
+                        <div class="fraction-denom">${problem.fraction2[1]}</div>
+                    </div>
+                    <span class="equals">=</span>
+                    <div class="answer-area">
+                        <div class="answer-input">
+                            <input type="number" class="answer-field" id="answerNum" placeholder="?" min="1">
+                            <div class="fraction-line"></div>
+                            <input type="number" class="answer-field" id="answerDen" placeholder="?" min="1">
+                        </div>
+                    </div>
+                `;
+            }
+
+            checkAnswer() {
+                const answerNum = parseInt(document.getElementById('answerNum').value);
+                const answerDen = parseInt(document.getElementById('answerDen').value);
+
+                if (isNaN(answerNum) || isNaN(answerDen) || answerDen === 0) {
+                    this.showResult('❌', '输入错误', '请在分子和分母位置输入数字，分母不能为0。', 'error');
+                    return;
+                }
+
+                const [simplifiedAnswerNum, simplifiedAnswerDen] = this.simplifyFraction(answerNum, answerDen);
+                const [correctNum, correctDen] = this.currentProblem.result;
+
+                if (simplifiedAnswerNum === correctNum && simplifiedAnswerDen === correctDen) {
+                    this.correctCount++;
+                    this.streak++;
+                    this.showResult('✅', '回答正确!', '太棒了! 即将开始下一题...', 'success', true);
+                } else {
+                    this.wrongCount++;
+                    this.streak = 0;
+
+                    const answerValue = answerNum / answerDen;
+                    const correctValue = correctNum / correctDen;
+
+                    if (Math.abs(answerValue - correctValue) < 0.0001) {
+                        this.showResult('❌', '答案错误', `正确答案是 ${correctNum}/${correctDen}。你的答案数值正确，但需要化简到最简分数。`, 'error');
+                    } else {
+                        this.showResult('❌', '答案错误', `正确答案是 ${correctNum}/${correctDen}。请检查计算过程。`, 'error');
+                    }
+                }
+
+                this.updateStats();
+            }
+
+            showHint() {
+                const problem = this.currentProblem;
+                const hintContent = document.getElementById('hintContent');
+                let steps = [];
+
+                const operatorSymbol = {
+                    '+': '相加',
+                    '-': '相减',
+                    '*': '相乘',
+                    '/': '除法变乘法'
+                };
+
+                switch (problem.operation) {
+                    case '+':
+                    case '-':
+                        const lcmValue = this.lcm(problem.fraction1[1], problem.fraction2[1]);
+                        const newNum1 = problem.fraction1[0] * (lcmValue / problem.fraction1[1]);
+                        const newNum2 = problem.fraction2[0] * (lcmValue / problem.fraction2[1]);
+
+                        steps = [
+                            `第1步：找最小公倍数 LCM(${problem.fraction1[1]}, ${problem.fraction2[1]}) = ${lcmValue}`,
+                            `第2步：通分 ${problem.fraction1[0]}/${problem.fraction1[1]} = ${newNum1}/${lcmValue}，${problem.fraction2[0]}/${problem.fraction2[1]} = ${newNum2}/${lcmValue}`,
+                            `第3步：${operatorSymbol[problem.operation]} ${newNum1} ${problem.operation === '+' ? '+' : '−'} ${newNum2} = ${problem.operation === '+' ? newNum1 + newNum2 : newNum1 - newNum2}`,
+                            `第4步：化简 ${problem.operation === '+' ? newNum1 + newNum2 : newNum1 - newNum2}/${lcmValue} = ${problem.result[0]}/${problem.result[1]}`
+                        ];
+                        break;
+                    case '*':
+                        steps = [
+                            `第1步：分子相乘 ${problem.fraction1[0]} × ${problem.fraction2[0]} = ${problem.fraction1[0] * problem.fraction2[0]}`,
+                            `第2步：分母相乘 ${problem.fraction1[1]} × ${problem.fraction2[1]} = ${problem.fraction1[1] * problem.fraction2[1]}`,
+                            `第3步：化简 ${problem.fraction1[0] * problem.fraction2[0]}/${problem.fraction1[1] * problem.fraction2[1]} = ${problem.result[0]}/${problem.result[1]}`
+                        ];
+                        break;
+                    case '/':
+                        steps = [
+                            `第1步：除法变乘法 ${problem.fraction1[0]}/${problem.fraction1[1]} ÷ ${problem.fraction2[0]}/${problem.fraction2[1]}`,
+                            `第2步：${problem.fraction1[0]}/${problem.fraction1[1]} × ${problem.fraction2[1]}/${problem.fraction2[0]}`,
+                            `第3步：分子相乘 ${problem.fraction1[0]} × ${problem.fraction2[1]} = ${problem.fraction1[0] * problem.fraction2[1]}`,
+                            `第4步：分母相乘 ${problem.fraction1[1]} × ${problem.fraction2[0]} = ${problem.fraction1[1] * problem.fraction2[0]}`,
+                            `第5步：化简 = ${problem.result[0]}/${problem.result[1]}`
+                        ];
+                        break;
+                }
+
+                hintContent.innerHTML = steps.map(step => `<div class="hint-step">${step}</div>`).join('');
+                document.getElementById('hintBox').style.display = 'block';
+            }
+
+            showResult(icon, title, text, type, autoNext = false) {
+                const panel = document.getElementById('resultPanel');
+                document.getElementById('resultIcon').textContent = icon;
+                const titleEl = document.getElementById('resultTitle');
+                titleEl.textContent = title;
+                titleEl.className = `result-title ${type}`;
+                document.getElementById('resultText').textContent = text;
+                panel.classList.add('show');
+
+                // Store state for keyboard handling
+                this.isShowingResult = true;
+                this.pendingAutoNext = autoNext;
+
+                if (this.resultTimer) clearTimeout(this.resultTimer);
+
+                // Auto hide/next duration
+                const duration = autoNext ? 1500 : 3000;
+
+                this.resultTimer = setTimeout(() => {
+                    this.handleResultClose();
+                }, duration);
+            }
+
+            handleResultClose() {
+                const panel = document.getElementById('resultPanel');
+                panel.classList.remove('show');
+                this.isShowingResult = false;
+                
+                if (this.pendingAutoNext) {
+                    this.pendingAutoNext = false;
+                    this.generateNewProblem();
+                }
+                
+                if (this.resultTimer) clearTimeout(this.resultTimer);
+                this.resultTimer = null;
+            }
+
+            hideResult() {
+                document.getElementById('resultPanel').classList.remove('show');
+                this.isShowingResult = false;
+                if (this.resultTimer) clearTimeout(this.resultTimer);
+            }
+
+            hideHint() {
+                document.getElementById('hintBox').style.display = 'none';
+            }
+
+            clearAnswers() {
+                const answerNum = document.getElementById('answerNum');
+                const answerDen = document.getElementById('answerDen');
+                if (answerNum) answerNum.value = '';
+                if (answerDen) answerDen.value = '';
+            }
+
+            updateStats() {
+                document.getElementById('correctCount').textContent = this.correctCount;
+                document.getElementById('wrongCount').textContent = this.wrongCount;
+                document.getElementById('streak').textContent = this.streak;
+
+                const total = this.correctCount + this.wrongCount;
+                const accuracy = total > 0 ? Math.round((this.correctCount / total) * 100) : 0;
+                document.getElementById('accuracy').textContent = `${accuracy}%`;
+                document.getElementById('progressFill').style.width = `${accuracy}%`;
+            }
+
+            setDifficulty(level) {
+                this.difficulty = level;
+                document.querySelectorAll('[data-level]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.level === level);
+                });
+                this.generateNewProblem();
+            }
+
+            setOperation(op) {
+                this.operation = op;
+                document.querySelectorAll('[data-op]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.op === op);
+                });
+                this.generateNewProblem();
+            }
+
+            bindEvents() {
+                document.querySelectorAll('[data-level]').forEach(btn => {
+                    btn.addEventListener('click', () => this.setDifficulty(btn.dataset.level));
+                });
+
+                document.querySelectorAll('[data-op]').forEach(btn => {
+                    btn.addEventListener('click', () => this.setOperation(btn.dataset.op));
+                });
+
+                document.getElementById('checkBtn').addEventListener('click', () => this.checkAnswer());
+                document.getElementById('hintBtn').addEventListener('click', () => this.showHint());
+                document.getElementById('newBtn').addEventListener('click', () => this.generateNewProblem());
+                document.getElementById('clearBtn').addEventListener('click', () => {
+                    this.clearAnswers();
+                    this.hideResult();
+                    this.hideHint();
+                });
+
+                // Track last active input field
+                let lastActiveInput = 'num';
+
+                const numInput = document.getElementById('answerNum');
+                const denInput = document.getElementById('answerDen');
+
+                // Result panel click handler
+                document.getElementById('resultPanel').addEventListener('click', () => {
+                    this.handleResultClose();
+                });
+
+                if (numInput && denInput) {
+                    numInput.addEventListener('focus', () => {
+                        numInput.classList.add('focused');
+                        lastActiveInput = 'num';
+                    });
+                    numInput.addEventListener('blur', () => numInput.classList.remove('focused'));
+                    denInput.addEventListener('focus', () => {
+                        denInput.classList.add('focused');
+                        lastActiveInput = 'den';
+                    });
+                    denInput.addEventListener('blur', () => denInput.classList.remove('focused'));
+                }
+
+                // Keypad toggle
+                document.getElementById('keypadToggle').addEventListener('click', () => {
+                    const keypad = document.getElementById('keypad');
+                    const toggle = document.getElementById('keypadToggle');
+                    keypad.classList.toggle('show');
+                    toggle.classList.toggle('active');
+                    toggle.innerHTML = keypad.classList.contains('show')
+                        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg> 收起键盘'
+                        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg> 数字键盘';
+                });
+
+                // Keypad buttons optimized logic
+                document.querySelectorAll('.keypad-btn').forEach(btn => {
+                    // Use pointerdown to prevent focus loss
+                    btn.addEventListener('pointerdown', (e) => {
+                        e.preventDefault(); // Critical: prevents input blur
+                        
+                        // Visual feedback
+                        btn.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            btn.style.transform = '';
+                        }, 100);
+
+                        const action = btn.dataset.action;
+                        const value = btn.dataset.value;
+
+                        // Determine target input
+                        let targetInput = document.activeElement;
+                        // If focus is lost or not on an answer field, restore to last active
+                        if (!targetInput || !targetInput.classList.contains('answer-field')) {
+                            targetInput = lastActiveInput === 'den' ? denInput : numInput;
+                            targetInput.focus();
+                        }
+
+                        if (action === 'switch') {
+                            // Smart switch
+                            if (targetInput === numInput) {
+                                denInput.focus();
+                            } else {
+                                numInput.focus();
+                            }
+                        } else if (action === 'clear') {
+                            targetInput.value = '';
+                            targetInput.focus();
+                        } else if (action === 'back') {
+                            const start = targetInput.selectionStart;
+                            const end = targetInput.selectionEnd;
+                            const currentVal = targetInput.value;
+
+                            if (start === end) {
+                                // No selection, delete char before cursor
+                                if (start > 0) {
+                                    targetInput.value = currentVal.substring(0, start - 1) + currentVal.substring(end);
+                                    targetInput.setSelectionRange(start - 1, start - 1);
+                                }
+                            } else {
+                                // Delete selection
+                                targetInput.value = currentVal.substring(0, start) + currentVal.substring(end);
+                                targetInput.setSelectionRange(start, start);
+                            }
+                            targetInput.focus();
+                        } else if (action === 'submit') {
+                            // Brief delay to show button press effect
+                            setTimeout(() => this.checkAnswer(), 50);
+                        } else if (value) {
+                            if (targetInput.value.length < 6) {
+                                const start = targetInput.selectionStart;
+                                const end = targetInput.selectionEnd;
+                                const currentVal = targetInput.value;
+                                
+                                // Insert at cursor
+                                targetInput.value = currentVal.substring(0, start) + value + currentVal.substring(end);
+                                
+                                // Move cursor after inserted char
+                                targetInput.setSelectionRange(start + 1, start + 1);
+                            }
+                            targetInput.focus();
+                        }
+                        
+                        // Trigger input event for any listeners (though currently none rely on it, it's good practice)
+                        targetInput.dispatchEvent(new Event('input'));
+                    });
+                });
+
+                document.addEventListener('keypress', (e) => {
+                    if (this.isShowingResult && e.key === 'Enter') {
+                        e.preventDefault();
+                        this.handleResultClose();
+                        return;
+                    }
+
+                    if (e.target.classList.contains('answer-field') && e.key === 'Enter') {
+                        if (e.target.id === 'answerNum') {
+                            document.getElementById('answerDen').focus();
+                        } else {
+                            this.checkAnswer();
+                        }
+                    }
+                });
+            }
+        }
+
+        new FractionCalculatorGame();
+    </script>
+</body>
+</html>

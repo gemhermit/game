@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24点 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="24点把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="24点,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/math-24-game.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="24点 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="24点把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/math-24-game.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="24点 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="24点把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"24点","description":"24点把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/math-24-game.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #818cf8;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --card-width: 100px;
+            --card-height: 150px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #eef2ff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #1e293b;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.1), 0 10px 20px -5px rgba(0,0,0,0.04);
+            max-width: 900px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h1 {
+            color: #334155;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: #f1f5f9;
+            padding: 10px 20px;
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .stat-value {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .cards-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            perspective: 1000px;
+            min-height: 160px;
+            padding: 10px;
+        }
+
+        .card {
+            width: var(--card-width);
+            height: var(--card-height);
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .card.selected {
+            border: 2px solid var(--primary-color);
+            background: #eef2ff;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px -3px rgba(79, 70, 229, 0.2);
+        }
+
+        .card-corner {
+            position: absolute;
+            font-size: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .top-left {
+            top: 5px;
+            left: 5px;
+        }
+
+        .bottom-right {
+            bottom: 5px;
+            right: 5px;
+            transform: rotate(180deg);
+        }
+
+        .card-center {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: inherit;
+        }
+
+        .suit-red { color: #ef4444; }
+        .suit-black { color: #1e293b; }
+        
+        .operator-bar {
+            display: flex;
+            gap: 16px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 16px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .btn-op {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            color: #334155;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-op:hover {
+            background: #f1f5f9;
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-op.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(1px);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+        }
+        .btn-primary:hover { background: #4338ca; }
+
+        .btn-secondary {
+            background: white;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+        }
+        .btn-secondary:hover { background: #f1f5f9; border-color: #94a3b8; }
+
+        .instruction {
+            color: #64748b;
+            font-size: 1rem;
+            margin-top: -10px;
+            min-height: 24px;
+            text-align: center;
+        }
+
+        .message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            padding: 16px 32px;
+            border-radius: 16px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+        }
+
+        .message.show {
+            transform: translateX(-50%) translateY(20px);
+        }
+
+        .msg-success { background: var(--success-color); }
+        .msg-error { background: var(--danger-color); }
+        .msg-info { background: var(--accent-color); }
+
+        @media (max-width: 600px) {
+            :root {
+                --card-width: 70px;
+                --card-height: 105px;
+            }
+            .container { padding: 20px; }
+            h1 { font-size: 1.8rem; }
+            .operator-bar { gap: 8px; padding: 8px; }
+            .btn-op { width: 48px; height: 48px; font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="message" id="messageBox"></div>
+
+    <div class="container">
+        <header>
+            <h1>🧮 24点挑战赛</h1>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span>得分</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>连胜</span>
+                    <span class="stat-value" id="streak">0</span>
+                </div>
+                <div class="stat-item">
+                    <span id="questionLabel">题目</span>
+                    <span class="stat-value" id="questionCount">1</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="game-area">
+            <div class="instruction" id="instruction">
+                选择一张卡片开始计算
+            </div>
+
+            <div class="cards-container" id="cardsContainer">
+                <!-- Cards will be injected here -->
+            </div>
+
+            <div class="operator-bar">
+                <button class="btn-op" data-op="+">＋</button>
+                <button class="btn-op" data-op="-">－</button>
+                <button class="btn-op" data-op="*">×</button>
+                <button class="btn-op" data-op="/">÷</button>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-secondary" id="undoBtn">
+                    ↩️ 撤销
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    🔄 重置
+                </button>
+                <button class="btn btn-secondary" id="hintBtn">
+                    💡 提示
+                </button>
+                <button class="btn btn-secondary" id="skipBtn">
+                    ⏭️ 跳过
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class Game24 {
+            constructor() {
+                // 经典题目库
+                this.classicPuzzles = [
+                    [1, 2, 3, 4], [2, 4, 6, 8], [3, 3, 8, 8], [1, 5, 5, 5],
+                    [4, 4, 10, 10], [3, 3, 7, 7], [1, 3, 4, 6], [1, 4, 5, 6],
+                    [5, 5, 5, 1], [2, 4, 10, 10], [2, 5, 5, 10], [4, 4, 7, 7],
+                    [5, 5, 5, 5], [6, 6, 6, 6], [1, 2, 7, 7], [3, 8, 8, 10],
+                    [3, 5, 7, 13], [10, 10, 4, 4]
+                ];
+
+                // Filter out puzzles that require fractions/decimals to solve
+                // Since solve24 is now strict integer-only, this removes impossible ones
+                this.classicPuzzles = this.classicPuzzles.filter(p => this.solve24(p));
+
+                this.state = {
+                    score: 0,
+                    streak: 0,
+                    questionCount: 1,
+                    cards: [], // { id, val, expr, suit }
+                    history: [], // For undo
+                    selectedCardId: null,
+                    selectedOp: null,
+                    solution: null,
+                    isClassic: false
+                };
+
+                this.dom = {
+                    cards: document.getElementById('cardsContainer'),
+                    score: document.getElementById('score'),
+                    streak: document.getElementById('streak'),
+                    questionCount: document.getElementById('questionCount'),
+                    message: document.getElementById('messageBox'),
+                    instruction: document.getElementById('instruction'),
+                    ops: document.querySelectorAll('.btn-op')
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.startNewRound();
+            }
+
+            bindEvents() {
+                // Operators
+                this.dom.ops.forEach(btn => {
+                    btn.addEventListener('click', () => this.handleOpClick(btn.dataset.op));
+                });
+
+                // Controls
+                document.getElementById('undoBtn').addEventListener('click', () => this.undo());
+                document.getElementById('resetBtn').addEventListener('click', () => this.resetRound());
+                document.getElementById('hintBtn').addEventListener('click', () => this.showHint());
+                document.getElementById('skipBtn').addEventListener('click', () => this.startNewRound(false));
+            }
+
+            startNewRound(keepStreak = true) {
+                if (!keepStreak) {
+                    this.state.streak = 0;
+                    this.updateStats();
+                }
+
+                // Decide puzzle source
+                const useClassic = Math.random() < 0.2 || (this.state.questionCount % 5 === 0);
+                let numbers;
+
+                if (useClassic && this.classicPuzzles.length > 0) {
+                    numbers = [...this.classicPuzzles[Math.floor(Math.random() * this.classicPuzzles.length)]];
+                    this.state.isClassic = true;
+                    this.state.solution = this.solve24(numbers);
+                } else {
+                    this.state.isClassic = false;
+                    let attempts = 0;
+                    do {
+                        numbers = Array.from({length: 4}, () => Math.floor(Math.random() * 13) + 1);
+                        this.state.solution = this.solve24(numbers);
+                        attempts++;
+                    } while (!this.state.solution && attempts < 100);
+
+                    if (!this.state.solution) {
+                        numbers = [3, 3, 8, 8];
+                        this.state.solution = "8÷(3-8÷3)";
+                    }
+                }
+
+                // Initial Cards
+                const suits = ['♠', '♥', '♣', '♦'];
+                this.state.cards = numbers.map((num, idx) => ({
+                    id: `c_${Date.now()}_${idx}`,
+                    val: num,
+                    expr: num.toString(),
+                    suit: suits[Math.floor(Math.random() * suits.length)],
+                    rank: this.getCardRank(num)
+                }));
+
+                this.state.history = [];
+                this.state.selectedCardId = null;
+                this.state.selectedOp = null;
+                
+                this.updateUI();
+                
+                // Update Label
+                const qLabel = document.getElementById('questionLabel');
+                if (qLabel) {
+                    qLabel.textContent = this.state.isClassic ? "题目 (经典)" : "题目 (随机)";
+                    qLabel.style.color = this.state.isClassic ? "#f59e0b" : "#64748b";
+                }
+            }
+
+            resetRound() {
+                // Restore initial state from history if available, or just reload logic
+                // Easier: just reload current numbers. But since we didn't store initial numbers separately,
+                // we can just use the first entry of history if it exists, or... 
+                // Actually, the cleanest way is to implement history properly.
+                // Let's rely on Undo until empty for "Reset" visually, or re-init with same numbers.
+                // For simplicity, let's just use undo all.
+                while(this.state.history.length > 0) {
+                    this.undo();
+                }
+            }
+
+            handleCardClick(cardId) {
+                const { selectedCardId, selectedOp } = this.state;
+
+                // Case 1: Select first card
+                if (!selectedCardId) {
+                    this.state.selectedCardId = cardId;
+                    this.updateUI();
+                    this.setInstruction('请选择运算符');
+                    return;
+                }
+
+                // Case 2: Deselect or switch selection (if no op selected)
+                if (selectedCardId === cardId) {
+                    this.state.selectedCardId = null;
+                    this.state.selectedOp = null;
+                    this.updateUI();
+                    this.setInstruction('选择一张卡片');
+                    return;
+                }
+
+                if (!selectedOp) {
+                    this.state.selectedCardId = cardId;
+                    this.updateUI();
+                    this.setInstruction('请选择运算符');
+                    return;
+                }
+
+                // Case 3: Merge cards (selectedCard + op + clickedCard)
+                this.mergeCards(selectedCardId, cardId, selectedOp);
+            }
+
+            handleOpClick(op) {
+                if (!this.state.selectedCardId) {
+                    this.showMessage('请先选择数字卡片', 'info');
+                    return;
+                }
+                this.state.selectedOp = op;
+                this.updateUI();
+                this.setInstruction('请选择另一张卡片进行计算');
+            }
+
+            mergeCards(id1, id2, op) {
+                const c1 = this.state.cards.find(c => c.id === id1);
+                const c2 = this.state.cards.find(c => c.id === id2);
+                
+                if (!c1 || !c2) return;
+
+                let newVal;
+                let newExpr;
+                
+                // Calculate
+                if (op === '+') newVal = c1.val + c2.val;
+                else if (op === '-') newVal = c1.val - c2.val;
+                else if (op === '*') newVal = c1.val * c2.val;
+                else if (op === '/') {
+                    if (Math.abs(c2.val) < 0.0001) {
+                        this.showMessage('不能除以零', 'error');
+                        return;
+                    }
+                    // Integer division only check
+                    if (c1.val % c2.val !== 0) {
+                        this.showMessage('不能除不尽', 'error');
+                        return;
+                    }
+                    newVal = c1.val / c2.val;
+                }
+
+                // Save history
+                this.state.history.push({
+                    cards: [...this.state.cards],
+                    instruction: this.dom.instruction.textContent
+                });
+
+                // Create new card
+                const opSym = op === '*' ? '×' : op === '/' ? '÷' : op;
+                // Add brackets if needed for precedence, but for safety always adding them is fine visually for now
+                // Or try to be smart? Let's just wrap in ()
+                newExpr = `(${c1.expr}${opSym}${c2.expr})`;
+
+                const newCard = {
+                    id: `c_${Date.now()}`,
+                    val: newVal,
+                    expr: newExpr,
+                    suit: '★', // Merged card symbol
+                    rank: ''
+                };
+
+                // Update state: remove c1, c2, add newCard
+                this.state.cards = this.state.cards.filter(c => c.id !== id1 && c.id !== id2);
+                this.state.cards.push(newCard);
+                
+                // Reset selection
+                this.state.selectedCardId = null;
+                this.state.selectedOp = null;
+
+                this.updateUI();
+                this.checkWin();
+            }
+
+            undo() {
+                if (this.state.history.length === 0) return;
+                const lastState = this.state.history.pop();
+                this.state.cards = lastState.cards;
+                this.state.selectedCardId = null;
+                this.state.selectedOp = null;
+                this.updateUI();
+                this.setInstruction(lastState.instruction);
+            }
+
+            checkWin() {
+                if (this.state.cards.length === 1) {
+                    const finalCard = this.state.cards[0];
+                    if (Math.abs(finalCard.val - 24) < 0.0001) {
+                        this.handleWin();
+                    } else {
+                        this.setInstruction('结果不是 24，请撤销重试');
+                    }
+                } else {
+                    this.setInstruction('继续计算...');
+                }
+            }
+
+            handleWin() {
+                this.showMessage('🎉 恭喜！计算成功！', 'success');
+                this.state.score += 10 + (this.state.streak * 2);
+                this.state.streak++;
+                this.state.questionCount++;
+                this.updateStats();
+                
+                setTimeout(() => {
+                    this.startNewRound();
+                }, 1500);
+            }
+
+            updateUI() {
+                // Render Cards
+                this.dom.cards.innerHTML = '';
+                this.state.cards.forEach(card => {
+                    const el = document.createElement('div');
+                    el.className = `card ${this.state.selectedCardId === card.id ? 'selected' : ''}`;
+                    // Style merged cards differently? Maybe not needed, uniform look is fine.
+                    // If it's a merged card (no rank), show center value prominently
+                    const isRed = card.suit === '♥' || card.suit === '♦';
+                    if (isRed) el.classList.add('suit-red');
+                    else el.classList.add('suit-black');
+
+                    // Display float with max 2 decimals if not integer
+                    const displayVal = Number.isInteger(card.val) ? card.val : card.val.toFixed(2).replace(/\.00$/, '');
+
+                    el.innerHTML = `
+                        <div class="card-corner top-left">
+                            <span>${card.rank || ''}</span>
+                            <span>${card.suit}</span>
+                        </div>
+                        <div class="card-center">${displayVal}</div>
+                        <div class="card-corner bottom-right">
+                            <span>${card.rank || ''}</span>
+                            <span>${card.suit}</span>
+                        </div>
+                    `;
+                    el.onclick = () => this.handleCardClick(card.id);
+                    this.dom.cards.appendChild(el);
+                });
+
+                // Highlight Operators
+                this.dom.ops.forEach(btn => {
+                    if (btn.dataset.op === this.state.selectedOp) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            setInstruction(text) {
+                this.dom.instruction.textContent = text;
+            }
+
+            getCardRank(num) {
+                if (num === 1) return 'A';
+                if (num === 11) return 'J';
+                if (num === 12) return 'Q';
+                if (num === 13) return 'K';
+                return num;
+            }
+
+            // Solver (Same as before)
+            solve24(nums) {
+                const EPSILON = 0.0001;
+                const ops = [
+                    { sym: '+', apply: (a, b) => a + b },
+                    { sym: '-', apply: (a, b) => a - b },
+                    { sym: '*', apply: (a, b) => a * b },
+                    { sym: '/', apply: (a, b) => {
+                        // Integer division only: non-zero divisor and no remainder
+                        if (Math.abs(b) < EPSILON) return null;
+                        if (a % b !== 0) return null;
+                        return a / b;
+                    }},
+                ];
+
+                const solve = (list) => {
+                    if (list.length === 1) {
+                        if (Math.abs(list[0].val - 24) < EPSILON) return list[0].expr;
+                        return null;
+                    }
+                    for (let i = 0; i < list.length; i++) {
+                        for (let j = 0; j < list.length; j++) {
+                            if (i === j) continue;
+                            const a = list[i];
+                            const b = list[j];
+                            const remaining = list.filter((_, idx) => idx !== i && idx !== j);
+                            for (const op of ops) {
+                                const newVal = op.apply(a.val, b.val);
+                                if (newVal === null) continue;
+
+                                const newExpr = `(${a.expr}${op.sym}${b.expr})`;
+                                const res = solve([...remaining, { val: newVal, expr: newExpr }]);
+                                if (res) return res;
+                            }
+                        }
+                    }
+                    return null;
+                };
+                return solve(nums.map(n => ({ val: n, expr: n.toString() })));
+            }
+
+            showHint() {
+                if (this.state.solution) {
+                    const displaySol = this.state.solution
+                        .replace(/\*/g, '×')
+                        .replace(/\//g, '÷');
+                    this.showMessage(`参考答案: ${displaySol}`, 'info');
+                    this.state.streak = 0;
+                    this.updateStats();
+                } else {
+                    this.showMessage('计算中...', 'info');
+                }
+            }
+
+            showMessage(text, type) {
+                this.dom.message.textContent = text;
+                this.dom.message.className = `message show msg-${type}`;
+                setTimeout(() => this.dom.message.classList.remove('show'), 3000);
+            }
+
+            updateStats() {
+                this.dom.score.textContent = this.state.score;
+                this.dom.streak.textContent = this.state.streak;
+                this.dom.questionCount.textContent = this.state.questionCount;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            new Game24();
+        });
+    </script>
+</body>
+</html>

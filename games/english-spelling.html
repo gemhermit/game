@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语单词拼写 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="英语单词拼写训练小游戏，结合听记和拼写巩固词汇。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="英语单词拼写,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/english-spelling.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="英语单词拼写 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="英语单词拼写训练小游戏，结合听记和拼写巩固词汇。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/english-spelling.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="英语单词拼写 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="英语单词拼写训练小游戏，结合听记和拼写巩固词汇。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"英语单词拼写","description":"英语单词拼写训练小游戏，结合听记和拼写巩固词汇。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/english-spelling.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .word-display {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        .word-chinese {
+            font-size: 2em;
+            color: #2d3436;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .word-phonetic {
+            font-size: 1.2em;
+            color: #636e72;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .word-blanks {
+            font-size: 2.5em;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 8px;
+            color: #74b9ff;
+            font-weight: bold;
+            margin: 20px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .letter-input {
+            width: 50px;
+            height: 60px;
+            font-size: 2em;
+            text-align: center;
+            border: 3px solid #ddd;
+            border-radius: 8px;
+            margin: 0 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .letter-input:focus {
+            outline: none;
+            border-color: #74b9ff;
+            box-shadow: 0 0 10px rgba(116, 185, 255, 0.3);
+        }
+        .letter-input.correct {
+            background: #d4edda;
+            border-color: #00b894;
+            color: #155724;
+        }
+        .letter-input.wrong {
+            background: #f8d7da;
+            border-color: #e17055;
+            color: #721c24;
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: #74b9ff;
+            color: white;
+        }
+        .btn-success {
+            background: #00b894;
+            color: white;
+        }
+        .btn-warning {
+            background: #fdcb6e;
+            color: white;
+        }
+        .btn-danger {
+            background: #e17055;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .score-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .score-item {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+        .score-value {
+            font-weight: bold;
+            color: #74b9ff;
+            display: block;
+            font-size: 1.5em;
+        }
+        .hint-area {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1em;
+            max-width: 500px;
+            width: 100%;
+        }
+        .difficulty-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .difficulty-btn {
+            padding: 8px 16px;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .difficulty-btn.active {
+            background: #74b9ff;
+            color: white;
+            border-color: #74b9ff;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00b894, #00a085);
+            transition: width 0.3s ease;
+            border-radius: 5px;
+        }
+        .word-complete {
+            background: #d4edda;
+            border: 2px solid #00b894;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .word-complete h3 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        .word-complete .complete-word {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00b894;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>英语单词拼写练习</h1>
+        
+        <div class="difficulty-selector">
+            <div class="difficulty-btn active" data-level="easy">简单</div>
+            <div class="difficulty-btn" data-level="medium">中等</div>
+            <div class="difficulty-btn" data-level="hard">困难</div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item">
+                得分
+                <span class="score-value" id="score">0</span>
+            </div>
+            <div class="score-item">
+                单词数
+                <span class="score-value" id="wordCount">1</span>
+            </div>
+            <div class="score-item">
+                正确率
+                <span class="score-value" id="accuracy">0%</span>
+            </div>
+            <div class="score-item">
+                连击
+                <span class="score-value" id="streak">0</span>
+            </div>
+        </div>
+        
+        <div class="game-area">
+            <div class="word-display">
+                <div class="word-chinese" id="wordChinese">苹果</div>
+                <div class="word-phonetic" id="wordPhonetic">[ˈæpl]</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="word-blanks" id="wordBlanks">
+                <!-- 字母输入框将在这里生成 -->
+            </div>
+            
+            <div class="hint-area" id="hintArea">
+                请根据中文意思和音标拼写英语单词
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" id="hintBtn">提示</button>
+                <button class="btn btn-warning" id="clearBtn">清空</button>
+                <button class="btn btn-danger" id="skipBtn">跳过</button>
+                <button class="btn btn-success" id="nextBtn" style="display: none;">下一个</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class EnglishSpellingGame {
+            constructor() {
+                this.words = {
+                    easy: [
+                        { english: 'apple', chinese: '苹果', phonetic: '[ˈæpl]' },
+                        { english: 'book', chinese: '书', phonetic: '[bʊk]' },
+                        { english: 'cat', chinese: '猫', phonetic: '[kæt]' },
+                        { english: 'dog', chinese: '狗', phonetic: '[dɔːɡ]' },
+                        { english: 'egg', chinese: '鸡蛋', phonetic: '[eɡ]' },
+                        { english: 'fish', chinese: '鱼', phonetic: '[fɪʃ]' },
+                        { english: 'good', chinese: '好的', phonetic: '[ɡʊd]' },
+                        { english: 'hand', chinese: '手', phonetic: '[hænd]' },
+                        { english: 'ice', chinese: '冰', phonetic: '[aɪs]' },
+                        { english: 'jump', chinese: '跳', phonetic: '[dʒʌmp]' }
+                    ],
+                    medium: [
+                        { english: 'beautiful', chinese: '美丽的', phonetic: '[ˈbjuːtɪfl]' },
+                        { english: 'computer', chinese: '电脑', phonetic: '[kəmˈpjuːtər]' },
+                        { english: 'elephant', chinese: '大象', phonetic: '[ˈelɪfənt]' },
+                        { english: 'fantastic', chinese: '极好的', phonetic: '[fænˈtæstɪk]' },
+                        { english: 'guitar', chinese: '吉他', phonetic: '[ɡɪˈtɑːr]' },
+                        { english: 'hospital', chinese: '医院', phonetic: '[ˈhɑːspɪtl]' },
+                        { english: 'important', chinese: '重要的', phonetic: '[ɪmˈpɔːrtnt]' },
+                        { english: 'journey', chinese: '旅程', phonetic: '[ˈdʒɜːrni]' },
+                        { english: 'kitchen', chinese: '厨房', phonetic: '[ˈkɪtʃɪn]' },
+                        { english: 'language', chinese: '语言', phonetic: '[ˈlæŋɡwɪdʒ]' }
+                    ],
+                    hard: [
+                        { english: 'achievement', chinese: '成就', phonetic: '[əˈtʃiːvmənt]' },
+                        { english: 'bibliography', chinese: '参考书目', phonetic: '[ˌbɪbliˈɑːɡrəfi]' },
+                        { english: 'consciousness', chinese: '意识', phonetic: '[ˈkɑːnʃəsnəs]' },
+                        { english: 'development', chinese: '发展', phonetic: '[dɪˈveləpmənt]' },
+                        { english: 'encyclopedia', chinese: '百科全书', phonetic: '[ɪnˌsaɪkləˈpiːdiə]' },
+                        { english: 'fundamental', chinese: '基本的', phonetic: '[ˌfʌndəˈmentl]' },
+                        { english: 'government', chinese: '政府', phonetic: '[ˈɡʌvərnmənt]' },
+                        { english: 'hypothesis', chinese: '假设', phonetic: '[haɪˈpɑːθəsɪs]' },
+                        { english: 'intelligence', chinese: '智力', phonetic: '[ɪnˈtelɪdʒəns]' },
+                        { english: 'jurisdiction', chinese: '管辖权', phonetic: '[ˌdʒʊrɪsˈdɪkʃn]' }
+                    ]
+                };
+                
+                this.currentDifficulty = 'easy';
+                this.currentWordIndex = 0;
+                this.currentWord = null;
+                this.userInput = [];
+                this.score = 0;
+                this.wordCount = 1;
+                this.correctCount = 0;
+                this.streak = 0;
+                this.hintUsed = false;
+                
+                this.initElements();
+                this.bindEvents();
+                this.startNewWord();
+            }
+            
+            initElements() {
+                this.wordChinese = document.getElementById('wordChinese');
+                this.wordPhonetic = document.getElementById('wordPhonetic');
+                this.wordBlanks = document.getElementById('wordBlanks');
+                this.hintArea = document.getElementById('hintArea');
+                this.progressFill = document.getElementById('progressFill');
+                this.hintBtn = document.getElementById('hintBtn');
+                this.clearBtn = document.getElementById('clearBtn');
+                this.skipBtn = document.getElementById('skipBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.scoreSpan = document.getElementById('score');
+                this.wordCountSpan = document.getElementById('wordCount');
+                this.accuracySpan = document.getElementById('accuracy');
+                this.streakSpan = document.getElementById('streak');
+            }
+            
+            bindEvents() {
+                // 难度选择
+                document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentDifficulty = e.target.dataset.level;
+                        this.currentWordIndex = 0;
+                        this.startNewWord();
+                    });
+                });
+                
+                this.hintBtn.addEventListener('click', () => this.showHint());
+                this.clearBtn.addEventListener('click', () => this.clearInput());
+                this.skipBtn.addEventListener('click', () => this.skipWord());
+                this.nextBtn.addEventListener('click', () => this.nextWord());
+            }
+            
+            startNewWord() {
+                const words = this.words[this.currentDifficulty];
+                this.currentWord = words[this.currentWordIndex];
+                this.userInput = new Array(this.currentWord.english.length).fill('');
+                this.hintUsed = false;
+                
+                this.wordChinese.textContent = this.currentWord.chinese;
+                this.wordPhonetic.textContent = this.currentWord.phonetic;
+                
+                this.renderInputs();
+                this.updateHint('请根据中文意思和音标拼写英语单词');
+                this.updateProgress();
+                this.nextBtn.style.display = 'none';
+            }
+            
+            renderInputs() {
+                this.wordBlanks.innerHTML = '';
+                
+                this.currentWord.english.split('').forEach((letter, index) => {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'letter-input';
+                    input.maxLength = 1;
+                    input.dataset.index = index;
+                    
+                    input.addEventListener('input', (e) => this.handleInput(e, index));
+                    input.addEventListener('keydown', (e) => this.handleKeydown(e, index));
+                    
+                    this.wordBlanks.appendChild(input);
+                });
+                
+                // 聚焦第一个输入框
+                this.wordBlanks.querySelector('.letter-input').focus();
+            }
+            
+            handleInput(e, index) {
+                const value = e.target.value.toLowerCase();
+                this.userInput[index] = value;
+                
+                const correctLetter = this.currentWord.english[index].toLowerCase();
+                
+                if (value === correctLetter) {
+                    e.target.classList.remove('wrong');
+                    e.target.classList.add('correct');
+                    
+                    // 移动到下一个输入框
+                    const nextInput = this.wordBlanks.querySelector(`[data-index="${index + 1}"]`);
+                    if (nextInput) {
+                        nextInput.focus();
+                    }
+                    
+                    // 检查是否完成
+                    this.checkCompletion();
+                } else if (value) {
+                    e.target.classList.remove('correct');
+                    e.target.classList.add('wrong');
+                }
+                
+                this.updateProgress();
+            }
+            
+            handleKeydown(e, index) {
+                if (e.key === 'Backspace' && !e.target.value) {
+                    const prevInput = this.wordBlanks.querySelector(`[data-index="${index - 1}"]`);
+                    if (prevInput) {
+                        prevInput.focus();
+                    }
+                } else if (e.key === 'ArrowLeft') {
+                    const prevInput = this.wordBlanks.querySelector(`[data-index="${index - 1}"]`);
+                    if (prevInput) prevInput.focus();
+                } else if (e.key === 'ArrowRight') {
+                    const nextInput = this.wordBlanks.querySelector(`[data-index="${index + 1}"]`);
+                    if (nextInput) nextInput.focus();
+                }
+            }
+            
+            checkCompletion() {
+                const userWord = this.userInput.join('').toLowerCase();
+                const correctWord = this.currentWord.english.toLowerCase();
+                
+                if (userWord === correctWord) {
+                    this.completeWord();
+                }
+            }
+            
+            completeWord() {
+                let points = 10;
+                if (!this.hintUsed) points += 5;
+                if (this.currentDifficulty === 'medium') points *= 1.5;
+                if (this.currentDifficulty === 'hard') points *= 2;
+                
+                this.score += Math.round(points);
+                this.correctCount++;
+                this.streak++;
+                
+                this.updateHint(`恭喜！拼写正确！获得 ${Math.round(points)} 分`);
+                this.nextBtn.style.display = 'inline-block';
+                
+                // 禁用所有输入框
+                this.wordBlanks.querySelectorAll('.letter-input').forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            showHint() {
+                const correctWord = this.currentWord.english;
+                const emptyIndices = [];
+                
+                this.userInput.forEach((letter, index) => {
+                    if (!letter || letter !== correctWord[index].toLowerCase()) {
+                        emptyIndices.push(index);
+                    }
+                });
+                
+                if (emptyIndices.length > 0) {
+                    const randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+                    const hintLetter = correctWord[randomIndex];
+                    
+                    const input = this.wordBlanks.querySelector(`[data-index="${randomIndex}"]`);
+                    input.value = hintLetter;
+                    input.classList.add('correct');
+                    this.userInput[randomIndex] = hintLetter.toLowerCase();
+                    
+                    this.updateHint(`提示：第 ${randomIndex + 1} 个字母是 "${hintLetter.toUpperCase()}"`);
+                    this.hintUsed = true;
+                    
+                    this.checkCompletion();
+                    this.updateProgress();
+                }
+            }
+            
+            clearInput() {
+                this.userInput.fill('');
+                this.wordBlanks.querySelectorAll('.letter-input').forEach(input => {
+                    input.value = '';
+                    input.classList.remove('correct', 'wrong');
+                    input.disabled = false;
+                });
+                this.updateProgress();
+                this.wordBlanks.querySelector('.letter-input').focus();
+            }
+            
+            skipWord() {
+                this.streak = 0;
+                this.updateHint(`正确答案是：${this.currentWord.english}`);
+                this.nextBtn.style.display = 'inline-block';
+                
+                // 显示正确答案
+                this.wordBlanks.querySelectorAll('.letter-input').forEach((input, index) => {
+                    input.value = this.currentWord.english[index];
+                    input.classList.add('correct');
+                    input.disabled = true;
+                });
+            }
+            
+            nextWord() {
+                const words = this.words[this.currentDifficulty];
+                this.currentWordIndex = (this.currentWordIndex + 1) % words.length;
+                this.wordCount++;
+                this.updateStats();
+                this.startNewWord();
+            }
+            
+            updateProgress() {
+                const filledCount = this.userInput.filter(letter => letter).length;
+                const progress = (filledCount / this.currentWord.english.length) * 100;
+                this.progressFill.style.width = progress + '%';
+            }
+            
+            updateHint(message) {
+                this.hintArea.textContent = message;
+            }
+            
+            updateStats() {
+                this.scoreSpan.textContent = this.score;
+                this.wordCountSpan.textContent = this.wordCount;
+                const accuracy = this.wordCount > 0 ?
+                    Math.round((this.correctCount / this.wordCount) * 100) : 0;
+                this.accuracySpan.textContent = accuracy + '%';
+                this.streakSpan.textContent = this.streak;
+            }
+        }
+        
+        // 启动游戏
+        new EnglishSpellingGame();
+    </script>
+</body>
+</html>

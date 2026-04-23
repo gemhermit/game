@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浮力仿真 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="浮力仿真把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="浮力仿真,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/buoyancy.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="浮力仿真 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="浮力仿真把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/buoyancy.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="浮力仿真 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="浮力仿真把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"浮力仿真","description":"浮力仿真把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/buoyancy.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #0ea5e9; /* Sky blue */
+            --secondary-color: #475569;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --sidebar-width: 360px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-color);
+            color: #1e293b;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: 4px 0 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .control-section {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Object Selector */
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .material-btn {
+            padding: 8px;
+            border: 2px solid #cbd5e1;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            color: var(--secondary-color);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .material-btn:hover {
+            border-color: var(--primary-color);
+            background: #eff6ff;
+        }
+
+        .material-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Stats Panel */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-unit {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        /* Controls */
+        .slider-group {
+            margin-bottom: 16px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .slider-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            position: relative;
+            background-color: #f8fafc;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #simCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            cursor: grab;
+        }
+
+        #simCanvas:active {
+            cursor: grabbing;
+        }
+
+        /* Theory Overlay */
+        .theory-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            pointer-events: none;
+        }
+
+        .theory-title {
+            font-weight: 600;
+            color: #b45309;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .theory-formula {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 10px 0;
+            color: #1e293b;
+        }
+
+        .legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        /* Toggle Button */
+        .toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .toggle-btn.active {
+            background: #dcfce7;
+            border-color: var(--success-color);
+        }
+        
+        .toggle-status {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #cbd5e1;
+            color: #64748b;
+        }
+        
+        .toggle-btn.active .toggle-status {
+            background: var(--success-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 12h20M2 12l3-3m-3 3l3 3m14-3l-3-3m3 3l-3 3"></path>
+                </svg>
+                浮力仿真实验室
+            </h1>
+        </div>
+        
+        <div class="sidebar-content">
+            <!-- Material Selection -->
+            <div class="control-section">
+                <div class="section-title">选择材质</div>
+                <div class="material-grid" id="materialGrid">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <!-- Parameters -->
+            <div class="control-section">
+                <div class="section-title">物体属性</div>
+                
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span>密度 (ρ)</span>
+                        <span class="slider-value" id="val-density">0.6</span>
+                    </div>
+                    <input type="range" id="input-density" min="0.1" max="8.0" step="0.1" value="0.6">
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span>体积/大小</span>
+                        <span class="slider-value" id="val-size">100cm³</span>
+                    </div>
+                    <input type="range" id="input-size" min="20" max="200" step="10" value="100">
+                </div>
+            </div>
+
+            <div class="control-section">
+                <div class="section-title">液体环境</div>
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span>液体密度</span>
+                        <span class="slider-value" id="val-liquid-density">1.0</span>
+                    </div>
+                    <input type="range" id="input-liquid-density" min="0.5" max="2.0" step="0.1" value="1.0">
+                    <div style="font-size:0.8rem; color:#64748b; margin-top:5px; text-align:right;">
+                        <span id="liquid-type">纯水</span>
+                    </div>
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span>液体粘度/阻尼</span>
+                        <span class="slider-value" id="val-viscosity">0.05</span>
+                    </div>
+                    <input type="range" id="input-viscosity" min="0.01" max="0.2" step="0.01" value="0.05">
+                </div>
+                
+                <div class="toggle-btn active" id="btn-forces">
+                    <span style="font-size:0.9rem;">显示受力分析</span>
+                    <span class="toggle-status">开启</span>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="control-section">
+                <div class="section-title">实时数据</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">重力 (G)</div>
+                        <div class="stat-value" id="stat-gravity">0.0</div>
+                        <div class="stat-unit">N</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">浮力 (F浮)</div>
+                        <div class="stat-value" id="stat-buoyancy">0.0</div>
+                        <div class="stat-unit">N</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">排开体积</div>
+                        <div class="stat-value" id="stat-vsub">0</div>
+                        <div class="stat-unit">cm³</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">状态</div>
+                        <div class="stat-value" id="stat-state" style="font-size:1rem;">--</div>
+                        <div class="stat-unit"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-section">
+                <button class="material-btn" style="width:100%; background:#ef4444; color:white; border:none;" id="btn-reset">
+                    重置实验
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <canvas id="simCanvas"></canvas>
+        <div class="theory-overlay">
+            <div class="theory-title">阿基米德原理</div>
+            <div class="theory-formula">F<sub>浮</sub> = ρ<sub>液</sub> g V<sub>排</sub></div>
+            <div style="font-size:0.9rem; color:#475569;">
+                浮力大小等于物体排开液体所受的重力。
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#ef4444;"></div>
+                    <span>重力 G</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#22c55e;"></div>
+                    <span>浮力 F<sub>浮</sub></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class BuoyancyGame {
+            constructor() {
+                this.canvas = document.getElementById('simCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.width = this.canvas.width;
+                this.height = this.canvas.height;
+                
+                // Constants
+                this.g = 980; // Adjusted for pixel scale (approx 1000px/m)
+                this.scale = 2; 
+                
+                // State
+                this.params = {
+                    objDensity: 0.6, // g/cm3
+                    objVolume: 100, // cm3 (Visual size linked to cube root)
+                    liquidDensity: 1.0, // g/cm3
+                    viscosity: 0.05, // Damping factor
+                    showForces: true
+                };
+
+                // Object Physics State
+                this.obj = {
+                    x: 0,
+                    y: 0, // Top-left corner
+                    w: 0, // Calculated from volume
+                    h: 0,
+                    vy: 0,
+                    ay: 0,
+                    color: '#8B4513'
+                };
+
+                this.interaction = {
+                    isDragging: false,
+                    dragOffsetX: 0,
+                    dragOffsetY: 0,
+                    lastY: 0,
+                    lastTime: 0,
+                    throwVy: 0
+                };
+
+                // Materials Library
+                this.materials = [
+                    { id: 'wood', name: '木块', density: 0.6, color: '#8B4513' },
+                    { id: 'plastic', name: '塑料', density: 0.9, color: '#38bdf8' },
+                    { id: 'water', name: '水球', density: 1.0, color: '#60a5fa' },
+                    { id: 'brick', name: '砖块', density: 2.0, color: '#b91c1c' },
+                    { id: 'iron', name: '铁块', density: 7.8, color: '#475569' },
+                    { id: 'gold', name: '金块', density: 19.3, color: '#fbbf24' }
+                ];
+
+                this.init();
+            }
+
+            init() {
+                this.setupUI();
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                
+                // Canvas Interactions
+                this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+                window.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+                window.addEventListener('mouseup', () => this.handleMouseUp());
+
+                // Start Loop
+                this.resetObject();
+                this.animate();
+            }
+
+            setupUI() {
+                // Material Buttons
+                const grid = document.getElementById('materialGrid');
+                this.materials.forEach(mat => {
+                    const btn = document.createElement('div');
+                    btn.className = `material-btn ${mat.id === 'wood' ? 'active' : ''}`;
+                    btn.textContent = mat.name;
+                    btn.dataset.id = mat.id;
+                    btn.onclick = () => this.selectMaterial(mat, btn);
+                    grid.appendChild(btn);
+                });
+
+                // Sliders
+                const bindSlider = (id, param, cb) => {
+                    const el = document.getElementById(id);
+                    el.addEventListener('input', (e) => {
+                        this.params[param] = parseFloat(e.target.value);
+                        if (cb) cb(this.params[param]);
+                        this.updateObjectProps();
+                    });
+                };
+
+                bindSlider('input-density', 'objDensity', (v) => {
+                    document.getElementById('val-density').textContent = v.toFixed(1);
+                    // Deselect material if custom density
+                    document.querySelectorAll('.material-btn').forEach(b => b.classList.remove('active'));
+                });
+
+                bindSlider('input-size', 'objVolume', (v) => {
+                    document.getElementById('val-size').textContent = v + 'cm³';
+                });
+
+                bindSlider('input-liquid-density', 'liquidDensity', (v) => {
+                    document.getElementById('val-liquid-density').textContent = v.toFixed(1);
+                    let type = '其他液体';
+                    if (v === 1.0) type = '纯水';
+                    else if (v < 1.0) type = '油/酒精';
+                    else if (v > 1.0) type = '盐水/浓液';
+                    document.getElementById('liquid-type').textContent = type;
+                });
+
+                bindSlider('input-viscosity', 'viscosity', (v) => {
+                    document.getElementById('val-viscosity').textContent = v.toFixed(2);
+                });
+
+                // Toggle
+                document.getElementById('btn-forces').addEventListener('click', (e) => {
+                    this.params.showForces = !this.params.showForces;
+                    const el = e.currentTarget;
+                    el.classList.toggle('active');
+                    el.querySelector('.toggle-status').textContent = this.params.showForces ? '开启' : '关闭';
+                });
+
+                document.getElementById('btn-reset').addEventListener('click', () => this.resetObject());
+            }
+
+            selectMaterial(mat, btn) {
+                document.querySelectorAll('.material-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                this.params.objDensity = mat.density;
+                this.obj.color = mat.color;
+                
+                // Update slider
+                document.getElementById('input-density').value = mat.density;
+                document.getElementById('val-density').textContent = mat.density.toFixed(1);
+                
+                this.updateObjectProps();
+            }
+
+            updateObjectProps() {
+                // Volume to Side Length (assume cube)
+                const side = Math.pow(this.params.objVolume, 1/3) * 10; // Visual scale factor
+                this.obj.w = side;
+                this.obj.h = side;
+            }
+
+            resetObject() {
+                this.updateObjectProps();
+                this.obj.x = this.width / 2 - this.obj.w / 2;
+                this.obj.y = 100; // Drop from air
+                this.obj.vy = 0;
+                this.obj.ay = 0;
+            }
+
+            resize() {
+                const parent = this.canvas.parentElement;
+                this.canvas.width = parent.clientWidth;
+                this.canvas.height = parent.clientHeight;
+                this.width = this.canvas.width;
+                this.height = this.canvas.height;
+                
+                // Keep object in bounds
+                this.obj.x = Math.min(Math.max(0, this.obj.x), this.width - this.obj.w);
+            }
+
+            handleMouseDown(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+
+                if (mx >= this.obj.x && mx <= this.obj.x + this.obj.w &&
+                    my >= this.obj.y && my <= this.obj.y + this.obj.h) {
+                    this.interaction.isDragging = true;
+                    this.interaction.dragOffsetX = mx - this.obj.x;
+                    this.interaction.dragOffsetY = my - this.obj.y;
+                    this.obj.vy = 0; // Stop momentum on grab
+                    
+                    // Reset throw tracking
+                    this.interaction.lastY = this.obj.y;
+                    this.interaction.lastTime = Date.now();
+                    this.interaction.throwVy = 0;
+                }
+            }
+
+            handleMouseMove(e) {
+                if (!this.interaction.isDragging) return;
+                
+                const rect = this.canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+
+                this.obj.x = mx - this.interaction.dragOffsetX;
+                this.obj.y = my - this.interaction.dragOffsetY;
+                
+                // Track velocity for throw
+                const now = Date.now();
+                const dt = now - this.interaction.lastTime;
+                if (dt > 0) {
+                    const dy = this.obj.y - this.interaction.lastY;
+                    // Smoothing factor
+                    this.interaction.throwVy = (dy / (dt / 1000)); 
+                    this.interaction.lastY = this.obj.y;
+                    this.interaction.lastTime = now;
+                }
+            }
+
+            handleMouseUp() {
+                if (this.interaction.isDragging) {
+                    this.interaction.isDragging = false;
+                    // Apply throw velocity (cap it to prevent crazy speeds)
+                    this.obj.vy = Math.max(-2000, Math.min(2000, this.interaction.throwVy));
+                }
+            }
+
+            physicsStep() {
+                if (this.interaction.isDragging) return;
+
+                const dt = 1/60;
+                const liquidLevel = this.height * 0.4; // Liquid surface Y coordinate (from top)
+                const liquidY = liquidLevel;
+                const bottomY = this.height;
+
+                // 1. Gravity
+                // Mass = Density * Volume
+                const mass = this.params.objDensity * this.params.objVolume;
+                const Fg = mass * this.g;
+
+                // 2. Buoyancy
+                // Calculate submerged volume
+                let vSub = 0;
+                let submergedHeight = 0;
+                
+                const objBottom = this.obj.y + this.obj.h;
+                const objTop = this.obj.y;
+                
+                if (objBottom > liquidY) {
+                    if (objTop > liquidY) {
+                        // Fully submerged
+                        submergedHeight = this.obj.h;
+                    } else {
+                        // Partially submerged
+                        submergedHeight = objBottom - liquidY;
+                    }
+                }
+                
+                // Ratio of submerged height to total height * Total Volume
+                const ratio = Math.min(Math.max(submergedHeight / this.obj.h, 0), 1);
+                vSub = ratio * this.params.objVolume;
+                
+                const Fb = this.params.liquidDensity * this.g * vSub;
+
+                // 3. Drag (Water resistance)
+                let dragCoeff = 0.05; // Air
+                if (ratio > 0) dragCoeff = 0.5 * ratio; // Liquid drag is higher
+                const Fd = -dragCoeff * this.obj.vy * Math.abs(this.obj.vy) * 2; // Quadratic drag for stability
+
+                // Damping (linear) - Adjusted for new scale
+                // a = -k * v. We want reasonable decay.
+                // Let's use F_damping = -k * m * v, so a_damping is independent of mass.
+                // Use viscosity parameter
+                const damping = -2.0 * mass * this.obj.vy * this.params.viscosity; 
+
+                // Net Force
+                const Fnet = Fg - Fb + damping;
+
+                // Acceleration
+                this.obj.ay = Fnet / mass;
+
+                // Integration
+                this.obj.vy += this.obj.ay * dt;
+                this.obj.y += this.obj.vy * dt;
+
+                // Boundary Collisions
+                // Floor
+                if (this.obj.y + this.obj.h > bottomY) {
+                    this.obj.y = bottomY - this.obj.h;
+                    this.obj.vy *= -0.3; // Bounce with energy loss
+                    if (Math.abs(this.obj.vy) < 10) this.obj.vy = 0; // Threshold increased for higher scale
+                }
+                
+                // Ceiling (prevent flying off screen)
+                if (this.obj.y < 0) {
+                    this.obj.y = 0;
+                    this.obj.vy *= -0.3;
+                }
+
+                // Walls
+                if (this.obj.x < 0) {
+                    this.obj.x = 0;
+                    this.obj.vy *= 0.9;
+                }
+                if (this.obj.x + this.obj.w > this.width) {
+                    this.obj.x = this.width - this.obj.w;
+                    this.obj.vy *= 0.9;
+                }
+
+                // Update Stats (Scale Fg/Fb down to realistic Newton values)
+                // Assuming 100px = 0.1m, so scale factor 1000
+                const forceScale = 0.001; 
+                this.updateStats(Fg * forceScale, Fb * forceScale, vSub, mass);
+            }
+
+            updateStats(Fg, Fb, vSub, mass) {
+                document.getElementById('stat-gravity').textContent = Fg.toFixed(1);
+                document.getElementById('stat-buoyancy').textContent = Fb.toFixed(1);
+                document.getElementById('stat-vsub').textContent = vSub.toFixed(1);
+                
+                let state = '--';
+                const densityDiff = this.params.objDensity - this.params.liquidDensity;
+                if (this.obj.y + this.obj.h >= this.height - 1) state = '沉底';
+                else if (Math.abs(densityDiff) < 0.01) state = '悬浮';
+                else if (densityDiff < 0) state = '漂浮';
+                else state = '下沉中';
+                
+                document.getElementById('stat-state').textContent = state;
+                
+                // Color code state
+                const stateEl = document.getElementById('stat-state');
+                if (state === '漂浮') stateEl.style.color = '#22c55e';
+                else if (state === '沉底') stateEl.style.color = '#ef4444';
+                else stateEl.style.color = '#f59e0b';
+            }
+
+            draw() {
+                const ctx = this.ctx;
+                ctx.clearRect(0, 0, this.width, this.height);
+
+                const liquidLevel = this.height * 0.4;
+
+                // 1. Draw Liquid
+                const grad = ctx.createLinearGradient(0, liquidLevel, 0, this.height);
+                grad.addColorStop(0, 'rgba(14, 165, 233, 0.4)'); // Sky blue transparent
+                grad.addColorStop(1, 'rgba(3, 105, 161, 0.6)'); // Darker blue
+
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, liquidLevel, this.width, this.height - liquidLevel);
+
+                // Surface Line
+                ctx.beginPath();
+                ctx.moveTo(0, liquidLevel);
+                // Simple wave effect
+                for(let i=0; i<=this.width; i+=10) {
+                    ctx.lineTo(i, liquidLevel + Math.sin(i/50 + Date.now()/500)*5);
+                }
+                ctx.lineTo(this.width, this.height);
+                ctx.lineTo(0, this.height);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.fill();
+
+                // 2. Draw Object
+                ctx.fillStyle = this.obj.color;
+                ctx.strokeStyle = '#1e293b';
+                ctx.lineWidth = 2;
+                
+                // Shadow
+                ctx.shadowColor = 'rgba(0,0,0,0.2)';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetY = 5;
+                
+                ctx.fillRect(this.obj.x, this.obj.y, this.obj.w, this.obj.h);
+                ctx.shadowColor = 'transparent'; // Reset shadow
+                ctx.strokeRect(this.obj.x, this.obj.y, this.obj.w, this.obj.h);
+
+                // Submerged Part Visualization (Darker overlay)
+                if (this.obj.y + this.obj.h > liquidLevel) {
+                    const subY = Math.max(this.obj.y, liquidLevel);
+                    const subH = Math.min(this.obj.h, (this.obj.y + this.obj.h) - subY);
+                    
+                    if (subH > 0) {
+                        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                        ctx.fillRect(this.obj.x, subY, this.obj.w, subH);
+                    }
+                }
+
+                // 3. Draw Forces
+                if (this.params.showForces) {
+                    const cx = this.obj.x + this.obj.w / 2;
+                    const cy = this.obj.y + this.obj.h / 2;
+                    
+                    // Scale forces for visualization
+                    // Fg is now ~58000. We want a line of ~100px.
+                    // Scale factor approx 0.002
+                    const scaleFactor = 0.002; 
+                    
+                    // Gravity (Down)
+                    const Fg = this.params.objDensity * this.params.objVolume * this.g;
+                    const lenG = Math.min(Fg * scaleFactor, 150);
+                    this.drawArrow(cx, cy, cx, cy + lenG, '#ef4444', 'G');
+
+                    // Buoyancy (Up) - Calculate strictly for vis
+                    let subH = 0;
+                    if (this.obj.y + this.obj.h > liquidLevel) {
+                        subH = Math.min(this.obj.h, (this.obj.y + this.obj.h) - Math.max(this.obj.y, liquidLevel));
+                    }
+                    const ratio = subH / this.obj.h;
+                    const Fb = this.params.liquidDensity * this.g * (ratio * this.params.objVolume);
+                    
+                    if (Fb > 0.1) {
+                        const lenB = Math.min(Fb * scaleFactor, 150);
+                        // Draw from bottom center up? Or center up? Center is better for FBD.
+                        this.drawArrow(cx, cy, cx, cy - lenB, '#22c55e', 'F浮');
+                    }
+                }
+            }
+
+            drawArrow(x1, y1, x2, y2, color, label) {
+                const ctx = this.ctx;
+                const headlen = 10;
+                const angle = Math.atan2(y2 - y1, x2 - x1);
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(x2, y2);
+                ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI / 6), y2 - headlen * Math.sin(angle - Math.PI / 6));
+                ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI / 6), y2 - headlen * Math.sin(angle + Math.PI / 6));
+                ctx.fillStyle = color;
+                ctx.fill();
+
+                // Label
+                ctx.fillStyle = color;
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+                const labelX = x2 + 10;
+                const labelY = y2;
+                ctx.fillText(label, labelX, labelY);
+            }
+
+            animate() {
+                this.physicsStep();
+                this.draw();
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        window.onload = () => {
+            new BuoyancyGame();
+        };
+    </script>
+</body>
+</html>

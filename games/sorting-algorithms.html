@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排序算法 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="排序算法把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="排序算法,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/sorting-algorithms.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="排序算法 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="排序算法把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/sorting-algorithms.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="排序算法 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="排序算法把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"排序算法","description":"排序算法把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/sorting-algorithms.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+            --text-secondary: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 340px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Mode Selector */
+        .mode-selector {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .mode-btn {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mode-btn:hover {
+            background: #f1f5f9;
+            color: var(--text-color);
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Algorithm Info Card */
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .info-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .info-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .info-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .complexity-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .complexity-item {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .complexity-label {
+            color: var(--text-secondary);
+        }
+
+        .complexity-value {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+        }
+
+        /* Stats Card */
+        .stats-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-color);
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        /* Legend */
+        .legend {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .legend-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 12px;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        /* Controls */
+        .control-panel {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 16px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .control-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .control-value {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 12px;
+            color: var(--primary-color);
+            background: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        /* Action Buttons */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 70px;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .btn-start {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-start:hover {
+            background: #16a34a;
+        }
+
+        .btn-pause {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-pause:hover {
+            background: #d97706;
+        }
+
+        .btn-reset {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #dc2626;
+        }
+
+        .btn-shuffle {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-shuffle:hover {
+            background: #475569;
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f1f5f9;
+            position: relative;
+            padding: 20px;
+        }
+
+        .visualization-area {
+            flex: 1;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar {
+            background: linear-gradient(180deg, #74b9ff 0%, #0984e3 100%);
+            margin: 0 2px;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.2s ease;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 10px;
+            padding-bottom: 6px;
+            min-width: 12px;
+            cursor: pointer;
+        }
+
+        .bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+            border-radius: 4px 4px 0 0;
+            pointer-events: none;
+        }
+
+        .bar:hover {
+            filter: brightness(1.1);
+        }
+
+        .bar.comparing {
+            background: linear-gradient(180deg, #ff7675 0%, #d63031 100%);
+            box-shadow: 0 4px 15px rgba(214, 48, 49, 0.4);
+        }
+
+        .bar.swapping {
+            background: linear-gradient(180deg, #ffeaa7 0%, #fdcb6e 100%);
+            box-shadow: 0 4px 15px rgba(253, 203, 110, 0.4);
+        }
+
+        .bar.pivot {
+            background: linear-gradient(180deg, #a29bfe 0%, #6c5ce7 100%);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .bar.sorted {
+            background: linear-gradient(180deg, #55efc4 0%, #00b894 100%);
+            box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
+        }
+
+        .bar.current {
+            animation: glow 0.8s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .completion-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, var(--success-color), #16a34a);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 10px 40px rgba(0, 184, 148, 0.5);
+            z-index: 100;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .completion-badge.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+
+            .main-content {
+                height: 500px;
+                padding: 12px;
+            }
+
+            .mode-selector {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .mode-selector:not(:first-of-type) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .mode-btn {
+                padding: 8px 6px;
+                font-size: 11px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .legend-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-row {
+                flex-wrap: nowrap;
+            }
+
+            .action-btn {
+                flex: 1;
+                min-width: auto;
+                padding: 10px 8px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="header">
+            <h1>排序算法可视化</h1>
+            <div class="subtitle">交互式算法学习演示</div>
+        </div>
+
+        <div class="mode-selector" id="algorithmButtons">
+            <button class="mode-btn active" data-algorithm="bubble">冒泡</button>
+            <button class="mode-btn" data-algorithm="selection">选择</button>
+            <button class="mode-btn" data-algorithm="insertion">插入</button>
+            <button class="mode-btn" data-algorithm="shell">希尔</button>
+            <button class="mode-btn" data-algorithm="heap">堆</button>
+        </div>
+        <div class="mode-selector" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 24px;">
+            <button class="mode-btn" data-algorithm="quick">快速</button>
+            <button class="mode-btn" data-algorithm="merge">归并</button>
+            <button class="mode-btn" data-algorithm="radix">计数</button>
+        </div>
+
+        <div class="info-card" id="infoCard">
+            <div class="info-header">
+                <div class="info-icon" style="background: linear-gradient(135deg, #ff7675, #d63031);">🌊</div>
+                <div class="info-title" id="algorithmName">冒泡排序</div>
+            </div>
+            <div class="info-desc" id="algorithmDesc">
+                重复遍历数组，比较相邻元素，顺序错误则交换。
+            </div>
+            <div class="complexity-row">
+                <div class="complexity-item">
+                    <span class="complexity-label">时间: </span>
+                    <span class="complexity-value" id="timeComplexity">O(n²)</span>
+                </div>
+                <div class="complexity-item">
+                    <span class="complexity-label">空间: </span>
+                    <span class="complexity-value" id="spaceComplexity">O(1)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-card">
+            <div class="stats-grid">
+                <div class="stat-row">
+                    <span class="stat-label">比较次数</span>
+                    <span class="stat-value" id="comparisons">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">交换次数</span>
+                    <span class="stat-value" id="swaps">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">数组大小</span>
+                    <span class="stat-value" id="arraySize">20</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">用时</span>
+                    <span class="stat-value" id="timeElapsed">0.0s</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-title">图例说明</div>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(180deg, #ff7675, #d63031);"></div>
+                    <span>比较中</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(180deg, #ffeaa7, #fdcb6e);"></div>
+                    <span>交换中</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(180deg, #a29bfe, #6c5ce7);"></div>
+                    <span>基准/堆顶</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(180deg, #55efc4, #00b894);"></div>
+                    <span>已排序</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">数组大小</span>
+                    <span class="control-value" id="arraySizeValue">20</span>
+                </div>
+                <input type="range" id="arraySizeSlider" min="10" max="30" value="20">
+            </div>
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">动画速度</span>
+                    <span class="control-value" id="speedValue">5</span>
+                </div>
+                <input type="range" id="speedSlider" min="1" max="10" value="5">
+            </div>
+        </div>
+
+        <div class="action-row">
+            <button class="action-btn btn-start" id="startBtn">▶ 开始</button>
+            <button class="action-btn btn-pause" id="pauseBtn" disabled>⏸ 暂停</button>
+            <button class="action-btn btn-reset" id="resetBtn">↺ 重置</button>
+        </div>
+        <div class="action-row" style="margin-top: 10px;">
+            <button class="action-btn btn-shuffle" id="shuffleBtn">🔀 随机</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="visualization-area" id="visualizationArea">
+            <div class="completion-badge" id="completionBadge">排序完成!</div>
+        </div>
+    </main>
+
+    <script>
+        class SortingVisualizer {
+            constructor() {
+                this.array = [];
+                this.arraySize = 20;
+                this.speed = 5;
+                this.currentAlgorithm = 'bubble';
+                this.isRunning = false;
+                this.isPaused = false;
+                this.comparisons = 0;
+                this.swaps = 0;
+                this.animationId = null;
+                this.startTime = 0;
+                this.timerInterval = null;
+
+                this.algorithmInfo = {
+                    bubble: {
+                        name: '冒泡排序',
+                        icon: '🌊',
+                        desc: '重复遍历数组，比较相邻元素，顺序错误则交换。每轮将最大元素"冒泡"到末尾。',
+                        timeComplexity: 'O(n²)',
+                        spaceComplexity: 'O(1)',
+                        color: 'linear-gradient(135deg, #ff7675, #d63031)'
+                    },
+                    selection: {
+                        name: '选择排序',
+                        icon: '🎯',
+                        desc: '从未排序区间选出最小元素，放到已排序区间的末尾。重复直到全部有序。',
+                        timeComplexity: 'O(n²)',
+                        spaceComplexity: 'O(1)',
+                        color: 'linear-gradient(135deg, #fd79a8, #e84393)'
+                    },
+                    insertion: {
+                        name: '插入排序',
+                        icon: '🃏',
+                        desc: '将元素逐个插入已排序序列的正确位置。类似于整理扑克牌的方式。',
+                        timeComplexity: 'O(n²)',
+                        spaceComplexity: 'O(1)',
+                        color: 'linear-gradient(135deg, #ffeaa7, #fdcb6e)'
+                    },
+                    shell: {
+                        name: '希尔排序',
+                        icon: '📊',
+                        desc: '插入排序的改进版，通过将数组分成多个子序列进行插入排序，逐步缩小间隔直到1。',
+                        timeComplexity: 'O(n^{1.5})',
+                        spaceComplexity: 'O(1)',
+                        color: 'linear-gradient(135deg, #74b9ff, #0984e3)'
+                    },
+                    heap: {
+                        name: '堆排序',
+                        icon: '🌳',
+                        desc: '利用二叉堆数据结构，先构建最大堆，然后重复取出堆顶元素并调整堆。',
+                        timeComplexity: 'O(n log n)',
+                        spaceComplexity: 'O(1)',
+                        color: 'linear-gradient(135deg, #00b894, #00a085)'
+                    },
+                    quick: {
+                        name: '快速排序',
+                        icon: '⚡',
+                        desc: '选择一个基准元素，将数组分为小于和大于基准的两部分，递归排序。',
+                        timeComplexity: 'O(n log n)',
+                        spaceComplexity: 'O(log n)',
+                        color: 'linear-gradient(135deg, #a29bfe, #6c5ce7)'
+                    },
+                    merge: {
+                        name: '归并排序',
+                        icon: '🔀',
+                        desc: '将数组递归分割成单元素，再合并成有序数组。稳定且高效的分治算法。',
+                        timeComplexity: 'O(n log n)',
+                        spaceComplexity: 'O(n)',
+                        color: 'linear-gradient(135deg, #fd79a8, #e84393)'
+                    },
+                    radix: {
+                        name: '计数排序',
+                        icon: '🔢',
+                        desc: '非比较型排序，统计每个元素出现的次数，然后按计数输出。适合整数排序。',
+                        timeComplexity: 'O(n+k)',
+                        spaceComplexity: 'O(n+k)',
+                        color: 'linear-gradient(135deg, #fdcb6e, #e17055)'
+                    }
+                };
+
+                this.initializeArray();
+                this.bindEvents();
+                this.updateAlgorithmInfo();
+                this.renderArray();
+            }
+
+            initializeArray() {
+                this.array = [];
+                for (let i = 0; i < this.arraySize; i++) {
+                    this.array.push({
+                        value: Math.floor(Math.random() * 180) + 20,
+                        state: 'normal'
+                    });
+                }
+                this.resetStats();
+            }
+
+            resetStats() {
+                this.comparisons = 0;
+                this.swaps = 0;
+                this.updateStats();
+                this.stopTimer();
+                document.getElementById('timeElapsed').textContent = '0.0s';
+            }
+
+            updateStats() {
+                document.getElementById('comparisons').textContent = this.comparisons;
+                document.getElementById('swaps').textContent = this.swaps;
+                document.getElementById('arraySize').textContent = this.array.length;
+
+                const sortedCount = this.array.filter(item => item.state === 'sorted').length;
+                const progress = Math.round((sortedCount / this.array.length) * 100);
+                document.getElementById('progressFill').style.width = `${progress}%`;
+            }
+
+            startTimer() {
+                this.startTime = Date.now();
+                this.timerInterval = setInterval(() => {
+                    const elapsed = ((Date.now() - this.startTime) / 1000).toFixed(1);
+                    document.getElementById('timeElapsed').textContent = `${elapsed}s`;
+                }, 100);
+            }
+
+            stopTimer() {
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                    this.timerInterval = null;
+                }
+            }
+
+            renderArray() {
+                const container = document.getElementById('visualizationArea');
+                const badge = document.getElementById('completionBadge');
+                container.innerHTML = '';
+                container.appendChild(badge);
+
+                if (this.array.length === 0) return;
+
+                const maxValue = Math.max(...this.array.map(item => item.value));
+                const containerWidth = container.clientWidth - 40;
+                const containerHeight = container.clientHeight - 40;
+                const barWidth = Math.max(8, Math.min(25, (containerWidth - this.array.length * 4) / this.array.length));
+
+                this.array.forEach((item, index) => {
+                    const bar = document.createElement('div');
+                    bar.className = `bar ${item.state}`;
+                    bar.style.width = `${barWidth}px`;
+                    bar.style.height = `${Math.max((item.value / maxValue) * containerHeight, 15)}px`;
+                    bar.textContent = item.value;
+                    bar.id = `bar-${index}`;
+                    bar.title = `值: ${item.value}`;
+                    container.appendChild(bar);
+                });
+            }
+
+            updateAlgorithmInfo() {
+                const info = this.algorithmInfo[this.currentAlgorithm];
+                document.getElementById('algorithmName').textContent = info.name;
+                document.getElementById('algorithmDesc').textContent = info.desc;
+                document.getElementById('timeComplexity').textContent = info.timeComplexity;
+                document.getElementById('spaceComplexity').textContent = info.spaceComplexity;
+                document.querySelector('.info-icon').style.background = info.color;
+                document.querySelector('.info-icon').textContent = info.icon;
+            }
+
+            sleep(ms) {
+                return new Promise(resolve => {
+                    this.animationId = setTimeout(resolve, ms);
+                });
+            }
+
+            getDelay() {
+                return Math.max(20, 500 - this.speed * 45);
+            }
+
+            async highlightComparison(i, j, keepHighlighted = true) {
+                this.array[i].state = 'comparing';
+                this.array[j].state = 'comparing';
+                this.comparisons++;
+                this.renderArray();
+                this.updateStats();
+                await this.sleep(this.getDelay());
+
+                if (keepHighlighted) {
+                    this.array[i].state = 'normal';
+                    this.array[j].state = 'normal';
+                }
+            }
+
+            async swap(i, j) {
+                this.array[i].state = 'swapping';
+                this.array[j].state = 'swapping';
+                this.swaps++;
+                this.renderArray();
+                await this.sleep(this.getDelay());
+
+                [this.array[i].value, this.array[j].value] = [this.array[j].value, this.array[i].value];
+
+                this.array[i].state = 'normal';
+                this.array[j].state = 'normal';
+                this.renderArray();
+                this.updateStats();
+            }
+
+            async bubbleSort() {
+                const n = this.array.length;
+
+                for (let i = 0; i < n - 1; i++) {
+                    for (let j = 0; j < n - i - 1; j++) {
+                        if (!this.isRunning) return;
+
+                        await this.highlightComparison(j, j + 1, false);
+
+                        if (this.array[j].value > this.array[j + 1].value) {
+                            await this.swap(j, j + 1);
+                        } else {
+                            this.array[j].state = 'normal';
+                            this.array[j + 1].state = 'normal';
+                            this.renderArray();
+                        }
+                    }
+                    this.array[n - i - 1].state = 'sorted';
+                    this.renderArray();
+                    this.updateStats();
+                }
+
+                if (this.array.length > 0) {
+                    this.array[0].state = 'sorted';
+                }
+                this.renderArray();
+                this.updateStats();
+                this.onSortComplete();
+            }
+
+            async selectionSort() {
+                const n = this.array.length;
+
+                for (let i = 0; i < n - 1; i++) {
+                    let minIdx = i;
+                    this.array[i].state = 'current';
+
+                    for (let j = i + 1; j < n; j++) {
+                        if (!this.isRunning) return;
+
+                        await this.highlightComparison(minIdx, j, false);
+
+                        if (this.array[j].value < this.array[minIdx].value) {
+                            if (minIdx !== i) this.array[minIdx].state = 'normal';
+                            minIdx = j;
+                            this.array[minIdx].state = 'comparing';
+                        } else {
+                            this.array[j].state = 'normal';
+                        }
+                        this.renderArray();
+                    }
+
+                    if (minIdx !== i) {
+                        await this.swap(i, minIdx);
+                    }
+
+                    this.array[i].state = 'sorted';
+                    this.array[minIdx].state = 'normal';
+                    this.renderArray();
+                    this.updateStats();
+                }
+
+                if (this.array.length > 0) {
+                    this.array[n - 1].state = 'sorted';
+                }
+                this.renderArray();
+                this.updateStats();
+                this.onSortComplete();
+            }
+
+            async insertionSort() {
+                const n = this.array.length;
+
+                if (n > 0) {
+                    this.array[0].state = 'sorted';
+                    this.renderArray();
+                }
+
+                for (let i = 1; i < n; i++) {
+                    if (!this.isRunning) return;
+
+                    let key = this.array[i].value;
+                    let j = i - 1;
+
+                    this.array[i].state = 'comparing';
+                    this.renderArray();
+                    await this.sleep(this.getDelay());
+
+                    while (j >= 0 && this.array[j].value > key) {
+                        if (!this.isRunning) return;
+
+                        await this.highlightComparison(j, j + 1, false);
+
+                        this.array[j + 1].value = this.array[j].value;
+                        this.array[j + 1].state = 'swapping';
+                        this.swaps++;
+                        j--;
+
+                        this.renderArray();
+                        this.updateStats();
+                        await this.sleep(this.getDelay());
+                    }
+
+                    this.array[j + 1].value = key;
+
+                    for (let k = 0; k <= i; k++) {
+                        this.array[k].state = 'sorted';
+                    }
+
+                    this.renderArray();
+                    this.updateStats();
+                }
+
+                this.onSortComplete();
+            }
+
+            async shellSort() {
+                const n = this.array.length;
+                let gap = Math.floor(n / 2);
+
+                while (gap > 0 && this.isRunning) {
+                    for (let i = gap; i < n; i++) {
+                        const temp = this.array[i].value;
+                        let j = i;
+
+                        this.array[i].state = 'comparing';
+                        this.renderArray();
+                        await this.sleep(this.getDelay());
+
+                        while (j >= gap && this.array[j - gap].value > temp) {
+                            if (!this.isRunning) return;
+
+                            this.array[j].value = this.array[j - gap].value;
+                            this.array[j].state = 'swapping';
+                            this.array[j - gap].state = 'comparing';
+                            this.swaps++;
+
+                            this.renderArray();
+                            this.updateStats();
+                            await this.sleep(this.getDelay());
+
+                            this.array[j - gap].state = 'normal';
+                            j -= gap;
+                        }
+
+                        this.array[j].value = temp;
+                        this.array[j].state = 'normal';
+
+                        // Mark sorted portion
+                        for (let k = 0; k <= i; k++) {
+                            this.array[k].state = 'sorted';
+                        }
+                        this.renderArray();
+                        this.updateStats();
+                    }
+
+                    gap = Math.floor(gap / 2);
+                }
+
+                // Final pass - mark all as sorted
+                this.array.forEach(item => item.state = 'sorted');
+                this.renderArray();
+                this.updateStats();
+                this.onSortComplete();
+            }
+
+            async heapSort() {
+                const n = this.array.length;
+
+                // Build max heap
+                for (let i = Math.floor(n / 2) - 1; i >= 0 && this.isRunning; i--) {
+                    await this.heapify(n, i);
+                }
+
+                // Extract elements from heap
+                for (let i = n - 1; i > 0 && this.isRunning; i--) {
+                    // Move current root to end
+                    this.array[0].state = 'swapping';
+                    this.array[i].state = 'swapping';
+                    this.swaps++;
+                    this.renderArray();
+                    await this.sleep(this.getDelay());
+
+                    [this.array[0].value, this.array[i].value] = [this.array[i].value, this.array[0].value];
+
+                    this.array[i].state = 'sorted';
+                    this.array[0].state = 'normal';
+                    this.renderArray();
+                    this.updateStats();
+
+                    // Call max heapify on the reduced heap
+                    await this.heapify(i, 0);
+                }
+
+                if (this.array.length > 0) {
+                    this.array[0].state = 'sorted';
+                }
+                this.renderArray();
+                this.updateStats();
+                this.onSortComplete();
+            }
+
+            async heapify(n, i) {
+                let largest = i;
+                const left = 2 * i + 1;
+                const right = 2 * i + 2;
+
+                // Highlight current element being heapified
+                this.array[i].state = 'pivot';
+                this.renderArray();
+                await this.sleep(this.getDelay());
+
+                if (left < n && this.isRunning) {
+                    this.array[left].state = 'comparing';
+                    this.renderArray();
+                    await this.sleep(this.getDelay() / 2);
+
+                    if (this.array[left].value > this.array[largest].value) {
+                        this.array[largest].state = 'normal';
+                        largest = left;
+                    }
+                    this.array[left].state = 'normal';
+                }
+
+                if (right < n && this.isRunning) {
+                    this.array[right].state = 'comparing';
+                    this.renderArray();
+                    await this.sleep(this.getDelay() / 2);
+
+                    if (this.array[right].value > this.array[largest].value) {
+                        this.array[largest].state = 'normal';
+                        largest = right;
+                    }
+                    this.array[right].state = 'normal';
+                }
+
+                if (largest !== i && this.isRunning) {
+                    this.array[i].state = 'swapping';
+                    this.array[largest].state = 'swapping';
+                    this.swaps++;
+                    this.renderArray();
+                    await this.sleep(this.getDelay());
+
+                    [this.array[i].value, this.array[largest].value] = [this.array[largest].value, this.array[i].value];
+
+                    this.array[i].state = 'normal';
+                    this.array[largest].state = 'normal';
+                    this.renderArray();
+
+                    // Recursively heapify the affected subtree
+                    await this.heapify(n, largest);
+                } else {
+                    this.array[i].state = 'normal';
+                }
+            }
+
+            async radixSort() {
+                const n = this.array.length;
+                if (n === 0 || !this.isRunning) {
+                    this.onSortComplete();
+                    return;
+                }
+
+                // Get max value to determine number of digits
+                const maxVal = Math.max(...this.array.map(item => item.value));
+
+                // For visualization, we'll use a simpler approach
+                // Group by value (bucket sort visualization)
+                const maxValue = Math.max(...this.array.map(item => item.value));
+                const buckets = [];
+
+                // Create buckets
+                for (let i = 0; i <= maxValue && this.isRunning; i++) {
+                    buckets.push([]);
+                }
+
+                // Distribute elements into buckets
+                for (let i = 0; i < n && this.isRunning; i++) {
+                    this.array[i].state = 'comparing';
+                    this.renderArray();
+                    await this.sleep(this.getDelay());
+
+                    buckets[this.array[i].value].push(this.array[i].value);
+                    this.array[i].state = 'swapping';
+                    this.swaps++;
+                    this.renderArray();
+                    await this.sleep(this.getDelay());
+                }
+
+                // If not running, skip remaining
+                if (!this.isRunning) {
+                    this.onSortComplete();
+                    return;
+                }
+
+                // Gather elements from buckets in order
+                let idx = 0;
+                for (let i = 0; i < buckets.length && this.isRunning; i++) {
+                    for (let j = 0; j < buckets[i].length && this.isRunning; j++) {
+                        this.array[idx].value = buckets[i][j];
+                        this.array[idx].state = 'sorted';
+                        this.renderArray();
+                        this.updateStats();
+                        await this.sleep(this.getDelay() / 2);
+                        idx++;
+                    }
+                }
+
+                this.renderArray();
+                this.updateStats();
+                this.onSortComplete();
+            }
+
+            async quickSort(low = 0, high = this.array.length - 1) {
+                if (low >= high || !this.isRunning) {
+                    if (low === 0 && high === this.array.length - 1 && this.isRunning) {
+                        this.onSortComplete();
+                    }
+                    return;
+                }
+
+                const pi = await this.partition(low, high);
+
+                if (!this.isRunning) {
+                    if (low === 0 && high === this.array.length - 1) {
+                        this.onSortComplete();
+                    }
+                    return;
+                }
+
+                await this.quickSort(low, pi - 1);
+                await this.quickSort(pi + 1, high);
+
+                if (low === 0 && high === this.array.length - 1) {
+                    this.onSortComplete();
+                }
+            }
+
+            async partition(low, high) {
+                const pivot = this.array[high].value;
+                this.array[high].state = 'pivot';
+                this.renderArray();
+                await this.sleep(this.getDelay());
+
+                let i = low - 1;
+
+                for (let j = low; j < high; j++) {
+                    if (!this.isRunning) return i + 1;
+
+                    await this.highlightComparison(j, high, false);
+
+                    if (this.array[j].value < pivot) {
+                        i++;
+                        if (i !== j) {
+                            await this.swap(i, j);
+                        }
+                    } else {
+                        this.array[j].state = 'normal';
+                    }
+                    this.array[high].state = 'pivot';
+                    this.renderArray();
+                }
+
+                if (i + 1 !== high) {
+                    await this.swap(i + 1, high);
+                }
+
+                this.array[i + 1].state = 'sorted';
+                this.array[high].state = 'normal';
+                this.renderArray();
+                this.updateStats();
+
+                return i + 1;
+            }
+
+            async mergeSort(left = 0, right = this.array.length - 1) {
+                if (left >= right || !this.isRunning) {
+                    if (left === 0 && right === this.array.length - 1 && this.isRunning) {
+                        this.onSortComplete();
+                    }
+                    return;
+                }
+
+                const mid = Math.floor((left + right) / 2);
+
+                await this.mergeSort(left, mid);
+                await this.mergeSort(mid + 1, right);
+                await this.merge(left, mid, right);
+
+                if (left === 0 && right === this.array.length - 1) {
+                    this.onSortComplete();
+                }
+            }
+
+            async merge(left, mid, right) {
+                const leftArr = [];
+                const rightArr = [];
+
+                for (let i = left; i <= mid; i++) {
+                    leftArr.push(this.array[i].value);
+                }
+                for (let i = mid + 1; i <= right; i++) {
+                    rightArr.push(this.array[i].value);
+                }
+
+                let i = 0, j = 0, k = left;
+
+                while (i < leftArr.length && j < rightArr.length && this.isRunning) {
+                    this.array[k].state = 'comparing';
+                    this.renderArray();
+                    await this.sleep(this.getDelay());
+
+                    if (leftArr[i] <= rightArr[j]) {
+                        this.array[k].value = leftArr[i];
+                        i++;
+                    } else {
+                        this.array[k].value = rightArr[j];
+                        j++;
+                    }
+
+                    this.array[k].state = 'normal';
+                    this.swaps++;
+                    k++;
+                    this.renderArray();
+                    this.updateStats();
+                }
+
+                while (i < leftArr.length && this.isRunning) {
+                    this.array[k].value = leftArr[i];
+                    this.array[k].state = 'comparing';
+                    this.renderArray();
+                    await this.sleep(this.getDelay());
+                    this.array[k].state = 'sorted';
+                    i++;
+                    k++;
+                    this.swaps++;
+                    this.renderArray();
+                    this.updateStats();
+                }
+
+                while (j < rightArr.length && this.isRunning) {
+                    this.array[k].value = rightArr[j];
+                    this.array[k].state = 'comparing';
+                    this.renderArray();
+                    await this.sleep(this.getDelay());
+                    this.array[k].state = 'sorted';
+                    j++;
+                    k++;
+                    this.swaps++;
+                    this.renderArray();
+                    this.updateStats();
+                }
+
+                for (let m = left; m <= right; m++) {
+                    this.array[m].state = 'sorted';
+                }
+                this.renderArray();
+            }
+
+            async startSorting() {
+                if (this.isRunning) return;
+
+                this.isRunning = true;
+                this.isPaused = false;
+                this.resetStats();
+                this.startTimer();
+
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('pauseBtn').disabled = false;
+                document.getElementById('pauseBtn').textContent = '⏸ 暂停';
+
+                this.array.forEach(item => item.state = 'normal');
+                this.renderArray();
+
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+                switch (this.currentAlgorithm) {
+                    case 'bubble':
+                        await this.bubbleSort();
+                        break;
+                    case 'selection':
+                        await this.selectionSort();
+                        break;
+                    case 'insertion':
+                        await this.insertionSort();
+                        break;
+                    case 'shell':
+                        await this.shellSort();
+                        break;
+                    case 'heap':
+                        await this.heapSort();
+                        break;
+                    case 'quick':
+                        await this.quickSort();
+                        break;
+                    case 'merge':
+                        await this.mergeSort();
+                        break;
+                    case 'radix':
+                        await this.radixSort();
+                        break;
+                }
+            }
+
+            pauseSorting() {
+                this.isPaused = !this.isPaused;
+                document.getElementById('pauseBtn').textContent = this.isPaused ? '▶ 继续' : '⏸ 暂停';
+            }
+
+            stopSorting() {
+                this.isRunning = false;
+                this.isPaused = false;
+                this.stopTimer();
+
+                if (this.animationId) {
+                    clearTimeout(this.animationId);
+                    this.animationId = null;
+                }
+
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('pauseBtn').disabled = true;
+                document.getElementById('pauseBtn').textContent = '⏸ 暂停';
+            }
+
+            resetArray() {
+                this.stopSorting();
+                this.array.forEach(item => item.state = 'normal');
+                this.renderArray();
+                this.resetStats();
+            }
+
+            shuffleArray() {
+                this.stopSorting();
+                this.initializeArray();
+                this.renderArray();
+            }
+
+            onSortComplete() {
+                this.isRunning = false;
+                this.stopTimer();
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('pauseBtn').disabled = true;
+
+                this.array.forEach(item => item.state = 'sorted');
+                this.renderArray();
+                this.updateStats();
+
+                // Show completion badge
+                const badge = document.getElementById('completionBadge');
+                badge.classList.add('show');
+                setTimeout(() => {
+                    badge.classList.remove('show');
+                }, 2000);
+            }
+
+            bindEvents() {
+                document.getElementById('arraySizeSlider').addEventListener('input', (e) => {
+                    this.arraySize = parseInt(e.target.value);
+                    document.getElementById('arraySizeValue').textContent = this.arraySize;
+                    this.shuffleArray();
+                });
+
+                document.getElementById('speedSlider').addEventListener('input', (e) => {
+                    this.speed = parseInt(e.target.value);
+                    document.getElementById('speedValue').textContent = this.speed;
+                });
+
+                document.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (this.isRunning) return;
+
+                        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+
+                        this.currentAlgorithm = btn.dataset.algorithm;
+                        this.updateAlgorithmInfo();
+                        this.resetArray();
+                    });
+                });
+
+                document.getElementById('startBtn').addEventListener('click', () => {
+                    this.startSorting();
+                });
+
+                document.getElementById('pauseBtn').addEventListener('click', () => {
+                    this.pauseSorting();
+                });
+
+                document.getElementById('resetBtn').addEventListener('click', () => {
+                    this.resetArray();
+                });
+
+                document.getElementById('shuffleBtn').addEventListener('click', () => {
+                    this.shuffleArray();
+                });
+
+                // Window resize handler
+                window.addEventListener('resize', () => {
+                    this.renderArray();
+                });
+            }
+        }
+
+        new SortingVisualizer();
+    </script>
+</body>
+</html>

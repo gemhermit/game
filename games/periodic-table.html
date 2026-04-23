@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>化学元素周期表 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="化学元素周期表把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="化学元素周期表,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/periodic-table.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="化学元素周期表 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="化学元素周期表把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/periodic-table.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="化学元素周期表 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="化学元素周期表把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"化学元素周期表","description":"化学元素周期表把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/periodic-table.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+            --text-secondary: #64748b;
+
+            /* Element Category Colors */
+            --c-alkali: #ff6b6b;
+            --c-alkaline-earth: #feca57;
+            --c-transition: #48dbfb;
+            --c-post-transition: #ff9ff3;
+            --c-metalloid: #54a0ff;
+            --c-nonmetal: #a29bfe;
+            --c-halogen: #00d2d3;
+            --c-noble-gas: #ff6348;
+            --c-lanthanide: #ff9f43;
+            --c-actinide: #f8b500;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 360px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        /* Zoom Controls in Sidebar */
+        .sidebar-zoom {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 12px;
+        }
+
+        .sidebar-zoom .zoom-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .sidebar-zoom .zoom-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .sidebar-zoom .zoom-slider {
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #e2e8f0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .sidebar-zoom .zoom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .sidebar-zoom .zoom-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: none;
+        }
+
+        .sidebar-zoom .zoom-level {
+            min-width: 45px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Element Detail Card */
+        .element-detail-card {
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .card-symbol {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--primary-color);
+        }
+
+        .card-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .card-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .card-en-name {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .card-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .element-desc {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Controls */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Mode Selector */
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .mode-btn {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .mode-btn:hover {
+            background: #f1f5f9;
+            color: var(--text-color);
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Stats */
+        .stats-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .stat-box {
+            flex: 1;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .stat-value.correct { color: var(--success-color); }
+        .stat-value.wrong { color: var(--danger-color); }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Legend */
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .legend-item:hover {
+            background: #f1f5f9;
+        }
+
+        .legend-item.active {
+            background: #e2e8f0;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Main Content - Draggable Container */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
+            overflow: hidden;
+            position: relative;
+            cursor: grab;
+        }
+
+        .main-content:active {
+            cursor: grabbing;
+        }
+
+        /* Table wrapper for panning */
+        .table-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 24px;
+        }
+
+        .zoom-slider {
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #e2e8f0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .zoom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .zoom-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: none;
+        }
+
+        .zoom-level {
+            min-width: 50px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .table-container {
+            width: 100%;
+            max-width: 1400px;
+            overflow: visible;
+            padding: 20px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: none;
+            transition: transform 0.15s ease;
+            transform-origin: center center;
+        }
+
+        .periodic-table {
+            display: grid;
+            grid-template-columns: repeat(18, minmax(45px, 1fr));
+            gap: 4px;
+            user-select: none;
+        }
+
+        .element-cell {
+            aspect-ratio: 1;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 6px;
+            padding: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .element-cell:hover {
+            transform: scale(1.15);
+            z-index: 10;
+            box-shadow: none;
+            border-color: transparent;
+        }
+
+        .element-cell.dimmed {
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .element-cell.selected {
+            border: 2px solid var(--text-color);
+            transform: scale(1.1);
+            z-index: 5;
+        }
+
+        .cell-num {
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        .cell-symbol {
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .cell-name {
+            font-size: 10px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Element Colors */
+        .type-alkali { background: var(--c-alkali); color: #fff; }
+        .type-alkaline-earth { background: var(--c-alkaline-earth); color: #fff; }
+        .type-transition { background: var(--c-transition); color: #fff; }
+        .type-post-transition { background: var(--c-post-transition); color: #fff; }
+        .type-metalloid { background: var(--c-metalloid); color: #fff; }
+        .type-nonmetal { background: var(--c-nonmetal); color: #fff; }
+        .type-halogen { background: var(--c-halogen); color: #fff; }
+        .type-noble-gas { background: var(--c-noble-gas); color: #fff; }
+        .type-lanthanide { background: var(--c-lanthanide); color: #fff; }
+        .type-actinide { background: var(--c-actinide); color: #fff; }
+
+        /* Question Banner */
+        .question-banner {
+            background: var(--primary-color);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            margin: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: none;
+            display: none;
+            flex-shrink: 0;
+        }
+
+        .question-banner.show { display: flex; }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .question-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-color);
+        }
+        .btn-white:hover { background: #eff6ff; }
+
+        .search-box {
+            margin-bottom: 16px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px 10px 10px 36px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary-color);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* Empty Spacers */
+        .spacer {
+            pointer-events: none;
+        }
+
+        .gap-row {
+            height: 20px;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-cell-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+        }
+
+        .mobile-panel {
+            display: none;
+            background: var(--panel-bg);
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: none;
+            z-index: 10;
+            margin-top: 12px;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .mobile-panel {
+                display: block;
+            }
+
+            .main-content {
+                padding: 0;
+                height: 100vh;
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .table-wrapper {
+                padding: 12px;
+            }
+
+            .table-container {
+                padding: 12px;
+                border-radius: 16px;
+            }
+
+            .periodic-table {
+                grid-template-columns: repeat(18, minmax(32px, 1fr));
+                gap: 2px;
+            }
+
+            .element-cell {
+                padding: 2px;
+                border-radius: 4px;
+            }
+
+            .cell-num {
+                font-size: 8px;
+            }
+
+            .cell-symbol {
+                font-size: 12px;
+            }
+
+            .cell-name {
+                font-size: 7px;
+                display: none;
+            }
+
+            .question-banner {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+                text-align: center;
+            }
+
+            .question-text {
+                font-size: 16px;
+            }
+
+            .question-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            /* Hover effects disabled on mobile */
+            .element-cell:hover {
+                transform: none;
+                z-index: auto;
+                box-shadow: none;
+                border-color: rgba(0,0,0,0.1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="header">
+            <h1>⚛️ 元素周期表</h1>
+            <div class="subtitle">探索化学元素的世界，了解它们的性质、结构和用途。</div>
+        </div>
+
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="搜索元素 (名称/符号/序号)...">
+        </div>
+
+        <!-- Zoom Controls -->
+        <div class="sidebar-zoom">
+            <button class="zoom-btn" id="zoomOut">−</button>
+            <input type="range" class="zoom-slider" id="zoomSlider" min="50" max="150" value="100">
+            <button class="zoom-btn" id="zoomIn">+</button>
+            <span class="zoom-level" id="zoomLevel">100%</span>
+        </div>
+
+        <div class="element-detail-card" id="detailCard">
+            <div class="card-header">
+                <div>
+                    <div class="card-name" id="dName">氢</div>
+                    <div class="card-en-name" id="dEnName">Hydrogen</div>
+                </div>
+                <div class="card-symbol" id="dSymbol">H</div>
+            </div>
+            <div class="card-info-grid">
+                <div class="info-item">
+                    <span class="info-label">原子序数</span>
+                    <span class="info-value" id="dNumber">1</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">相对原子质量</span>
+                    <span class="info-value" id="dWeight">1.008</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">电子排布</span>
+                    <span class="info-value" id="dConfig">1s¹</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">类别</span>
+                    <span class="info-value" id="dType">非金属</span>
+                </div>
+            </div>
+            <div class="element-desc" id="dDesc">
+                宇宙中最丰富的元素，也是最轻的元素。在标准条件下是无色、无臭、无味、极易燃的双原子气体。
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <label class="control-label">学习模式</label>
+                <div class="mode-selector">
+                    <div class="mode-btn active" data-mode="explore">🔍 自由探索</div>
+                    <div class="mode-btn" data-mode="quiz">🎯 元素测验</div>
+                </div>
+            </div>
+
+            <div class="control-group" id="quizControls" style="display: none;">
+                <button class="btn btn-white" style="width: 100%; border: 2px solid var(--danger-color); color: var(--danger-color); font-weight: bold; margin-bottom: 12px; padding: 12px;" id="exitQuizBtn">🚪 退出测验模式</button>
+                
+                <div id="quizFeedback" style="text-align: center; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-weight: bold; display: none;"></div>
+
+                <label class="control-label">测验统计</label>
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-value correct" id="correctCount">0</div>
+                        <div class="stat-label">正确</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value wrong" id="wrongCount">0</div>
+                        <div class="stat-label">错误</div>
+                    </div>
+                </div>
+                <button class="btn btn-white" style="width: 100%; border: 1px solid var(--border-color); margin-top: 8px;" id="resetQuizBtn">🔄 重置进度</button>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">元素分类 (点击筛选)</label>
+                <div class="legend-grid" id="legendGrid">
+                    <!-- Legend items generated by JS -->
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <div class="main-content">
+        <div class="question-banner" id="questionBanner">
+            <div class="question-text" id="questionText">请找出：氢 (H)</div>
+            <div class="question-actions">
+                <button class="btn btn-white" id="hintBtn">💡 提示</button>
+                <button class="btn btn-white" id="skipBtn">⏭️ 跳过</button>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <div class="table-container">
+                <div class="periodic-table" id="periodicTable">
+                    <!-- Generated by JS -->
+                </div>
+                <!-- Mobile Detail Panel -->
+                <div class="mobile-panel" id="mobilePanel">
+                    <div id="mobileDetailContent"></div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        class PeriodicTable {
+            constructor() {
+                this.elements = [
+                    // Period 1
+                    {n:1, s:'H', name:'氢', w:1.008, c:'1s¹', t:'nonmetal', r:1, c_idx:1, en:'Hydrogen', desc:'宇宙中最丰富的元素。'},
+                    {n:2, s:'He', name:'氦', w:4.003, c:'1s²', t:'noble-gas', r:1, c_idx:18, en:'Helium', desc:'第二轻的元素，惰性气体。'},
+                    // Period 2
+                    {n:3, s:'Li', name:'锂', w:6.941, c:'[He] 2s¹', t:'alkali', r:2, c_idx:1, en:'Lithium', desc:'最轻的金属。'},
+                    {n:4, s:'Be', name:'铍', w:9.012, c:'[He] 2s²', t:'alkaline-earth', r:2, c_idx:2, en:'Beryllium', desc:'坚硬的轻金属。'},
+                    {n:5, s:'B', name:'硼', w:10.81, c:'[He] 2s² 2p¹', t:'metalloid', r:2, c_idx:13, en:'Boron', desc:'重要的半导体掺杂剂。'},
+                    {n:6, s:'C', name:'碳', w:12.01, c:'[He] 2s² 2p²', t:'nonmetal', r:2, c_idx:14, en:'Carbon', desc:'生命的基础元素。'},
+                    {n:7, s:'N', name:'氮', w:14.01, c:'[He] 2s² 2p³', t:'nonmetal', r:2, c_idx:15, en:'Nitrogen', desc:'大气中含量最高的气体。'},
+                    {n:8, s:'O', name:'氧', w:16.00, c:'[He] 2s² 2p⁴', t:'nonmetal', r:2, c_idx:16, en:'Oxygen', desc:'维持生命呼吸必需。'},
+                    {n:9, s:'F', name:'氟', w:19.00, c:'[He] 2s² 2p⁵', t:'halogen', r:2, c_idx:17, en:'Fluorine', desc:'电负性最强的元素。'},
+                    {n:10, s:'Ne', name:'氖', w:20.18, c:'[He] 2s² 2p⁶', t:'noble-gas', r:2, c_idx:18, en:'Neon', desc:'用于霓虹灯。'},
+                    // Period 3
+                    {n:11, s:'Na', name:'钠', w:22.99, c:'[Ne] 3s¹', t:'alkali', r:3, c_idx:1, en:'Sodium', desc:'食盐的主要成分之一。'},
+                    {n:12, s:'Mg', name:'镁', w:24.31, c:'[Ne] 3s²', t:'alkaline-earth', r:3, c_idx:2, en:'Magnesium', desc:'轻质金属，燃烧发出强光。'},
+                    {n:13, s:'Al', name:'铝', w:26.98, c:'[Ne] 3s² 3p¹', t:'post-transition', r:3, c_idx:13, en:'Aluminium', desc:'地壳中含量最丰富的金属。'},
+                    {n:14, s:'Si', name:'硅', w:28.09, c:'[Ne] 3s² 3p²', t:'metalloid', r:3, c_idx:14, en:'Silicon', desc:'电子工业的基础材料。'},
+                    {n:15, s:'P', name:'磷', w:30.97, c:'[Ne] 3s² 3p³', t:'nonmetal', r:3, c_idx:15, en:'Phosphorus', desc:'生命体的重要组成部分。'},
+                    {n:16, s:'S', name:'硫', w:32.06, c:'[Ne] 3s² 3p⁴', t:'nonmetal', r:3, c_idx:16, en:'Sulfur', desc:'黄色固体，有特殊气味。'},
+                    {n:17, s:'Cl', name:'氯', w:35.45, c:'[Ne] 3s² 3p⁵', t:'halogen', r:3, c_idx:17, en:'Chlorine', desc:'常用的消毒剂成分。'},
+                    {n:18, s:'Ar', name:'氩', w:39.95, c:'[Ne] 3s² 3p⁶', t:'noble-gas', r:3, c_idx:18, en:'Argon', desc:'大气中含量第三高的气体。'},
+                    // Period 4
+                    {n:19, s:'K', name:'钾', w:39.10, c:'[Ar] 4s¹', t:'alkali', r:4, c_idx:1, en:'Potassium', desc:'植物生长必需元素。'},
+                    {n:20, s:'Ca', name:'钙', w:40.08, c:'[Ar] 4s²', t:'alkaline-earth', r:4, c_idx:2, en:'Calcium', desc:'骨骼的主要成分。'},
+                    {n:21, s:'Sc', name:'钪', w:44.96, c:'[Ar] 3d¹ 4s²', t:'transition', r:4, c_idx:3, en:'Scandium'},
+                    {n:22, s:'Ti', name:'钛', w:47.87, c:'[Ar] 3d² 4s²', t:'transition', r:4, c_idx:4, en:'Titanium', desc:'高强度、低密度的金属。'},
+                    {n:23, s:'V', name:'钒', w:50.94, c:'[Ar] 3d³ 4s²', t:'transition', r:4, c_idx:5, en:'Vanadium'},
+                    {n:24, s:'Cr', name:'铬', w:52.00, c:'[Ar] 3d⁵ 4s¹', t:'transition', r:4, c_idx:6, en:'Chromium', desc:'不锈钢的重要添加剂。'},
+                    {n:25, s:'Mn', name:'锰', w:54.94, c:'[Ar] 3d⁵ 4s²', t:'transition', r:4, c_idx:7, en:'Manganese'},
+                    {n:26, s:'Fe', name:'铁', w:55.85, c:'[Ar] 3d⁶ 4s²', t:'transition', r:4, c_idx:8, en:'Iron', desc:'工业应用最广泛的金属。'},
+                    {n:27, s:'Co', name:'钴', w:58.93, c:'[Ar] 3d⁷ 4s²', t:'transition', r:4, c_idx:9, en:'Cobalt'},
+                    {n:28, s:'Ni', name:'镍', w:58.69, c:'[Ar] 3d⁸ 4s²', t:'transition', r:4, c_idx:10, en:'Nickel'},
+                    {n:29, s:'Cu', name:'铜', w:63.55, c:'[Ar] 3d¹⁰ 4s¹', t:'transition', r:4, c_idx:11, en:'Copper', desc:'优良的导电体。'},
+                    {n:30, s:'Zn', name:'锌', w:65.38, c:'[Ar] 3d¹⁰ 4s²', t:'transition', r:4, c_idx:12, en:'Zinc'},
+                    {n:31, s:'Ga', name:'镓', w:69.72, c:'[Ar] 3d¹⁰ 4s² 4p¹', t:'post-transition', r:4, c_idx:13, en:'Gallium', desc:'低熔点金属。'},
+                    {n:32, s:'Ge', name:'锗', w:72.63, c:'[Ar] 3d¹⁰ 4s² 4p²', t:'metalloid', r:4, c_idx:14, en:'Germanium'},
+                    {n:33, s:'As', name:'砷', w:74.92, c:'[Ar] 3d¹⁰ 4s² 4p³', t:'metalloid', r:4, c_idx:15, en:'Arsenic'},
+                    {n:34, s:'Se', name:'硒', w:78.96, c:'[Ar] 3d¹⁰ 4s² 4p⁴', t:'nonmetal', r:4, c_idx:16, en:'Selenium'},
+                    {n:35, s:'Br', name:'溴', w:79.90, c:'[Ar] 3d¹⁰ 4s² 4p⁵', t:'halogen', r:4, c_idx:17, en:'Bromine', desc:'常温下唯一的液态非金属。'},
+                    {n:36, s:'Kr', name:'氪', w:83.80, c:'[Ar] 3d¹⁰ 4s² 4p⁶', t:'noble-gas', r:4, c_idx:18, en:'Krypton'},
+                    // Period 5
+                    {n:37, s:'Rb', name:'铷', w:85.47, c:'[Kr] 5s¹', t:'alkali', r:5, c_idx:1, en:'Rubidium'},
+                    {n:38, s:'Sr', name:'锶', w:87.62, c:'[Kr] 5s²', t:'alkaline-earth', r:5, c_idx:2, en:'Strontium'},
+                    {n:39, s:'Y', name:'钇', w:88.91, c:'[Kr] 4d¹ 5s²', t:'transition', r:5, c_idx:3, en:'Yttrium'},
+                    {n:40, s:'Zr', name:'锆', w:91.22, c:'[Kr] 4d² 5s²', t:'transition', r:5, c_idx:4, en:'Zirconium'},
+                    {n:41, s:'Nb', name:'铌', w:92.91, c:'[Kr] 4d⁴ 5s¹', t:'transition', r:5, c_idx:5, en:'Niobium'},
+                    {n:42, s:'Mo', name:'钼', w:95.94, c:'[Kr] 4d⁵ 5s¹', t:'transition', r:5, c_idx:6, en:'Molybdenum'},
+                    {n:43, s:'Tc', name:'锝', w:98, c:'[Kr] 4d⁵ 5s²', t:'transition', r:5, c_idx:7, en:'Technetium', desc:'第一个人工制备的元素。'},
+                    {n:44, s:'Ru', name:'钌', w:101.1, c:'[Kr] 4d⁷ 5s¹', t:'transition', r:5, c_idx:8, en:'Ruthenium'},
+                    {n:45, s:'Rh', name:'铑', w:102.9, c:'[Kr] 4d⁸ 5s¹', t:'transition', r:5, c_idx:9, en:'Rhodium'},
+                    {n:46, s:'Pd', name:'钯', w:106.4, c:'[Kr] 4d¹⁰', t:'transition', r:5, c_idx:10, en:'Palladium'},
+                    {n:47, s:'Ag', name:'银', w:107.9, c:'[Kr] 4d¹⁰ 5s¹', t:'transition', r:5, c_idx:11, en:'Silver', desc:'导电性最好的金属。'},
+                    {n:48, s:'Cd', name:'镉', w:112.4, c:'[Kr] 4d¹⁰ 5s²', t:'transition', r:5, c_idx:12, en:'Cadmium'},
+                    {n:49, s:'In', name:'铟', w:114.8, c:'[Kr] 4d¹⁰ 5s² 5p¹', t:'post-transition', r:5, c_idx:13, en:'Indium'},
+                    {n:50, s:'Sn', name:'锡', w:118.7, c:'[Kr] 4d¹⁰ 5s² 5p²', t:'post-transition', r:5, c_idx:14, en:'Tin'},
+                    {n:51, s:'Sb', name:'锑', w:121.8, c:'[Kr] 4d¹⁰ 5s² 5p³', t:'metalloid', r:5, c_idx:15, en:'Antimony'},
+                    {n:52, s:'Te', name:'碲', w:127.6, c:'[Kr] 4d¹⁰ 5s² 5p⁴', t:'metalloid', r:5, c_idx:16, en:'Tellurium'},
+                    {n:53, s:'I', name:'碘', w:126.9, c:'[Kr] 4d¹⁰ 5s² 5p⁵', t:'halogen', r:5, c_idx:17, en:'Iodine'},
+                    {n:54, s:'Xe', name:'氙', w:131.3, c:'[Kr] 4d¹⁰ 5s² 5p⁶', t:'noble-gas', r:5, c_idx:18, en:'Xenon'},
+                    // Period 6
+                    {n:55, s:'Cs', name:'铯', w:132.9, c:'[Xe] 6s¹', t:'alkali', r:6, c_idx:1, en:'Cesium', desc:'定义秒的基准元素。'},
+                    {n:56, s:'Ba', name:'钡', w:137.3, c:'[Xe] 6s²', t:'alkaline-earth', r:6, c_idx:2, en:'Barium'},
+                    // Lanthanides (row 8)
+                    {n:57, s:'La', name:'镧', w:138.9, c:'[Xe] 5d¹ 6s²', t:'lanthanide', r:8, c_idx:3, en:'Lanthanum'},
+                    {n:58, s:'Ce', name:'铈', w:140.1, c:'[Xe] 4f¹ 5d¹ 6s²', t:'lanthanide', r:8, c_idx:4, en:'Cerium'},
+                    {n:59, s:'Pr', name:'镨', w:140.9, c:'[Xe] 4f³ 6s²', t:'lanthanide', r:8, c_idx:5, en:'Praseodymium'},
+                    {n:60, s:'Nd', name:'钕', w:144.2, c:'[Xe] 4f⁴ 6s²', t:'lanthanide', r:8, c_idx:6, en:'Neodymium', desc:'用于制造强力磁铁。'},
+                    {n:61, s:'Pm', name:'钷', w:145, c:'[Xe] 4f⁵ 6s²', t:'lanthanide', r:8, c_idx:7, en:'Promethium'},
+                    {n:62, s:'Sm', name:'钐', w:150.4, c:'[Xe] 4f⁶ 6s²', t:'lanthanide', r:8, c_idx:8, en:'Samarium'},
+                    {n:63, s:'Eu', name:'铕', w:152.0, c:'[Xe] 4f⁷ 6s²', t:'lanthanide', r:8, c_idx:9, en:'Europium'},
+                    {n:64, s:'Gd', name:'钆', w:157.3, c:'[Xe] 4f⁷ 5d¹ 6s²', t:'lanthanide', r:8, c_idx:10, en:'Gadolinium'},
+                    {n:65, s:'Tb', name:'铽', w:158.9, c:'[Xe] 4f⁹ 6s²', t:'lanthanide', r:8, c_idx:11, en:'Terbium'},
+                    {n:66, s:'Dy', name:'镝', w:162.5, c:'[Xe] 4f¹⁰ 6s²', t:'lanthanide', r:8, c_idx:12, en:'Dysprosium'},
+                    {n:67, s:'Ho', name:'钬', w:164.9, c:'[Xe] 4f¹¹ 6s²', t:'lanthanide', r:8, c_idx:13, en:'Holmium'},
+                    {n:68, s:'Er', name:'铒', w:167.3, c:'[Xe] 4f¹² 6s²', t:'lanthanide', r:8, c_idx:14, en:'Erbium'},
+                    {n:69, s:'Tm', name:'铥', w:168.9, c:'[Xe] 4f¹³ 6s²', t:'lanthanide', r:8, c_idx:15, en:'Thulium'},
+                    {n:70, s:'Yb', name:'镱', w:173.0, c:'[Xe] 4f¹⁴ 6s²', t:'lanthanide', r:8, c_idx:16, en:'Ytterbium'},
+                    {n:71, s:'Lu', name:'镥', w:175.0, c:'[Xe] 4f¹⁴ 5d¹ 6s²', t:'lanthanide', r:8, c_idx:17, en:'Lutetium'},
+                    // Period 6 continued
+                    {n:72, s:'Hf', name:'铪', w:178.5, c:'[Xe] 4f¹⁴ 5d² 6s²', t:'transition', r:6, c_idx:4, en:'Hafnium'},
+                    {n:73, s:'Ta', name:'钽', w:180.9, c:'[Xe] 4f¹⁴ 5d³ 6s²', t:'transition', r:6, c_idx:5, en:'Tantalum'},
+                    {n:74, s:'W', name:'钨', w:183.8, c:'[Xe] 4f¹⁴ 5d⁴ 6s²', t:'transition', r:6, c_idx:6, en:'Tungsten', desc:'熔点最高的金属。'},
+                    {n:75, s:'Re', name:'铼', w:186.2, c:'[Xe] 4f¹⁴ 5d⁵ 6s²', t:'transition', r:6, c_idx:7, en:'Rhenium'},
+                    {n:76, s:'Os', name:'锇', w:190.2, c:'[Xe] 4f¹⁴ 5d⁶ 6s²', t:'transition', r:6, c_idx:8, en:'Osmium', desc:'密度最大的元素。'},
+                    {n:77, s:'Ir', name:'铱', w:192.2, c:'[Xe] 4f¹⁴ 5d⁷ 6s²', t:'transition', r:6, c_idx:9, en:'Iridium'},
+                    {n:78, s:'Pt', name:'铂', w:195.1, c:'[Xe] 4f¹⁴ 5d⁹ 6s¹', t:'transition', r:6, c_idx:10, en:'Platinum'},
+                    {n:79, s:'Au', name:'金', w:197.0, c:'[Xe] 4f¹⁴ 5d¹⁰ 6s¹', t:'transition', r:6, c_idx:11, en:'Gold', desc:'延展性最好的金属。'},
+                    {n:80, s:'Hg', name:'汞', w:200.6, c:'[Xe] 4f¹⁴ 5d¹⁰ 6s²', t:'transition', r:6, c_idx:12, en:'Mercury', desc:'常温下唯一的液态金属。'},
+                    {n:81, s:'Tl', name:'铊', w:204.4, c:'[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹', t:'post-transition', r:6, c_idx:13, en:'Thallium'},
+                    {n:82, s:'Pb', name:'铅', w:207.2, c:'[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²', t:'post-transition', r:6, c_idx:14, en:'Lead'},
+                    {n:83, s:'Bi', name:'铋', w:209.0, c:'[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³', t:'post-transition', r:6, c_idx:15, en:'Bismuth'},
+                    {n:84, s:'Po', name:'钋', w:209, c:'[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴', t:'post-transition', r:6, c_idx:16, en:'Polonium', desc:'居里夫人发现的元素。'},
+                    {n:85, s:'At', name:'砹', w:210, c:'[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵', t:'halogen', r:6, c_idx:17, en:'Astatine'},
+                    {n:86, s:'Rn', name:'氡', w:222, c:'[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶', t:'noble-gas', r:6, c_idx:18, en:'Radon'},
+                    // Period 7
+                    {n:87, s:'Fr', name:'钫', w:223, c:'[Rn] 7s¹', t:'alkali', r:7, c_idx:1, en:'Francium'},
+                    {n:88, s:'Ra', name:'镭', w:226, c:'[Rn] 7s²', t:'alkaline-earth', r:7, c_idx:2, en:'Radium'},
+                    // Actinides (row 9)
+                    {n:89, s:'Ac', name:'锕', w:227, c:'[Rn] 6d¹ 7s²', t:'actinide', r:9, c_idx:3, en:'Actinium'},
+                    {n:90, s:'Th', name:'钍', w:232.0, c:'[Rn] 6d² 7s²', t:'actinide', r:9, c_idx:4, en:'Thorium'},
+                    {n:91, s:'Pa', name:'镤', w:231.0, c:'[Rn] 5f² 6d¹ 7s²', t:'actinide', r:9, c_idx:5, en:'Protactinium'},
+                    {n:92, s:'U', name:'铀', w:238.0, c:'[Rn] 5f³ 6d¹ 7s²', t:'actinide', r:9, c_idx:6, en:'Uranium', desc:'核能发电的主要原料。'},
+                    {n:93, s:'Np', name:'镎', w:237, c:'[Rn] 5f⁴ 6d¹ 7s²', t:'actinide', r:9, c_idx:7, en:'Neptunium'},
+                    {n:94, s:'Pu', name:'钚', w:244, c:'[Rn] 5f⁶ 7s²', t:'actinide', r:9, c_idx:8, en:'Plutonium'},
+                    {n:95, s:'Am', name:'镅', w:243, c:'[Rn] 5f⁷ 7s²', t:'actinide', r:9, c_idx:9, en:'Americium'},
+                    {n:96, s:'Cm', name:'锔', w:247, c:'[Rn] 5f⁷ 6d¹ 7s²', t:'actinide', r:9, c_idx:10, en:'Curium'},
+                    {n:97, s:'Bk', name:'锫', w:247, c:'[Rn] 5f⁹ 7s²', t:'actinide', r:9, c_idx:11, en:'Berkelium'},
+                    {n:98, s:'Cf', name:'锎', w:251, c:'[Rn] 5f¹⁰ 7s²', t:'actinide', r:9, c_idx:12, en:'Californium'},
+                    {n:99, s:'Es', name:'锿', w:252, c:'[Rn] 5f¹¹ 7s²', t:'actinide', r:9, c_idx:13, en:'Einsteinium'},
+                    {n:100, s:'Fm', name:'镄', w:257, c:'[Rn] 5f¹² 7s²', t:'actinide', r:9, c_idx:14, en:'Fermium'},
+                    {n:101, s:'Md', name:'钔', w:258, c:'[Rn] 5f¹³ 7s²', t:'actinide', r:9, c_idx:15, en:'Mendelevium'},
+                    {n:102, s:'No', name:'锘', w:259, c:'[Rn] 5f¹⁴ 7s²', t:'actinide', r:9, c_idx:16, en:'Nobelium'},
+                    {n:103, s:'Lr', name:'铹', w:266, c:'[Rn] 5f¹⁴ 6d¹ 7s²', t:'actinide', r:9, c_idx:17, en:'Lawrencium'},
+                    // Period 7 continued
+                    {n:104, s:'Rf', name:'𬬻', w:267, c:'[Rn] 5f¹⁴ 6d² 7s²', t:'transition', r:7, c_idx:4, en:'Rutherfordium'},
+                    {n:105, s:'Db', name:'𬭊', w:268, c:'[Rn] 5f¹⁴ 6d³ 7s²', t:'transition', r:7, c_idx:5, en:'Dubnium'},
+                    {n:106, s:'Sg', name:'𬭳', w:269, c:'[Rn] 5f¹⁴ 6d⁴ 7s²', t:'transition', r:7, c_idx:6, en:'Seaborgium'},
+                    {n:107, s:'Bh', name:'𬭛', w:270, c:'[Rn] 5f¹⁴ 6d⁵ 7s²', t:'transition', r:7, c_idx:7, en:'Bohrium'},
+                    {n:108, s:'Hs', name:'𬭶', w:277, c:'[Rn] 5f¹⁴ 6d⁶ 7s²', t:'transition', r:7, c_idx:8, en:'Hassium'},
+                    {n:109, s:'Mt', name:'鿏', w:278, c:'[Rn] 5f¹⁴ 6d⁷ 7s²', t:'transition', r:7, c_idx:9, en:'Meitnerium'},
+                    {n:110, s:'Ds', name:'𫟼', w:281, c:'[Rn] 5f¹⁴ 6d⁸ 7s²', t:'transition', r:7, c_idx:10, en:'Darmstadtium'},
+                    {n:111, s:'Rg', name:'𬬭', w:282, c:'[Rn] 5f¹⁴ 6d⁹ 7s²', t:'transition', r:7, c_idx:11, en:'Roentgenium'},
+                    {n:112, s:'Cn', name:'鿔', w:285, c:'[Rn] 5f¹⁴ 6d¹⁰ 7s²', t:'transition', r:7, c_idx:12, en:'Copernicium'},
+                    {n:113, s:'Nh', name:'鿭', w:286, c:'[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹', t:'post-transition', r:7, c_idx:13, en:'Nihonium'},
+                    {n:114, s:'Fl', name:'𫓧', w:289, c:'[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p²', t:'post-transition', r:7, c_idx:14, en:'Flerovium'},
+                    {n:115, s:'Mc', name:'镆', w:290, c:'[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³', t:'post-transition', r:7, c_idx:15, en:'Moscovium'},
+                    {n:116, s:'Lv', name:'𫟷', w:293, c:'[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴', t:'post-transition', r:7, c_idx:16, en:'Livermorium'},
+                    {n:117, s:'Ts', name:'鿬', w:294, c:'[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵', t:'halogen', r:7, c_idx:17, en:'Tennessine'},
+                    {n:118, s:'Og', name:'鿫', w:294, c:'[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶', t:'noble-gas', r:7, c_idx:18, en:'Oganesson'}
+                ];
+
+                this.types = {
+                    'alkali': '碱金属',
+                    'alkaline-earth': '碱土金属',
+                    'transition': '过渡金属',
+                    'post-transition': '后过渡金属',
+                    'metalloid': '类金属',
+                    'nonmetal': '非金属',
+                    'halogen': '卤素',
+                    'noble-gas': '惰性气体',
+                    'lanthanide': '镧系',
+                    'actinide': '锕系'
+                };
+
+                this.state = {
+                    mode: 'explore', // explore, quiz
+                    currentElement: null,
+                    quizQuestion: null,
+                    correct: 0,
+                    wrong: 0,
+                    filter: null,
+                    zoom: 100
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.renderLegend();
+                this.renderTable();
+                this.bindEvents();
+                this.bindZoomEvents();
+                // Select Hydrogen by default
+                this.selectElement(1);
+            }
+
+            bindZoomEvents() {
+                const zoomSlider = document.getElementById('zoomSlider');
+                const zoomIn = document.getElementById('zoomIn');
+                const zoomOut = document.getElementById('zoomOut');
+                const zoomLevel = document.getElementById('zoomLevel');
+                const tableContainer = document.querySelector('.table-container');
+                const mainContent = document.querySelector('.main-content');
+
+                // Drag state
+                let isDragging = false;
+                let startX, startY;
+                let translateX = 0, translateY = 0;
+
+                const updateZoom = (value) => {
+                    this.state.zoom = value;
+                    tableContainer.style.transform = `scale(${value / 100}) translate(${translateX}px, ${translateY}px)`;
+                    zoomSlider.value = value;
+                    zoomLevel.textContent = value + '%';
+                };
+
+                // Drag handling
+                const handleDragStart = (e) => {
+                    isDragging = true;
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    startX = clientX - translateX;
+                    startY = clientY - translateY;
+                    mainContent.style.cursor = 'grabbing';
+                };
+
+                const handleDrag = (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    translateX = clientX - startX;
+                    translateY = clientY - startY;
+                    tableContainer.style.transform = `scale(${this.state.zoom / 100}) translate(${translateX}px, ${translateY}px)`;
+                };
+
+                const handleDragEnd = () => {
+                    isDragging = false;
+                    mainContent.style.cursor = 'grab';
+                };
+
+                // Mouse events
+                mainContent.addEventListener('mousedown', handleDragStart);
+                mainContent.addEventListener('mousemove', handleDrag);
+                mainContent.addEventListener('mouseup', handleDragEnd);
+                mainContent.addEventListener('mouseleave', handleDragEnd);
+
+                // Touch events for mobile
+                mainContent.addEventListener('touchstart', handleDragStart, { passive: false });
+                mainContent.addEventListener('touchmove', handleDrag, { passive: false });
+                mainContent.addEventListener('touchend', handleDragEnd);
+
+                // Zoom controls
+                zoomSlider.addEventListener('input', (e) => {
+                    updateZoom(parseInt(e.target.value));
+                });
+
+                zoomIn.addEventListener('click', () => {
+                    const newZoom = Math.min(150, this.state.zoom + 10);
+                    updateZoom(newZoom);
+                });
+
+                zoomOut.addEventListener('click', () => {
+                    const newZoom = Math.max(50, this.state.zoom - 10);
+                    updateZoom(newZoom);
+                });
+            }
+
+            renderLegend() {
+                const container = document.getElementById('legendGrid');
+                Object.entries(this.types).forEach(([key, label]) => {
+                    const item = document.createElement('div');
+                    item.className = 'legend-item';
+                    item.dataset.type = key;
+                    item.innerHTML = `
+                        <div class="legend-dot type-${key}"></div>
+                        <span>${label}</span>
+                    `;
+                    item.addEventListener('click', () => this.toggleFilter(key));
+                    container.appendChild(item);
+                });
+            }
+
+            toggleFilter(type) {
+                if (this.state.filter === type) {
+                    this.state.filter = null;
+                    document.querySelectorAll('.legend-item').forEach(el => el.classList.remove('active'));
+                } else {
+                    this.state.filter = type;
+                    document.querySelectorAll('.legend-item').forEach(el => {
+                        el.classList.toggle('active', el.dataset.type === type);
+                    });
+                }
+                this.updateTableVisibility();
+            }
+
+            updateTableVisibility() {
+                const els = document.querySelectorAll('.element-cell');
+                els.forEach(el => {
+                    if (el.classList.contains('empty-cell-label')) return;
+                    const num = parseInt(el.dataset.n);
+                    const data = this.elements.find(e => e.n === num);
+                    
+                    if (this.state.filter && data.t !== this.state.filter) {
+                        el.classList.add('dimmed');
+                    } else {
+                        el.classList.remove('dimmed');
+                    }
+                });
+            }
+
+            renderTable() {
+                const table = document.getElementById('periodicTable');
+                table.innerHTML = '';
+
+                // Generate grid 9 rows x 18 cols
+                for (let r = 1; r <= 9; r++) {
+                    // Spacer for Lanthanides/Actinides gap
+                    if (r === 8) {
+                        const gap = document.createElement('div');
+                        gap.className = 'gap-row';
+                        table.appendChild(gap);
+                    }
+
+                    for (let c = 1; c <= 18; c++) {
+                        // Special handling for row 8,9 (Lanthanides/Actinides)
+                        // They are shifted to align with group 3 visually in wide tables,
+                        // but here we just render them in their assigned grid slots.
+                        
+                        // Find element
+                        const el = this.elements.find(e => e.r === r && e.c_idx === c);
+
+                        if (el) {
+                            const div = document.createElement('div');
+                            div.className = `element-cell type-${el.t}`;
+                            div.dataset.n = el.n;
+                            div.innerHTML = `
+                                <span class="cell-num">${el.n}</span>
+                                <span class="cell-symbol">${el.s}</span>
+                                <span class="cell-name">${el.name}</span>
+                            `;
+                            div.addEventListener('click', () => this.handleElementClick(el));
+                            table.appendChild(div);
+                        } else {
+                            const spacer = document.createElement('div');
+                            spacer.className = 'spacer';
+                            
+                            // Add labels for Lanthanides/Actinides placeholders in main table
+                            if (r === 6 && c === 3) {
+                                spacer.className = 'element-cell empty-cell-label';
+                                spacer.innerHTML = '57-71';
+                            } else if (r === 7 && c === 3) {
+                                spacer.className = 'element-cell empty-cell-label';
+                                spacer.innerHTML = '89-103';
+                            }
+                            
+                            table.appendChild(spacer);
+                        }
+                    }
+                }
+            }
+
+            handleElementClick(el) {
+                // In all modes, show element details on click
+                this.selectElement(el.n);
+                
+                if (this.state.mode === 'quiz') {
+                    this.checkAnswer(el);
+                }
+            }
+
+            selectElement(n) {
+                const el = this.elements.find(e => e.n === n);
+                if (!el) return;
+
+                this.state.currentElement = el;
+
+                // Only update visual selection in explore mode or if needed
+                // In quiz mode, checkAnswer handles visual feedback, but we can still highlight selected
+                // if it doesn't conflict.
+                // Let's keep selection highlighting active as it helps identify what was clicked.
+                document.querySelectorAll('.element-cell').forEach(div => div.classList.remove('selected'));
+                const target = document.querySelector(`.element-cell[data-n="${n}"]`);
+                if (target) target.classList.add('selected');
+
+                // Update detail card
+                document.getElementById('dSymbol').textContent = el.s;
+                document.getElementById('dName').textContent = el.name;
+                document.getElementById('dEnName').textContent = el.en || '';
+                document.getElementById('dNumber').textContent = el.n;
+                document.getElementById('dWeight').textContent = el.w;
+                document.getElementById('dConfig').textContent = el.c;
+                document.getElementById('dType').textContent = this.types[el.t];
+                document.getElementById('dDesc').textContent = el.desc || (el.en ? `${el.name} (${el.en}) 是一种化学元素。` : '暂无详细描述。');
+
+                // Update mobile panel
+                this.updateMobilePanel(el);
+            }
+
+            updateMobilePanel(el) {
+                const mobileContent = document.getElementById('mobileDetailContent');
+                if (!mobileContent) return;
+
+                // Generate legend HTML
+                const legendHtml = Object.entries(this.types).map(([key, label]) => `
+                    <div class="legend-item ${this.state.filter === key ? 'active' : ''}" data-type="${key}" style="cursor: pointer; padding: 6px 8px; border-radius: 6px; background: ${this.state.filter === key ? '#e2e8f0' : 'transparent'};">
+                        <div class="legend-dot type-${key}" style="width: 12px; height: 12px; border-radius: 4px; flex-shrink: 0;"></div>
+                        <span style="font-size: 12px;">${label}</span>
+                    </div>
+                `).join('');
+
+                mobileContent.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                        <div style="width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, var(--c-${el.t}), var(--c-${el.t})); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; color: white;">
+                            ${el.s}
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 20px; font-weight: bold;">${el.name}</div>
+                            <div style="font-size: 13px; color: var(--text-secondary);">${el.en}</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: bold; color: var(--primary-color);">${el.n}</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">原子序数</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px;">
+                        <div style="background: #f1f5f9; padding: 10px 8px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 10px; color: var(--text-secondary);">相对原子质量</div>
+                            <div style="font-size: 13px; font-weight: bold; word-break: break-all;">${el.w}</div>
+                        </div>
+                        <div style="background: #f1f5f9; padding: 10px 8px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 10px; color: var(--text-secondary);">电子排布</div>
+                            <div style="font-size: 11px; font-weight: bold; word-break: break-all;">${el.c}</div>
+                        </div>
+                        <div style="background: #f1f5f9; padding: 10px 8px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 10px; color: var(--text-secondary);">元素类别</div>
+                            <div style="font-size: 12px; font-weight: bold;">${this.types[el.t]}</div>
+                        </div>
+                        <div style="background: #f1f5f9; padding: 10px 8px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 10px; color: var(--text-secondary);">周期</div>
+                            <div style="font-size: 13px; font-weight: bold;">${el.r}</div>
+                        </div>
+                    </div>
+                    <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 12px;">
+                        <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">简介</div>
+                        <div style="font-size: 13px; line-height: 1.6;">${el.desc || (el.en ? `${el.name} (${el.en}) 是一种化学元素。` : '暂无详细描述。')}</div>
+                    </div>
+                    <div style="background: #fff; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-color);">元素分类 (点击筛选)</div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                            ${legendHtml}
+                        </div>
+                    </div>
+                `;
+
+                // Bind legend click events
+                mobileContent.querySelectorAll('.legend-item').forEach(item => {
+                    item.addEventListener('click', () => this.toggleFilter(item.dataset.type));
+                });
+            }
+
+            setMode(mode) {
+                this.state.mode = mode;
+                
+                // UI Toggle
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+
+                // Panel Visibility
+                document.getElementById('quizControls').style.display = mode === 'quiz' ? 'block' : 'none';
+                document.getElementById('questionBanner').style.display = mode === 'quiz' ? 'flex' : 'none';
+                document.getElementById('legendGrid').parentElement.parentElement.style.display = mode === 'quiz' ? 'none' : 'block';
+
+                if (mode === 'quiz') {
+                    this.startQuiz();
+                } else {
+                    this.stopQuiz();
+                }
+            }
+
+            startQuiz() {
+                this.state.correct = 0;
+                this.state.wrong = 0;
+                this.updateStats();
+                this.nextQuestion();
+            }
+
+            stopQuiz() {
+                this.state.quizQuestion = null;
+                // Reset visual state
+                this.updateTableVisibility(); // clear dims
+            }
+
+            nextQuestion() {
+                // Random element
+                const el = this.elements[Math.floor(Math.random() * this.elements.length)];
+                this.state.quizQuestion = el;
+                
+                document.getElementById('questionText').innerHTML = `请找出：${el.name} <span style="font-family:monospace">(${el.s})</span>`;
+            }
+
+            checkAnswer(el) {
+                if (!this.state.quizQuestion) return;
+
+                const feedbackEl = document.getElementById('quizFeedback');
+                feedbackEl.style.display = 'block';
+
+                if (el.n === this.state.quizQuestion.n) {
+                    this.state.correct++;
+                    this.updateStats();
+                    
+                    // Feedback in Sidebar
+                    feedbackEl.textContent = '✅ 回答正确！';
+                    feedbackEl.style.backgroundColor = '#d1fae5'; // green-100
+                    feedbackEl.style.color = '#065f46'; // green-800
+                    
+                    // Visual feedback on table
+                    const cell = document.querySelector(`.element-cell[data-n="${el.n}"]`);
+                    cell.style.transform = 'scale(1.3)';
+                    setTimeout(() => {
+                        cell.style.transform = '';
+                        // Delay next question slightly to let user see feedback
+                        setTimeout(() => {
+                            feedbackEl.style.display = 'none';
+                            this.nextQuestion();
+                        }, 1000);
+                    }, 300);
+                } else {
+                    this.state.wrong++;
+                    this.updateStats();
+                    
+                    // Feedback in Sidebar
+                    feedbackEl.textContent = '❌ 回答错误，请重试';
+                    feedbackEl.style.backgroundColor = '#fee2e2'; // red-100
+                    feedbackEl.style.color = '#991b1b'; // red-800
+
+                    // Shake effect
+                    const cell = document.querySelector(`.element-cell[data-n="${el.n}"]`);
+                    cell.style.backgroundColor = 'var(--danger-color)';
+                    setTimeout(() => cell.style.backgroundColor = '', 300);
+                }
+            }
+
+            updateStats() {
+                document.getElementById('correctCount').textContent = this.state.correct;
+                document.getElementById('wrongCount').textContent = this.state.wrong;
+            }
+
+            bindEvents() {
+                // Mode switching
+                document.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.setMode(btn.dataset.mode));
+                });
+
+                // Quiz buttons
+                document.getElementById('skipBtn').addEventListener('click', () => this.nextQuestion());
+                document.getElementById('hintBtn').addEventListener('click', () => {
+                    const q = this.state.quizQuestion;
+                    alert(`提示：它是原子序数为 ${q.n} 的 ${this.types[q.t]}`);
+                });
+                document.getElementById('resetQuizBtn').addEventListener('click', () => this.startQuiz());
+                document.getElementById('exitQuizBtn').addEventListener('click', () => this.setMode('explore'));
+
+                // Search
+                const searchInput = document.getElementById('searchInput');
+                searchInput.addEventListener('input', (e) => {
+                    const term = e.target.value.toLowerCase().trim();
+                    if (!term) return;
+                    
+                    const found = this.elements.find(el => 
+                        el.name.includes(term) || 
+                        el.s.toLowerCase() === term || 
+                        el.n.toString() === term ||
+                        (el.en && el.en.toLowerCase().includes(term))
+                    );
+
+                    if (found) {
+                        this.selectElement(found.n);
+                        // Scroll element into view if needed
+                        const elDiv = document.querySelector(`.element-cell[data-n="${found.n}"]`);
+                        if(elDiv) elDiv.scrollIntoView({behavior: 'smooth', block: 'center'});
+                    }
+                });
+            }
+        }
+
+        const app = new PeriodicTable();
+    </script>
+</body>
+</html>

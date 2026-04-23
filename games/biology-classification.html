@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生物分类 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="生物分类把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="生物分类,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/biology-classification.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="生物分类 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="生物分类把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/biology-classification.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="生物分类 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="生物分类把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"生物分类","description":"生物分类把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/biology-classification.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 50%, #CDDC39 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .classification-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .classification-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .classification-btn.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        .score-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .score-item {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+        .score-value {
+            font-weight: bold;
+            color: #4CAF50;
+            display: block;
+            font-size: 1.5em;
+        }
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .instruction {
+            background: #e8f5e8;
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            max-width: 800px;
+            width: 100%;
+        }
+        .classification-tree {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .tree-level {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .tree-node {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px 20px;
+            min-width: 120px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tree-node:hover {
+            border-color: #4CAF50;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .tree-node.drop-zone {
+            border-style: dashed;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+        }
+        .tree-node.drag-over {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+        .tree-node.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        .tree-node.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        .tree-node.filled {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .node-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+        .node-content {
+            font-size: 0.9em;
+            color: #636e72;
+        }
+        .organisms-pool {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .organisms-pool h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d3436;
+        }
+        .organisms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .organism-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: grab;
+            transition: all 0.3s ease;
+            user-select: none;
+            text-align: center;
+        }
+        .organism-card:hover {
+            border-color: #4CAF50;
+            transform: translateY(-2px);
+        }
+        .organism-card.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+            cursor: grabbing;
+        }
+        .organism-card.used {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .organism-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+        .organism-description {
+            font-size: 0.9em;
+            color: #636e72;
+            line-height: 1.4;
+        }
+        .organism-image {
+            width: 60px;
+            height: 60px;
+            background: #e9ecef;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .feedback {
+            background: #e8f5e8;
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            max-width: 800px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .feedback.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        .game-complete {
+            background: #e8f5e8;
+            border: 2px solid #4CAF50;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .game-complete h3 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .final-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .final-stat {
+            margin: 10px;
+        }
+        .final-stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .tree-connection {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: #4CAF50;
+            transform: translateX(-50%);
+        }
+        .level-title {
+            text-align: center;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>生物分类练习</h1>
+        
+        <div class="classification-selector">
+            <div class="classification-btn active" data-classification="kingdom">界门纲目</div>
+            <div class="classification-btn" data-classification="plant">植物分类</div>
+            <div class="classification-btn" data-classification="animal">动物分类</div>
+            <div class="classification-btn" data-classification="microbe">微生物分类</div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item">
+                得分
+                <span class="score-value" id="score">0</span>
+            </div>
+            <div class="score-item">
+                分类数
+                <span class="score-value" id="classifiedCount">0</span>
+            </div>
+            <div class="score-item">
+                正确率
+                <span class="score-value" id="accuracy">0%</span>
+            </div>
+            <div class="score-item">
+                轮次
+                <span class="score-value" id="round">1</span>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+        </div>
+        
+        <div class="game-area">
+            <div class="instruction" id="instruction">
+                将下方的生物拖拽到正确的分类位置上
+            </div>
+            
+            <div class="classification-tree" id="classificationTree">
+                <!-- 分类树将在这里生成 -->
+            </div>
+            
+            <div class="organisms-pool">
+                <h3>待分类生物</h3>
+                <div class="organisms-grid" id="organismsGrid">
+                    <!-- 生物卡片将在这里生成 -->
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback" style="display: none;">
+                <!-- 反馈信息 -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" id="checkBtn" disabled>检查答案</button>
+                <button class="btn btn-warning" id="hintBtn">提示</button>
+                <button class="btn btn-warning" id="resetBtn">重置</button>
+                <button class="btn btn-success" id="nextBtn" style="display: none;">下一轮</button>
+            </div>
+        </div>
+        
+        <div class="game-complete" id="gameComplete" style="display: none;">
+            <h3>分类练习完成！</h3>
+            <div class="final-stats">
+                <div class="final-stat">
+                    总轮数
+                    <div class="final-stat-value" id="finalRounds">0</div>
+                </div>
+                <div class="final-stat">
+                    正确数
+                    <div class="final-stat-value" id="finalCorrect">0</div>
+                </div>
+                <div class="final-stat">
+                    最终得分
+                    <div class="final-stat-value" id="finalScore">0</div>
+                </div>
+                <div class="final-stat">
+                    正确率
+                    <div class="final-stat-value" id="finalAccuracy">0%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class BiologyClassificationGame {
+            constructor() {
+                this.classifications = {
+                    kingdom: {
+                        title: "生物界门纲目分类",
+                        tree: [
+                            { level: "界", nodes: ["动物界", "植物界", "真菌界"] },
+                            { level: "门", nodes: ["脊索动物门", "节肢动物门", "被子植物门", "裸子植物门"] },
+                            { level: "纲", nodes: ["哺乳纲", "鸟纲", "昆虫纲", "双子叶植物纲"] },
+                            { level: "目", nodes: ["食肉目", "灵长目", "鳞翅目", "蔷薇目"] }
+                        ],
+                        organisms: [
+                            { name: "老虎", description: "大型猫科动物", emoji: "🐅", category: "食肉目" },
+                            { name: "猴子", description: "灵长类动物", emoji: "🐒", category: "灵长目" },
+                            { name: "蝴蝶", description: "鳞翅目昆虫", emoji: "🦋", category: "鳞翅目" },
+                            { name: "玫瑰", description: "蔷薇科植物", emoji: "🌹", category: "蔷薇目" },
+                            { name: "狮子", description: "大型猫科动物", emoji: "🦁", category: "食肉目" },
+                            { name: "大象", description: "大型哺乳动物", emoji: "🐘", category: "长鼻目" }
+                        ]
+                    },
+                    plant: {
+                        title: "植物分类系统",
+                        tree: [
+                            { level: "类型", nodes: ["被子植物", "裸子植物", "蕨类植物", "苔藓植物"] },
+                            { level: "科", nodes: ["蔷薇科", "豆科", "菊科", "松科"] },
+                            { level: "属", nodes: ["蔷薇属", "大豆属", "向日葵属", "松属"] }
+                        ],
+                        organisms: [
+                            { name: "玫瑰", description: "蔷薇科观赏植物", emoji: "🌹", category: "蔷薇属" },
+                            { name: "大豆", description: "豆科经济作物", emoji: "🫘", category: "大豆属" },
+                            { name: "向日葵", description: "菊科油料作物", emoji: "🌻", category: "向日葵属" },
+                            { name: "松树", description: "松科常绿乔木", emoji: "🌲", category: "松属" },
+                            { name: "月季", description: "蔷薇科观赏植物", emoji: "🌺", category: "蔷薇属" },
+                            { name: "绿豆", description: "豆科食用作物", emoji: "🫛", category: "豇豆属" }
+                        ]
+                    },
+                    animal: {
+                        title: "动物分类系统",
+                        tree: [
+                            { level: "门", nodes: ["脊索动物门", "节肢动物门", "软体动物门", "腔肠动物门"] },
+                            { level: "纲", nodes: ["哺乳纲", "鸟纲", "爬行纲", "昆虫纲"] },
+                            { level: "目", nodes: ["食肉目", "偶蹄目", "鳞翅目", "鞘翅目"] }
+                        ],
+                        organisms: [
+                            { name: "老虎", description: "大型食肉动物", emoji: "🐅", category: "食肉目" },
+                            { name: "牛", description: "偶蹄目家畜", emoji: "🐄", category: "偶蹄目" },
+                            { name: "蝴蝶", description: "鳞翅目昆虫", emoji: "🦋", category: "鳞翅目" },
+                            { name: "甲虫", description: "鞘翅目昆虫", emoji: "🪲", category: "鞘翅目" },
+                            { name: "狼", description: "犬科食肉动物", emoji: "🐺", category: "食肉目" },
+                            { name: "羊", description: "偶蹄目家畜", emoji: "🐑", category: "偶蹄目" }
+                        ]
+                    },
+                    microbe: {
+                        title: "微生物分类系统",
+                        tree: [
+                            { level: "域", nodes: ["细菌域", "古菌域", "真核域"] },
+                            { level: "界", nodes: ["细菌界", "古菌界", "原生生物界", "真菌界"] },
+                            { level: "门", nodes: ["变形菌门", "厚壁菌门", "子囊菌门", "担子菌门"] }
+                        ],
+                        organisms: [
+                            { name: "大肠杆菌", description: "常见肠道细菌", emoji: "🦠", category: "变形菌门" },
+                            { name: "乳酸菌", description: "发酵细菌", emoji: "🧫", category: "厚壁菌门" },
+                            { name: "酵母菌", description: "单细胞真菌", emoji: "🍞", category: "子囊菌门" },
+                            { name: "蘑菇", description: "大型真菌", emoji: "🍄", category: "担子菌门" },
+                            { name: "链球菌", description: "球形细菌", emoji: "⚪", category: "厚壁菌门" },
+                            { name: "青霉菌", description: "产抗生素真菌", emoji: "🧪", category: "子囊菌门" }
+                        ]
+                    }
+                };
+                
+                this.currentClassification = 'kingdom';
+                this.currentRound = 1;
+                this.score = 0;
+                this.classifiedCount = 0;
+                this.totalRounds = 0;
+                this.currentOrganisms = [];
+                this.placedOrganisms = {};
+                this.draggedElement = null;
+                
+                this.initElements();
+                this.bindEvents();
+                this.startNewRound();
+            }
+            
+            initElements() {
+                this.classificationTree = document.getElementById('classificationTree');
+                this.organismsGrid = document.getElementById('organismsGrid');
+                this.instruction = document.getElementById('instruction');
+                this.feedback = document.getElementById('feedback');
+                this.progressFill = document.getElementById('progressFill');
+                
+                this.checkBtn = document.getElementById('checkBtn');
+                this.hintBtn = document.getElementById('hintBtn');
+                this.resetBtn = document.getElementById('resetBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.gameComplete = document.getElementById('gameComplete');
+                
+                this.scoreSpan = document.getElementById('score');
+                this.classifiedCountSpan = document.getElementById('classifiedCount');
+                this.accuracySpan = document.getElementById('accuracy');
+                this.roundSpan = document.getElementById('round');
+            }
+            
+            bindEvents() {
+                // 分类选择
+                document.querySelectorAll('.classification-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.classification-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentClassification = e.target.dataset.classification;
+                        this.resetGame();
+                    });
+                });
+                
+                this.checkBtn.addEventListener('click', () => this.checkAnswer());
+                this.hintBtn.addEventListener('click', () => this.showHint());
+                this.resetBtn.addEventListener('click', () => this.resetRound());
+                this.nextBtn.addEventListener('click', () => this.nextRound());
+            }
+            
+            resetGame() {
+                this.currentRound = 1;
+                this.score = 0;
+                this.classifiedCount = 0;
+                this.totalRounds = 0;
+                this.gameComplete.style.display = 'none';
+                this.startNewRound();
+            }
+            
+            startNewRound() {
+                const classification = this.classifications[this.currentClassification];
+                
+                // 随机选择4个生物
+                this.currentOrganisms = this.shuffleArray([...classification.organisms]).slice(0, 4);
+                this.placedOrganisms = {};
+                
+                this.renderClassificationTree();
+                this.renderOrganisms();
+                this.updateStats();
+                this.updateProgress();
+                
+                this.instruction.textContent = `将下方的生物拖拽到正确的${classification.title}位置上`;
+                this.feedback.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.disabled = true;
+            }
+            
+            renderClassificationTree() {
+                this.classificationTree.innerHTML = '';
+                const classification = this.classifications[this.currentClassification];
+                
+                classification.tree.forEach((level, levelIndex) => {
+                    const levelDiv = document.createElement('div');
+                    levelDiv.className = 'tree-level';
+                    
+                    const levelTitle = document.createElement('div');
+                    levelTitle.className = 'level-title';
+                    levelTitle.textContent = level.level;
+                    levelDiv.appendChild(levelTitle);
+                    
+                    const nodesContainer = document.createElement('div');
+                    nodesContainer.style.display = 'flex';
+                    nodesContainer.style.justifyContent = 'center';
+                    nodesContainer.style.flexWrap = 'wrap';
+                    nodesContainer.style.gap = '20px';
+                    nodesContainer.style.width = '100%';
+                    
+                    level.nodes.forEach(node => {
+                        const nodeDiv = document.createElement('div');
+                        nodeDiv.className = 'tree-node drop-zone';
+                        nodeDiv.dataset.category = node;
+                        nodeDiv.textContent = node;
+                        
+                        nodeDiv.addEventListener('dragover', this.handleDragOver.bind(this));
+                        nodeDiv.addEventListener('drop', this.handleDrop.bind(this));
+                        
+                        nodesContainer.appendChild(nodeDiv);
+                    });
+                    
+                    levelDiv.appendChild(nodesContainer);
+                    this.classificationTree.appendChild(levelDiv);
+                });
+            }
+            
+            renderOrganisms() {
+                this.organismsGrid.innerHTML = '';
+                
+                // 打乱生物顺序
+                const shuffledOrganisms = this.shuffleArray([...this.currentOrganisms]);
+                
+                shuffledOrganisms.forEach((organism, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'organism-card';
+                    card.draggable = true;
+                    card.dataset.organismId = this.currentOrganisms.indexOf(organism);
+                    
+                    card.innerHTML = `
+                        <div class="organism-image">${organism.emoji}</div>
+                        <div class="organism-name">${organism.name}</div>
+                        <div class="organism-description">${organism.description}</div>
+                    `;
+                    
+                    card.addEventListener('dragstart', this.handleDragStart.bind(this));
+                    card.addEventListener('dragend', this.handleDragEnd.bind(this));
+                    
+                    this.organismsGrid.appendChild(card);
+                });
+            }
+            
+            handleDragStart(e) {
+                this.draggedElement = e.target;
+                e.target.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            }
+            
+            handleDragEnd(e) {
+                e.target.classList.remove('dragging');
+                this.draggedElement = null;
+            }
+            
+            handleDragOver(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                e.target.classList.add('drag-over');
+            }
+            
+            handleDrop(e) {
+                e.preventDefault();
+                e.target.classList.remove('drag-over');
+                
+                if (!this.draggedElement) return;
+                
+                const category = e.target.dataset.category;
+                const organismId = parseInt(this.draggedElement.dataset.organismId);
+                const organism = this.currentOrganisms[organismId];
+                
+                // 检查该位置是否已有生物
+                if (this.placedOrganisms[category]) {
+                    // 将原生物放回生物池
+                    const originalCard = document.querySelector(`[data-organism-id="${this.placedOrganisms[category]}"]`);
+                    if (originalCard) {
+                        originalCard.classList.remove('used');
+                        originalCard.draggable = true;
+                    }
+                }
+                
+                // 放置新生物
+                this.placedOrganisms[category] = organismId;
+                
+                // 更新分类树显示
+                const dropZone = e.target;
+                dropZone.innerHTML = `
+                    <div class="organism-image">${organism.emoji}</div>
+                    <div class="organism-name">${organism.name}</div>
+                `;
+                dropZone.classList.add('filled');
+                
+                // 标记生物卡片为已使用
+                this.draggedElement.classList.add('used');
+                this.draggedElement.draggable = false;
+                
+                // 检查是否可以提交答案
+                this.checkBtn.disabled = Object.keys(this.placedOrganisms).length === 0;
+            }
+            
+            checkAnswer() {
+                let correctCount = 0;
+                const totalPlaced = Object.keys(this.placedOrganisms).length;
+                
+                // 检查每个放置的生物
+                Object.entries(this.placedOrganisms).forEach(([category, organismId]) => {
+                    const organism = this.currentOrganisms[organismId];
+                    const dropZone = document.querySelector(`[data-category="${category}"]`);
+                    
+                    if (organism.category === category) {
+                        dropZone.classList.add('correct');
+                        correctCount++;
+                    } else {
+                        dropZone.classList.add('wrong');
+                    }
+                });
+                
+                this.totalRounds++;
+                this.classifiedCount += correctCount;
+                
+                if (correctCount === totalPlaced && totalPlaced === this.currentOrganisms.length) {
+                    this.score += 25;
+                    this.feedback.className = 'feedback correct';
+                    this.feedback.textContent = '恭喜！所有生物分类完全正确！';
+                } else if (correctCount > 0) {
+                    this.score += correctCount * 5;
+                    this.feedback.className = 'feedback';
+                    this.feedback.textContent = `部分正确！${correctCount}/${totalPlaced} 个生物分类正确。`;
+                } else {
+                    this.feedback.className = 'feedback wrong';
+                    this.feedback.innerHTML = `
+                        <strong>分类有误！</strong><br>
+                        正确的分类是：<br>
+                        ${this.currentOrganisms.map(organism => 
+                            `${organism.name} → ${organism.category}`
+                        ).join('<br>')}
+                    `;
+                }
+                
+                this.feedback.style.display = 'block';
+                this.checkBtn.disabled = true;
+                
+                if (this.currentRound >= 5) {
+                    this.nextBtn.textContent = '查看结果';
+                } else {
+                    this.nextBtn.textContent = '下一轮';
+                }
+                this.nextBtn.style.display = 'inline-block';
+                
+                this.updateStats();
+            }
+            
+            showHint() {
+                // 显示第一个未分类生物的提示
+                const unplacedOrganism = this.currentOrganisms.find((organism, index) => {
+                    return !Object.values(this.placedOrganisms).includes(index);
+                });
+                
+                if (unplacedOrganism) {
+                    const correctCategory = unplacedOrganism.category;
+                    const targetNode = document.querySelector(`[data-category="${correctCategory}"]`);
+                    
+                    if (targetNode) {
+                        targetNode.style.background = '#fff3cd';
+                        targetNode.style.borderColor = '#ffeaa7';
+                        
+                        setTimeout(() => {
+                            targetNode.style.background = '';
+                            targetNode.style.borderColor = '';
+                        }, 3000);
+                    }
+                    
+                    this.feedback.className = 'feedback';
+                    this.feedback.innerHTML = `提示：${unplacedOrganism.name} 应该分类到 "${correctCategory}"`;
+                    this.feedback.style.display = 'block';
+                }
+            }
+            
+            resetRound() {
+                this.placedOrganisms = {};
+                
+                // 重置分类树
+                document.querySelectorAll('.tree-node').forEach(node => {
+                    if (node.dataset.category) {
+                        node.textContent = node.dataset.category;
+                        node.className = 'tree-node drop-zone';
+                    }
+                });
+                
+                // 重置生物卡片
+                document.querySelectorAll('.organism-card').forEach(card => {
+                    card.classList.remove('used');
+                    card.draggable = true;
+                });
+                
+                this.feedback.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.disabled = true;
+            }
+            
+            nextRound() {
+                this.currentRound++;
+                
+                if (this.currentRound > 5) {
+                    this.showGameComplete();
+                } else {
+                    this.startNewRound();
+                }
+            }
+            
+            showGameComplete() {
+                const accuracy = this.totalRounds > 0 ? 
+                    Math.round((this.classifiedCount / (this.totalRounds * this.currentOrganisms.length)) * 100) : 0;
+                
+                document.getElementById('finalRounds').textContent = this.totalRounds;
+                document.getElementById('finalCorrect').textContent = this.classifiedCount;
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('finalAccuracy').textContent = accuracy + '%';
+                
+                this.gameComplete.style.display = 'block';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.style.display = 'none';
+                this.hintBtn.style.display = 'none';
+                this.resetBtn.textContent = '重新开始';
+                this.resetBtn.onclick = () => this.resetGame();
+            }
+            
+            updateStats() {
+                this.scoreSpan.textContent = this.score;
+                this.roundSpan.textContent = this.currentRound;
+                this.classifiedCountSpan.textContent = this.classifiedCount;
+                
+                const accuracy = this.totalRounds > 0 ? 
+                    Math.round((this.classifiedCount / (this.totalRounds * this.currentOrganisms.length)) * 100) : 0;
+                this.accuracySpan.textContent = accuracy + '%';
+            }
+            
+            updateProgress() {
+                const progress = Object.keys(this.placedOrganisms).length / this.currentOrganisms.length * 100;
+                this.progressFill.style.width = progress + '%';
+            }
+            
+            shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+        }
+        
+        // 启动游戏
+        new BiologyClassificationGame();
+    </script>
+</body>
+</html>

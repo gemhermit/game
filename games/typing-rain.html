@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打字雨 (Typing Rain) - 在线动作街机小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="打字雨 (Typing Rain)是一款节奏轻快的动作街机小游戏，支持手机和电脑直接打开即玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="打字雨 (Typing Rain),动作街机,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/typing-rain.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="打字雨 (Typing Rain) - 在线动作街机小游戏 | 贝谷游戏">
+    <meta property="og:description" content="打字雨 (Typing Rain)是一款节奏轻快的动作街机小游戏，支持手机和电脑直接打开即玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/typing-rain.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="打字雨 (Typing Rain) - 在线动作街机小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="打字雨 (Typing Rain)是一款节奏轻快的动作街机小游戏，支持手机和电脑直接打开即玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"打字雨 (Typing Rain)","description":"打字雨 (Typing Rain)是一款节奏轻快的动作街机小游戏，支持手机和电脑直接打开即玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/typing-rain.html","genre":"动作街机","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #0f172a; /* Slate-900 */
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+        }
+        canvas {
+            display: block;
+        }
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .stat {
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #startScreen, #gameOverScreen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.9);
+            z-index: 20;
+        }
+        .btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.1s;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .hidden { display: none !important; }
+        
+        /* Highlight matched part */
+        .matched { color: #4ade80; } /* Green */
+        .target { color: #f87171; } /* Red for current target */
+    </style>
+</head>
+<body>
+
+    <div id="ui">
+        <div class="stat">分数: <span id="score">0</span></div>
+        <div class="stat">生命: <span id="lives">5</span></div>
+    </div>
+
+    <div id="startScreen">
+        <h1 class="text-6xl font-bold mb-4 text-indigo-400">打字雨</h1>
+        <p class="text-xl text-gray-300 mb-8">键盘输入下落的单词来消除它们。不要让它们触底！</p>
+        <button class="btn" id="startBtn">开始游戏</button>
+    </div>
+
+    <div id="gameOverScreen" class="hidden">
+        <h1 class="text-6xl font-bold mb-4 text-red-500">游戏结束</h1>
+        <p class="text-2xl text-white mb-8">最终得分: <span id="finalScore">0</span></p>
+        <button class="btn" id="restartBtn">再玩一次</button>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+<script>
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.vx = (Math.random() - 0.5) * 10;
+        this.vy = (Math.random() - 0.5) * 10;
+        this.life = 1.0;
+    }
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life -= 0.05;
+    }
+    draw(ctx) {
+        ctx.globalAlpha = this.life;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+    }
+}
+
+class TypingGame {
+    constructor() {
+        this.canvas = document.getElementById('gameCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
+        
+        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        this.words = [
+            "apple", "banana", "orange", "grape", "melon", "berry", "peach", "lemon", "lime", "kiwi",
+            "cat", "dog", "bird", "fish", "lion", "tiger", "bear", "wolf", "fox", "deer",
+            "red", "blue", "green", "yellow", "pink", "purple", "white", "black", "gray", "brown",
+            "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+            "hello", "world", "code", "game", "play", "learn", "study", "read", "write", "type",
+            "house", "car", "bus", "train", "plane", "ship", "boat", "bike", "road", "city",
+            "sun", "moon", "star", "sky", "cloud", "rain", "snow", "wind", "fire", "water",
+            "javascript", "html", "css", "python", "java", "ruby", "php", "sql", "swift", "kotlin",
+            "react", "vue", "angular", "node", "deno", "bun", "vite", "webpack", "babel", "jest"
+        ];
+
+        this.activeWords = []; 
+        this.particles = [];
+        this.score = 0;
+        this.lives = 5;
+        this.spawnRate = 2000;
+        this.lastSpawn = 0;
+        this.isPlaying = false;
+        this.animationId = null;
+
+        this.scoreEl = document.getElementById('score');
+        this.livesEl = document.getElementById('lives');
+        this.finalScoreEl = document.getElementById('finalScore');
+        this.startScreen = document.getElementById('startScreen');
+        this.gameOverScreen = document.getElementById('gameOverScreen');
+
+        this.initEvents();
+    }
+    
+    playSound(type) {
+        if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+        const osc = this.audioCtx.createOscillator();
+        const gain = this.audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(this.audioCtx.destination);
+        
+        if (type === 'type') {
+            osc.frequency.setValueAtTime(800, this.audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1200, this.audioCtx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.1, this.audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.05);
+            osc.start();
+            osc.stop(this.audioCtx.currentTime + 0.05);
+        } else if (type === 'hit') {
+            osc.frequency.setValueAtTime(400, this.audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(800, this.audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.2, this.audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.1);
+            osc.type = 'square';
+            osc.start();
+            osc.stop(this.audioCtx.currentTime + 0.1);
+        } else if (type === 'error') {
+            osc.frequency.setValueAtTime(150, this.audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(100, this.audioCtx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.3, this.audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, this.audioCtx.currentTime + 0.3);
+            osc.type = 'sawtooth';
+            osc.start();
+            osc.stop(this.audioCtx.currentTime + 0.3);
+        }
+    }
+    
+    spawnParticles(x, y) {
+        for(let i=0; i<10; i++) {
+            this.particles.push(new Particle(x, y, '#4ade80'));
+        }
+    }
+
+    initEvents() {
+        window.addEventListener('resize', () => {
+            this.width = window.innerWidth;
+            this.height = window.innerHeight;
+            this.canvas.width = this.width;
+            this.canvas.height = this.height;
+        });
+
+        document.getElementById('startBtn').addEventListener('click', () => this.startGame());
+        document.getElementById('restartBtn').addEventListener('click', () => this.startGame());
+
+        document.addEventListener('keydown', (e) => this.handleInput(e));
+    }
+
+    startGame() {
+        this.activeWords = [];
+        this.score = 0;
+        this.lives = 5;
+        this.spawnRate = 2000;
+        this.lastSpawn = 0;
+        this.isPlaying = true;
+        
+        this.updateUI();
+        this.startScreen.classList.add('hidden');
+        this.gameOverScreen.classList.add('hidden');
+        
+        if (this.animationId) cancelAnimationFrame(this.animationId);
+        this.loop(0);
+    }
+
+    spawnWord() {
+        const text = this.words[Math.floor(Math.random() * this.words.length)];
+        // Ensure no duplicate starting words if possible to avoid conflict?
+        // Actually, simple version: just pick any. Collision handling: target closest/lowest.
+        
+        const x = Math.random() * (this.width - 200) + 50;
+        const speed = 1 + (this.score / 500); // Increase speed with score
+        
+        this.activeWords.push({
+            text: text,
+            x: x,
+            y: -30,
+            speed: speed,
+            typed: ""
+        });
+    }
+
+    handleInput(e) {
+        if (!this.isPlaying) return;
+        
+        const key = e.key.toLowerCase();
+        if (!/^[a-z]$/.test(key)) return; // Only letters
+
+        // Find target word
+        // Strategy: Prioritize word that is already being typed.
+        // If none, find the one closest to bottom that starts with the key.
+        
+        let target = this.activeWords.find(w => w.typed.length > 0 && w.text.startsWith(w.typed + key));
+        
+        if (!target) {
+            // No currently active word matches, find a new one
+            // Filter words that start with key and haven't been started
+            const candidates = this.activeWords.filter(w => w.typed.length === 0 && w.text.startsWith(key));
+            if (candidates.length > 0) {
+                // Pick the one with largest Y (closest to bottom)
+                candidates.sort((a, b) => b.y - a.y);
+                target = candidates[0];
+            }
+        }
+
+        if (target) {
+            target.typed += key;
+            this.playSound('type');
+            
+            if (target.typed === target.text) {
+                // Word complete
+                this.score += target.text.length * 10;
+                this.activeWords = this.activeWords.filter(w => w !== target);
+                this.playSound('hit');
+                this.spawnParticles(target.x + this.ctx.measureText(target.text).width/2, target.y);
+                
+                // Increase difficulty
+                if (this.spawnRate > 500) this.spawnRate -= 20; // Faster ramp up
+            }
+        } else {
+             // Error (optional sound?)
+        }
+        
+        this.updateUI();
+    }
+
+    update(dt) {
+        // Spawn
+        if (dt - this.lastSpawn > this.spawnRate) {
+            this.spawnWord();
+            this.lastSpawn = dt;
+        }
+
+        // Move Words
+        for (let i = this.activeWords.length - 1; i >= 0; i--) {
+            const word = this.activeWords[i];
+            word.y += word.speed;
+
+            if (word.y > this.height) {
+                this.lives--;
+                this.activeWords.splice(i, 1);
+                this.playSound('error');
+                // Shake screen?
+                this.canvas.style.transform = 'translate(5px, 5px)';
+                setTimeout(() => this.canvas.style.transform = 'none', 50);
+            }
+        }
+        
+        // Update Particles
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+            this.particles[i].update();
+            if (this.particles[i].life <= 0) {
+                this.particles.splice(i, 1);
+            }
+        }
+
+        if (this.lives <= 0) {
+            this.endGame();
+        }
+        
+        this.updateUI();
+    }
+
+    draw() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+
+        this.ctx.font = 'bold 30px "Courier New"';
+        
+        this.activeWords.forEach(word => {
+            // Draw matched part
+            const typedWidth = this.ctx.measureText(word.typed).width;
+            
+            this.ctx.fillStyle = '#4ade80'; // Green matched
+            this.ctx.fillText(word.typed, word.x, word.y);
+            
+            // Draw remaining part
+            this.ctx.fillStyle = 'white';
+            if (word.typed.length > 0) {
+                this.ctx.fillStyle = '#f87171'; // Red highlight if active
+            }
+            this.ctx.fillText(word.text.substring(word.typed.length), word.x + typedWidth, word.y);
+        });
+        
+        // Draw Particles
+        this.particles.forEach(p => p.draw(this.ctx));
+    }
+
+    loop(timestamp) {
+        if (!this.isPlaying) return;
+        
+        this.update(timestamp);
+        this.draw();
+        
+        this.animationId = requestAnimationFrame((ts) => this.loop(ts));
+    }
+
+    updateUI() {
+        this.scoreEl.textContent = this.score;
+        this.livesEl.textContent = this.lives;
+    }
+
+    endGame() {
+        this.isPlaying = false;
+        cancelAnimationFrame(this.animationId);
+        this.finalScoreEl.textContent = this.score;
+        this.gameOverScreen.classList.remove('hidden');
+    }
+}
+
+new TypingGame();
+</script>
+</body>
+</html>

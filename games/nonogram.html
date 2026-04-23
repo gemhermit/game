@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数织逻辑拼图 (Nonogram) - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="数织逻辑拼图 (Nonogram)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="数织逻辑拼图 (Nonogram),益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/nonogram.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="数织逻辑拼图 (Nonogram) - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="数织逻辑拼图 (Nonogram)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/nonogram.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="数织逻辑拼图 (Nonogram) - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="数织逻辑拼图 (Nonogram)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"数织逻辑拼图 (Nonogram)","description":"数织逻辑拼图 (Nonogram)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/nonogram.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            touch-action: manipulation;
+        }
+
+        .game-grid {
+            display: grid;
+            gap: 1px;
+            background-color: #9ca3af; /* Grid lines color */
+            border: 2px solid #4b5563;
+            user-select: none;
+        }
+
+        .cell {
+            background-color: white;
+            cursor: pointer;
+            position: relative;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            transition: background-color 0.1s;
+        }
+
+        .cell.filled {
+            background-color: #374151; /* Gray-700 */
+        }
+
+        .cell.crossed::after {
+            content: '×';
+            font-size: 1.2rem;
+            color: #ef4444; /* Red-500 */
+            line-height: 1;
+            font-weight: bold;
+        }
+
+        .cell:hover {
+            background-color: #e5e7eb;
+        }
+        
+        .cell.filled:hover {
+            background-color: #4b5563;
+        }
+
+        .clue-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 8px;
+            gap: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            background-color: #e5e7eb;
+            border-bottom: 1px solid #d1d5db;
+            border-left: 1px solid #d1d5db;
+        }
+
+        .clue-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 8px;
+            gap: 2px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            background-color: #e5e7eb;
+            border-right: 1px solid #d1d5db;
+            border-top: 1px solid #d1d5db;
+        }
+
+        .clue-num {
+            line-height: 1;
+        }
+        
+        /* 5x5 grid thick lines */
+        .thick-right { border-right: 2px solid #4b5563 !important; }
+        .thick-bottom { border-bottom: 2px solid #4b5563 !important; }
+
+        .control-panel {
+            min-width: 250px;
+        }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <div class="control-panel bg-white p-6 border-r border-gray-200 flex flex-col overflow-y-auto">
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">数织拼图</h1>
+        <p class="text-sm text-gray-500 mb-6">根据数字提示填充方块，还原隐藏的像素画。</p>
+
+        <div class="space-y-4 mb-8">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">难度 (网格大小)</label>
+                <select id="sizeSelect" class="w-full border-gray-300 rounded-md shadow-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="5">简单 (5x5)</option>
+                    <option value="10" selected>中等 (10x10)</option>
+                    <option value="15">困难 (15x15)</option>
+                </select>
+            </div>
+            
+            <div class="flex bg-gray-200 p-1 rounded-lg mb-4">
+                <button id="modeFill" class="flex-1 py-2 px-2 rounded-md text-sm font-bold transition shadow-sm bg-white text-indigo-700">
+                    ✏️ 填充
+                </button>
+                <button id="modeCross" class="flex-1 py-2 px-2 rounded-md text-sm font-bold transition text-gray-500 hover:text-gray-700">
+                    ❌ 标记
+                </button>
+            </div>
+            
+            <button id="newGameBtn" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition shadow-sm font-medium">
+                新游戏
+            </button>
+            
+            <button id="checkBtn" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition shadow-sm font-medium">
+                检查答案
+            </button>
+
+             <button id="resetBtn" class="w-full bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition shadow-sm font-medium">
+                重置当前
+            </button>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="font-semibold text-gray-700 mb-2">操作说明</h3>
+            <ul class="text-sm text-gray-600 space-y-1 list-disc pl-4">
+                <li><span class="font-bold">左键拖动</span>：填充方块 (黑色)</li>
+                <li><span class="font-bold">右键拖动</span>：标记空白 (×)</li>
+                <li>再次点击可擦除</li>
+                <li>每行/列的数字表示该行/列中连续填充方块的数量</li>
+            </ul>
+        </div>
+        
+        <div class="mt-auto">
+             <div class="text-center p-3 bg-indigo-50 rounded-lg">
+                <div class="text-xs text-indigo-500 uppercase font-bold tracking-wider mb-1">用时</div>
+                <div id="timer" class="text-2xl font-mono text-indigo-700">00:00</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Game Area -->
+    <div class="flex-1 bg-gray-50 flex flex-col items-center justify-center p-4 overflow-auto">
+        <div id="gameContainer" class="bg-white p-4 rounded-xl shadow-lg relative">
+            <!-- Game board will be injected here -->
+        </div>
+        <div id="message" class="mt-4 h-6 text-lg font-bold text-green-600"></div>
+    </div>
+
+<script>
+class NonogramGame {
+    constructor() {
+        this.size = 10;
+        this.grid = []; // The solution grid (0 or 1)
+        this.playerGrid = []; // The player's grid (0: empty, 1: filled, 2: crossed)
+        this.rowClues = [];
+        this.colClues = [];
+        this.isDragging = false;
+        this.dragType = null; // 1: fill, 2: cross, 0: erase
+        this.currentMode = 1; // 1: Fill, 2: Cross (for Left Click/Touch)
+        this.timer = 0;
+        this.timerInterval = null;
+        this.isPlaying = false;
+
+        this.container = document.getElementById('gameContainer');
+        this.sizeSelect = document.getElementById('sizeSelect');
+        this.timerDisplay = document.getElementById('timer');
+        this.messageEl = document.getElementById('message');
+        
+        this.modeFillBtn = document.getElementById('modeFill');
+        this.modeCrossBtn = document.getElementById('modeCross');
+
+        this.initEvents();
+        this.startNewGame();
+    }
+
+    initEvents() {
+        document.getElementById('newGameBtn').addEventListener('click', () => this.startNewGame());
+        document.getElementById('checkBtn').addEventListener('click', () => this.checkSolution());
+        document.getElementById('resetBtn').addEventListener('click', () => this.resetBoard());
+        
+        this.modeFillBtn.addEventListener('click', () => this.setMode(1));
+        this.modeCrossBtn.addEventListener('click', () => this.setMode(2));
+
+        // Prevent context menu on game board
+        this.container.addEventListener('contextmenu', (e) => e.preventDefault());
+        
+        // Mouse events for the grid handled in render but attached to container for drag
+        document.addEventListener('mouseup', () => {
+            this.isDragging = false;
+            this.dragType = null;
+        });
+        
+        // Touch events for mobile dragging support
+        document.addEventListener('touchend', () => {
+             this.isDragging = false;
+             this.dragType = null;
+        });
+    }
+
+    setMode(mode) {
+        this.currentMode = mode;
+        if (mode === 1) {
+            this.modeFillBtn.className = 'flex-1 py-2 px-2 rounded-md text-sm font-bold transition shadow-sm bg-white text-indigo-700';
+            this.modeCrossBtn.className = 'flex-1 py-2 px-2 rounded-md text-sm font-bold transition text-gray-500 hover:text-gray-700';
+        } else {
+            this.modeFillBtn.className = 'flex-1 py-2 px-2 rounded-md text-sm font-bold transition text-gray-500 hover:text-gray-700';
+            this.modeCrossBtn.className = 'flex-1 py-2 px-2 rounded-md text-sm font-bold transition shadow-sm bg-white text-red-600';
+        }
+    }
+
+    startNewGame() {
+        this.size = parseInt(this.sizeSelect.value);
+        this.generatePuzzle();
+        this.resetPlayerGrid();
+        this.render();
+        this.startTimer();
+        this.messageEl.textContent = '';
+        this.isPlaying = true;
+    }
+
+    resetBoard() {
+        this.resetPlayerGrid();
+        this.renderGridState(); // Only re-render grid cells, not whole layout
+    }
+
+    generatePuzzle() {
+        // 1. Generate random grid
+        this.grid = Array(this.size).fill().map(() => 
+            Array(this.size).fill().map(() => Math.random() > 0.4 ? 1 : 0) // 60% fill rate approximation
+        );
+
+        // Ensure not empty
+        let totalFilled = this.grid.flat().reduce((a, b) => a + b, 0);
+        if (totalFilled === 0) {
+            this.grid[Math.floor(Math.random()*this.size)][Math.floor(Math.random()*this.size)] = 1;
+        }
+
+        // 2. Calculate Row Clues
+        this.rowClues = this.grid.map(row => {
+            const clues = [];
+            let count = 0;
+            for (let val of row) {
+                if (val === 1) count++;
+                else if (count > 0) {
+                    clues.push(count);
+                    count = 0;
+                }
+            }
+            if (count > 0) clues.push(count);
+            return clues.length ? clues : [0];
+        });
+
+        // 3. Calculate Col Clues
+        this.colClues = [];
+        for (let c = 0; c < this.size; c++) {
+            const clues = [];
+            let count = 0;
+            for (let r = 0; r < this.size; r++) {
+                if (this.grid[r][c] === 1) count++;
+                else if (count > 0) {
+                    clues.push(count);
+                    count = 0;
+                }
+            }
+            if (count > 0) clues.push(count);
+            this.colClues.push(clues.length ? clues : [0]);
+        }
+    }
+
+    resetPlayerGrid() {
+        this.playerGrid = Array(this.size).fill().map(() => Array(this.size).fill(0));
+    }
+
+    render() {
+        this.container.innerHTML = '';
+        
+        // Use CSS Grid
+        // Layout: Top-Left (Empty), Top-Right (Col Clues)
+        //         Bottom-Left (Row Clues), Bottom-Right (Game Grid)
+        
+        const wrapper = document.createElement('div');
+        wrapper.style.display = 'grid';
+        // First column auto (row clues), second column auto (game grid)
+        wrapper.style.gridTemplateColumns = `auto 1fr`;
+        wrapper.style.gridTemplateRows = `auto 1fr`;
+        
+        // 1. Top-Left Spacer
+        const spacer = document.createElement('div');
+        wrapper.appendChild(spacer);
+
+        // 2. Top-Right: Col Clues
+        const colCluesContainer = document.createElement('div');
+        colCluesContainer.style.display = 'grid';
+        colCluesContainer.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
+        colCluesContainer.style.gap = '1px';
+        colCluesContainer.style.marginBottom = '2px'; // Separation
+        
+        this.colClues.forEach((clues, idx) => {
+            const el = document.createElement('div');
+            el.className = 'clue-col';
+            if ((idx + 1) % 5 === 0 && idx !== this.size - 1) el.style.borderRight = '2px solid #4b5563';
+            
+            clues.forEach(num => {
+                const span = document.createElement('span');
+                span.className = 'clue-num';
+                span.textContent = num;
+                el.appendChild(span);
+            });
+            colCluesContainer.appendChild(el);
+        });
+        wrapper.appendChild(colCluesContainer);
+
+        // 3. Bottom-Left: Row Clues
+        const rowCluesContainer = document.createElement('div');
+        rowCluesContainer.style.display = 'grid';
+        rowCluesContainer.style.gridTemplateRows = `repeat(${this.size}, 1fr)`;
+        rowCluesContainer.style.gap = '1px';
+        rowCluesContainer.style.marginRight = '2px'; // Separation
+        
+        this.rowClues.forEach((clues, idx) => {
+            const el = document.createElement('div');
+            el.className = 'clue-row';
+            if ((idx + 1) % 5 === 0 && idx !== this.size - 1) el.style.borderBottom = '2px solid #4b5563';
+            
+            clues.forEach(num => {
+                const span = document.createElement('span');
+                span.className = 'clue-num';
+                span.textContent = num;
+                el.appendChild(span);
+            });
+            rowCluesContainer.appendChild(el);
+        });
+        wrapper.appendChild(rowCluesContainer);
+
+        // 4. Bottom-Right: Game Grid
+        const gridEl = document.createElement('div');
+        gridEl.className = 'game-grid';
+        gridEl.style.gridTemplateColumns = `repeat(${this.size}, 30px)`; // Fixed cell size 30px
+        gridEl.style.gridTemplateRows = `repeat(${this.size}, 30px)`;
+
+        // Adjust total width based on size
+        const cellSize = 30;
+        
+        for (let r = 0; r < this.size; r++) {
+            for (let c = 0; c < this.size; c++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.dataset.r = r;
+                cell.dataset.c = c;
+                
+                // Add thick borders for 5x5 blocks
+                if ((c + 1) % 5 === 0 && c !== this.size - 1) cell.classList.add('thick-right');
+                if ((r + 1) % 5 === 0 && r !== this.size - 1) cell.classList.add('thick-bottom');
+
+                cell.addEventListener('mousedown', (e) => this.handleMouseDown(e, r, c));
+                cell.addEventListener('mouseenter', (e) => this.handleMouseEnter(e, r, c));
+                
+                // Mobile Touch Support
+                cell.addEventListener('touchstart', (e) => {
+                    e.preventDefault(); // Prevent scroll
+                    this.handleMouseDown({ button: 0, preventDefault: ()=>{} }, r, c);
+                }, { passive: false });
+                
+                // Touch move is trickier, we need to track element from coordinates
+                
+                gridEl.appendChild(cell);
+            }
+        }
+        this.gridEl = gridEl;
+        wrapper.appendChild(gridEl);
+        
+        // Touch move handler on the grid container
+        gridEl.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (!this.isDragging) return;
+            const touch = e.touches[0];
+            const el = document.elementFromPoint(touch.clientX, touch.clientY);
+            if (el && el.classList.contains('cell')) {
+                const r = parseInt(el.dataset.r);
+                const c = parseInt(el.dataset.c);
+                if (!isNaN(r) && !isNaN(c)) {
+                    this.applyMove(r, c);
+                }
+            }
+        }, { passive: false });
+        
+        this.container.appendChild(wrapper);
+    }
+
+    renderGridState() {
+        const cells = this.gridEl.children;
+        for (let i = 0; i < cells.length; i++) {
+            const cell = cells[i];
+            const r = parseInt(cell.dataset.r);
+            const c = parseInt(cell.dataset.c);
+            const state = this.playerGrid[r][c];
+            
+            cell.classList.remove('filled', 'crossed');
+            if (state === 1) cell.classList.add('filled');
+            if (state === 2) cell.classList.add('crossed');
+        }
+    }
+
+    handleMouseDown(e, r, c) {
+        if (!this.isPlaying) return;
+        this.isDragging = true;
+        e.preventDefault();
+
+        // Determine action based on button and current state
+        const currentState = this.playerGrid[r][c];
+        
+        if (e.button === 2) { // Right click -> Always toggle cross
+            if (currentState === 2) this.dragType = 0;
+            else this.dragType = 2;
+        } else { // Left click -> Use current mode
+             const targetMode = this.currentMode; // 1 (Fill) or 2 (Cross)
+             
+             if (currentState === targetMode) this.dragType = 0; // Toggle off
+             else this.dragType = targetMode;
+        }
+
+        this.applyMove(r, c);
+    }
+
+    handleMouseEnter(e, r, c) {
+        if (this.isDragging && this.isPlaying) {
+            this.applyMove(r, c);
+        }
+    }
+
+    applyMove(r, c) {
+        // Don't overwrite if not empty when filling/crossing, unless erasing
+        // Standard logic: dragging 'fill' should only fill empty cells
+        // Dragging 'erase' should only erase matching cells
+        
+        const current = this.playerGrid[r][c];
+        
+        if (this.dragType === 1) { // Fill
+            if (current !== 1) this.playerGrid[r][c] = 1;
+        } else if (this.dragType === 2) { // Cross
+            if (current !== 2) this.playerGrid[r][c] = 2;
+        } else if (this.dragType === 0) { // Erase
+            this.playerGrid[r][c] = 0;
+        }
+        
+        this.renderGridState();
+        
+        // Optional: Check win on every move? Or wait for button?
+        // Let's wait for button or check implicitly?
+        // Usually auto-check is satisfying.
+        if (this.checkWin(true)) {
+            this.endGame(true);
+        }
+    }
+
+    checkSolution() {
+        if (this.checkWin(false)) {
+            this.endGame(true);
+        } else {
+            // Show errors?
+            this.messageEl.textContent = '还有错误，请继续加油！';
+            this.messageEl.className = 'mt-4 h-6 text-lg font-bold text-red-600';
+            setTimeout(() => this.messageEl.textContent = '', 2000);
+        }
+    }
+
+    checkWin(silent) {
+        for (let r = 0; r < this.size; r++) {
+            for (let c = 0; c < this.size; c++) {
+                const target = this.grid[r][c];
+                const actual = this.playerGrid[r][c] === 1 ? 1 : 0;
+                if (target !== actual) return false;
+            }
+        }
+        return true;
+    }
+
+    endGame(win) {
+        this.isPlaying = false;
+        this.stopTimer();
+        if (win) {
+            this.messageEl.textContent = '恭喜！你成功解开了谜题！';
+            this.messageEl.className = 'mt-4 h-6 text-lg font-bold text-green-600';
+        }
+    }
+
+    startTimer() {
+        this.stopTimer();
+        this.timer = 0;
+        this.updateTimerDisplay();
+        this.timerInterval = setInterval(() => {
+            this.timer++;
+            this.updateTimerDisplay();
+        }, 1000);
+    }
+
+    stopTimer() {
+        if (this.timerInterval) clearInterval(this.timerInterval);
+    }
+
+    updateTimerDisplay() {
+        const m = Math.floor(this.timer / 60).toString().padStart(2, '0');
+        const s = (this.timer % 60).toString().padStart(2, '0');
+        this.timerDisplay.textContent = `${m}:${s}`;
+    }
+}
+
+// Start game
+new NonogramGame();
+</script>
+</body>
+</html>

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编程逻辑 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="编程逻辑把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="编程逻辑,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/programming-logic.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="编程逻辑 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="编程逻辑把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/programming-logic.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="编程逻辑 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="编程逻辑把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"编程逻辑","description":"编程逻辑把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/programming-logic.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .topic-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .topic-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .topic-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .score-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .score-item {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+        .score-value {
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+            font-size: 1.5em;
+        }
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .problem-panel {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .problem-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .problem-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #636e72;
+            margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .code-editor {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 20px 0;
+            position: relative;
+        }
+        .code-line {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            min-height: 25px;
+        }
+        .line-number {
+            color: #718096;
+            width: 30px;
+            text-align: right;
+            margin-right: 15px;
+            user-select: none;
+        }
+        .code-content {
+            flex: 1;
+        }
+        .code-blank {
+            background: #4a5568;
+            border: 2px dashed #667eea;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 0 5px;
+            min-width: 100px;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .code-blank:hover {
+            background: #667eea;
+            border-style: solid;
+        }
+        .code-blank.filled {
+            background: #38a169;
+            border-color: #38a169;
+            border-style: solid;
+        }
+        .code-blank.wrong {
+            background: #e53e3e;
+            border-color: #e53e3e;
+            border-style: solid;
+        }
+        .code-options {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .options-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .option-card {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+        }
+        .option-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        .option-card.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .option-card.used {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-success {
+            background: #38a169;
+            color: white;
+        }
+        .btn-warning {
+            background: #ed8936;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .feedback {
+            background: #e6fffa;
+            border: 1px solid #38a169;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            max-width: 800px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .feedback.correct {
+            background: #f0fff4;
+            border-color: #38a169;
+            color: #22543d;
+        }
+        .feedback.wrong {
+            background: #fed7d7;
+            border-color: #e53e3e;
+            color: #742a2a;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        .game-complete {
+            background: #e6fffa;
+            border: 2px solid #38a169;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .game-complete h3 {
+            color: #22543d;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .final-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .final-stat {
+            margin: 10px;
+        }
+        .final-stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .hint-panel {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #856404;
+        }
+        .syntax-highlight {
+            color: #e53e3e;
+        }
+        .keyword {
+            color: #667eea;
+            font-weight: bold;
+        }
+        .string {
+            color: #38a169;
+        }
+        .comment {
+            color: #718096;
+            font-style: italic;
+        }
+        .variable {
+            color: #ed8936;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>编程逻辑练习</h1>
+        
+        <div class="topic-selector">
+            <div class="topic-btn active" data-topic="basic">基础语法</div>
+            <div class="topic-btn" data-topic="loop">循环结构</div>
+            <div class="topic-btn" data-topic="condition">条件判断</div>
+            <div class="topic-btn" data-topic="function">函数定义</div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item">
+                得分
+                <span class="score-value" id="score">0</span>
+            </div>
+            <div class="score-item">
+                完成数
+                <span class="score-value" id="completedCount">0</span>
+            </div>
+            <div class="score-item">
+                正确率
+                <span class="score-value" id="accuracy">0%</span>
+            </div>
+            <div class="score-item">
+                题目
+                <span class="score-value" id="questionNumber">1</span>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+        </div>
+        
+        <div class="game-area">
+            <div class="problem-panel">
+                <div class="problem-title" id="problemTitle">编程题目</div>
+                <div class="problem-description" id="problemDescription">
+                    <!-- 题目描述 -->
+                </div>
+                
+                <div class="code-editor" id="codeEditor">
+                    <!-- 代码编辑器 -->
+                </div>
+                
+                <div class="hint-panel" id="hintPanel" style="display: none;">
+                    <!-- 提示信息 -->
+                </div>
+            </div>
+            
+            <div class="code-options">
+                <div class="options-title">选择正确的代码片段</div>
+                <div class="options-grid" id="optionsGrid">
+                    <!-- 选项 -->
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback" style="display: none;">
+                <!-- 反馈信息 -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" id="checkBtn" disabled>检查代码</button>
+                <button class="btn btn-warning" id="hintBtn">显示提示</button>
+                <button class="btn btn-warning" id="resetBtn">重置代码</button>
+                <button class="btn btn-success" id="nextBtn" style="display: none;">下一题</button>
+            </div>
+        </div>
+        
+        <div class="game-complete" id="gameComplete" style="display: none;">
+            <h3>编程练习完成！</h3>
+            <div class="final-stats">
+                <div class="final-stat">
+                    总题数
+                    <div class="final-stat-value" id="finalQuestions">0</div>
+                </div>
+                <div class="final-stat">
+                    正确数
+                    <div class="final-stat-value" id="finalCorrect">0</div>
+                </div>
+                <div class="final-stat">
+                    最终得分
+                    <div class="final-stat-value" id="finalScore">0</div>
+                </div>
+                <div class="final-stat">
+                    正确率
+                    <div class="final-stat-value" id="finalAccuracy">0%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ProgrammingLogicGame {
+            constructor() {
+                this.topics = {
+                    basic: {
+                        title: "基础语法练习",
+                        problems: [
+                            {
+                                title: "变量声明与赋值",
+                                description: "声明一个整数变量 age 并赋值为 18，然后输出这个变量。",
+                                code: [
+                                    "<span class='keyword'>int</span> <span class='variable'>age</span> = <span class='blank' data-answer='18'>____</span>;",
+                                    "<span class='keyword'>System.out.println</span>(<span class='blank' data-answer='age'>____</span>);"
+                                ],
+                                options: ["18", "age", "'age'", "int", "String", "'18'"],
+                                hint: "第一个空格需要填入数字18，第二个空格需要填入变量名age（不加引号）"
+                            },
+                            {
+                                title: "字符串操作",
+                                description: "声明两个字符串变量，将它们连接后输出。",
+                                code: [
+                                    "<span class='keyword'>String</span> <span class='variable'>firstName</span> = <span class='string'>\"Hello\"</span>;",
+                                    "<span class='keyword'>String</span> <span class='variable'>lastName</span> = <span class='string'>\"World\"</span>;",
+                                    "<span class='keyword'>String</span> <span class='variable'>fullName</span> = firstName <span class='blank' data-answer='+'>____</span> <span class='blank' data-answer='lastName'>____</span>;",
+                                    "<span class='keyword'>System.out.println</span>(fullName);"
+                                ],
+                                options: ["+", "lastName", "*", "&", "'lastName'", "-"],
+                                hint: "字符串连接使用+号，变量名不需要引号"
+                            }
+                        ]
+                    },
+                    loop: {
+                        title: "循环结构练习",
+                        problems: [
+                            {
+                                title: "for循环基础",
+                                description: "使用for循环输出1到5的数字。",
+                                code: [
+                                    "<span class='keyword'>for</span>(<span class='keyword'>int</span> <span class='variable'>i</span> = <span class='blank' data-answer='1'>____</span>; i <= <span class='blank' data-answer='5'>____</span>; <span class='blank' data-answer='i++'>____</span>) {",
+                                    "    <span class='keyword'>System.out.println</span>(i);",
+                                    "}"
+                                ],
+                                options: ["1", "5", "i++", "0", "i--", "10"],
+                                hint: "for循环的三个部分：初始值1，条件i<=5，递增i++"
+                            },
+                            {
+                                title: "while循环",
+                                description: "使用while循环计算1到10的和。",
+                                code: [
+                                    "<span class='keyword'>int</span> <span class='variable'>sum</span> = 0;",
+                                    "<span class='keyword'>int</span> <span class='variable'>i</span> = 1;",
+                                    "<span class='keyword'>while</span>(i <= <span class='blank' data-answer='10'>____</span>) {",
+                                    "    sum <span class='blank' data-answer='+='>____</span> i;",
+                                    "    <span class='blank' data-answer='i++'>____</span>;",
+                                    "}"
+                                ],
+                                options: ["10", "+=", "i++", "5", "=", "i--"],
+                                hint: "循环到10，累加用+=，记得递增i"
+                            }
+                        ]
+                    },
+                    condition: {
+                        title: "条件判断练习",
+                        problems: [
+                            {
+                                title: "if-else语句",
+                                description: "判断一个数字是否为正数、负数或零。",
+                                code: [
+                                    "<span class='keyword'>int</span> <span class='variable'>num</span> = -5;",
+                                    "<span class='keyword'>if</span>(num <span class='blank' data-answer='>'>____</span> 0) {",
+                                    "    <span class='keyword'>System.out.println</span>(<span class='string'>\"正数\"</span>);",
+                                    "} <span class='keyword'>else if</span>(num <span class='blank' data-answer='<'>____</span> 0) {",
+                                    "    <span class='keyword'>System.out.println</span>(<span class='string'>\"负数\"</span>);",
+                                    "} <span class='keyword'>else</span> {",
+                                    "    <span class='keyword'>System.out.println</span>(<span class='string'>\"零\"</span>);",
+                                    "}"
+                                ],
+                                options: [">", "<", "==", ">=", "<=", "!="],
+                                hint: "正数大于0，负数小于0"
+                            },
+                            {
+                                title: "逻辑运算符",
+                                description: "判断一个数字是否在1到100之间（包含1和100）。",
+                                code: [
+                                    "<span class='keyword'>int</span> <span class='variable'>num</span> = 50;",
+                                    "<span class='keyword'>if</span>(num >= <span class='blank' data-answer='1'>____</span> <span class='blank' data-answer='&&'>____</span> num <= <span class='blank' data-answer='100'>____</span>) {",
+                                    "    <span class='keyword'>System.out.println</span>(<span class='string'>\"在范围内\"</span>);",
+                                    "} <span class='keyword'>else</span> {",
+                                    "    <span class='keyword'>System.out.println</span>(<span class='string'>\"超出范围\"</span>);",
+                                    "}"
+                                ],
+                                options: ["1", "&&", "100", "||", "0", "99"],
+                                hint: "范围是1到100，需要同时满足两个条件，使用&&"
+                            }
+                        ]
+                    },
+                    function: {
+                        title: "函数定义练习",
+                        problems: [
+                            {
+                                title: "简单函数定义",
+                                description: "定义一个函数，计算两个整数的和。",
+                                code: [
+                                    "<span class='keyword'>public static</span> <span class='blank' data-answer='int'>____</span> <span class='variable'>add</span>(<span class='keyword'>int</span> <span class='variable'>a</span>, <span class='keyword'>int</span> <span class='variable'>b</span>) {",
+                                    "    <span class='keyword'>return</span> a <span class='blank' data-answer='+'>____</span> b;",
+                                    "}",
+                                    "",
+                                    "<span class='comment'>// 调用函数</span>",
+                                    "<span class='keyword'>int</span> <span class='variable'>result</span> = <span class='blank' data-answer='add'>____</span>(5, 3);"
+                                ],
+                                options: ["int", "+", "add", "void", "-", "sum"],
+                                hint: "返回类型是int，操作是加法+，函数名是add"
+                            },
+                            {
+                                title: "带条件的函数",
+                                description: "定义一个函数，返回两个数中的较大值。",
+                                code: [
+                                    "<span class='keyword'>public static</span> <span class='keyword'>int</span> <span class='variable'>max</span>(<span class='keyword'>int</span> <span class='variable'>a</span>, <span class='keyword'>int</span> <span class='variable'>b</span>) {",
+                                    "    <span class='keyword'>if</span>(a <span class='blank' data-answer='>'>____</span> b) {",
+                                    "        <span class='keyword'>return</span> <span class='blank' data-answer='a'>____</span>;",
+                                    "    } <span class='keyword'>else</span> {",
+                                    "        <span class='keyword'>return</span> <span class='blank' data-answer='b'>____</span>;",
+                                    "    }",
+                                    "}"
+                                ],
+                                options: [">", "a", "b", "<", "1", "0"],
+                                hint: "比较大小用>，返回较大的那个变量"
+                            }
+                        ]
+                    }
+                };
+                
+                this.currentTopic = 'basic';
+                this.currentProblemIndex = 0;
+                this.score = 0;
+                this.completedCount = 0;
+                this.totalQuestions = 0;
+                this.selectedOptions = {};
+                this.currentBlanks = [];
+                
+                this.initElements();
+                this.bindEvents();
+                this.loadProblem();
+            }
+            
+            initElements() {
+                this.problemTitle = document.getElementById('problemTitle');
+                this.problemDescription = document.getElementById('problemDescription');
+                this.codeEditor = document.getElementById('codeEditor');
+                this.optionsGrid = document.getElementById('optionsGrid');
+                this.hintPanel = document.getElementById('hintPanel');
+                this.feedback = document.getElementById('feedback');
+                this.progressFill = document.getElementById('progressFill');
+                
+                this.checkBtn = document.getElementById('checkBtn');
+                this.hintBtn = document.getElementById('hintBtn');
+                this.resetBtn = document.getElementById('resetBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.gameComplete = document.getElementById('gameComplete');
+                
+                this.scoreSpan = document.getElementById('score');
+                this.completedCountSpan = document.getElementById('completedCount');
+                this.accuracySpan = document.getElementById('accuracy');
+                this.questionNumberSpan = document.getElementById('questionNumber');
+            }
+            
+            bindEvents() {
+                // 主题选择
+                document.querySelectorAll('.topic-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentTopic = e.target.dataset.topic;
+                        this.resetGame();
+                    });
+                });
+                
+                this.checkBtn.addEventListener('click', () => this.checkAnswer());
+                this.hintBtn.addEventListener('click', () => this.showHint());
+                this.resetBtn.addEventListener('click', () => this.resetProblem());
+                this.nextBtn.addEventListener('click', () => this.nextProblem());
+            }
+            
+            resetGame() {
+                this.currentProblemIndex = 0;
+                this.score = 0;
+                this.completedCount = 0;
+                this.totalQuestions = 0;
+                this.gameComplete.style.display = 'none';
+                this.loadProblem();
+            }
+            
+            loadProblem() {
+                const topic = this.topics[this.currentTopic];
+                const problem = topic.problems[this.currentProblemIndex];
+                
+                if (!problem) {
+                    this.showGameComplete();
+                    return;
+                }
+                
+                this.selectedOptions = {};
+                this.currentBlanks = [];
+                
+                this.problemTitle.textContent = problem.title;
+                this.problemDescription.textContent = problem.description;
+                
+                this.renderCode(problem.code);
+                this.renderOptions(problem.options);
+                
+                this.hintPanel.textContent = problem.hint;
+                this.hintPanel.style.display = 'none';
+                this.feedback.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.disabled = true;
+                
+                this.updateStats();
+                this.updateProgress();
+            }
+            
+            renderCode(codeLines) {
+                this.codeEditor.innerHTML = '';
+                
+                codeLines.forEach((line, lineIndex) => {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = 'code-line';
+                    
+                    const lineNumber = document.createElement('span');
+                    lineNumber.className = 'line-number';
+                    lineNumber.textContent = lineIndex + 1;
+                    
+                    const codeContent = document.createElement('div');
+                    codeContent.className = 'code-content';
+                    
+                    // 处理代码中的空格
+                    let processedLine = line.replace(/<span class='blank' data-answer='([^']*)'>[^<]*<\/span>/g, (match, answer) => {
+                        const blankId = this.currentBlanks.length;
+                        this.currentBlanks.push({ id: blankId, answer: answer, filled: false });
+                        return `<span class='code-blank' data-blank-id='${blankId}' data-answer='${answer}'>____</span>`;
+                    });
+                    
+                    codeContent.innerHTML = processedLine;
+                    
+                    // 为空格添加点击事件
+                    codeContent.querySelectorAll('.code-blank').forEach(blank => {
+                        blank.addEventListener('click', (e) => {
+                            this.selectBlank(e.target);
+                        });
+                    });
+                    
+                    lineDiv.appendChild(lineNumber);
+                    lineDiv.appendChild(codeContent);
+                    this.codeEditor.appendChild(lineDiv);
+                });
+            }
+            
+            renderOptions(options) {
+                this.optionsGrid.innerHTML = '';
+                
+                options.forEach((option, index) => {
+                    const optionCard = document.createElement('div');
+                    optionCard.className = 'option-card';
+                    optionCard.textContent = option;
+                    optionCard.dataset.option = option;
+                    
+                    optionCard.addEventListener('click', (e) => {
+                        this.selectOption(e.target);
+                    });
+                    
+                    this.optionsGrid.appendChild(optionCard);
+                });
+            }
+            
+            selectBlank(blankElement) {
+                // 清除之前选中的空格
+                document.querySelectorAll('.code-blank').forEach(blank => {
+                    blank.style.background = '#4a5568';
+                    blank.style.borderColor = '#667eea';
+                });
+                
+                // 高亮当前选中的空格
+                blankElement.style.background = '#667eea';
+                blankElement.style.borderColor = '#667eea';
+                
+                this.selectedBlank = blankElement;
+            }
+            
+            selectOption(optionElement) {
+                if (!this.selectedBlank || optionElement.classList.contains('used')) {
+                    return;
+                }
+                
+                const blankId = parseInt(this.selectedBlank.dataset.blankId);
+                const option = optionElement.dataset.option;
+                
+                // 如果该空格之前有选项，恢复该选项
+                if (this.selectedOptions[blankId]) {
+                    const prevOption = document.querySelector(`[data-option="${this.selectedOptions[blankId]}"]`);
+                    if (prevOption) {
+                        prevOption.classList.remove('used');
+                    }
+                }
+                
+                // 设置新选项
+                this.selectedOptions[blankId] = option;
+                this.selectedBlank.textContent = option;
+                this.selectedBlank.classList.add('filled');
+                this.currentBlanks[blankId].filled = true;
+                
+                // 标记选项为已使用
+                optionElement.classList.add('used');
+                
+                // 清除选中状态
+                this.selectedBlank.style.background = '#38a169';
+                this.selectedBlank = null;
+                
+                // 检查是否可以提交
+                this.checkBtn.disabled = !this.currentBlanks.every(blank => blank.filled);
+            }
+            
+            checkAnswer() {
+                let correctCount = 0;
+                const totalBlanks = this.currentBlanks.length;
+                
+                this.currentBlanks.forEach(blank => {
+                    const blankElement = document.querySelector(`[data-blank-id="${blank.id}"]`);
+                    const userAnswer = this.selectedOptions[blank.id];
+                    
+                    if (userAnswer === blank.answer) {
+                        blankElement.classList.add('correct');
+                        blankElement.classList.remove('wrong');
+                        correctCount++;
+                    } else {
+                        blankElement.classList.add('wrong');
+                        blankElement.classList.remove('correct');
+                    }
+                });
+                
+                this.totalQuestions++;
+                
+                if (correctCount === totalBlanks) {
+                    this.score += 20;
+                    this.completedCount++;
+                    this.feedback.className = 'feedback correct';
+                    this.feedback.textContent = '恭喜！代码完全正确！';
+                } else {
+                    this.score += Math.floor(correctCount / totalBlanks * 10);
+                    this.feedback.className = 'feedback wrong';
+                    this.feedback.innerHTML = `
+                        <strong>代码有误！</strong><br>
+                        正确率：${correctCount}/${totalBlanks}<br>
+                        请检查标红的部分。
+                    `;
+                }
+                
+                this.feedback.style.display = 'block';
+                this.checkBtn.disabled = true;
+                
+                if (this.currentProblemIndex >= this.topics[this.currentTopic].problems.length - 1) {
+                    this.nextBtn.textContent = '查看结果';
+                } else {
+                    this.nextBtn.textContent = '下一题';
+                }
+                this.nextBtn.style.display = 'inline-block';
+                
+                this.updateStats();
+            }
+            
+            showHint() {
+                this.hintPanel.style.display = 'block';
+            }
+            
+            resetProblem() {
+                this.selectedOptions = {};
+                this.selectedBlank = null;
+                
+                // 重置空格
+                document.querySelectorAll('.code-blank').forEach(blank => {
+                    blank.textContent = '____';
+                    blank.className = 'code-blank';
+                    blank.style.background = '#4a5568';
+                    blank.style.borderColor = '#667eea';
+                });
+                
+                // 重置选项
+                document.querySelectorAll('.option-card').forEach(option => {
+                    option.classList.remove('used');
+                });
+                
+                // 重置空格状态
+                this.currentBlanks.forEach(blank => {
+                    blank.filled = false;
+                });
+                
+                this.feedback.style.display = 'none';
+                this.hintPanel.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.disabled = true;
+            }
+            
+            nextProblem() {
+                this.currentProblemIndex++;
+                
+                if (this.currentProblemIndex >= this.topics[this.currentTopic].problems.length) {
+                    this.showGameComplete();
+                } else {
+                    this.loadProblem();
+                }
+            }
+            
+            showGameComplete() {
+                const accuracy = this.totalQuestions > 0 ? 
+                    Math.round((this.completedCount / this.totalQuestions) * 100) : 0;
+                
+                document.getElementById('finalQuestions').textContent = this.totalQuestions;
+                document.getElementById('finalCorrect').textContent = this.completedCount;
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('finalAccuracy').textContent = accuracy + '%';
+                
+                this.gameComplete.style.display = 'block';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.style.display = 'none';
+                this.hintBtn.style.display = 'none';
+                this.resetBtn.textContent = '重新开始';
+                this.resetBtn.onclick = () => this.resetGame();
+            }
+            
+            updateStats() {
+                this.scoreSpan.textContent = this.score;
+                this.completedCountSpan.textContent = this.completedCount;
+                this.questionNumberSpan.textContent = this.currentProblemIndex + 1;
+                
+                const accuracy = this.totalQuestions > 0 ? 
+                    Math.round((this.completedCount / this.totalQuestions) * 100) : 0;
+                this.accuracySpan.textContent = accuracy + '%';
+            }
+            
+            updateProgress() {
+                const totalProblems = this.topics[this.currentTopic].problems.length;
+                const progress = (this.currentProblemIndex / totalProblems) * 100;
+                this.progressFill.style.width = progress + '%';
+            }
+        }
+        
+        // 启动游戏
+        new ProgrammingLogicGame();
+    </script>
+</body>
+</html>

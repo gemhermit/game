@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智力扫雷 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="智力扫雷是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="智力扫雷,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/minesweeper.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="智力扫雷 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="智力扫雷是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/minesweeper.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="智力扫雷 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="智力扫雷是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"智力扫雷","description":"智力扫雷是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/minesweeper.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg-color: #f0f2f5;
+            --panel-bg: #ffffff;
+            --cell-closed: #bfdbfe;
+            --cell-open: #ffffff;
+            --cell-hover: #93c5fd;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --mine-color: #ef4444;
+            --flag-color: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        .control-group { margin-bottom: 20px; }
+        .control-label { font-weight: 600; margin-bottom: 8px; display: block; font-size: 14px; }
+
+        .difficulty-select {
+            display: flex;
+            gap: 8px;
+        }
+
+        .diff-btn {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .diff-btn:hover { background: #f8fafc; }
+        .diff-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .stats-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .stat-value { font-weight: bold; font-family: monospace; }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #2563eb; }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .game-board {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            display: grid;
+            gap: 2px;
+            user-select: none;
+        }
+
+        .cell {
+            width: 30px;
+            height: 30px;
+            background: var(--cell-closed);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        .cell:hover:not(.open) {
+            background: var(--cell-hover);
+        }
+
+        .cell.open {
+            background: var(--cell-open);
+            cursor: default;
+            border: 1px solid #f1f5f9;
+        }
+
+        .cell.flagged {
+            background: var(--cell-closed);
+        }
+        
+        .cell.flagged::after {
+            content: "🚩";
+            font-size: 16px;
+        }
+
+        .cell.mine {
+            background: var(--mine-color) !important;
+            color: white;
+        }
+
+        /* Number Colors */
+        .val-1 { color: #3b82f6; }
+        .val-2 { color: #16a34a; }
+        .val-3 { color: #ef4444; }
+        .val-4 { color: #7c3aed; }
+        .val-5 { color: #db2777; }
+        .val-6 { color: #0891b2; }
+        .val-7 { color: #475569; }
+        .val-8 { color: #1e293b; }
+
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: opacity 0.3s;
+            z-index: 100;
+            max-width: calc(100vw - 360px);
+            word-wrap: break-word;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>智力扫雷</h1>
+        <div class="subtitle">运用逻辑推理，找出所有地雷。</div>
+
+        <div class="control-group">
+            <label class="control-label">难度选择</label>
+            <div class="difficulty-select">
+                <button class="diff-btn active" data-diff="easy">初级</button>
+                <button class="diff-btn" data-diff="medium">中级</button>
+                <button class="diff-btn" data-diff="hard">高级</button>
+            </div>
+        </div>
+
+        <div class="stats-card">
+            <div class="stat-row">
+                <span>剩余雷数</span>
+                <span class="stat-value" id="mineCount">10</span>
+            </div>
+            <div class="stat-row">
+                <span>用时</span>
+                <span class="stat-value" id="timer">00:00</span>
+            </div>
+        </div>
+
+        <button class="btn" id="resetBtn">🔄 开始新游戏</button>
+        
+        <div style="font-size: 13px; color: #64748b; line-height: 1.6; margin-top: auto;">
+            <strong>操作说明：</strong><br>
+            • 左键点击：翻开方块<br>
+            • 右键点击：标记地雷<br>
+            • 双击数字：快速翻开周围（需标记完整）
+        </div>
+    </div>
+
+    <div class="main-area">
+        <div class="game-board" id="board">
+            <!-- Cells -->
+        </div>
+    </div>
+
+    <div class="toast" id="toast">🎉 扫雷成功！</div>
+
+    <script>
+        const CONFIG = {
+            easy: { rows: 9, cols: 9, mines: 10 },
+            medium: { rows: 16, cols: 16, mines: 40 },
+            hard: { rows: 16, cols: 30, mines: 99 }
+        };
+
+        class Minesweeper {
+            constructor() {
+                this.boardEl = document.getElementById('board');
+                this.mineCountEl = document.getElementById('mineCount');
+                this.timerEl = document.getElementById('timer');
+                this.toast = document.getElementById('toast');
+                
+                this.difficulty = 'easy';
+                this.grid = [];
+                this.state = 'ready'; // ready, playing, won, lost
+                this.flags = 0;
+                this.startTime = 0;
+                this.timerInterval = null;
+
+                this.bindEvents();
+                this.initGame();
+            }
+
+            bindEvents() {
+                document.querySelectorAll('.diff-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.difficulty = btn.dataset.diff;
+                        this.initGame();
+                    });
+                });
+
+                document.getElementById('resetBtn').addEventListener('click', () => this.initGame());
+                
+                // Prevent context menu
+                this.boardEl.addEventListener('contextmenu', e => e.preventDefault());
+            }
+
+            initGame() {
+                const conf = CONFIG[this.difficulty];
+                this.rows = conf.rows;
+                this.cols = conf.cols;
+                this.totalMines = conf.mines;
+                this.flags = 0;
+                this.state = 'ready';
+                this.grid = [];
+                
+                this.stopTimer();
+                this.timerEl.textContent = "00:00";
+                this.mineCountEl.textContent = this.totalMines;
+
+                // Setup grid CSS
+                this.boardEl.style.gridTemplateColumns = `repeat(${this.cols}, 30px)`;
+                this.boardEl.style.gridTemplateRows = `repeat(${this.rows}, 30px)`;
+                this.boardEl.innerHTML = '';
+
+                // Create cells
+                for(let r=0; r<this.rows; r++) {
+                    const row = [];
+                    for(let c=0; c<this.cols; c++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'cell';
+                        cell.dataset.r = r;
+                        cell.dataset.c = c;
+                        
+                        cell.addEventListener('mousedown', (e) => this.handleInput(e, r, c));
+                        
+                        this.boardEl.appendChild(cell);
+                        row.push({
+                            el: cell,
+                            isMine: false,
+                            isOpen: false,
+                            isFlagged: false,
+                            value: 0
+                        });
+                    }
+                    this.grid.push(row);
+                }
+            }
+
+            startTimer() {
+                this.startTime = Date.now();
+                this.timerInterval = setInterval(() => {
+                    const delta = Math.floor((Date.now() - this.startTime) / 1000);
+                    const m = Math.floor(delta / 60).toString().padStart(2, '0');
+                    const s = (delta % 60).toString().padStart(2, '0');
+                    this.timerEl.textContent = `${m}:${s}`;
+                }, 1000);
+            }
+
+            stopTimer() {
+                if (this.timerInterval) clearInterval(this.timerInterval);
+            }
+
+            placeMines(firstR, firstC) {
+                let minesPlaced = 0;
+                while (minesPlaced < this.totalMines) {
+                    const r = Math.floor(Math.random() * this.rows);
+                    const c = Math.floor(Math.random() * this.cols);
+                    
+                    // Don't place on first click or neighbors
+                    if (Math.abs(r - firstR) <= 1 && Math.abs(c - firstC) <= 1) continue;
+                    
+                    if (!this.grid[r][c].isMine) {
+                        this.grid[r][c].isMine = true;
+                        minesPlaced++;
+                    }
+                }
+
+                // Calculate numbers
+                for(let r=0; r<this.rows; r++) {
+                    for(let c=0; c<this.cols; c++) {
+                        if (!this.grid[r][c].isMine) {
+                            let count = 0;
+                            this.getNeighbors(r, c).forEach(n => {
+                                if (this.grid[n.r][n.c].isMine) count++;
+                            });
+                            this.grid[r][c].value = count;
+                        }
+                    }
+                }
+            }
+
+            getNeighbors(r, c) {
+                const neighbors = [];
+                for(let dr=-1; dr<=1; dr++) {
+                    for(let dc=-1; dc<=1; dc++) {
+                        if (dr===0 && dc===0) continue;
+                        const nr = r + dr;
+                        const nc = c + dc;
+                        if (nr>=0 && nr<this.rows && nc>=0 && nc<this.cols) {
+                            neighbors.push({r: nr, c: nc});
+                        }
+                    }
+                }
+                return neighbors;
+            }
+
+            handleInput(e, r, c) {
+                if (this.state === 'won' || this.state === 'lost') return;
+
+                if (this.state === 'ready') {
+                    if (e.button === 0) {
+                        this.state = 'playing';
+                        this.startTimer();
+                        this.placeMines(r, c);
+                        this.openCell(r, c);
+                    }
+                    return;
+                }
+
+                if (e.button === 2) { // Right click
+                    this.toggleFlag(r, c);
+                } else if (e.button === 0) { // Left click
+                    this.openCell(r, c);
+                }
+            }
+
+            toggleFlag(r, c) {
+                const cell = this.grid[r][c];
+                if (cell.isOpen) return;
+
+                cell.isFlagged = !cell.isFlagged;
+                cell.el.classList.toggle('flagged');
+                
+                this.flags += cell.isFlagged ? 1 : -1;
+                this.mineCountEl.textContent = this.totalMines - this.flags;
+            }
+
+            openCell(r, c) {
+                const cell = this.grid[r][c];
+                if (cell.isOpen || cell.isFlagged) return;
+
+                cell.isOpen = true;
+                cell.el.classList.add('open');
+
+                if (cell.isMine) {
+                    this.gameOver(false);
+                    cell.el.classList.add('mine');
+                    cell.el.textContent = '💣';
+                    return;
+                }
+
+                if (cell.value > 0) {
+                    cell.el.textContent = cell.value;
+                    cell.el.classList.add(`val-${cell.value}`);
+                } else {
+                    // Flood fill
+                    this.getNeighbors(r, c).forEach(n => this.openCell(n.r, n.c));
+                }
+
+                this.checkWin();
+            }
+
+            checkWin() {
+                let openCount = 0;
+                for(let r=0; r<this.rows; r++) {
+                    for(let c=0; c<this.cols; c++) {
+                        if (this.grid[r][c].isOpen) openCount++;
+                    }
+                }
+
+                if (openCount === (this.rows * this.cols - this.totalMines)) {
+                    this.gameOver(true);
+                }
+            }
+
+            gameOver(won) {
+                this.state = won ? 'won' : 'lost';
+                this.stopTimer();
+
+                if (won) {
+                    this.toast.textContent = "🎉 恭喜！扫雷成功！";
+                    this.toast.classList.add('show');
+                    setTimeout(() => this.toast.classList.remove('show'), 3000);
+                } else {
+                    // Reveal all mines
+                    this.grid.forEach(row => row.forEach(cell => {
+                        if (cell.isMine) {
+                            cell.el.classList.add('mine');
+                            cell.el.textContent = '💣';
+                        }
+                    }));
+                    this.toast.textContent = "💥 踩到雷了！游戏结束";
+                    this.toast.classList.add('show');
+                    setTimeout(() => this.toast.classList.remove('show'), 3000);
+                }
+            }
+        }
+
+        new Minesweeper();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>立体几何实验室 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="立体几何实验室把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="立体几何实验室,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/solid-geometry.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="立体几何实验室 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="立体几何实验室把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/solid-geometry.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="立体几何实验室 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="立体几何实验室把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"立体几何实验室","description":"立体几何实验室把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/solid-geometry.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+            --text-secondary: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 360px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Shape Selector */
+        .shape-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .shape-btn {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .shape-btn:hover {
+            background: #f1f5f9;
+            color: var(--text-color);
+        }
+
+        .shape-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Controls */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .control-value {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 13px;
+            color: var(--primary-color);
+            background: #eff6ff;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        /* Stats Card */
+        .stats-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* Theory Box */
+        .theory-box {
+            margin-top: auto;
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .theory-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theory-text {
+            font-size: 13px;
+            color: #b45309;
+            line-height: 1.6;
+        }
+
+        .formula-item {
+            margin-bottom: 4px;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f1f5f9;
+            position: relative;
+        }
+
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+            background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
+        }
+
+        .canvas-container:active {
+            cursor: grabbing;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .overlay-controls {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: #f1f5f9;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .icon-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .hint-toast {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .hint-toast.visible {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-content {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="header">
+            <h1>立体几何实验室</h1>
+            <div class="subtitle">3D 空间几何可视化</div>
+        </div>
+
+        <div class="shape-grid">
+            <button class="shape-btn active" data-shape="cube">正方体</button>
+            <button class="shape-btn" data-shape="sphere">球体</button>
+            <button class="shape-btn" data-shape="cylinder">圆柱体</button>
+            <button class="shape-btn" data-shape="cone">圆锥体</button>
+            <button class="shape-btn" data-shape="pyramid">四棱锥</button>
+            <button class="shape-btn" data-shape="tetrahedron">正四面体</button>
+            <button class="shape-btn" data-shape="torus">圆环体</button>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label" id="param1Label">边长 (a)</span>
+                    <span class="control-value" id="param1Val">100</span>
+                </div>
+                <input type="range" id="param1Slider" min="50" max="200" value="100">
+            </div>
+
+            <div class="control-group" id="param2Group" style="display: none;">
+                <div class="control-header">
+                    <span class="control-label" id="param2Label">高度 (h)</span>
+                    <span class="control-value" id="param2Val">100</span>
+                </div>
+                <input type="range" id="param2Slider" min="50" max="250" value="150">
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">透明度</span>
+                    <span class="control-value" id="opacityVal">0.8</span>
+                </div>
+                <input type="range" id="opacitySlider" min="0.1" max="1" step="0.1" value="0.8">
+            </div>
+        </div>
+
+        <div class="stats-card">
+            <div class="stat-row">
+                <span class="stat-label">表面积 (S)</span>
+                <span class="stat-value" id="surfaceVal">60000</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">体积 (V)</span>
+                <span class="stat-value" id="volumeVal">1000000</span>
+            </div>
+        </div>
+
+        <div class="theory-box">
+            <div class="theory-title">💡 公式与原理</div>
+            <div class="theory-text" id="theoryText">
+                <div class="formula-item">S = 6a²</div>
+                <div class="formula-item">V = a³</div>
+                正方体：所有面都是正方形的立体图形。
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="canvas-container" id="canvasContainer">
+            <canvas id="geometryCanvas"></canvas>
+            <div class="hint-toast" id="hintToast">拖动旋转 · 滚轮缩放</div>
+        </div>
+
+        <div class="overlay-controls">
+            <button class="icon-btn active" id="autoRotateBtn" title="自动旋转">↺</button>
+            <button class="icon-btn" id="wireframeBtn" title="线框模式">▦</button>
+            <button class="icon-btn" id="resetBtn" title="重置视角">⟲</button>
+        </div>
+    </main>
+
+    <script>
+        // 3D Engine Classes
+        class Point3D {
+            constructor(x, y, z) {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+            }
+
+            rotateX(angle) {
+                const cos = Math.cos(angle);
+                const sin = Math.sin(angle);
+                const y = this.y * cos - this.z * sin;
+                const z = this.y * sin + this.z * cos;
+                return new Point3D(this.x, y, z);
+            }
+
+            rotateY(angle) {
+                const cos = Math.cos(angle);
+                const sin = Math.sin(angle);
+                const x = this.x * cos - this.z * sin;
+                const z = this.x * sin + this.z * cos;
+                return new Point3D(x, this.y, z);
+            }
+
+            project(width, height, fov, viewDist) {
+                const factor = fov / (viewDist + this.z);
+                const x = this.x * factor + width / 2;
+                const y = this.y * factor + height / 2;
+                return { x, y, scale: factor };
+            }
+        }
+
+        class Shape3D {
+            constructor() {
+                this.vertices = [];
+                this.faces = []; // Array of { indices: [], color: '' }
+                this.rotation = { x: 0, y: 0 };
+            }
+
+            // Generate vertices/faces based on params
+            updateParams(p1, p2) {} 
+        }
+
+        // Main App
+        class GeometryApp {
+            constructor() {
+                this.canvas = document.getElementById('geometryCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.container = document.getElementById('canvasContainer');
+                
+                this.config = {
+                    shapeType: 'cube',
+                    param1: 100,
+                    param2: 150,
+                    opacity: 0.8,
+                    autoRotate: true,
+                    wireframe: false,
+                    zoom: 1
+                };
+
+                this.view = {
+                    rotX: -0.3,
+                    rotY: 0.5,
+                    fov: 500,
+                    viewDist: 400
+                };
+
+                this.interaction = {
+                    isDragging: false,
+                    lastX: 0,
+                    lastY: 0
+                };
+
+                this.ui = {
+                    param1Label: document.getElementById('param1Label'),
+                    param1Val: document.getElementById('param1Val'),
+                    param1Slider: document.getElementById('param1Slider'),
+                    param2Group: document.getElementById('param2Group'),
+                    param2Label: document.getElementById('param2Label'),
+                    param2Val: document.getElementById('param2Val'),
+                    param2Slider: document.getElementById('param2Slider'),
+                    surfaceVal: document.getElementById('surfaceVal'),
+                    volumeVal: document.getElementById('volumeVal'),
+                    theoryText: document.getElementById('theoryText'),
+                    shapeBtns: document.querySelectorAll('.shape-btn'),
+                    hintToast: document.getElementById('hintToast'),
+                    opacitySlider: document.getElementById('opacitySlider'),
+                    opacityVal: document.getElementById('opacityVal'),
+                    autoRotateBtn: document.getElementById('autoRotateBtn'),
+                    wireframeBtn: document.getElementById('wireframeBtn'),
+                    resetBtn: document.getElementById('resetBtn')
+                };
+
+                // Shape Configurations
+                this.shapeConfigs = {
+                    cube: { 
+                        p1: { name: '边长 (a)', min: 50, max: 150, val: 100 },
+                        theory: `<div class="formula-item">S = 6a²</div><div class="formula-item">V = a³</div>正方体：所有面都是正方形。`
+                    },
+                    sphere: { 
+                        p1: { name: '半径 (r)', min: 50, max: 120, val: 80 },
+                        theory: `<div class="formula-item">S = 4πr²</div><div class="formula-item">V = (4/3)πr³</div>球体：到定点距离等于定长的点的集合。`
+                    },
+                    cylinder: { 
+                        p1: { name: '半径 (r)', min: 30, max: 100, val: 60 },
+                        p2: { name: '高度 (h)', min: 50, max: 200, val: 120 },
+                        theory: `<div class="formula-item">S = 2πr² + 2πrh</div><div class="formula-item">V = πr²h</div>圆柱体：以矩形的一边所在直线为旋转轴旋转一周形成。`
+                    },
+                    cone: {
+                        p1: { name: '半径 (r)', min: 30, max: 100, val: 60 },
+                        p2: { name: '高度 (h)', min: 50, max: 200, val: 120 },
+                        theory: `<div class="formula-item">S = πr² + πrl</div><div class="formula-item">V = (1/3)πr²h</div>圆锥体：以直角三角形的一条直角边所在直线为旋转轴旋转一周形成。`
+                    },
+                    pyramid: {
+                        p1: { name: '底边 (a)', min: 50, max: 150, val: 100 },
+                        p2: { name: '高度 (h)', min: 50, max: 200, val: 120 },
+                        theory: `<div class="formula-item">S = a² + 2a√(h²+(a/2)²)</div><div class="formula-item">V = (1/3)a²h</div>四棱锥：底面是正方形，侧面是四个全等的等腰三角形。`
+                    },
+                    tetrahedron: { 
+                        p1: { name: '边长 (a)', min: 50, max: 200, val: 120 },
+                        theory: `<div class="formula-item">S = √3 a²</div><div class="formula-item">V = a³/(6√2)</div>正四面体：由四个全等的正三角形包围成的空间图形。`
+                    },
+                    torus: {
+                        p1: { name: '大半径 (R)', min: 60, max: 160, val: 100 },
+                        p2: { name: '管半径 (r)', min: 10, max: 50, val: 30 },
+                        theory: `<div class="formula-item">S = 4π²Rr</div><div class="formula-item">V = 2π²Rr²</div>圆环体：一个圆绕着和它共面但不相交的轴旋转生成的旋转面。`
+                    }
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.bindEvents();
+                this.updateShapeData();
+                this.animate();
+                
+                setTimeout(() => this.ui.hintToast.classList.add('visible'), 1000);
+                setTimeout(() => this.ui.hintToast.classList.remove('visible'), 4000);
+            }
+
+            bindEvents() {
+                // Sliders
+                this.ui.param1Slider.addEventListener('input', (e) => {
+                    this.config.param1 = parseFloat(e.target.value);
+                    this.ui.param1Val.textContent = this.config.param1;
+                    this.updateStats();
+                });
+
+                this.ui.param2Slider.addEventListener('input', (e) => {
+                    this.config.param2 = parseFloat(e.target.value);
+                    this.ui.param2Val.textContent = this.config.param2;
+                    this.updateStats();
+                });
+
+                this.ui.opacitySlider.addEventListener('input', (e) => {
+                    this.config.opacity = parseFloat(e.target.value);
+                    this.ui.opacityVal.textContent = this.config.opacity;
+                });
+
+                // Shape Selectors
+                this.ui.shapeBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.ui.shapeBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.setShape(btn.dataset.shape);
+                    });
+                });
+
+                // Interaction
+                this.canvas.addEventListener('mousedown', e => this.startDrag(e));
+                window.addEventListener('mousemove', e => this.drag(e));
+                window.addEventListener('mouseup', () => this.endDrag());
+                
+                this.canvas.addEventListener('touchstart', e => this.startDrag(e.touches[0]));
+                window.addEventListener('touchmove', e => this.drag(e.touches[0]));
+                window.addEventListener('touchend', () => this.endDrag());
+
+                this.container.addEventListener('wheel', e => {
+                    e.preventDefault();
+                    this.config.zoom += e.deltaY * -0.001;
+                    this.config.zoom = Math.max(0.5, Math.min(2, this.config.zoom));
+                });
+
+                // Buttons
+                this.ui.autoRotateBtn.addEventListener('click', () => {
+                    this.config.autoRotate = !this.config.autoRotate;
+                    this.ui.autoRotateBtn.classList.toggle('active', this.config.autoRotate);
+                });
+
+                this.ui.wireframeBtn.addEventListener('click', () => {
+                    this.config.wireframe = !this.config.wireframe;
+                    this.ui.wireframeBtn.classList.toggle('active', this.config.wireframe);
+                });
+
+                this.ui.resetBtn.addEventListener('click', () => {
+                    this.view.rotX = -0.3;
+                    this.view.rotY = 0.5;
+                    this.config.zoom = 1;
+                });
+            }
+
+            setShape(shape) {
+                this.config.shapeType = shape;
+                this.updateShapeUI();
+                // Update params based on new shape defaults
+                const config = this.shapeConfigs[shape];
+                this.config.param1 = config.p1.val;
+                if (config.p2) this.config.param2 = config.p2.val;
+                
+                // Update slider values to match
+                this.ui.param1Slider.value = this.config.param1;
+                this.ui.param1Val.textContent = this.config.param1;
+                if (config.p2) {
+                    this.ui.param2Slider.value = this.config.param2;
+                    this.ui.param2Val.textContent = this.config.param2;
+                }
+
+                this.updateShapeData();
+                this.updateStats();
+            }
+
+            updateShapeUI() {
+                const shape = this.config.shapeType;
+                const config = this.shapeConfigs[shape];
+                
+                // Param 1
+                this.ui.param1Label.textContent = config.p1.name;
+                this.ui.param1Slider.min = config.p1.min;
+                this.ui.param1Slider.max = config.p1.max;
+                
+                // Param 2
+                if (config.p2) {
+                    this.ui.param2Group.style.display = 'flex';
+                    this.ui.param2Label.textContent = config.p2.name;
+                    this.ui.param2Slider.min = config.p2.min;
+                    this.ui.param2Slider.max = config.p2.max;
+                } else {
+                    this.ui.param2Group.style.display = 'none';
+                }
+                
+                // Theory
+                this.ui.theoryText.innerHTML = config.theory;
+            }
+
+            updateStats() {
+                const type = this.config.shapeType;
+                const p1 = this.config.param1;
+                const p2 = this.config.param2;
+                let s = 0, v = 0;
+
+                if (type === 'cube') {
+                    s = 6 * p1 * p1;
+                    v = Math.pow(p1, 3);
+                } else if (type === 'sphere') {
+                    s = 4 * Math.PI * p1 * p1;
+                    v = (4/3) * Math.PI * Math.pow(p1, 3);
+                } else if (type === 'cylinder') {
+                    s = 2 * Math.PI * p1 * p1 + 2 * Math.PI * p1 * p2;
+                    v = Math.PI * p1 * p1 * p2;
+                } else if (type === 'cone') {
+                    const l = Math.sqrt(p1*p1 + p2*p2);
+                    s = Math.PI * p1 * p1 + Math.PI * p1 * l;
+                    v = (1/3) * Math.PI * p1 * p1 * p2;
+                } else if (type === 'pyramid') {
+                    const slant = Math.sqrt(Math.pow(p1/2, 2) + p2*p2);
+                    s = p1 * p1 + 2 * p1 * slant; // Base + 4 * (1/2 * a * slant) = a^2 + 2*a*slant
+                    v = (1/3) * p1 * p1 * p2;
+                } else if (type === 'tetrahedron') {
+                    s = Math.sqrt(3) * p1 * p1;
+                    v = Math.pow(p1, 3) / (6 * Math.sqrt(2));
+                } else if (type === 'torus') {
+                    s = 4 * Math.pow(Math.PI, 2) * p1 * p2;
+                    v = 2 * Math.pow(Math.PI, 2) * p1 * p2 * p2;
+                }
+
+                this.ui.surfaceVal.textContent = s.toFixed(0);
+                this.ui.volumeVal.textContent = v.toFixed(0);
+            }
+
+            resize() {
+                this.canvas.width = this.container.clientWidth;
+                this.canvas.height = this.container.clientHeight;
+            }
+
+            startDrag(e) {
+                this.interaction.isDragging = true;
+                this.interaction.lastX = e.clientX;
+                this.interaction.lastY = e.clientY;
+                this.config.autoRotate = false;
+                this.ui.autoRotateBtn.classList.remove('active');
+            }
+
+            drag(e) {
+                if (!this.interaction.isDragging) return;
+                const deltaX = e.clientX - this.interaction.lastX;
+                const deltaY = e.clientY - this.interaction.lastY;
+                
+                this.view.rotY += deltaX * 0.01;
+                this.view.rotX += deltaY * 0.01;
+                
+                this.interaction.lastX = e.clientX;
+                this.interaction.lastY = e.clientY;
+            }
+
+            endDrag() {
+                this.interaction.isDragging = false;
+            }
+
+            // --- 3D Generation ---
+
+            updateShapeData() {
+                this.vertices = [];
+                this.faces = []; // { indices: [], color: '' }
+
+                const p1 = this.config.param1; // a or r
+                const p2 = this.config.param2; // h
+
+                if (this.config.shapeType === 'cube') {
+                    const d = p1 / 2;
+                    // 8 Vertices
+                    this.vertices = [
+                        new Point3D(-d, -d, -d), new Point3D(d, -d, -d),
+                        new Point3D(d, d, -d), new Point3D(-d, d, -d),
+                        new Point3D(-d, -d, d), new Point3D(d, -d, d),
+                        new Point3D(d, d, d), new Point3D(-d, d, d)
+                    ];
+                    // 6 Faces (Front, Back, Top, Bottom, Left, Right)
+                    // Colors: distinct for visibility
+                    const colors = ['#60a5fa', '#3b82f6', '#2563eb', '#93c5fd', '#1d4ed8', '#bfdbfe'];
+                    this.faces = [
+                        { indices: [0, 1, 2, 3], color: colors[0] }, // Back
+                        { indices: [4, 5, 6, 7], color: colors[1] }, // Front
+                        { indices: [0, 4, 7, 3], color: colors[2] }, // Left
+                        { indices: [1, 5, 6, 2], color: colors[3] }, // Right
+                        { indices: [3, 2, 6, 7], color: colors[4] }, // Top
+                        { indices: [0, 1, 5, 4], color: colors[5] }  // Bottom
+                    ];
+                } 
+                else if (this.config.shapeType === 'sphere') {
+                    // Approximate sphere with lat/long lines
+                    const r = p1;
+                    const segments = 16;
+                    const rings = 16;
+                    
+                    // Generate vertices
+                    for (let i = 0; i <= rings; i++) {
+                        const v = i / rings;
+                        const phi = v * Math.PI; // 0 to PI
+                        
+                        for (let j = 0; j <= segments; j++) {
+                            const u = j / segments;
+                            const theta = u * Math.PI * 2; // 0 to 2PI
+                            
+                            const x = r * Math.sin(phi) * Math.cos(theta);
+                            const y = r * Math.cos(phi);
+                            const z = r * Math.sin(phi) * Math.sin(theta);
+                            
+                            this.vertices.push(new Point3D(x, y, z));
+                        }
+                    }
+                    
+                    // Generate faces
+                    for (let i = 0; i < rings; i++) {
+                        for (let j = 0; j < segments; j++) {
+                            const first = i * (segments + 1) + j;
+                            const second = first + segments + 1;
+                            
+                            this.faces.push({
+                                indices: [first, second, second + 1, first + 1],
+                                color: (i + j) % 2 === 0 ? '#60a5fa' : '#3b82f6'
+                            });
+                        }
+                    }
+                }
+                else if (this.config.shapeType === 'cylinder') {
+                    const r = p1;
+                    const h = p2;
+                    const segments = 24;
+                    
+                    // Top and Bottom circle vertices
+                    for (let i = 0; i < segments; i++) {
+                        const theta = (i / segments) * Math.PI * 2;
+                        const x = r * Math.cos(theta);
+                        const z = r * Math.sin(theta);
+                        this.vertices.push(new Point3D(x, -h/2, z)); // Top ring (0 to seg-1)
+                        this.vertices.push(new Point3D(x, h/2, z));  // Bottom ring (seg to 2*seg-1)
+                    }
+                    
+                    // Center points for caps
+                    this.vertices.push(new Point3D(0, -h/2, 0)); // Top center
+                    this.vertices.push(new Point3D(0, h/2, 0));  // Bottom center
+                    const topCenterIdx = this.vertices.length - 2;
+                    const botCenterIdx = this.vertices.length - 1;
+                    
+                    // Side faces
+                    for (let i = 0; i < segments; i++) {
+                        const next = (i + 1) % segments;
+                        // Side
+                        this.faces.push({
+                            indices: [i*2, next*2, next*2+1, i*2+1],
+                            color: i % 2 === 0 ? '#60a5fa' : '#3b82f6'
+                        });
+                        // Top Cap (Triangle fan)
+                        this.faces.push({
+                            indices: [i*2, next*2, topCenterIdx],
+                            color: '#93c5fd'
+                        });
+                        // Bottom Cap
+                        this.faces.push({
+                            indices: [i*2+1, next*2+1, botCenterIdx],
+                            color: '#1d4ed8'
+                        });
+                    }
+                }
+                else if (this.config.shapeType === 'cone') {
+                    const r = p1;
+                    const h = p2;
+                    const segments = 24;
+                    
+                    // Base circle vertices
+                    for (let i = 0; i < segments; i++) {
+                        const theta = (i / segments) * Math.PI * 2;
+                        const x = r * Math.cos(theta);
+                        const z = r * Math.sin(theta);
+                        this.vertices.push(new Point3D(x, h/2, z)); 
+                    }
+                    
+                    // Apex
+                    this.vertices.push(new Point3D(0, -h/2, 0));
+                    const apexIdx = this.vertices.length - 1;
+                    
+                    // Base center
+                    this.vertices.push(new Point3D(0, h/2, 0));
+                    const baseCenterIdx = this.vertices.length - 1;
+                    
+                    // Faces
+                    for (let i = 0; i < segments; i++) {
+                        const next = (i + 1) % segments;
+                        // Side (Triangle)
+                        this.faces.push({
+                            indices: [i, next, apexIdx],
+                            color: i % 2 === 0 ? '#60a5fa' : '#3b82f6'
+                        });
+                        // Base (Triangle fan)
+                        this.faces.push({
+                            indices: [i, next, baseCenterIdx],
+                            color: '#1d4ed8'
+                        });
+                    }
+                }
+                else if (this.config.shapeType === 'pyramid') {
+                    const a = p1;
+                    const h = p2;
+                    
+                    // Base Vertices
+                    this.vertices = [
+                        new Point3D(-a/2, h/2, -a/2), // 0
+                        new Point3D(a/2, h/2, -a/2),  // 1
+                        new Point3D(a/2, h/2, a/2),   // 2
+                        new Point3D(-a/2, h/2, a/2),  // 3
+                        new Point3D(0, -h/2, 0)       // 4 Apex
+                    ];
+                    
+                    this.faces = [
+                        { indices: [0, 1, 4], color: '#60a5fa' }, // Back
+                        { indices: [1, 2, 4], color: '#3b82f6' }, // Right
+                        { indices: [2, 3, 4], color: '#2563eb' }, // Front
+                        { indices: [3, 0, 4], color: '#93c5fd' }, // Left
+                        { indices: [3, 2, 1, 0], color: '#1d4ed8' } // Bottom
+                    ];
+                }
+                else if (this.config.shapeType === 'tetrahedron') {
+                    const a = p1;
+                    // Vertices for regular tetrahedron
+                    // Using cube vertices (1,1,1), (1,-1,-1), (-1,1,-1), (-1,-1,1) scaled
+                    const s = a / Math.sqrt(8);
+                    
+                    this.vertices = [
+                        new Point3D(s, s, s),
+                        new Point3D(s, -s, -s),
+                        new Point3D(-s, s, -s),
+                        new Point3D(-s, -s, s)
+                    ];
+                    
+                    const colors = ['#60a5fa', '#3b82f6', '#2563eb', '#93c5fd'];
+                    this.faces = [
+                        { indices: [0, 1, 2], color: colors[0] },
+                        { indices: [0, 3, 1], color: colors[1] },
+                        { indices: [0, 2, 3], color: colors[2] },
+                        { indices: [1, 3, 2], color: colors[3] }
+                    ];
+                }
+                else if (this.config.shapeType === 'torus') {
+                    const R = p1; // Major radius
+                    const r = p2; // Tube radius
+                    const segments = 24; // Around major axis
+                    const rings = 12;    // Around tube
+                    
+                    // Generate vertices
+                    for (let i = 0; i <= segments; i++) {
+                        const theta = (i / segments) * Math.PI * 2;
+                        
+                        for (let j = 0; j <= rings; j++) {
+                            const phi = (j / rings) * Math.PI * 2;
+                            
+                            // Torus parametric eq
+                            const x = (R + r * Math.cos(phi)) * Math.cos(theta);
+                            const y = r * Math.sin(phi); // y is up/down in our coords
+                            const z = (R + r * Math.cos(phi)) * Math.sin(theta);
+                            
+                            this.vertices.push(new Point3D(x, y, z));
+                        }
+                    }
+                    
+                    // Generate faces
+                    for (let i = 0; i < segments; i++) {
+                        for (let j = 0; j < rings; j++) {
+                            const first = i * (rings + 1) + j;
+                            const second = first + rings + 1;
+                            
+                            this.faces.push({
+                                indices: [first, second, second + 1, first + 1],
+                                color: (i + j) % 2 === 0 ? '#60a5fa' : '#3b82f6'
+                            });
+                        }
+                    }
+                }
+            }
+
+            animate() {
+                if (this.config.autoRotate && !this.interaction.isDragging) {
+                    this.view.rotY += 0.01;
+                }
+                
+                // Re-generate geometry if dynamic? 
+                // Actually vertices change only if params change.
+                // But simple implementation: regenerate on draw for rotation?
+                // No, rotate copy of vertices.
+                
+                // If params changed (sliders), update geometry
+                // For performance, we did this in slider event.
+                // But for smoothness, we update geometry in loop? No needed.
+                // Just update shape data whenever params change.
+                // We call updateShapeData in setShape, but need to call it on slider input too.
+                // Added updateShapeData to slider inputs.
+                this.updateShapeData(); // Always update to catch slider changes smooth
+
+                this.draw();
+                requestAnimationFrame(() => this.animate());
+            }
+
+            draw() {
+                const ctx = this.ctx;
+                const w = this.canvas.width;
+                const h = this.canvas.height;
+                
+                ctx.clearRect(0, 0, w, h);
+                
+                // 1. Transform Vertices
+                const transformed = this.vertices.map(v => {
+                    let p = v.rotateY(this.view.rotY);
+                    p = p.rotateX(this.view.rotX);
+                    return p;
+                });
+
+                // 2. Project & Sort Faces
+                const facesToDraw = this.faces.map(face => {
+                    // Get vertices for this face
+                    const faceVerts = face.indices.map(i => transformed[i]);
+                    
+                    // Calculate average Z (depth) for sorting
+                    const avgZ = faceVerts.reduce((sum, v) => sum + v.z, 0) / faceVerts.length;
+                    
+                    // Project to 2D
+                    const projected = faceVerts.map(v => v.project(w, h, this.view.fov * this.config.zoom, this.view.viewDist));
+                    
+                    // Backface culling (simple normal check)
+                    // Compute normal using first 3 points
+                    let visible = true;
+                    if (faceVerts.length >= 3) {
+                        const v1 = { x: faceVerts[1].x - faceVerts[0].x, y: faceVerts[1].y - faceVerts[0].y, z: faceVerts[1].z - faceVerts[0].z };
+                        const v2 = { x: faceVerts[2].x - faceVerts[0].x, y: faceVerts[2].y - faceVerts[0].y, z: faceVerts[2].z - faceVerts[0].z };
+                        // Cross product Z component only needed for visibility check? 
+                        // Actually standard dot product of normal with view vector (0,0,1)
+                        // Normal.z > 0 means facing camera?
+                        // Let's rely on Painter's Algo first.
+                        // But for closed convex shapes, backface culling is better.
+                        // Cross product z: v1.x*v2.y - v1.y*v2.x
+                        // Wait, this is screen space or world space?
+                        // Should be screen space (projected) for accurate 2D winding?
+                        // Or View Space (transformed).
+                        // Let's use Painter's Algorithm with Z-sort.
+                    }
+                    
+                    return {
+                        points: projected,
+                        z: avgZ,
+                        color: face.color
+                    };
+                });
+
+                // Sort back-to-front (Painter's Algorithm)
+                facesToDraw.sort((a, b) => b.z - a.z);
+
+                // 3. Draw
+                facesToDraw.forEach(face => {
+                    ctx.beginPath();
+                    const pts = face.points;
+                    if (pts.length < 3) return;
+                    
+                    ctx.moveTo(pts[0].x, pts[0].y);
+                    for (let i = 1; i < pts.length; i++) {
+                        ctx.lineTo(pts[i].x, pts[i].y);
+                    }
+                    ctx.closePath();
+
+                    if (this.config.wireframe) {
+                        ctx.strokeStyle = this.config.shapeType === 'sphere' ? '#3b82f6' : '#1e293b';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    } else {
+                        // Light calculation based on Z normal?
+                        // Simple: use face color + opacity
+                        ctx.fillStyle = face.color;
+                        ctx.globalAlpha = this.config.opacity;
+                        ctx.fill();
+                        
+                        ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                        ctx.globalAlpha = 1;
+                    }
+                });
+            }
+        }
+
+        new GeometryApp();
+    </script>
+</body>
+</html>

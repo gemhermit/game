@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉字笔画 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="汉字笔画把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="汉字笔画,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/chinese-stroke-order.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="汉字笔画 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="汉字笔画把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/chinese-stroke-order.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="汉字笔画 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="汉字笔画把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"汉字笔画","description":"汉字笔画把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/chinese-stroke-order.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Modern Clean Layout */
+        .app-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: #fff;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+        
+        .sidebar-header {
+            margin-bottom: 24px;
+        }
+        
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 12px;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        
+        .input-area {
+            margin-bottom: 24px;
+        }
+        
+        .custom-input {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+            resize: none;
+        }
+        
+        .custom-input:focus {
+            border-color: #4f46e5;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        .char-list-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+            gap: 8px;
+        }
+        
+        .char-item {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .char-item:hover {
+            border-color: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        .char-item.active {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+        
+        .char-item.completed::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            border: 1px solid white;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            position: relative;
+        }
+        
+        .canvas-container {
+            background: white;
+            padding: 40px;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .character-box {
+            width: 320px;
+            height: 320px;
+            position: relative;
+            background: #fff;
+            cursor: crosshair;
+        }
+        
+        .tian-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #e74c3c;
+            box-sizing: border-box;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        #character-target {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .tian-grid::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #e74c3c;
+            border-top: 1px dashed #e74c3c;
+            opacity: 0.5;
+        }
+        
+        .tian-grid::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background: #e74c3c;
+            border-left: 1px dashed #e74c3c;
+            opacity: 0.5;
+        }
+        
+        .hint-text {
+            font-size: 1.2rem;
+            color: #334155;
+            text-align: center;
+            min-height: 1.5em;
+            font-weight: 500;
+        }
+        
+        .progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .progress-bar-bg {
+            flex: 1;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: #4f46e5;
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .progress-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-family: monospace;
+            min-width: 60px;
+            text-align: right;
+        }
+        
+        .controls-bar {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 99px;
+            color: #475569;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .btn-control:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+            transform: translateY(-1px);
+        }
+        
+        .btn-control.primary {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+        .btn-control.primary:hover {
+            background: #4338ca;
+        }
+        
+        @media (max-width: 768px) {
+            .app-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+            }
+            .sidebar {
+                height: auto;
+                max-height: 30vh;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+            .canvas-container {
+                padding: 20px;
+                background: transparent;
+                box-shadow: none;
+            }
+            .character-box {
+                width: 280px;
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="app-title">
+                    <span>✍️</span>
+                    <span>笔画练习</span>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">完成</span>
+                    <span class="stat-value" id="completedCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">总计</span>
+                    <span class="stat-value" id="totalCount">0</span>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="char-list-title">自定义练习</div>
+                <textarea class="custom-input" id="customInput" placeholder="在此输入汉字、诗词或短文..."></textarea>
+                <button id="loadCustomBtn" class="btn-primary">开始练习</button>
+            </div>
+
+            <div class="char-list-title">当前列表</div>
+            <div class="char-grid" id="characterListContainer">
+                <!-- Character Items -->
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="canvas-container">
+                <div style="text-align: center; margin-bottom: 8px;">
+                    <span style="font-size: 2rem; font-weight: 800; color: #1e293b;" id="currentCharacter">-</span>
+                </div>
+
+                <div class="character-box" id="characterDisplayArea">
+                    <div class="tian-grid"></div>
+                    <div id="character-target"></div>
+                </div>
+
+                <div class="hint-text" id="hintArea">
+                    准备开始...
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-label" id="progressText">0 / -</div>
+                </div>
+
+                <div class="controls-bar">
+                    <button class="btn-control primary" id="nextCharBtn">
+                        <span>下一个</span>
+                        <span>→</span>
+                    </button>
+                    <button class="btn-control" id="animateBtn">
+                        <span>🎥</span>
+                        <span>演示</span>
+                    </button>
+                    <!-- Hint Button Removed -->
+                    <button class="btn-control" id="restartBtn">
+                        <span>🔄</span>
+                        <span>重写</span>
+                    </button>
+                    <button class="btn-control" id="toggleOutlineBtn">
+                        <span>👁️</span>
+                        <span>轮廓</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 默认汉字库 (可以保留部分作为基础数据，但不再限制输入)
+        const defaultCharacters = '人大小山水火土木日月心手口目田白石立见车春风花鸟春眠不觉晓处处闻啼鸟夜来风雨声花落知多少';
+        
+        // 笔画名称映射 (仅用于已知字符的提示优化)
+        const characterStrokeMap = {
+            '人': ['丿', '丶'],
+            '大': ['一', '丿', '丶'],
+            // ... 可以保留之前的完整映射作为参考，或者简化
+        };
+
+        const strokeNamesMap = {
+            '一': '横', '丨': '竖', '丿': '撇', '丶': '点',
+            '乛': '提', '亅': '竖钩', '乚': '竖弯钩', '丅': '竖提',
+            '乙': '横折', '竖钩': '竖钩', '横撇': '横撇',
+            '卧钩': '卧钩', '横折钩': '横折钩', '撇折': '撇折',
+            '竖折': '竖折', '横折': '横折', '提': '提'
+        };
+
+        class StrokeGame {
+            constructor() {
+                this.characters = Array.from(defaultCharacters);
+                this.currentIndex = 0;
+                this.writer = null;
+                this.isOutlineVisible = true;
+                
+                // Stats
+                this.mistakes = 0;
+                this.totalStrokes = 0;
+                this.completedChars = new Set();
+                
+                this.initUI();
+                this.loadCharacter(this.characters[this.currentIndex]);
+                this.bindEvents();
+            }
+
+            initUI() {
+                this.updateList();
+                this.updateTotalCount();
+                // Initialize progress text to empty or 0/0 to avoid 'undefined' flash
+                document.getElementById('progressText').textContent = '0 / -';
+            }
+            
+            updateTotalCount() {
+                const el = document.getElementById('totalCount');
+                if (el) el.textContent = this.characters.length;
+            }
+            
+            loadCustomText() {
+                const text = document.getElementById('customInput').value;
+                if (!text.trim()) return;
+                
+                // Filter Chinese characters
+                const chars = text.match(/[\u4e00-\u9fa5]/g);
+                if (!chars || chars.length === 0) {
+                    alert('请输入有效的中文字符');
+                    return;
+                }
+                
+                // Update list (unique chars or sequence? sequence is better for text practice)
+                this.characters = chars; // Keep sequence including duplicates if user wants to practice same char multiple times? Maybe better to unique?
+                // Let's keep unique for now to avoid confusion in list, or maybe allow sequence. 
+                // "Input a whole paragraph" implies practicing the paragraph. 
+                // Let's use Array.from(new Set(chars)) if we want unique, but maybe user wants to write the sentence.
+                // Let's stick to Unique for the list view to be clean, or Sequence? 
+                // The current UI highlights the char in list. If duplicate chars exist, which one highlights? 
+                // Let's use Unique for now.
+                this.characters = Array.from(new Set(chars));
+                
+                this.currentIndex = 0;
+                this.completedChars.clear();
+                this.updateList();
+                this.updateTotalCount();
+                this.loadCharacter(this.characters[0]);
+                
+                // Feedback
+                document.getElementById('hintArea').innerHTML = `<span style="color: #6c5ce7;">已加载 ${this.characters.length} 个字符</span>`;
+            }
+
+            async loadCharacter(char) {
+                const target = document.getElementById('character-target');
+                target.innerHTML = ''; // Clear previous
+                
+                document.getElementById('currentCharacter').textContent = char;
+                document.getElementById('progressFill').style.width = '0%';
+                document.getElementById('progressText').textContent = '加载中...';
+                document.getElementById('hintArea').textContent = '正在加载字形数据...';
+                
+                // Robust data fetching with fallbacks
+                const fetchCharData = async (c) => {
+                    const encodedChar = encodeURIComponent(c);
+                    const urls = [
+                        `https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${encodedChar}.json`,
+                        `https://unpkg.com/hanzi-writer-data@2.0/${encodedChar}.json`
+                    ];
+                    
+                    let lastError;
+                    for (const url of urls) {
+                        try {
+                            const res = await fetch(url);
+                            if (res.ok) {
+                                const data = await res.json();
+                                // HanziWriter create() needs the strokes data
+                                // If data is valid, return it.
+                                if (data && (data.strokes || Array.isArray(data))) return data; 
+                                // Some versions might return array directly or object with strokes
+                            }
+                            throw new Error(`Status ${res.status}`);
+                        } catch (e) {
+                            console.warn(`Failed to load from ${url}`, e);
+                            lastError = e;
+                        }
+                    }
+                    throw lastError || new Error('无法连接到数据服务器');
+                };
+
+                try {
+                    const charData = await fetchCharData(char);
+                    
+                    // Cleanup previous instance properly
+                    if (this.writer) {
+                        this.writer = null;
+                    }
+                    
+                    // Determine total strokes from data for UI update
+                    const totalStrokes = (charData.strokes && charData.strokes.length) || 0;
+                    this.currentTotalStrokes = totalStrokes;
+                    document.getElementById('progressText').textContent = `0 / ${totalStrokes}`;
+
+                    this.writer = HanziWriter.create('character-target', char, {
+                        width: 320,
+                        height: 320,
+                        padding: 5,
+                        showOutline: this.isOutlineVisible,
+                        strokeAnimationSpeed: 1,
+                        delayBetweenStrokes: 100,
+                        radicalColor: '#e74c3c', // Red for Radical
+                        outlineColor: '#999',
+                        strokeColor: '#2c3e50', // Black/Dark Blue for normal strokes
+                        highlightColor: '#f39c12',
+                        drawingWidth: 20,
+                        showCharacter: false,
+                        checkStrokeIndependently: false,
+                        charDataLoader: (c, onComplete) => onComplete(charData)
+                    });
+
+                    // Start Quiz
+                    this.startQuiz();
+                    this.updateHint();
+                    
+                } catch (err) {
+                    console.error('Error loading character:', err);
+                    document.getElementById('hintArea').innerHTML = `
+                        <div style="color: #e74c3c; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                            <span>⚠️ 加载失败: ${err.message || '网络连接不稳定'}</span>
+                            <button onclick="game.loadCharacter('${char}')" class="btn-control" style="padding: 4px 12px; font-size: 0.9em; border-color: #e74c3c; color: #e74c3c;">🔄 重试</button>
+                        </div>
+                    `;
+                    document.getElementById('progressText').textContent = '加载出错';
+                }
+            }
+
+            startQuiz() {
+                if (!this.writer) return;
+
+                this.writer.quiz({
+                    onMistake: (strokeData) => {
+                        this.mistakes++;
+                        this.updateStats();
+                        this.showFeedback('Oops! 笔画顺序或方向不对哦', 'error');
+                        // Shake effect
+                        const el = document.getElementById('characterDisplayArea');
+                        el.style.transform = 'translateX(5px)';
+                        setTimeout(() => el.style.transform = 'translateX(-5px)', 50);
+                        setTimeout(() => el.style.transform = 'none', 100);
+                    },
+                    onCorrectStroke: (strokeData) => {
+                        this.updateProgress(strokeData.strokeNum + 1, this.currentTotalStrokes);
+                        this.updateStats();
+                        this.showFeedback('正确！继续加油', 'success');
+                        this.updateHint(strokeData.strokeNum + 1);
+                    },
+                    onComplete: (summary) => {
+                        this.completedChars.add(this.characters[this.currentIndex]);
+                        this.updateList();
+                        this.showFeedback(`🎉 太棒了！"${this.characters[this.currentIndex]}"字练习完成！`, 'success');
+                        
+                        setTimeout(() => {
+                            // Celebrate animation or auto next?
+                            // Let user click next or auto next after delay
+                        }, 1000);
+                    }
+                });
+            }
+
+            updateProgress(current, total) {
+                const pct = Math.round((current / total) * 100);
+                document.getElementById('progressFill').style.width = `${pct}%`;
+                document.getElementById('progressText').textContent = `${current} / ${total}`;
+            }
+
+            updateStats() {
+                // Simplified accuracy logic
+                const totalOps = this.totalStrokes + this.mistakes; // This logic is approximate as we don't track total correct strokes globally well without complexity
+                // Let's just use current session mistakes for now or leave it static 100% until mistake
+                // A better metric: Correct Strokes / (Correct Strokes + Mistakes)
+                // But we need to track cumulative correct strokes across characters?
+                // For now, let's track mistakes per character in memory?
+                // Let's keep it simple: just show mistakes if > 0
+                if (this.mistakes > 0) {
+                   // document.getElementById('accuracy').textContent = '加油练习';
+                }
+                document.getElementById('completedCount').textContent = this.completedChars.size;
+            }
+
+            updateHint(nextStrokeIndex = 0) {
+                const char = this.characters[this.currentIndex];
+                const definedStrokes = characterStrokeMap[char];
+                
+                if (definedStrokes && definedStrokes[nextStrokeIndex]) {
+                    const strokeSymbol = definedStrokes[nextStrokeIndex];
+                    const strokeName = strokeNamesMap[strokeSymbol] || strokeSymbol;
+                    document.getElementById('hintArea').innerHTML = `请书写第 ${nextStrokeIndex + 1} 笔：<strong style="font-size: 1.2em; color: #d35400;">${strokeName}</strong>`;
+                } else {
+                    document.getElementById('hintArea').textContent = `请书写第 ${nextStrokeIndex + 1} 笔`;
+                }
+            }
+
+            showFeedback(msg, type) {
+                const area = document.getElementById('hintArea');
+                let color = '#334155'; // Default dark gray
+                if (type === 'error') color = '#c0392b';
+                else if (type === 'success') color = '#27ae60';
+                else if (type === 'info') color = '#4f46e5'; // Indigo for hints
+                
+                area.innerHTML = `<span style="color: ${color}; font-weight: bold;">${msg}</span>`;
+            }
+
+            updateList() {
+                const container = document.getElementById('characterListContainer');
+                container.innerHTML = '';
+                this.characters.forEach((char, idx) => {
+                    const div = document.createElement('div');
+                    div.className = `char-item ${idx === this.currentIndex ? 'active' : ''} ${this.completedChars.has(char) ? 'completed' : ''}`;
+                    div.textContent = char;
+                    div.onclick = () => {
+                        if (this.currentIndex === idx) return;
+                        this.currentIndex = idx;
+                        this.loadCharacter(char);
+                        this.updateList();
+                    };
+                    container.appendChild(div);
+                });
+            }
+
+            // Controls
+            animate() {
+                if (this.writer) {
+                    this.writer.animateCharacter();
+                }
+            }
+            
+            toggleOutline() {
+                this.isOutlineVisible = !this.isOutlineVisible;
+                if (this.writer) {
+                    if (this.isOutlineVisible) this.writer.showOutline();
+                    else this.writer.hideOutline();
+                }
+            }
+            
+            restart() {
+                if (this.writer) {
+                    this.writer.quiz(); // Reset quiz
+                    this.updateProgress(0, 1); // Reset progress visual (approx)
+                    this.updateHint(0);
+                }
+            }
+            
+            hint() {
+                // Feature removed
+            }
+            
+            next() {
+                this.currentIndex = (this.currentIndex + 1) % this.characters.length;
+                this.loadCharacter(this.characters[this.currentIndex]);
+                this.updateList();
+            }
+
+            bindEvents() {
+                document.getElementById('animateBtn').onclick = () => this.animate();
+                document.getElementById('toggleOutlineBtn').onclick = () => this.toggleOutline();
+                document.getElementById('restartBtn').onclick = () => this.restart();
+                // document.getElementById('hintBtn').onclick = () => this.hint();
+                document.getElementById('nextCharBtn').onclick = () => this.next();
+                document.getElementById('loadCustomBtn').onclick = () => this.loadCustomText();
+            }
+        }
+
+        // Initialize
+        let game; // Expose to global scope for retry button
+        window.onload = () => {
+            // Need to append an element for total count if it was removed in HTML update
+            // I removed #totalCount element in HTML but referenced in JS initUI.
+            // Let's fix that or remove the reference.
+            // Actually I removed the specific element ID in the HTML above.
+            // I'll just remove the JS line in the class or add the element back.
+            // Adding the element back is better for completeness.
+            const scorePanel = document.querySelector('.score-panel');
+            if (scorePanel && !document.getElementById('totalCount')) {
+                 const div = document.createElement('div');
+                 div.className = 'score-item';
+                 div.innerHTML = '<span class="score-label">总字数：</span><span class="score-value" id="totalCount">0</span>';
+                 scorePanel.appendChild(div);
+            }
+            
+            game = new StrokeGame();
+        };
+    </script>
+</body>
+</html>

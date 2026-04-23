@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>羊了个羊 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="羊了个羊是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="羊了个羊,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/yang-le-ge-yang.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="羊了个羊 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="羊了个羊是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/yang-le-ge-yang.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="羊了个羊 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="羊了个羊是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"羊了个羊","description":"羊了个羊是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/yang-le-ge-yang.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-color: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .difficulty-selector {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .difficulty-btn {
+            flex: 1;
+            padding: 10px 8px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .difficulty-btn.active {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .action-buttons button {
+             min-width: 0; /* prevent overflow */
+        }
+
+        .tools-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        .btn-secondary:hover {
+            background: #f1f5f9;
+        }
+
+        /* Instructions */
+        .instructions {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .instructions-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .instructions-text {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            position: relative;
+            gap: 20px;
+        }
+
+        .game-container {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            position: relative;
+        }
+
+        /* 方块基础样式 */
+        .tile {
+            position: absolute;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.3);
+            user-select: none;
+            z-index: 1;
+        }
+
+        .tile-grid {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tile:hover:not(.disabled) {
+            transform: scale(1.1) translateY(-4px);
+            z-index: 100;
+        }
+
+        .tile.selected {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(255,255,255,0.8), 0 6px 12px rgba(0,0,0,0.4);
+            z-index: 100;
+        }
+
+        .tile.disabled {
+            filter: brightness(0.5) saturate(0.5);
+            cursor: not-allowed;
+        }
+
+        .tile.disabled:hover {
+            transform: none;
+            z-index: 1;
+        }
+
+        /* Slot Container - Below Game Area */
+        .slot-area {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .slot-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(0,0,0,0.4);
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .slot {
+            width: 58px;
+            height: 68px;
+            background: rgba(255,255,255,0.1);
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .slot.filled {
+            background: rgba(255,255,255,0.15);
+            border-style: solid;
+        }
+
+        .slot.slot-full {
+            background: rgba(239, 68, 68, 0.4);
+            border-color: var(--danger-color);
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .slot .tile {
+            position: relative;
+            width: 54px;
+            height: 64px;
+            font-size: 32px;
+            animation: popIn 0.2s ease;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Tile Types */
+        .tile-sheep { background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%); }
+        .tile-dog { background: linear-gradient(135deg, #d4a574 0%, #c49464 100%); }
+        .tile-cat { background: linear-gradient(135deg, #ffa07a 0%, #ff8c69 100%); }
+        .tile-rabbit { background: linear-gradient(135deg, #fffafa 0%, #ffe4e1 100%); }
+        .tile-panda { background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%); }
+        .tile-bird { background: linear-gradient(135deg, #87ceeb 0%, #7ec8e3 100%); }
+        .tile-fish { background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); }
+        .tile-flower { background: linear-gradient(135deg, #ffe4e1 0%, #ffc0cb 100%); }
+        .tile-star { background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%); }
+        .tile-heart { background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%); }
+        .tile-sun { background: linear-gradient(135deg, #fff59d 0%, #ffee58 100%); }
+        .tile-moon { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
+
+        /* Modal */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 320px;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .modal.win .modal-title {
+            color: var(--success-color);
+        }
+
+        .modal.lose .modal-title {
+            color: var(--danger-color);
+        }
+
+        .modal-text {
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                height: auto;
+                padding: 16px;
+            }
+            .main-content {
+                min-height: 800px;
+                padding: 16px;
+            }
+            .game-container {
+                height: 500px;
+                max-width: 100%;
+            }
+            .slot-container {
+                padding: 12px;
+                gap: 4px;
+            }
+            .slot {
+                width: 46px;
+                height: 54px;
+            }
+            .slot .tile {
+                width: 42px;
+                height: 50px;
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="header">
+            <h1>🐑 羊了个羊</h1>
+            <div class="subtitle">三消解压小游戏</div>
+        </div>
+
+        <div class="control-panel">
+            <div class="difficulty-selector">
+                <button class="difficulty-btn active" data-level="1">简单</button>
+                <button class="difficulty-btn" data-level="2">困难</button>
+                <button class="difficulty-btn" data-level="3">噩梦</button>
+            </div>
+
+            <div class="game-stats">
+                <div class="stat-item">
+                    <span class="stat-label">剩余</span>
+                    <span class="stat-value" id="remaining">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">难度</span>
+                    <span class="stat-value" id="difficultyDisplay">简单</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">槽位</span>
+                    <span class="stat-value" id="slotCount">0/7</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="newGameBtn">🎮 开始</button>
+                <button class="btn btn-secondary" id="resetBtn">🔄 重置</button>
+            </div>
+            
+            <div class="tools-panel">
+                <button class="btn btn-secondary" id="undoBtn">🔙 撤销</button>
+                <button class="btn btn-secondary" id="shuffleBtn">🔀 洗牌</button>
+            </div>
+
+            <div class="instructions">
+                <div class="instructions-title">游戏规则</div>
+                <div class="instructions-text">
+                    点击方块放入底部槽位，3个相同图案自动消除，全部消除即可获胜！<br>
+                    遇到困难可以使用 撤销 或 洗牌 道具。
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="game-container">
+            <div class="tile-grid" id="tileGrid"></div>
+
+            <div class="modal-overlay" id="modalOverlay">
+                <div class="modal" id="modal">
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <p class="modal-text" id="modalText"></p>
+                    <button class="btn btn-primary" style="width: 100%" id="modalBtn">再玩一次</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slot-area">
+            <div class="slot-container" id="slotContainer">
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const TILE_TYPES = [
+            { name: 'sheep', emoji: '🐑', class: 'tile-sheep' },
+            { name: 'dog', emoji: '🐕', class: 'tile-dog' },
+            { name: 'cat', emoji: '🐱', class: 'tile-cat' },
+            { name: 'rabbit', emoji: '🐰', class: 'tile-rabbit' },
+            { name: 'panda', emoji: '🐼', class: 'tile-panda' },
+            { name: 'bird', emoji: '🐦', class: 'tile-bird' },
+            { name: 'fish', emoji: '🐟', class: 'tile-fish' },
+            { name: 'flower', emoji: '🌸', class: 'tile-flower' },
+            { name: 'star', emoji: '⭐', class: 'tile-star' },
+            { name: 'heart', emoji: '❤️', class: 'tile-heart' },
+            { name: 'sun', emoji: '☀️', class: 'tile-sun' },
+            { name: 'moon', emoji: '🌙', class: 'tile-moon' }
+        ];
+
+        const DIFFICULTY = {
+            1: { types: 6, count: 24, name: '简单' },
+            2: { types: 10, count: 81, name: '困难' },
+            3: { types: 12, count: 180, name: '噩梦' }
+        };
+
+        let currentLevel = 1;
+        let tiles = [];
+        let slots = [];
+        let isAnimating = false;
+        let gameOver = false;
+        let undoHistory = []; // Add undo capability
+
+        // DOM 元素
+        const tileGrid = document.getElementById('tileGrid');
+        const slotContainer = document.getElementById('slotContainer');
+        const slotElements = slotContainer.querySelectorAll('.slot');
+
+        // 初始化
+        document.getElementById('newGameBtn').addEventListener('click', startGame);
+        document.getElementById('resetBtn').addEventListener('click', resetGame);
+        document.getElementById('undoBtn').addEventListener('click', handleUndo);
+        document.getElementById('shuffleBtn').addEventListener('click', handleShuffle);
+        document.getElementById('modalBtn').addEventListener('click', startGame);
+
+        // 难度选择
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentLevel = parseInt(btn.dataset.level);
+                resetGame();
+            });
+        });
+
+        function startGame() {
+            gameOver = false;
+            slots = [];
+            undoHistory = [];
+            updateSlots();
+            document.getElementById('modalOverlay').classList.remove('active');
+
+            // 更新难度显示
+            const diffNames = { 1: '简单', 2: '困难', 3: '噩梦' };
+            document.getElementById('difficultyDisplay').textContent = diffNames[currentLevel];
+
+            createTileGrid();
+        }
+
+        function resetGame() {
+            startGame();
+        }
+
+        function handleUndo() {
+            if (undoHistory.length === 0 || gameOver || isAnimating) return;
+            
+            const lastAction = undoHistory.pop();
+            // Restore tile
+            lastAction.tile.element.style.display = 'flex';
+            lastAction.tile.element.classList.remove('disabled');
+            
+            // Remove from slots
+            const slotIndex = slots.lastIndexOf(lastAction.tile.type);
+            if (slotIndex > -1) {
+                slots.splice(slotIndex, 1);
+                updateSlots();
+                updateSlotCount();
+                updateTileStates();
+            }
+        }
+
+        function handleShuffle() {
+             if (gameOver || isAnimating) return;
+             
+             // Get all visible tiles
+             const visibleTiles = tiles.filter(t => t.element.style.display !== 'none');
+             if (visibleTiles.length < 2) return;
+
+             // Shuffle types
+             const currentTypes = visibleTiles.map(t => t.type);
+             shuffleArray(currentTypes);
+             
+             // Reassign types
+             visibleTiles.forEach((tile, i) => {
+                 const newType = currentTypes[i];
+                 tile.type = newType;
+                 tile.element.dataset.type = newType;
+                 
+                 // Update visual
+                 const typeConfig = TILE_TYPES.find(t => t.name === newType);
+                 
+                 // Preserve classes but update type-specific class
+                 // We know the class format is 'tile tile-xxx'
+                 // Remove all tile-xxx classes
+                 TILE_TYPES.forEach(t => tile.element.classList.remove(t.class));
+                 tile.element.classList.add(typeConfig.class);
+                 
+                 tile.element.textContent = typeConfig.emoji;
+             });
+             
+             // No need to update coverage as positions didn't change
+             // But good to ensure everything is synced
+             updateTileStates();
+        }
+
+        function createTileGrid() {
+            tileGrid.innerHTML = '';
+            tiles = [];
+
+            const config = DIFFICULTY[currentLevel];
+            const totalTiles = config.count;
+            const usedTypes = TILE_TYPES.slice(0, config.types);
+            
+            // 1. Prepare Tile Pool (Multiple of 3)
+            let typePool = [];
+            const numSets = totalTiles / 3;
+            for (let i = 0; i < numSets; i++) {
+                const type = usedTypes[i % usedTypes.length];
+                typePool.push(type.name, type.name, type.name);
+            }
+            // Shuffle types
+            shuffleArray(typePool);
+
+            // 2. Generate Positions (Scattered Layout)
+            // We'll use a virtual grid of 50x60px roughly
+            const positions = [];
+            
+            // Default size for desktop
+            let TILE_W = 54;
+            let TILE_H = 64;
+            
+            // Adjust for mobile
+            if (window.innerWidth <= 900) {
+                TILE_W = 42;
+                TILE_H = 50;
+            }
+            
+            // Center of the container
+            const centerX = tileGrid.clientWidth / 2 - TILE_W / 2;
+            const centerY = tileGrid.clientHeight / 2 - TILE_H / 2;
+            
+            // Helper to add position
+            const addPos = (x, y, layer) => {
+                positions.push({ x: centerX + x, y: centerY + y, layer });
+            };
+
+            // Generation Strategy based on Level
+            let tilesToPlace = totalTiles;
+            let currentLayer = 0;
+            
+            while (positions.length < totalTiles) {
+                const patternType = Math.floor(Math.random() * 6);
+                const layerOffset = currentLayer * 5; // Slight offset per layer? No, center it.
+                
+                // Random offset for the whole layer (scattered effect)
+                const layerShiftX = (Math.random() - 0.5) * 40 * (currentLevel - 1);
+                const layerShiftY = (Math.random() - 0.5) * 40 * (currentLevel - 1);
+
+                switch (patternType) {
+                    case 0: // Rectangle Grid
+                        {
+                            const rows = 3 + Math.floor(Math.random() * 3);
+                            const cols = 3 + Math.floor(Math.random() * 3);
+                            for(let r=0; r<rows; r++) {
+                                for(let c=0; c<cols; c++) {
+                                    addPos(
+                                        (c - cols/2) * (TILE_W + 2) + layerShiftX, 
+                                        (r - rows/2) * (TILE_H + 2) + layerShiftY, 
+                                        currentLayer
+                                    );
+                                }
+                            }
+                        }
+                        break;
+                    case 1: // Circle
+                        {
+                            const radius = 60 + Math.random() * 60;
+                            const count = 6 + Math.floor(Math.random() * 6);
+                            for(let i=0; i<count; i++) {
+                                const angle = (i / count) * Math.PI * 2;
+                                addPos(
+                                    Math.cos(angle) * radius + layerShiftX,
+                                    Math.sin(angle) * radius + layerShiftY,
+                                    currentLayer
+                                );
+                            }
+                        }
+                        break;
+                    case 2: // Cross
+                        {
+                            const len = 3 + Math.floor(Math.random() * 3);
+                            for(let i=0; i<len; i++) {
+                                // Horizontal
+                                addPos((i - len/2) * TILE_W + layerShiftX, 0 + layerShiftY, currentLayer);
+                                // Vertical
+                                addPos(0 + layerShiftX, (i - len/2) * TILE_H + layerShiftY, currentLayer);
+                            }
+                        }
+                        break;
+                    case 3: // Spiral / Scatter
+                        {
+                            const count = 8 + Math.floor(Math.random() * 5);
+                            for(let i=0; i<count; i++) {
+                                const angle = i * 0.5;
+                                const r = 10 * i;
+                                addPos(
+                                    Math.cos(angle) * r + layerShiftX,
+                                    Math.sin(angle) * r + layerShiftY,
+                                    currentLayer
+                                );
+                            }
+                        }
+                        break;
+                     case 4: // Pyramid (Small center)
+                        addPos(layerShiftX, layerShiftY, currentLayer);
+                        break;
+                     case 5: // Random Pair
+                        addPos(layerShiftX - 20, layerShiftY, currentLayer);
+                        addPos(layerShiftX + 20, layerShiftY, currentLayer);
+                        break;
+                }
+                
+                currentLayer++;
+                // Break if we generated enough (we'll trim later)
+                if (positions.length > totalTiles + 20) break;
+            }
+
+            // Trim positions to match exact count
+            const finalPositions = positions.slice(0, totalTiles);
+            
+            // --- SOLVABLE ASSIGNMENT ALGORITHM ---
+            
+            // 1. Build Dependency Graph
+            // Node i covers Node j if i is above j and overlaps
+            const graph = {
+                nodes: finalPositions.map((pos, idx) => ({ 
+                    id: idx, 
+                    ...pos, 
+                    width: TILE_W, 
+                    height: TILE_H,
+                    covers: [], // List of IDs this tile covers
+                    coveredBy: [], // List of IDs covering this tile
+                    removed: false
+                }))
+            };
+            
+            const margin = 2;
+            for(let i = 0; i < totalTiles; i++) {
+                for(let j = 0; j < totalTiles; j++) {
+                    if (i === j) continue;
+                    
+                    const tileA = graph.nodes[i];
+                    const tileB = graph.nodes[j];
+                    
+                    // Check if A is visually "above" B
+                    // Logic: Higher layer is above. If same layer, later index is above.
+                    let isAbove = false;
+                    if (tileA.layer > tileB.layer) isAbove = true;
+                    else if (tileA.layer === tileB.layer && i > j) isAbove = true;
+                    
+                    if (isAbove) {
+                        // Check overlap
+                        const overlap = !(
+                            tileA.x + tileA.width - margin <= tileB.x + margin ||
+                            tileA.x + margin >= tileB.x + tileB.width - margin ||
+                            tileA.y + tileA.height - margin <= tileB.y + margin ||
+                            tileA.y + margin >= tileB.y + tileB.height - margin
+                        );
+                        
+                        if (overlap) {
+                            tileA.covers.push(j);
+                            tileB.coveredBy.push(i);
+                        }
+                    }
+                }
+            }
+            
+            // 2. Assign Groups (Solvable Logic)
+            // We simulate clearing the board. 
+            // openTiles = tiles with 0 coveredBy (indegree=0)
+            
+            let assignments = new Array(totalTiles).fill(-1);
+            let openTiles = graph.nodes.filter(n => n.coveredBy.length === 0).map(n => n.id);
+            
+            // Current buffer state simulation
+            // pendingGroups = { groupId: count_in_buffer }
+            // bufferCount = total tiles in buffer
+            let pendingGroups = {}; 
+            let bufferCount = 0;
+            let groupCounter = 0;
+            let tilesRemaining = totalTiles;
+            
+            while (tilesRemaining > 0) {
+                // Refresh openTiles (filter out removed ones)
+                if (openTiles.length === 0) {
+                    console.error("Deadlock in generation!");
+                    break;
+                }
+                
+                // Decide move
+                // Enhanced Logic for Complexity:
+                // 1. We want to force usage of buffer slots to simulate "planning".
+                // 2. We prefer to pick tiles that "unlock" other tiles (high 'covers' count).
+                
+                let moveType = 'add_to_buffer'; 
+                
+                // Find pending groups
+                const groupsNeed1 = []; // Has 2 in buffer
+                const groupsNeed2 = []; // Has 1 in buffer
+                for(let gid in pendingGroups) {
+                    if (pendingGroups[gid] === 2) groupsNeed1.push(gid);
+                    else if (pendingGroups[gid] === 1) groupsNeed2.push(gid);
+                }
+                
+                // Strategy:
+                // - If buffer is dangerously high (>= 5), MUST match.
+                // - If buffer is low (< 4), prefer adding to buffer to build complexity.
+                // - Avoid simple "pick 3 fresh" unless necessary or very occasionally.
+                
+                if (bufferCount >= 5) {
+                    // Must reduce buffer
+                    if (groupsNeed1.length > 0 || groupsNeed2.length > 0) {
+                        moveType = 'match_buffer';
+                    } else {
+                        // Emergency: if we can't match from buffer, we might be stuck or need to add fresh to match
+                        // But usually 'match_buffer' implies picking from openTiles to complete a buffer group.
+                        // If no groups pending? (Shouldn't happen if bufferCount > 0 usually, but logic check)
+                        moveType = 'add_fresh'; // Fallback
+                    }
+                } else {
+                    // Buffer is safe, let's try to make it complex
+                    // 20% chance to clear something to give user a break
+                    // 80% chance to clutter the buffer (add complexity)
+                    if (Math.random() < 0.2 && (groupsNeed1.length > 0 || groupsNeed2.length > 0)) {
+                        moveType = 'match_buffer';
+                    } else {
+                         moveType = 'add_to_buffer';
+                    }
+                }
+                
+                // Safety check: if we want to add but no space (should be covered by >=5 check, but logic)
+                if (moveType === 'add_to_buffer' && bufferCount >= 6) {
+                    moveType = 'match_buffer';
+                }
+                
+                // Double safety: if we want to match buffer but can't find tiles
+                if (moveType === 'match_buffer' && groupsNeed1.length === 0 && groupsNeed2.length === 0) {
+                     moveType = 'add_fresh';
+                }
+                
+                // Triple safety: if add_fresh but not enough tiles
+                if (moveType === 'add_fresh' && openTiles.length < 3) {
+                    moveType = 'add_to_buffer';
+                }
+                
+                // Execute Move
+                let selectedTileId = -1;
+                
+                if (moveType === 'match_buffer') {
+                    // Prefer groupsNeed1 (completes a set)
+                    let targetGroupId = null;
+                    if (groupsNeed1.length > 0) targetGroupId = groupsNeed1[0];
+                    else targetGroupId = groupsNeed2[0];
+                    
+                    // Complexity Feature: 
+                    // Don't just pick random. Pick the one that unlocks the most OR unlocks nothing (to bury it).
+                    // Actually, to make it solvable but hard, we should pick the one that IS BLOCKING others.
+                    // We simulate the player needing to remove a blocking tile.
+                    
+                    // Sort openTiles by how many tiles they cover (descending)
+                    // We want to remove "blockers" first in our reverse-generation? 
+                    // Wait, this is generation. If we assign a group to a blocker now, 
+                    // it means in the real game, this blocker is part of a set.
+                    
+                    // We are assigning groups. 
+                    // If we pick a 'blocker' now and clear it (completing a set), 
+                    // it means in game the user clears this blocker to free space.
+                    
+                    // Sort openTiles by 'out-degree' (covers.length)
+                    // We add randomness so it's not deterministic
+                    openTiles.sort((a, b) => {
+                        const scoreA = graph.nodes[a].covers.length + Math.random() * 2;
+                        const scoreB = graph.nodes[b].covers.length + Math.random() * 2;
+                        return scoreB - scoreA; // Descending
+                    });
+                    
+                    selectedTileId = openTiles[0]; // Pick the biggest blocker
+                    
+                    assignments[selectedTileId] = parseInt(targetGroupId);
+                    
+                    pendingGroups[targetGroupId]++;
+                    if (pendingGroups[targetGroupId] === 3) {
+                        bufferCount -= 2; 
+                        delete pendingGroups[targetGroupId];
+                    } else {
+                        bufferCount += 1;
+                    }
+                } 
+                else if (moveType === 'add_fresh') {
+                    // Pick 3 tiles
+                    // To make it hard, maybe pick tiles that are NOT blockers? 
+                    // So blockers stay on board? 
+                    // Or pick blockers to open up the game? 
+                    // Let's mix.
+                    
+                    const indices = [];
+                    // Simple random 3 is fine for "fresh set", it's a lucky break for user.
+                    while(indices.length < 3) {
+                        const r = Math.floor(Math.random() * openTiles.length);
+                        if (!indices.includes(r)) indices.push(r);
+                    }
+                    
+                    const newGroupId = groupCounter++;
+                    const tileIds = indices.map(i => openTiles[i]);
+                    tileIds.forEach(id => assignments[id] = newGroupId);
+                    selectedTileId = tileIds;
+                } 
+                else { // add_to_buffer
+                    // We are picking a tile to put in buffer (pending).
+                    // In game terms: User clicks this tile, it sits in slot.
+                    // To force "reasoning", this tile should be one that BLOCKS important things.
+                    // User is forced to click it to uncover what's below.
+                    
+                    // Sort by blocking power
+                    openTiles.sort((a, b) => {
+                        const scoreA = graph.nodes[a].covers.length + Math.random() * 5;
+                        const scoreB = graph.nodes[b].covers.length + Math.random() * 5;
+                        return scoreB - scoreA;
+                    });
+                    
+                    selectedTileId = openTiles[0];
+                    
+                    let targetGroupId = null;
+                    if (groupsNeed2.length > 0 && Math.random() > 0.4) {
+                         // Join an existing 1-count group (making it 2)
+                         targetGroupId = groupsNeed2[0];
+                         assignments[selectedTileId] = parseInt(targetGroupId);
+                         pendingGroups[targetGroupId]++; 
+                         bufferCount++;
+                    } else {
+                        // Start new group
+                        targetGroupId = groupCounter++;
+                        assignments[selectedTileId] = targetGroupId;
+                        pendingGroups[targetGroupId] = 1;
+                        bufferCount++;
+                    }
+                }
+                
+                // Remove selected tiles from graph and update openTiles
+                const tilesToRemove = Array.isArray(selectedTileId) ? selectedTileId : [selectedTileId];
+                
+                // Remove from openTiles list
+                openTiles = openTiles.filter(id => !tilesToRemove.includes(id));
+                
+                tilesToRemove.forEach(remId => {
+                    graph.nodes[remId].removed = true;
+                    tilesRemaining--;
+                    
+                    // Update neighbors
+                    const covers = graph.nodes[remId].covers;
+                    covers.forEach(coveredId => {
+                        const coveredNode = graph.nodes[coveredId];
+                        if (coveredNode.removed) return;
+                        
+                        // Remove remId from coveredNode.coveredBy
+                        coveredNode.coveredBy = coveredNode.coveredBy.filter(x => x !== remId);
+                        
+                        // If coveredBy is now empty, it's open!
+                        if (coveredNode.coveredBy.length === 0) {
+                            if (!openTiles.includes(coveredId)) {
+                                openTiles.push(coveredId);
+                            }
+                        }
+                    });
+                });
+            }
+            
+            // 3. Map Groups to Actual Types
+            const finalUsedTypes = TILE_TYPES.slice(0, config.types);
+            const groupToType = {};
+            // Shuffle types for variety
+            const shuffledTypes = [...finalUsedTypes].sort(() => Math.random() - 0.5);
+            
+            for(let g = 0; g < groupCounter; g++) {
+                groupToType[g] = shuffledTypes[g % shuffledTypes.length].name;
+            }
+            
+            // 4. Create Final DOM
+            finalPositions.forEach((pos, index) => {
+                const group = assignments[index];
+                const typeName = groupToType[group] || finalUsedTypes[0].name; // Fallback
+                const typeConfig = TILE_TYPES.find(t => t.name === typeName);
+                
+                const tile = document.createElement('div');
+                tile.className = `tile ${typeConfig.class}`;
+                tile.textContent = typeConfig.emoji;
+                tile.dataset.type = typeName;
+                tile.dataset.index = index;
+                
+                // Random slight rotation
+                const rotate = (Math.random() - 0.5) * 5;
+                
+                tile.style.left = `${pos.x}px`;
+                tile.style.top = `${pos.y}px`;
+                tile.style.transform = `rotate(${rotate}deg)`;
+                tile.style.zIndex = pos.layer;
+                
+                // Size
+                tile.style.width = `${TILE_W}px`;
+                tile.style.height = `${TILE_H}px`;
+                tile.style.fontSize = `${TILE_H * 0.6}px`;
+                
+                tileGrid.appendChild(tile);
+                
+                tiles.push({ 
+                    element: tile, 
+                    type: typeName, 
+                    x: pos.x, 
+                    y: pos.y, 
+                    layer: pos.layer, 
+                    index: index, 
+                    width: TILE_W, 
+                    height: TILE_H 
+                });
+                
+                tile.addEventListener('click', () => handleTileClick(tiles[index]));
+            });
+            
+            updateRemainingCount();
+            updateSlotCount();
+            // Initial check for coverage
+            updateTileStates();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function isTileCovered(tile) {
+            // Check if any visible tile is "above" this tile geometrically
+            const margin = 2; // Tolerance
+            
+            for (let other of tiles) {
+                if (other === tile) continue;
+                if (other.element.style.display === 'none') continue;
+                
+                // Only tiles with higher or equal z-index (that are later in DOM) can cover
+                // But since we use DOM order for painting, let's look at visual overlap.
+                // We simplified zIndex to be layer.
+                // If layers are equal, the one later in array covers.
+                
+                let isAbove = false;
+                if (other.layer > tile.layer) isAbove = true;
+                else if (other.layer === tile.layer && other.index > tile.index) isAbove = true;
+                
+                if (isAbove) {
+                    // Check geometric overlap
+                    // Simple box collision
+                    const noOverlap = 
+                        tile.x + tile.width - margin <= other.x + margin ||
+                        tile.x + margin >= other.x + other.width - margin ||
+                        tile.y + tile.height - margin <= other.y + margin ||
+                        tile.y + margin >= other.y + other.height - margin;
+                        
+                    if (!noOverlap) return true;
+                }
+            }
+            return false;
+        }
+
+        function updateTileStates() {
+            tiles.forEach(tile => {
+                if (tile.element.style.display === 'none') return;
+                const covered = isTileCovered(tile);
+                if (covered) {
+                    tile.element.classList.add('disabled');
+                } else {
+                    tile.element.classList.remove('disabled');
+                }
+            });
+        }
+
+        function handleTileClick(tileObj) {
+            if (isAnimating || gameOver) return;
+            if (tileObj.element.classList.contains('disabled')) return;
+            if (tileObj.element.style.display === 'none') return;
+            
+            const filledCount = slots.length;
+            if (filledCount >= 7) {
+                showSlotsFull();
+                return;
+            }
+
+            // Add to history for Undo
+            undoHistory.push({
+                tile: tileObj,
+                time: Date.now()
+            });
+
+            isAnimating = true;
+            
+            // Fly animation?
+            // For now just hide and show in slot
+            tileObj.element.style.display = 'none';
+            
+            // Add to slots
+            // Auto-sort: insert next to the same type if exists
+            const lastIndex = slots.lastIndexOf(tileObj.type);
+            if (lastIndex !== -1) {
+                slots.splice(lastIndex + 1, 0, tileObj.type);
+            } else {
+                slots.push(tileObj.type);
+            }
+            
+            updateSlots();
+            updateSlotCount();
+            updateRemainingCount();
+            
+            // Re-calculate coverage for all tiles
+            // Because removing a tile might uncover others
+            updateTileStates();
+
+            // Check elimination
+            setTimeout(() => {
+                checkAndRemove();
+                isAnimating = false;
+            }, 100);
+        }
+
+        function updateSlots() {
+            // We want to group same types in slots for better visual
+            // But strict game logic usually appends. 
+            // However, "Sheep" games often sort the slots visually or insert next to same type.
+            // Let's implement "Insert next to same type" logic for visual, 
+            // BUT our data structure `slots` is just an array.
+            // Let's sort the `slots` array? No, that changes the game difficulty (making it easier).
+            // Actually, in the real game, when you click, it flies to the slot. 
+            // If there are same types, they don't necessarily group unless you implemented that.
+            // But usually they DO group to help user see.
+            // Let's stick to append for now to be safe, or just render.
+            
+            slotElements.forEach((el, index) => {
+                el.innerHTML = '';
+                el.className = 'slot'; // reset
+                
+                if (index < slots.length) {
+                    const typeName = slots[index];
+                    const typeConfig = TILE_TYPES.find(t => t.name === typeName);
+                    
+                    const tile = document.createElement('div');
+                    tile.className = `tile ${typeConfig.class}`;
+                    tile.textContent = typeConfig.emoji;
+                    // Reset styles for slot display
+                    tile.style.position = 'relative';
+                    tile.style.left = '0';
+                    tile.style.top = '0';
+                    tile.style.transform = 'none';
+                    tile.style.width = '100%';
+                    tile.style.height = '100%';
+                    
+                    el.appendChild(tile);
+                    el.classList.add('filled');
+                }
+            });
+        }
+
+        function updateSlotCount() {
+            document.getElementById('slotCount').textContent = `${slots.length}/7`;
+        }
+        
+        function updateRemainingCount() {
+            const remaining = tiles.filter(t => t.element.style.display !== 'none').length;
+            document.getElementById('remaining').textContent = remaining;
+        }
+
+        function showSlotsFull() {
+            slotElements.forEach(s => s.classList.add('slot-full'));
+            setTimeout(() => {
+                if (!gameOver) {
+                    showResult(false);
+                }
+            }, 500);
+        }
+
+        function checkAndRemove() {
+            // Check for 3 matches
+            // We need to count occurrences
+            const counts = {};
+            slots.forEach(t => counts[t] = (counts[t] || 0) + 1);
+            
+            let removed = false;
+            for (const type in counts) {
+                if (counts[type] >= 3) {
+                    // Remove 3 instances of this type
+                    let removedCount = 0;
+                    // We should remove them from the array.
+                    // Filter keeps ones that don't match, or we carefully remove 3.
+                    // If there are 4 (impossible in normal flow but safe to handle), we remove 3.
+                    
+                    const newSlots = [];
+                    let keptTypeCount = 0; // how many of this type we kept (should be counts[type] - 3)
+                    
+                    // Actually, simple filter is: remove ALL of that type? 
+                    // In the game, 3 merge and disappear.
+                    // So yes, remove all 3.
+                    
+                    slots = slots.filter(t => t !== type);
+                    removed = true;
+                    // Play sound or effect?
+                }
+            }
+            
+            if (removed) {
+                updateSlots();
+                updateSlotCount();
+                updateRemainingCount();
+                
+                // Clear undo history if elimination happens? 
+                // Usually yes, or it gets complicated.
+                undoHistory = [];
+                
+                // Check Win
+                const remainingTiles = tiles.filter(t => t.element.style.display !== 'none');
+                if (remainingTiles.length === 0 && slots.length === 0) {
+                    setTimeout(() => showResult(true), 300);
+                }
+            } else {
+                 if (slots.length >= 7) {
+                    showSlotsFull();
+                }
+            }
+        }
+
+        function showResult(isWin) {
+            gameOver = true;
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const message = document.getElementById('modalText');
+
+            if (isWin) {
+                modal.className = 'modal win';
+                title.textContent = '🎉 恭喜过关！';
+                message.textContent = '太厉害了，你成功通过了所有方块！';
+            } else {
+                modal.className = 'modal lose';
+                title.textContent = '😢 游戏结束';
+                message.textContent = '槽位已满，再接再厉！';
+            }
+
+            modalOverlay.classList.add('active');
+        }
+
+        // 初始化游戏
+        createTileGrid();
+    </script>
+</body>
+</html>

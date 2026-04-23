@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>连连看 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="连连看是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="连连看,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/lianliankan.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="连连看 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="连连看是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/lianliankan.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="连连看 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="连连看是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"连连看","description":"连连看是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/lianliankan.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-color: #faf8ef;
+            --grid-bg: #bbada0;
+            --cell-bg: #cdc1b4;
+            --text-color: #776e65;
+            --primary-color: #8f7a66;
+        }
+
+        body {
+            font-family: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e0e0e0;
+            background: white;
+        }
+
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .level-select {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .level-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid var(--primary-color);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--primary-color);
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .level-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .level-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .stats-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: var(--grid-bg);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #eee4da;
+            font-weight: bold;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f2b179;
+            color: white;
+        }
+
+        .btn-success {
+            background: #8f7a66;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .message {
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+            animation: slideIn 0.25s ease;
+        }
+
+        .message.success {
+            background: #edcfc2;
+            color: var(--text-color);
+        }
+
+        .message.warning {
+            background: #f2b179;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-color);
+            padding: 20px;
+            min-height: 0;
+        }
+
+        .game-container {
+            position: relative;
+            background: var(--grid-bg);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-board {
+            display: grid;
+            position: relative;
+            min-height: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(18px, 3vw, 28px);
+            transition: all 0.12s ease;
+            background: var(--cell-bg);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .cell:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .cell.selected {
+            background: #f2b179;
+            transform: scale(1.08);
+            box-shadow: 0 0 0 3px #f2b179;
+        }
+
+        .cell.matched {
+            animation: match 0.3s ease forwards;
+        }
+
+        .cell.empty {
+            background: transparent;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .cell.hint {
+            animation: hint-glow 0.6s infinite;
+        }
+
+        @keyframes match {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        @keyframes hint-glow {
+            0%, 100% { box-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700; }
+            50% { box-shadow: 0 0 12px #ffd700, 0 0 20px #ffd700; }
+        }
+
+        .path-line {
+            position: absolute;
+            background: #ff6b6b;
+            z-index: 100;
+            pointer-events: none;
+            border-radius: 2px;
+        }
+
+        .path-point {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            z-index: 101;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 6px rgba(255, 107, 107, 0.6);
+        }
+
+        .game-over-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(238, 228, 218, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .game-over-modal.show {
+            display: flex;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: #faf8ef;
+            padding: 35px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            animation: scaleIn 0.25s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .modal-title.win {
+            color: #edc22e;
+        }
+
+        .modal-title.lose {
+            color: #f2b179;
+        }
+
+        .final-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .final-stat {
+            text-align: center;
+        }
+
+        .final-stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--grid-bg);
+        }
+
+        .final-stat-label {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .header {
+                margin-bottom: 0;
+                margin-right: auto;
+            }
+
+            .title {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                display: none;
+            }
+
+            .level-select {
+                margin-bottom: 0;
+                margin-right: 10px;
+            }
+
+            .level-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .stats-bar {
+                flex-direction: row;
+                margin-bottom: 0;
+                gap: 8px;
+            }
+
+            .stat-box {
+                padding: 8px 12px;
+            }
+
+            .stat-label {
+                font-size: 10px;
+            }
+
+            .stat-value {
+                font-size: 16px;
+            }
+
+            .controls {
+                display: none;
+            }
+
+            .main-area {
+                padding: 10px;
+            }
+
+            .btn-mobile {
+                display: flex;
+                gap: 8px;
+                width: 100%;
+                padding: 10px 15px;
+                background: white;
+                border-top: 1px solid #e0e0e0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                padding: 10px;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .level-btn {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+
+            .stat-box {
+                padding: 6px 10px;
+            }
+
+            .stat-value {
+                font-size: 14px;
+            }
+
+            .cell {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="header">
+            <h1 class="title">连连看</h1>
+            <p class="subtitle">相同图案用线相连消除</p>
+        </div>
+
+        <div class="level-select">
+            <button class="level-btn active" data-level="easy">简单</button>
+            <button class="level-btn" data-level="medium">中等</button>
+            <button class="level-btn" data-level="hard">困难</button>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-box">
+                <span class="stat-label">时间</span>
+                <span class="stat-value" id="time">180</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">剩余</span>
+                <span class="stat-value" id="remaining">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">得分</span>
+                <span class="stat-value" id="score">0</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-success" id="shuffleBtn">洗牌</button>
+            <button class="btn btn-secondary" id="hintBtn">提示</button>
+            <button class="btn btn-primary" id="restartBtn">重置</button>
+        </div>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <div class="main-area">
+        <div class="game-container">
+            <div class="game-board" id="board"></div>
+        </div>
+    </div>
+
+    <div class="game-over-modal" id="gameOverModal">
+        <div class="modal-content">
+            <h2 class="modal-title" id="modalTitle">游戏结束!</h2>
+            <div class="final-stats">
+                <div class="final-stat">
+                    <div class="final-stat-value" id="finalScore">0</div>
+                    <div class="final-stat-label">得分</div>
+                </div>
+                <div class="final-stat">
+                    <div class="final-stat-value" id="finalPairs">0</div>
+                    <div class="final-stat-label">消除对数</div>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" id="closeModal">关闭</button>
+                <button class="btn btn-primary" id="playAgain">再玩一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 图标集
+        const ICONS = [
+            '🍎', '🍊', '🍋', '🍇', '🍓', '🍒',
+            '🥝', '🍑', '🥭', '🍍', '🥥', '🥑',
+            '🍆', '🥕', '🌽', '🥦', '🍄', '🥜',
+            '🌸', '🌺', '🌻', '🌷', '🌹', '💐',
+            '⭐', '🌙', '☀️', '🌈', '❄️', '🔥',
+            '💎', '🎀', '🎈', '🎁', '🍭', '🍬',
+            '🎵', '🎶', '🎤', '🎧', '🎼', '🎹',
+            '🐶', '🐱', '🐭', '🐹', '🐰', '🦊',
+            '🐻', '🐼', '🐨', '🐯', '🦁', '🐮'
+        ];
+
+        // 难度配置
+        const LEVELS = {
+            easy: { rows: 4, cols: 6, time: 180 },
+            medium: { rows: 6, cols: 8, time: 240 },
+            hard: { rows: 8, cols: 10, time: 300 }
+        };
+
+        let currentLevel = 'easy';
+        let board = [];
+        let selectedCell = null;
+        let score = 0;
+        let pairsMatched = 0;
+        let totalPairs = 0;
+        let timeLeft = 180;
+        let timer = null;
+        let isProcessing = false;
+        let gameOver = false;
+
+        const boardEl = document.getElementById('board');
+        const scoreEl = document.getElementById('score');
+        const remainingEl = document.getElementById('remaining');
+        const timeEl = document.getElementById('time');
+        const messageEl = document.getElementById('message');
+        const gameOverModal = document.getElementById('gameOverModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const finalScoreEl = document.getElementById('finalScore');
+        const finalPairsEl = document.getElementById('finalPairs');
+
+        function init() {
+            const level = LEVELS[currentLevel];
+            const { rows, cols, time } = level;
+            const totalTiles = rows * cols;
+            const pairs = totalTiles / 2;
+
+            selectedCell = null;
+            score = 0;
+            pairsMatched = 0;
+            totalPairs = pairs;
+            timeLeft = time;
+            isProcessing = false;
+            gameOver = false;
+
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+
+            updateUI();
+            hideMessage();
+            gameOverModal.classList.remove('show');
+            clearPath();
+
+            generateBoard(rows, cols, pairs);
+            updateBoardSize(rows + 2, cols + 2);
+            startTimer();
+        }
+
+        function updateBoardSize(rows, cols) {
+            const container = document.querySelector('.game-container');
+            const mainArea = document.querySelector('.main-area');
+
+            // 获取可用空间，考虑 padding
+            let availableWidth = mainArea.clientWidth || 400;
+            let availableHeight = mainArea.clientHeight || 400;
+
+            // 减去 padding
+            availableWidth = Math.max(availableWidth - 40, 100);
+            availableHeight = Math.max(availableHeight - 40, 100);
+
+            // 计算格子尺寸，留出 gap 的空间
+            const gap = 4;
+            const totalGapWidth = gap * (cols - 1);
+            const totalGapHeight = gap * (rows - 1);
+
+            const cellWidth = (availableWidth - totalGapWidth) / cols;
+            const cellHeight = (availableHeight - totalGapHeight) / rows;
+            const cellSize = Math.min(cellWidth, cellHeight, 50);
+            const finalSize = Math.max(cellSize, 30);
+
+            // 设置容器尺寸
+            container.style.width = `${finalSize * cols + gap * (cols - 1) + 20}px`;
+            container.style.height = `${finalSize * rows + gap * (rows - 1) + 20}px`;
+
+            // 设置 grid 布局 - 使用固定像素值
+            boardEl.style.gridTemplateColumns = `repeat(${cols}, ${finalSize}px)`;
+            boardEl.style.gridTemplateRows = `repeat(${rows}, ${finalSize}px)`;
+            boardEl.style.gap = `${gap}px`;
+
+            // 更新格子字体大小
+            setTimeout(() => {
+                document.querySelectorAll('.cell').forEach(cell => {
+                    if (!cell.classList.contains('empty')) {
+                        cell.style.fontSize = `${finalSize * 0.5}px`;
+                    }
+                });
+            }, 10);
+        }
+
+        function generateBoard(rows, cols, pairs) {
+            const selectedIcons = ICONS.slice(0, pairs);
+            let tiles = [];
+
+            for (let i = 0; i < pairs; i++) {
+                const icon = selectedIcons[i];
+                tiles.push(icon, icon);
+            }
+
+            shuffleArray(tiles);
+
+            board = [];
+            for (let row = 0; row < rows + 2; row++) {
+                board[row] = [];
+                for (let col = 0; col < cols + 2; col++) {
+                    if (row === 0 || row === rows + 1 || col === 0 || col === cols + 1) {
+                        board[row][col] = null;
+                    } else {
+                        board[row][col] = tiles[(row - 1) * cols + (col - 1)];
+                    }
+                }
+            }
+
+            renderBoard();
+            // 确保 grid 尺寸正确
+            const gameRows = rows + 2;
+            const gameCols = cols + 2;
+            updateBoardSize(gameRows, gameCols);
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function renderBoard() {
+            const rows = board.length;
+            const cols = board[0].length;
+
+            boardEl.innerHTML = '';
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+
+                    const value = board[row][col];
+                    if (value === null || value === '') {
+                        cell.classList.add('empty');
+                    } else {
+                        cell.textContent = value;
+                        cell.addEventListener('click', () => handleCellClick(row, col));
+                    }
+
+                    boardEl.appendChild(cell);
+                }
+            }
+
+            let remaining = 0;
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    if (board[row][col]) remaining++;
+                }
+            }
+            remainingEl.textContent = remaining / 2;
+        }
+
+        function getCellElement(row, col) {
+            return boardEl.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+        }
+
+        function handleCellClick(row, col) {
+            if (isProcessing || gameOver) return;
+            if (!board[row][col]) return;
+
+            const cell = getCellElement(row, col);
+
+            if (selectedCell === null) {
+                selectedCell = { row, col };
+                cell.classList.add('selected');
+            } else if (selectedCell.row === row && selectedCell.col === col) {
+                cell.classList.remove('selected');
+                selectedCell = null;
+            } else if (board[selectedCell.row][selectedCell.col] === board[row][col]) {
+                const path = findPath(selectedCell.row, selectedCell.col, row, col);
+
+                if (path) {
+                    const prevCell = getCellElement(selectedCell.row, selectedCell.col);
+                    prevCell.classList.remove('selected');
+
+                    drawPath(path);
+
+                    isProcessing = true;
+                    setTimeout(() => {
+                        board[selectedCell.row][selectedCell.col] = null;
+                        board[row][col] = null;
+
+                        clearPath();
+
+                        const prevEl = getCellElement(selectedCell.row, selectedCell.col);
+                        const currEl = getCellElement(row, col);
+                        if (prevEl) prevEl.classList.add('matched');
+                        if (currEl) currEl.classList.add('matched');
+
+                        pairsMatched++;
+                        score += 100;
+                        updateUI();
+
+                        setTimeout(() => {
+                            renderBoard();
+                            isProcessing = false;
+                            selectedCell = null;
+
+                            if (checkWin()) {
+                                endGame(true);
+                            } else if (!hasValidMoves()) {
+                                showMessage('没有可用的连接了!', 'warning');
+                                setTimeout(() => shuffleBoard(), 1000);
+                            }
+                        }, 300);
+                    }, 250);
+                } else {
+                    const prevCell = getCellElement(selectedCell.row, selectedCell.col);
+                    prevCell.classList.remove('selected');
+                    selectedCell = { row, col };
+                    cell.classList.add('selected');
+                }
+            } else {
+                const prevCell = getCellElement(selectedCell.row, selectedCell.col);
+                prevCell.classList.remove('selected');
+                selectedCell = { row, col };
+                cell.classList.add('selected');
+            }
+        }
+
+        function findPath(r1, c1, r2, c2) {
+            const rows = board.length;
+            const cols = board[0].length;
+
+            if (canConnectDirect(r1, c1, r2, c2)) {
+                return [{ row: r1, col: c1 }, { row: r2, col: c2 }];
+            }
+
+            if (canConnectDirect(r1, c1, r1, c2) && canConnectDirect(r1, c2, r2, c2) && isEmpty(r1, c2)) {
+                return [{ row: r1, col: c1 }, { row: r1, col: c2 }, { row: r2, col: c2 }];
+            }
+            if (canConnectDirect(r1, c1, r2, c1) && canConnectDirect(r2, c1, r2, c2) && isEmpty(r2, c1)) {
+                return [{ row: r1, col: c1 }, { row: r2, col: c1 }, { row: r2, col: c2 }];
+            }
+
+            for (let r = 0; r < rows; r++) {
+                if (r === r1 || r === r2) continue;
+                if (isEmpty(r, c1) && canConnectDirect(r1, c1, r, c1) &&
+                    canConnectDirect(r, c1, r, c2) && canConnectDirect(r, c2, r2, c2) && isEmpty(r, c2)) {
+                    return [{ row: r1, col: c1 }, { row: r, col: c1 }, { row: r, col: c2 }, { row: r2, col: c2 }];
+                }
+            }
+
+            for (let c = 0; c < cols; c++) {
+                if (c === c1 || c === c2) continue;
+                if (isEmpty(r1, c) && canConnectDirect(r1, c1, r1, c) &&
+                    canConnectDirect(r1, c, r2, c) && canConnectDirect(r2, c, r2, c2) && isEmpty(r2, c)) {
+                    return [{ row: r1, col: c1 }, { row: r1, col: c }, { row: r2, col: c }, { row: r2, col: c2 }];
+                }
+            }
+
+            return null;
+        }
+
+        function canConnectDirect(r1, c1, r2, c2) {
+            if (r1 === r2) {
+                const minC = Math.min(c1, c2);
+                const maxC = Math.max(c1, c2);
+                for (let c = minC + 1; c < maxC; c++) {
+                    if (!isEmpty(r1, c)) return false;
+                }
+                return true;
+            } else if (c1 === c2) {
+                const minR = Math.min(r1, r2);
+                const maxR = Math.max(r1, r2);
+                for (let r = minR + 1; r < maxR; r++) {
+                    if (!isEmpty(r, c1)) return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        function isEmpty(row, col) {
+            return board[row] && (board[row][col] === null || board[row][col] === '');
+        }
+
+        function drawPath(path) {
+            clearPath();
+
+            for (let i = 0; i < path.length - 1; i++) {
+                const p1 = path[i];
+                const p2 = path[i + 1];
+
+                const line = document.createElement('div');
+                line.className = 'path-line';
+
+                const cell1 = getCellElement(p1.row, p1.col);
+                const cell2 = getCellElement(p2.row, p2.col);
+
+                if (!cell1 || !cell2) continue;
+
+                const rect1 = cell1.getBoundingClientRect();
+                const rect2 = cell2.getBoundingClientRect();
+                const boardRect = boardEl.getBoundingClientRect();
+
+                const x1 = rect1.left - boardRect.left + rect1.width / 2;
+                const y1 = rect1.top - boardRect.top + rect1.height / 2;
+                const x2 = rect2.left - boardRect.left + rect2.width / 2;
+                const y2 = rect2.top - boardRect.top + rect2.height / 2;
+
+                const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+                line.style.width = `${length}px`;
+                line.style.height = '4px';
+                line.style.left = `${x1}px`;
+                line.style.top = `${y1}px`;
+                line.style.transformOrigin = '0 50%';
+                line.style.transform = `rotate(${angle}deg)`;
+
+                boardEl.appendChild(line);
+            }
+
+            path.forEach(p => {
+                const point = document.createElement('div');
+                point.className = 'path-point';
+
+                const cell = getCellElement(p.row, p.col);
+                if (!cell) return;
+
+                const rect = cell.getBoundingClientRect();
+                const boardRect = boardEl.getBoundingClientRect();
+
+                point.style.left = `${rect.left - boardRect.left + rect.width / 2}px`;
+                point.style.top = `${rect.top - boardRect.top + rect.height / 2}px`;
+
+                boardEl.appendChild(point);
+            });
+        }
+
+        function clearPath() {
+            boardEl.querySelectorAll('.path-line, .path-point').forEach(el => el.remove());
+        }
+
+        function hasValidMoves() {
+            const rows = board.length;
+            const cols = board[0].length;
+            const tiles = [];
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    if (board[r][c]) {
+                        tiles.push({ row: r, col: c, value: board[r][c] });
+                    }
+                }
+            }
+
+            for (let i = 0; i < tiles.length; i++) {
+                for (let j = i + 1; j < tiles.length; j++) {
+                    if (tiles[i].value === tiles[j].value) {
+                        if (findPath(tiles[i].row, tiles[i].col, tiles[j].row, tiles[j].col)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        function shuffleBoard() {
+            const rows = board.length;
+            const cols = board[0].length;
+            const tiles = [];
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    if (board[r][c]) {
+                        tiles.push(board[r][c]);
+                    }
+                }
+            }
+
+            shuffleArray(tiles);
+
+            let index = 0;
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    if (board[r][c]) {
+                        board[r][c] = tiles[index++];
+                    }
+                }
+            }
+
+            renderBoard();
+            selectedCell = null;
+            clearPath();
+
+            if (!hasValidMoves()) {
+                setTimeout(() => shuffleBoard(), 300);
+            }
+        }
+
+        function showHint() {
+            if (isProcessing || gameOver) return;
+
+            const rows = board.length;
+            const cols = board[0].length;
+            const tiles = [];
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    if (board[r][c]) {
+                        tiles.push({ row: r, col: c, value: board[r][c] });
+                    }
+                }
+            }
+
+            for (let i = 0; i < tiles.length; i++) {
+                for (let j = i + 1; j < tiles.length; j++) {
+                    if (tiles[i].value === tiles[j].value) {
+                        if (findPath(tiles[i].row, tiles[i].col, tiles[j].row, tiles[j].col)) {
+                            const cell1 = getCellElement(tiles[i].row, tiles[i].col);
+                            const cell2 = getCellElement(tiles[j].row, tiles[j].col);
+
+                            cell1.classList.add('hint');
+                            cell2.classList.add('hint');
+
+                            setTimeout(() => {
+                                cell1.classList.remove('hint');
+                                cell2.classList.remove('hint');
+                            }, 1500);
+
+                            return;
+                        }
+                    }
+                }
+            }
+
+            showMessage('没有可用的连接! 正在洗牌...', 'warning');
+            setTimeout(() => shuffleBoard(), 1000);
+        }
+
+        function checkWin() {
+            const rows = board.length;
+            const cols = board[0].length;
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    if (board[r][c]) return false;
+                }
+            }
+            return true;
+        }
+
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                timeEl.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    endGame(false);
+                }
+            }, 1000);
+        }
+
+        function endGame(win) {
+            gameOver = true;
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+
+            modalTitle.textContent = win ? '恭喜通关!' : '时间到!';
+            modalTitle.className = `modal-title ${win ? 'win' : 'lose'}`;
+
+            const finalScore = win ? score + timeLeft * 10 : score;
+            finalScoreEl.textContent = finalScore;
+            finalPairsEl.textContent = pairsMatched;
+
+            gameOverModal.classList.add('show');
+        }
+
+        function updateUI() {
+            scoreEl.textContent = score;
+            timeEl.textContent = timeLeft;
+        }
+
+        function showMessage(text, type) {
+            messageEl.textContent = text;
+            messageEl.className = `message show ${type}`;
+            setTimeout(() => {
+                messageEl.classList.remove('show');
+            }, 1800);
+        }
+
+        function hideMessage() {
+            messageEl.classList.remove('show');
+        }
+
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentLevel = btn.dataset.level;
+                init();
+            });
+        });
+
+        document.getElementById('restartBtn').addEventListener('click', init);
+        document.getElementById('playAgain').addEventListener('click', init);
+        document.getElementById('closeModal').addEventListener('click', () => {
+            gameOverModal.classList.remove('show');
+        });
+        document.getElementById('shuffleBtn').addEventListener('click', shuffleBoard);
+        document.getElementById('hintBtn').addEventListener('click', showHint);
+
+        window.addEventListener('resize', () => {
+            if (board.length > 0) {
+                updateBoardSize(board.length - 2, board[0].length - 2);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (isProcessing || gameOver || !selectedCell) return;
+
+            const { row, col } = selectedCell;
+            const rows = board.length;
+            const cols = board[0].length;
+            let newRow = row, newCol = col;
+
+            switch(e.key) {
+                case 'ArrowUp': newRow = Math.max(0, row - 1); break;
+                case 'ArrowDown': newRow = Math.min(rows - 1, row + 1); break;
+                case 'ArrowLeft': newCol = Math.max(0, col - 1); break;
+                case 'ArrowRight': newCol = Math.min(cols - 1, col + 1); break;
+                case 'Enter':
+                case ' ':
+                    const cell = getCellElement(row, col);
+                    if (cell) cell.classList.remove('selected');
+                    selectedCell = null;
+                    return;
+                default: return;
+            }
+
+            e.preventDefault();
+
+            const prevCell = getCellElement(row, col);
+            if (prevCell) prevCell.classList.remove('selected');
+
+            if (board[newRow][newCol]) {
+                const newCell = getCellElement(newRow, newCol);
+                if (newCell) newCell.classList.add('selected');
+                selectedCell = { row: newRow, col: newCol };
+            } else {
+                selectedCell = { row: newRow, col: newCol };
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>

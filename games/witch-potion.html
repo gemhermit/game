@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>女巫的毒药 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="女巫的毒药是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="女巫的毒药,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/witch-potion.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="女巫的毒药 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="女巫的毒药是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/witch-potion.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="女巫的毒药 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="女巫的毒药是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"女巫的毒药","description":"女巫的毒药是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/witch-potion.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 40px 70px, #fff, transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+                radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: twinkle 3s infinite;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.3; }
+        }
+        .left-panel {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            max-width: 450px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .right-panel {
+            flex: 1.5;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .recipe-book {
+            background: rgba(0,0,0,0.7);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 2px solid #fd79a8;
+        }
+        .recipe-title {
+            font-size: 1.3em;
+            color: #fdcb6e;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .ingredient {
+            color: #fff;
+            font-size: 1em;
+            margin: 8px 0;
+            padding: 8px;
+            background: rgba(253, 121, 168, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #fd79a8;
+        }
+        .cauldron-area {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            margin: 20px 0;
+        }
+        .cauldron {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            border: 8px solid #2d3436;
+            overflow: hidden;
+        }
+        .potion {
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            position: absolute;
+            bottom: 0;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transition: all 0.5s ease;
+        }
+        .potion.bubbling {
+            animation: bubble 1s infinite;
+        }
+        @keyframes bubble {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .cauldron-legs {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 80px;
+        }
+        .leg {
+            width: 8px;
+            height: 40px;
+            background: #2d3436;
+            border-radius: 4px;
+        }
+        .fire {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 60px;
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 50%, #e17055 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flicker 0.5s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.1); }
+        }
+        .ingredients-panel {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+            max-width: 500px;
+        }
+        .ingredient-item {
+            background: rgba(0,0,0,0.7);
+            border: 2px solid #74b9ff;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+        }
+        .ingredient-item:hover {
+            transform: translateY(-5px);
+            border-color: #fd79a8;
+            box-shadow: 0 10px 20px rgba(253, 121, 168, 0.3);
+        }
+        .ingredient-item.selected {
+            background: rgba(253, 121, 168, 0.3);
+            border-color: #fd79a8;
+        }
+        .ingredient-icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+        .ingredient-name {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .magic-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .magic-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(253, 121, 168, 0.3);
+        }
+        .btn-brew {
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+        }
+        .btn-clear {
+            background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+        }
+        .btn-hint {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+        }
+        .result-panel {
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 2px solid #00b894;
+            text-align: center;
+        }
+        .result-title {
+            font-size: 1.5em;
+            color: #00b894;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .result-description {
+            color: #fff;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+        .score-panel {
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            border: 2px solid #fdcb6e;
+        }
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            color: #fff;
+        }
+        .score-label {
+            font-weight: bold;
+        }
+        .score-value {
+            color: #fdcb6e;
+            font-weight: bold;
+        }
+        .selected-ingredients {
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid #74b9ff;
+            min-height: 60px;
+        }
+        .selected-title {
+            color: #74b9ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .selected-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .selected-tag {
+            background: rgba(116, 185, 255, 0.3);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            border: 1px solid #74b9ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+
+    <div class="left-panel">
+        <h1>🧙‍♀️ 女巫的毒药</h1>
+
+        <div class="recipe-book">
+            <div class="recipe-title" id="currentRecipe">治疗药水</div>
+            <div id="recipeIngredients">
+                <div class="ingredient">🌿 草药 - 基础治疗成分</div>
+                <div class="ingredient">💧 纯净水 - 溶解其他成分</div>
+                <div class="ingredient">🍯 蜂蜜 - 增强药效</div>
+            </div>
+        </div>
+
+        <div class="selected-ingredients">
+            <div class="selected-title">已选择的材料:</div>
+            <div class="selected-list" id="selectedList">
+                <!-- 选中的材料将显示在这里 -->
+            </div>
+        </div>
+
+        <div class="score-panel">
+            <div class="score-row">
+                <span class="score-label">成功配制:</span>
+                <span class="score-value" id="successCount">0</span>
+            </div>
+            <div class="score-row">
+                <span class="score-label">失败次数:</span>
+                <span class="score-value" id="failCount">0</span>
+            </div>
+            <div class="score-row">
+                <span class="score-label">当前等级:</span>
+                <span class="score-value" id="currentLevel">初级女巫</span>
+            </div>
+        </div>
+
+        <div class="result-panel" id="resultPanel" style="display: none;">
+            <div class="result-title" id="resultTitle">配制成功!</div>
+            <div class="result-description" id="resultDescription">
+                你成功配制了治疗药水！这种药水可以快速恢复生命值。
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="cauldron-area">
+            <div class="cauldron">
+                <div class="potion" id="potion"></div>
+            </div>
+            <div class="cauldron-legs">
+                <div class="leg"></div>
+                <div class="leg"></div>
+                <div class="leg"></div>
+            </div>
+            <div class="fire"></div>
+        </div>
+
+        <div class="ingredients-panel">
+            <div class="ingredient-item" data-ingredient="herb">
+                <div class="ingredient-icon">🌿</div>
+                <div class="ingredient-name">草药</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="water">
+                <div class="ingredient-icon">💧</div>
+                <div class="ingredient-name">纯净水</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="honey">
+                <div class="ingredient-icon">🍯</div>
+                <div class="ingredient-name">蜂蜜</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="mushroom">
+                <div class="ingredient-icon">🍄</div>
+                <div class="ingredient-name">毒蘑菇</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="crystal">
+                <div class="ingredient-icon">💎</div>
+                <div class="ingredient-name">魔法水晶</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="feather">
+                <div class="ingredient-icon">🪶</div>
+                <div class="ingredient-name">凤凰羽毛</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="eye">
+                <div class="ingredient-icon">👁️</div>
+                <div class="ingredient-name">巨龙之眼</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="bone">
+                <div class="ingredient-icon">🦴</div>
+                <div class="ingredient-name">古老骨头</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="flower">
+                <div class="ingredient-icon">🌸</div>
+                <div class="ingredient-name">月光花</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="spider">
+                <div class="ingredient-icon">🕷️</div>
+                <div class="ingredient-name">毒蜘蛛</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="star">
+                <div class="ingredient-icon">⭐</div>
+                <div class="ingredient-name">星辰碎片</div>
+            </div>
+            <div class="ingredient-item" data-ingredient="blood">
+                <div class="ingredient-icon">🩸</div>
+                <div class="ingredient-name">龙血</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="magic-btn btn-brew" id="brewBtn">🔮 开始炼制</button>
+            <button class="magic-btn btn-clear" id="clearBtn">🧹 清空大锅</button>
+            <button class="magic-btn btn-hint" id="hintBtn">💡 获取提示</button>
+        </div>
+    </div>
+</body>
+
+    <script>
+        class WitchPotionGame {
+            constructor() {
+                this.selectedIngredients = [];
+                this.currentRecipeIndex = 0;
+                this.successCount = 0;
+                this.failCount = 0;
+                this.level = 0;
+                
+                this.recipes = [
+                    {
+                        name: '治疗药水',
+                        ingredients: ['herb', 'water', 'honey'],
+                        description: '你成功配制了治疗药水！这种药水可以快速恢复生命值。',
+                        color: '#00b894',
+                        ingredientDescriptions: {
+                            'herb': '🌿 草药 - 基础治疗成分',
+                            'water': '💧 纯净水 - 溶解其他成分',
+                            'honey': '🍯 蜂蜜 - 增强药效'
+                        }
+                    },
+                    {
+                        name: '隐身药水',
+                        ingredients: ['mushroom', 'water', 'flower'],
+                        description: '你成功配制了隐身药水！喝下后可以短时间内隐身。',
+                        color: '#a29bfe',
+                        ingredientDescriptions: {
+                            'mushroom': '🍄 毒蘑菇 - 产生幻觉效果',
+                            'water': '💧 纯净水 - 稀释毒性',
+                            'flower': '🌸 月光花 - 隐身魔法源泉'
+                        }
+                    },
+                    {
+                        name: '力量药水',
+                        ingredients: ['blood', 'bone', 'crystal'],
+                        description: '你成功配制了力量药水！可以大幅提升物理攻击力。',
+                        color: '#e17055',
+                        ingredientDescriptions: {
+                            'blood': '🩸 龙血 - 强大的力量源泉',
+                            'bone': '🦴 古老骨头 - 增强骨骼强度',
+                            'crystal': '💎 魔法水晶 - 放大魔法效果'
+                        }
+                    },
+                    {
+                        name: '飞行药水',
+                        ingredients: ['feather', 'star', 'water'],
+                        description: '你成功配制了飞行药水！可以获得短时间的飞行能力。',
+                        color: '#fdcb6e',
+                        ingredientDescriptions: {
+                            'feather': '🪶 凤凰羽毛 - 飞行的核心',
+                            'star': '⭐ 星辰碎片 - 减轻重力',
+                            'water': '💧 纯净水 - 平衡药效'
+                        }
+                    },
+                    {
+                        name: '毒药',
+                        ingredients: ['spider', 'mushroom', 'eye'],
+                        description: '你成功配制了致命毒药！极其危险，请小心使用。',
+                        color: '#6c5ce7',
+                        ingredientDescriptions: {
+                            'spider': '🕷️ 毒蜘蛛 - 剧毒来源',
+                            'mushroom': '🍄 毒蘑菇 - 增强毒性',
+                            'eye': '👁️ 巨龙之眼 - 诅咒效果'
+                        }
+                    }
+                ];
+                
+                this.levels = [
+                    '初级女巫', '中级女巫', '高级女巫', '大师女巫', '传奇女巫'
+                ];
+                
+                this.bindEvents();
+                this.updateRecipe();
+                this.updateStats();
+            }
+            
+            updateRecipe() {
+                const recipe = this.recipes[this.currentRecipeIndex];
+                document.getElementById('currentRecipe').textContent = recipe.name;
+                
+                const ingredientsContainer = document.getElementById('recipeIngredients');
+                ingredientsContainer.innerHTML = '';
+                
+                recipe.ingredients.forEach(ingredient => {
+                    const div = document.createElement('div');
+                    div.className = 'ingredient';
+                    div.textContent = recipe.ingredientDescriptions[ingredient];
+                    ingredientsContainer.appendChild(div);
+                });
+            }
+            
+            updateSelectedIngredients() {
+                const container = document.getElementById('selectedList');
+                container.innerHTML = '';
+                
+                this.selectedIngredients.forEach(ingredient => {
+                    const tag = document.createElement('div');
+                    tag.className = 'selected-tag';
+                    tag.textContent = this.getIngredientName(ingredient);
+                    container.appendChild(tag);
+                });
+            }
+            
+            getIngredientName(ingredient) {
+                const names = {
+                    'herb': '🌿 草药',
+                    'water': '💧 纯净水',
+                    'honey': '🍯 蜂蜜',
+                    'mushroom': '🍄 毒蘑菇',
+                    'crystal': '💎 魔法水晶',
+                    'feather': '🪶 凤凰羽毛',
+                    'eye': '👁️ 巨龙之眼',
+                    'bone': '🦴 古老骨头',
+                    'flower': '🌸 月光花',
+                    'spider': '🕷️ 毒蜘蛛',
+                    'star': '⭐ 星辰碎片',
+                    'blood': '🩸 龙血'
+                };
+                return names[ingredient] || ingredient;
+            }
+            
+            updateStats() {
+                document.getElementById('successCount').textContent = this.successCount;
+                document.getElementById('failCount').textContent = this.failCount;
+                
+                this.level = Math.min(Math.floor(this.successCount / 2), this.levels.length - 1);
+                document.getElementById('currentLevel').textContent = this.levels[this.level];
+            }
+            
+            selectIngredient(ingredient) {
+                if (this.selectedIngredients.length < 5) {
+                    this.selectedIngredients.push(ingredient);
+                    this.updateSelectedIngredients();
+                    this.updatePotionLevel();
+                }
+            }
+            
+            updatePotionLevel() {
+                const potion = document.getElementById('potion');
+                const level = Math.min((this.selectedIngredients.length / 5) * 100, 100);
+                potion.style.height = `${level}%`;
+                
+                // 根据材料改变颜色
+                if (this.selectedIngredients.includes('blood')) {
+                    potion.style.background = 'linear-gradient(135deg, #e17055 0%, #d63031 100%)';
+                } else if (this.selectedIngredients.includes('mushroom')) {
+                    potion.style.background = 'linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%)';
+                } else if (this.selectedIngredients.includes('crystal')) {
+                    potion.style.background = 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)';
+                } else if (this.selectedIngredients.includes('herb')) {
+                    potion.style.background = 'linear-gradient(135deg, #00b894 0%, #00a085 100%)';
+                } else {
+                    potion.style.background = 'linear-gradient(135deg, #fdcb6e 0%, #e17055 100%)';
+                }
+            }
+            
+            brewPotion() {
+                if (this.selectedIngredients.length === 0) {
+                    this.showResult('空锅', '你需要先添加一些材料才能开始炼制！', '#e17055', false);
+                    return;
+                }
+                
+                const potion = document.getElementById('potion');
+                potion.classList.add('bubbling');
+                
+                setTimeout(() => {
+                    potion.classList.remove('bubbling');
+                    this.checkRecipe();
+                }, 2000);
+            }
+            
+            checkRecipe() {
+                const currentRecipe = this.recipes[this.currentRecipeIndex];
+                const selectedSet = new Set(this.selectedIngredients.sort());
+                const recipeSet = new Set(currentRecipe.ingredients.sort());
+                
+                // 检查是否完全匹配当前配方
+                if (this.arraysEqual(Array.from(selectedSet), Array.from(recipeSet))) {
+                    this.successCount++;
+                    this.showResult('配制成功!', currentRecipe.description, currentRecipe.color, true);
+                    
+                    // 切换到下一个配方
+                    this.currentRecipeIndex = (this.currentRecipeIndex + 1) % this.recipes.length;
+                    this.updateRecipe();
+                } else {
+                    // 检查是否匹配其他配方
+                    let foundMatch = false;
+                    for (let i = 0; i < this.recipes.length; i++) {
+                        if (i !== this.currentRecipeIndex) {
+                            const otherRecipeSet = new Set(this.recipes[i].ingredients.sort());
+                            if (this.arraysEqual(Array.from(selectedSet), Array.from(otherRecipeSet))) {
+                                this.successCount++;
+                                this.showResult('意外发现!', `你意外配制出了${this.recipes[i].name}！${this.recipes[i].description}`, this.recipes[i].color, true);
+                                foundMatch = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (!foundMatch) {
+                        this.failCount++;
+                        this.showResult('配制失败', '这个配方不正确，大锅里冒出了奇怪的烟雾...请重新尝试！', '#e17055', false);
+                    }
+                }
+                
+                this.updateStats();
+            }
+            
+            arraysEqual(a, b) {
+                return a.length === b.length && a.every((val, index) => val === b[index]);
+            }
+            
+            showResult(title, description, color, success) {
+                const resultPanel = document.getElementById('resultPanel');
+                const resultTitle = document.getElementById('resultTitle');
+                const resultDescription = document.getElementById('resultDescription');
+                
+                resultTitle.textContent = title;
+                resultTitle.style.color = color;
+                resultDescription.textContent = description;
+                resultPanel.style.borderColor = color;
+                resultPanel.style.display = 'block';
+                
+                if (success) {
+                    // 成功动画
+                    resultPanel.style.animation = 'none';
+                    setTimeout(() => {
+                        resultPanel.style.animation = 'pulse 0.5s ease-in-out';
+                    }, 10);
+                }
+                
+                setTimeout(() => {
+                    resultPanel.style.display = 'none';
+                }, 4000);
+            }
+            
+            clearCauldron() {
+                this.selectedIngredients = [];
+                this.updateSelectedIngredients();
+                
+                const potion = document.getElementById('potion');
+                potion.style.height = '0%';
+                potion.style.background = 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)';
+                
+                // 清除所有选中状态
+                document.querySelectorAll('.ingredient-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+            }
+            
+            showHint() {
+                const currentRecipe = this.recipes[this.currentRecipeIndex];
+                const missingIngredients = currentRecipe.ingredients.filter(ingredient => 
+                    !this.selectedIngredients.includes(ingredient)
+                );
+                
+                if (missingIngredients.length > 0) {
+                    const hint = `提示：你还需要 ${missingIngredients.map(ing => this.getIngredientName(ing)).join(', ')}`;
+                    this.showResult('魔法提示', hint, '#a29bfe', false);
+                } else if (this.selectedIngredients.length > currentRecipe.ingredients.length) {
+                    this.showResult('魔法提示', '你添加了太多材料，试试移除一些不必要的成分。', '#a29bfe', false);
+                } else {
+                    this.showResult('魔法提示', '配方看起来是正确的，试试炼制吧！', '#a29bfe', false);
+                }
+            }
+            
+            bindEvents() {
+                // 材料选择
+                document.querySelectorAll('.ingredient-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const ingredient = item.dataset.ingredient;
+                        this.selectIngredient(ingredient);
+                        item.classList.add('selected');
+                        
+                        // 添加点击动画
+                        item.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            item.style.transform = '';
+                        }, 150);
+                    });
+                });
+                
+                // 控制按钮
+                document.getElementById('brewBtn').addEventListener('click', () => {
+                    this.brewPotion();
+                });
+                
+                document.getElementById('clearBtn').addEventListener('click', () => {
+                    this.clearCauldron();
+                });
+                
+                document.getElementById('hintBtn').addEventListener('click', () => {
+                    this.showHint();
+                });
+            }
+        }
+        
+        // 添加脉冲动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 启动游戏
+        new WitchPotionGame();
+    </script>
+</body>
+</html>

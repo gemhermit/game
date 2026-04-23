@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西蒙记忆 (Simon) - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="西蒙记忆 (Simon)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="西蒙记忆 (Simon),益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/simon-memory.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="西蒙记忆 (Simon) - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="西蒙记忆 (Simon)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/simon-memory.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="西蒙记忆 (Simon) - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="西蒙记忆 (Simon)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"西蒙记忆 (Simon)","description":"西蒙记忆 (Simon)是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/simon-memory.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1f2937; /* Dark bg */
+            color: white;
+            touch-action: manipulation;
+        }
+
+        .simon-board {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 16px;
+            width: 300px;
+            height: 300px;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            padding: 10px; /* Gap for outer ring */
+            background: #111827;
+        }
+        
+        @media (min-width: 640px) {
+            .simon-board {
+                width: 400px;
+                height: 400px;
+            }
+        }
+
+        .pad {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.1s, transform 0.1s;
+            border-radius: 12px;
+        }
+
+        .pad:active {
+            transform: scale(0.98);
+        }
+
+        .pad.active {
+            opacity: 1;
+            box-shadow: 0 0 30px currentColor;
+            z-index: 10;
+        }
+
+        .pad-green { background-color: #22c55e; color: #22c55e; border-top-left-radius: 100%; }
+        .pad-red { background-color: #ef4444; color: #ef4444; border-top-right-radius: 100%; }
+        .pad-yellow { background-color: #eab308; color: #eab308; border-bottom-left-radius: 100%; }
+        .pad-blue { background-color: #3b82f6; color: #3b82f6; border-bottom-right-radius: 100%; }
+
+        .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background-color: #1f2937;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            border: 8px solid #111827;
+        }
+
+        .center-circle.glow {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            border-color: #374151;
+        }
+
+    </style>
+</head>
+<body class="h-screen flex flex-col items-center justify-center p-4">
+
+    <h1 class="text-3xl font-bold mb-2 text-gray-100">西蒙记忆挑战</h1>
+    <p class="text-gray-400 mb-8 text-center max-w-md">记住闪烁的颜色顺序，然后按正确的顺序点击重复。</p>
+
+    <div class="simon-board mb-8">
+        <div id="green" class="pad pad-green" data-id="0"></div>
+        <div id="red" class="pad pad-red" data-id="1"></div>
+        <div id="yellow" class="pad pad-yellow" data-id="2"></div>
+        <div id="blue" class="pad pad-blue" data-id="3"></div>
+        
+        <div id="center" class="center-circle">
+            <div class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Score</div>
+            <div id="score" class="text-3xl font-mono font-bold text-white">0</div>
+        </div>
+    </div>
+
+    <div class="flex gap-4">
+        <button id="startBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:-translate-y-1 active:translate-y-0">
+            开始游戏
+        </button>
+    </div>
+
+    <div id="message" class="mt-8 text-xl font-bold h-8 text-center text-red-400"></div>
+
+<script>
+class SimonGame {
+    constructor() {
+        this.sequence = [];
+        this.playerSequence = [];
+        this.score = 0;
+        this.isPlaying = false;
+        this.isComputerTurn = false;
+        
+        this.pads = [
+            document.getElementById('green'),
+            document.getElementById('red'),
+            document.getElementById('yellow'),
+            document.getElementById('blue')
+        ];
+        
+        this.sounds = [
+            261.63, // C4
+            329.63, // E4
+            392.00, // G4
+            523.25  // C5
+        ];
+
+        this.scoreEl = document.getElementById('score');
+        this.centerEl = document.getElementById('center');
+        this.startBtn = document.getElementById('startBtn');
+        this.messageEl = document.getElementById('message');
+        
+        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        this.initEvents();
+    }
+
+    initEvents() {
+        this.startBtn.addEventListener('click', () => this.startGame());
+        
+        this.pads.forEach((pad, index) => {
+            pad.addEventListener('mousedown', () => this.handlePadInput(index));
+            pad.addEventListener('touchstart', (e) => {
+                e.preventDefault(); // Prevent ghost clicks
+                this.handlePadInput(index);
+            });
+        });
+    }
+
+    playSound(index) {
+        if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+        
+        const oscillator = this.audioCtx.createOscillator();
+        const gainNode = this.audioCtx.createGain();
+        
+        oscillator.type = 'triangle'; // Softer than sine for game feel
+        oscillator.frequency.value = this.sounds[index];
+        
+        // ADSR Envelope
+        const now = this.audioCtx.currentTime;
+        gainNode.gain.setValueAtTime(0, now);
+        gainNode.gain.linearRampToValueAtTime(0.3, now + 0.05); // Attack
+        gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.5); // Decay
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioCtx.destination);
+        
+        oscillator.start();
+        oscillator.stop(now + 0.5);
+    }
+
+    playErrorSound() {
+        if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+        const oscillator = this.audioCtx.createOscillator();
+        const gainNode = this.audioCtx.createGain();
+        
+        oscillator.type = 'sawtooth';
+        oscillator.frequency.setValueAtTime(150, this.audioCtx.currentTime);
+        oscillator.frequency.linearRampToValueAtTime(100, this.audioCtx.currentTime + 0.5); // Slide down
+        
+        gainNode.gain.setValueAtTime(0.3, this.audioCtx.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0, this.audioCtx.currentTime + 0.5);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioCtx.destination);
+        
+        oscillator.start();
+        oscillator.stop(this.audioCtx.currentTime + 0.5);
+    }
+
+    flashPad(index) {
+        const pad = this.pads[index];
+        pad.classList.add('active');
+        this.centerEl.classList.add('glow');
+        this.playSound(index);
+        setTimeout(() => {
+            pad.classList.remove('active');
+            this.centerEl.classList.remove('glow');
+        }, 300);
+    }
+
+    startGame() {
+        if (this.isPlaying) return;
+        this.sequence = [];
+        this.score = 0;
+        this.scoreEl.textContent = '0';
+        this.messageEl.textContent = '';
+        this.isPlaying = true;
+        this.startBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        
+        this.nextRound();
+    }
+
+    nextRound() {
+        this.playerSequence = [];
+        this.sequence.push(Math.floor(Math.random() * 4));
+        this.score = this.sequence.length - 1;
+        this.scoreEl.textContent = this.score;
+        
+        this.isComputerTurn = true;
+        setTimeout(() => this.playSequence(), 1000);
+    }
+
+    playSequence() {
+        let i = 0;
+        const interval = setInterval(() => {
+            this.flashPad(this.sequence[i]);
+            i++;
+            if (i >= this.sequence.length) {
+                clearInterval(interval);
+                this.isComputerTurn = false;
+                this.messageEl.textContent = '轮到你了';
+            }
+        }, 800); // Speed
+    }
+
+    handlePadInput(index) {
+        if (!this.isPlaying || this.isComputerTurn) return;
+
+        this.flashPad(index);
+        this.playerSequence.push(index);
+
+        // Check correct
+        const currentStep = this.playerSequence.length - 1;
+        if (this.playerSequence[currentStep] !== this.sequence[currentStep]) {
+            this.gameOver();
+            return;
+        }
+
+        // Check if round complete
+        if (this.playerSequence.length === this.sequence.length) {
+            this.messageEl.textContent = '正确！下一轮...';
+            this.isComputerTurn = true;
+            setTimeout(() => this.nextRound(), 1000);
+        }
+    }
+
+    gameOver() {
+        this.isPlaying = false;
+        this.messageEl.textContent = `游戏结束！最终得分: ${this.score}`;
+        this.messageEl.className = 'mt-8 text-xl font-bold h-8 text-center text-red-500 animate-bounce';
+        this.startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        this.startBtn.textContent = '再玩一次';
+        
+        this.playErrorSound();
+        
+        // Flash all red
+        this.pads.forEach(pad => pad.classList.add('bg-red-500'));
+        setTimeout(() => {
+            this.pads.forEach(pad => pad.classList.remove('bg-red-500'));
+        }, 500);
+    }
+}
+
+new SimonGame();
+</script>
+</body>
+</html>

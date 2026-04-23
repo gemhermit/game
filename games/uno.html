@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNO纸牌 - 在线棋牌纸牌小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="UNO纸牌是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="UNO纸牌,棋牌纸牌,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/uno.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="UNO纸牌 - 在线棋牌纸牌小游戏 | 贝谷游戏">
+    <meta property="og:description" content="UNO纸牌是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/uno.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UNO纸牌 - 在线棋牌纸牌小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="UNO纸牌是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"UNO纸牌","description":"UNO纸牌是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/uno.html","genre":"棋牌纸牌","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #f59e0b;
+            --primary-hover: #d97706;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --success-color: #22c55e;
+            --danger-color: #ef4444;
+            --bg-color: #0f172a;
+            --card-width: 60px;
+            --card-height: 90px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, transparent 70%),
+                repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.02) 1px, rgba(255,255,255,0.02) 2px);
+            color: white;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border-right: 2px solid #334155;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            z-index: 10;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+        }
+
+        .sidebar h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .uno-logo {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: logoFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-8px) rotate(5deg); }
+        }
+
+        .sidebar-stats {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-stats .label {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .current-color {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .direction-indicator {
+            text-align: center;
+            padding: 16px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .direction-arrow {
+            display: inline-block;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 24px;
+        }
+
+        .direction-arrow.reverse {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-new-game {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-new-game:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+        }
+
+        .game-tip {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            color: var(--primary-color);
+            font-size: 14px;
+            text-align: center;
+            margin-top: auto;
+            line-height: 1.5;
+        }
+
+        /* Main game area */
+        .game-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+        }
+
+        /* Player areas */
+        .player-area {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .player-area.active {
+            background: rgba(255,255,255,0.05);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.05);
+        }
+
+        .player-area.top {
+            justify-content: center;
+            padding-top: 30px;
+        }
+
+        .player-area.bottom {
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+            flex-direction: column;
+            padding: 20px 40px;
+            margin-top: auto;
+        }
+
+        /* Player info */
+        .player-info {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            min-width: 140px;
+        }
+
+        .player-info.current-turn {
+            border-color: var(--success-color);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+            transform: scale(1.05);
+        }
+
+        .player-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border: 3px solid rgba(255,255,255,0.2);
+            background: #334155;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player-avatar::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        }
+
+        .player-avatar.me { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .player-avatar.left { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .player-avatar.right { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .player-avatar.top { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+        .player-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .player-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .player-cards-count {
+            font-size: 13px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        /* Card backs */
+        .player-cards-back {
+            display: flex;
+            gap: 4px;
+            height: 40px;
+            align-items: center;
+        }
+
+        .card-back-small {
+            width: 24px;
+            height: 34px;
+            background: linear-gradient(135deg, #1e1e1e 0%, #333 100%);
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: -2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .card-back-small::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        /* Center area */
+        .center-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            perspective: 1000px;
+        }
+
+        .side-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .side-player .player-info {
+            flex-direction: column;
+            text-align: center;
+            padding: 16px;
+            min-width: 100px;
+        }
+
+        /* Play area */
+        .play-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            position: relative;
+        }
+
+        .deck-area {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+        }
+
+        .draw-pile {
+            width: 100px;
+            height: 140px;
+            background: linear-gradient(135deg, #1e1e1e 0%, #333 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 4px solid white;
+            position: relative;
+        }
+
+        .draw-pile::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 90px;
+            background: #ef4444;
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            border: 4px solid white;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .draw-pile::before {
+            content: 'UNO';
+            position: absolute;
+            z-index: 2;
+            color: #fbbf24;
+            font-weight: 900;
+            font-size: 24px;
+            text-shadow: 2px 2px 0 #000;
+            transform: rotate(-15deg);
+        }
+
+        .draw-pile:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+
+        .draw-pile:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        /* Realistic Card Styling */
+        .card {
+            width: 100px;
+            height: 140px;
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 5px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial Black', sans-serif;
+            overflow: hidden;
+            background: white; /* Fallback */
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Oval in center */
+        .card-oval {
+            width: 80%;
+            height: 60%;
+            background: white;
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        .card-value {
+            font-size: 48px;
+            font-weight: 900;
+            transform: rotate(45deg);
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+            -webkit-text-stroke: 2px white;
+        }
+
+        .card-corner {
+            position: absolute;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            padding: 4px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            z-index: 3;
+        }
+        
+        .card-corner.top-left { top: 4px; left: 4px; }
+        .card-corner.bottom-right { bottom: 4px; right: 4px; transform: rotate(180deg); }
+
+        .card-red .card-inner { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+        .card-blue .card-inner { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .card-green .card-inner { background: linear-gradient(135deg, #22c55e, #15803d); }
+        .card-yellow .card-inner { background: linear-gradient(135deg, #fbbf24, #b45309); }
+        .card-wild .card-inner { background: linear-gradient(135deg, #1e293b, #0f172a); }
+        
+        .card-red .card-value { color: #ef4444; -webkit-text-stroke: 0; text-shadow: 2px 2px 0 #000; }
+        .card-blue .card-value { color: #3b82f6; -webkit-text-stroke: 0; text-shadow: 2px 2px 0 #000; }
+        .card-green .card-value { color: #22c55e; -webkit-text-stroke: 0; text-shadow: 2px 2px 0 #000; }
+        .card-yellow .card-value { color: #fbbf24; -webkit-text-stroke: 0; text-shadow: 2px 2px 0 #000; }
+        
+        .card-wild .card-oval {
+            background: conic-gradient(#ef4444 0deg 90deg, #3b82f6 90deg 180deg, #22c55e 180deg 270deg, #fbbf24 270deg 360deg);
+            border: 4px solid white;
+        }
+        
+        .card-wild .card-value {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-size: 32px;
+        }
+
+        .current-card {
+            width: 100px;
+            height: 140px;
+            animation: cardLand 0.5s ease-out;
+        }
+
+        @keyframes cardLand {
+            0% { transform: scale(1.5) rotate(10deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* Bottom player - My cards */
+        .my-cards-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .my-cards {
+            display: flex;
+            flex-wrap: nowrap; /* Changed to nowrap for better hand feel */
+            justify-content: center;
+            height: 240px; /* Increased to avoid hover clipping */
+            padding: 20px 40px;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            align-items: flex-end; /* Align bottom */
+        }
+
+        .my-card {
+            width: 90px;
+            height: 130px;
+            margin-left: -40px; /* Stronger overlap */
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            transform-origin: bottom center;
+            z-index: 1; /* Base z-index */
+        }
+
+        .my-card:first-child { margin-left: 0; }
+
+        .my-card:hover {
+            transform: translateY(-40px) scale(1.15) rotate(0deg) !important;
+            z-index: 100; /* Ensure hovered card is on top */
+            margin-right: 30px; /* Push neighbors away more */
+            margin-left: -10px;
+        }
+
+        .my-card.selected {
+            transform: translateY(-50px) scale(1.2) !important;
+            z-index: 101;
+            box-shadow: 0 0 0 4px #fff, 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+            z-index: 10;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(255,255,255,0.2), transparent);
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 rgba(0,0,0,0.2);
+        }
+
+        .btn:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            min-width: 140px;
+        }
+
+        .btn-draw {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        
+        .btn-uno {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: #fbbf24;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .btn:disabled {
+            background: #475569;
+            color: #94a3b8;
+            opacity: 0.7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Color picker */
+        .color-picker {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 24px;
+            display: flex;
+            gap: 24px;
+            z-index: 2000;
+            box-shadow: 0 0 60px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: pickerPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .color-picker h3 {
+            position: absolute;
+            top: -50px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        @keyframes pickerPop {
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .color-picker.hidden { display: none; }
+
+        .color-option {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 4px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .color-option::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 16px;
+            background: linear-gradient(rgba(255,255,255,0.3), transparent);
+        }
+
+        .color-option:hover {
+            transform: scale(1.15) translateY(-5px);
+            border-color: white;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .color-red { background: #ef4444; }
+        .color-blue { background: #3b82f6; }
+        .color-yellow { background: #fbbf24; }
+        .color-green { background: #22c55e; }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: #1e293b;
+            padding: 50px 80px;
+            border-radius: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 60px rgba(0,0,0,0.5);
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal h2 {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .modal p {
+            color: #cbd5e1;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .uno-announce {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 120px;
+            font-weight: 900;
+            color: #fbbf24;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 2500;
+            pointer-events: none;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+        }
+        
+        .uno-announce.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) scale(1.1) rotate(-5deg); }
+            75% { transform: translate(-50%, -50%) scale(1.1) rotate(5deg); }
+        }
+
+        /* Current player indicator */
+        .current-indicator {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 24px;
+            height: 24px;
+            background: #22c55e;
+            border-radius: 50%;
+            border: 3px solid #1e293b;
+            box-shadow: 0 0 0 2px #22c55e;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+
+            .my-card { 
+                width: 60px; 
+                height: 90px; 
+                margin-left: -25px;
+            }
+            
+            .card {
+                width: 60px;
+                height: 90px;
+            }
+            
+            .draw-pile {
+                width: 60px;
+                height: 90px;
+            }
+            
+            .draw-pile::after {
+                width: 40px;
+                height: 60px;
+            }
+            
+            .card-value {
+                font-size: 24px;
+            }
+            
+            .card-corner {
+                font-size: 12px;
+            }
+
+            .btn { padding: 10px 20px; font-size: 14px; min-width: auto; }
+            
+            .center-area { gap: 20px; }
+            .player-area { padding: 10px; }
+            .player-info { padding: 8px 12px; min-width: auto; }
+            .player-name { display: none; }
+            .player-cards-count { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="uno-logo">🃏</div>
+        <h1>UNO</h1>
+
+        <div class="sidebar-stats">
+            <div class="label">当前颜色</div>
+            <div class="current-color" id="currentColor" style="background: #334155;">
+                <span id="colorText">等待</span>
+            </div>
+        </div>
+
+        <div class="direction-indicator">
+            <span class="direction-arrow" id="directionArrow">⬇️</span>
+            <div id="directionText">顺时针</div>
+        </div>
+
+        <button class="sidebar-btn btn-new-game" onclick="initGame()">🎮 新游戏</button>
+
+        <div class="game-tip" id="gameTip">
+            欢迎来到 UNO！<br>点击开始游戏
+        </div>
+    </div>
+
+    <!-- Main Game Area -->
+    <div class="game-area">
+        <div class="uno-announce" id="unoAnnounceText">UNO!</div>
+        
+        <!-- Top Player -->
+        <div class="player-area top" id="player2Area">
+            <div class="player-info" id="topPlayerInfo">
+                <div class="player-avatar top">🤖</div>
+                <div class="player-details">
+                    <div class="player-name">电脑 2</div>
+                    <div class="player-cards-count" id="topCardCount">7张</div>
+                </div>
+            </div>
+            <div class="player-cards-back" id="topCardsBack"></div>
+        </div>
+
+        <!-- Center Area -->
+        <div class="center-area">
+            <!-- Left Player -->
+            <div class="side-player" id="player1Area">
+                <div class="player-info" id="leftPlayerInfo">
+                    <div class="player-avatar left">🤖</div>
+                    <div class="player-details">
+                        <div class="player-name">电脑 1</div>
+                        <div class="player-cards-count" id="leftCardCount">7张</div>
+                    </div>
+                </div>
+                <div class="player-cards-back" id="leftCardsBack"></div>
+            </div>
+
+            <!-- Play Area -->
+            <div class="play-area">
+                <div class="deck-area">
+                    <div class="draw-pile" id="drawPile" onclick="playerDrawCard()"></div>
+                    <div id="currentCardContainer"></div>
+                </div>
+            </div>
+
+            <!-- Right Player -->
+            <div class="side-player" id="player3Area">
+                <div class="player-info" id="rightPlayerInfo">
+                    <div class="player-avatar right">🤖</div>
+                    <div class="player-details">
+                        <div class="player-name">电脑 3</div>
+                        <div class="player-cards-count" id="rightCardCount">7张</div>
+                    </div>
+                </div>
+                <div class="player-cards-back" id="rightCardsBack"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Player -->
+        <div class="player-area bottom" id="player0Area">
+            <div class="my-cards-container">
+                <div class="player-info" id="myPlayerInfo" style="margin-bottom: 20px;">
+                    <div class="player-avatar me">👤</div>
+                    <div class="player-details">
+                        <div class="player-name">你</div>
+                        <div class="player-cards-count" id="myCardCount">7张</div>
+                    </div>
+                </div>
+                <div class="my-cards" id="myCards"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-play" id="playBtn" onclick="playerPlayCard()" disabled>出牌</button>
+                <button class="btn btn-draw" id="drawBtn" onclick="playerDrawCard()">摸牌</button>
+            </div>
+        </div>
+
+        <!-- Color Picker -->
+        <div class="color-picker hidden" id="colorPicker">
+            <h3>选择颜色</h3>
+            <div class="color-option color-red" onclick="chooseColor('red')"></div>
+            <div class="color-option color-blue" onclick="chooseColor('blue')"></div>
+            <div class="color-option color-yellow" onclick="chooseColor('yellow')"></div>
+            <div class="color-option color-green" onclick="chooseColor('green')"></div>
+        </div>
+
+        <!-- Game Modal -->
+        <div class="modal-overlay" id="gameModal">
+            <div class="modal">
+                <h2 id="modalTitle">游戏结束</h2>
+                <p id="modalText">恭喜!</p>
+                <button class="btn btn-new-game" onclick="closeModal(); initGame()">再来一局</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game Constants
+        const COLORS = ['red', 'blue', 'yellow', 'green'];
+        const SPECIALS = ['skip', 'reverse', 'draw2'];
+        const WILDS = ['wild', 'wild4'];
+        
+        // Game State
+        let deck = [];
+        let discardPile = [];
+        let players = [[], [], [], []]; // 0: User, 1: Left, 2: Top, 3: Right
+        let currentPlayer = 0; // 0..3
+        let direction = 1; // 1: Clockwise, -1: Counter-clockwise
+        let currentColor = '';
+        let currentValue = '';
+        let gameActive = false;
+        let turnState = 'idle'; // idle, waiting_for_play, waiting_for_color
+        let selectedCardIndex = null;
+
+        // UI Helpers
+        const getCardHtml = (card, isSmall = false) => {
+            if (!card) return '';
+            const colorClass = `card-${card.color}`;
+            let displayValue = card.value;
+            let icon = displayValue;
+            
+            if (card.value === 'skip') icon = '⊘';
+            if (card.value === 'reverse') icon = '⇄';
+            if (card.value === 'draw2') icon = '+2';
+            if (card.value === 'wild') icon = '🎨';
+            if (card.value === 'wild4') icon = '+4';
+            
+            return `
+                <div class="card ${colorClass} ${isSmall ? 'small' : ''}">
+                    <div class="card-inner">
+                        <div class="card-corner top-left">${icon}</div>
+                        <div class="card-oval">
+                            <div class="card-value">${icon}</div>
+                        </div>
+                        <div class="card-corner bottom-right">${icon}</div>
+                    </div>
+                </div>
+            `;
+        };
+
+        const getColorHex = (c) => ({
+            red: '#ef4444', blue: '#3b82f6', yellow: '#fbbf24', green: '#22c55e', wild: '#334155'
+        }[c] || '#334155');
+
+        // Initialization
+        function initGame() {
+            createDeck();
+            shuffleDeck();
+            dealCards();
+
+            // Setup initial discard
+            let firstCard = drawFromDeck();
+            while (firstCard.type === 'wild') { // Reshuffle if first card is wild
+                deck.push(firstCard);
+                shuffleDeck();
+                firstCard = drawFromDeck();
+            }
+            discardPile = [firstCard];
+            currentColor = firstCard.color;
+            currentValue = firstCard.value;
+
+            currentPlayer = 0;
+            direction = 1;
+            gameActive = true;
+            turnState = 'waiting_for_play';
+
+            updateUI();
+
+            // Apply first card special effect if it's a special card
+            let initialSkip = 0;
+            if (firstCard.value === 'skip') {
+                initialSkip = 1;
+            } else if (firstCard.value === 'reverse') {
+                direction *= -1;
+            } else if (firstCard.value === 'draw2') {
+                // Next player draws 2 and skips
+                drawCardsForPlayer(1, 2);
+                initialSkip = 1;
+            }
+
+            // 如果第一张卡是特殊卡，显示提示并跳到正确的玩家
+            if (initialSkip > 0 || firstCard.value === 'reverse') {
+                const playerNames = ['你', '电脑1', '电脑2', '电脑3'];
+                let tipMsg = `第一张牌是 ${getCardName(firstCard)}！`;
+                if (firstCard.value === 'draw2') {
+                    tipMsg = `第一张牌是 +2 ！电脑1 被加2张牌并跳过！`;
+                } else if (firstCard.value === 'skip') {
+                    tipMsg = `第一张牌是 跳过！电脑1 被跳过！`;
+                } else if (firstCard.value === 'reverse') {
+                    tipMsg = `第一张牌是 反向！方向改为逆时针！`;
+                }
+                document.getElementById('gameTip').textContent = tipMsg;
+
+                setTimeout(() => {
+                    currentPlayer = (currentPlayer + direction * (1 + initialSkip)) % 4;
+                    if (currentPlayer < 0) currentPlayer += 4;
+                    startTurn();
+                }, 1500);
+            } else if (currentPlayer === 0) {
+                startTurn();
+            } else {
+                setTimeout(aiTurn, 1000);
+            }
+        }
+
+        function getCardName(card) {
+            if (card.value === 'skip') return '跳过';
+            if (card.value === 'reverse') return '反向';
+            if (card.value === 'draw2') return '+2';
+            if (card.value === 'wild') return '变色';
+            if (card.value === 'wild4') return '+4';
+            return card.value;
+        }
+
+        function createDeck() {
+            deck = [];
+            COLORS.forEach(color => {
+                deck.push({ color, value: '0', type: 'number' });
+                for (let i = 1; i <= 9; i++) {
+                    deck.push({ color, value: String(i), type: 'number' });
+                    deck.push({ color, value: String(i), type: 'number' });
+                }
+                SPECIALS.forEach(special => {
+                    deck.push({ color, value: special, type: 'special' });
+                    deck.push({ color, value: special, type: 'special' });
+                });
+            });
+            for (let i = 0; i < 4; i++) {
+                deck.push({ color: 'wild', value: 'wild', type: 'wild' });
+                deck.push({ color: 'wild', value: 'wild4', type: 'wild' });
+            }
+        }
+
+        function shuffleDeck() {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+        }
+
+        function drawFromDeck() {
+            if (deck.length === 0) {
+                if (discardPile.length <= 1) return null; // No cards left
+                const topCard = discardPile.pop();
+                deck = discardPile;
+                discardPile = [topCard];
+                shuffleDeck();
+            }
+            return deck.pop();
+        }
+
+        function dealCards() {
+            players = [[], [], [], []];
+            for (let i = 0; i < 7; i++) {
+                for (let p = 0; p < 4; p++) {
+                    players[p].push(drawFromDeck());
+                }
+            }
+        }
+
+        // Game Logic
+        function startTurn() {
+            updateUI();
+            
+            if (currentPlayer === 0) {
+                // User turn
+                turnState = 'waiting_for_play';
+                checkUserPlayable();
+                document.getElementById('gameTip').textContent = "轮到你了！请出牌或摸牌";
+            } else {
+                // AI turn
+                turnState = 'ai_thinking';
+                document.getElementById('gameTip').textContent = `等待 电脑 ${currentPlayer} 出牌...`;
+                setTimeout(aiTurn, 1000 + Math.random() * 500);
+            }
+        }
+        
+        function nextPlayer(skip = 0) {
+            let steps = 1 + skip;
+            // Handle negative wrapping correctly
+            let next = (currentPlayer + (direction * steps)) % 4;
+            if (next < 0) next += 4;
+            currentPlayer = next;
+            startTurn();
+        }
+
+        function checkUserPlayable() {
+            const hasPlayable = players[0].some(c => isPlayable(c));
+            document.getElementById('drawBtn').disabled = false;
+            document.getElementById('playBtn').disabled = true; // Enabled only when card selected
+        }
+
+        function isPlayable(card) {
+            if (card.type === 'wild') return true;
+            if (card.color === currentColor) return true;
+            if (card.value === currentValue) return true;
+            return false;
+        }
+
+        // User Actions
+        function toggleSelectCard(index) {
+            if (currentPlayer !== 0 || turnState !== 'waiting_for_play') return;
+            
+            const card = players[0][index];
+            if (!isPlayable(card)) {
+                // Shake animation maybe?
+                return;
+            }
+
+            if (selectedCardIndex === index) {
+                selectedCardIndex = null;
+            } else {
+                selectedCardIndex = index;
+            }
+            updateMyCardsUI();
+            document.getElementById('playBtn').disabled = selectedCardIndex === null;
+        }
+
+        function playerPlayCard() {
+            if (selectedCardIndex === null) return;
+            const card = players[0][selectedCardIndex];
+            playCard(0, selectedCardIndex, card);
+        }
+
+        function playerDrawCard() {
+            // 玩家在等待颜色选择时不能摸牌
+            if (currentPlayer !== 0 || turnState !== 'waiting_for_play') return;
+
+            const card = drawFromDeck();
+            if (card) {
+                players[0].push(card);
+                updateUI();
+
+                // If playable, can play immediately
+                if (isPlayable(card)) {
+                    document.getElementById('gameTip').textContent = "摸到了可出的牌！可以选择出牌或摸牌按钮跳过";
+                } else {
+                    // No playable card, auto pass
+                    document.getElementById('gameTip').textContent = "没有可出的牌，跳过回合";
+                    selectedCardIndex = null;
+                    updateMyCardsUI();
+                    setTimeout(() => nextPlayer(), 800);
+                }
+            }
+        }
+
+        // Core Play Logic
+        function playCard(playerIndex, cardIndex, card) {
+            // Remove card from hand
+            players[playerIndex].splice(cardIndex, 1);
+            discardPile.push(card);
+            
+            // Update state
+            currentValue = card.value;
+            
+            // Check Win
+            if (players[playerIndex].length === 0) {
+                updateUI();
+                showWinModal(playerIndex);
+                return;
+            }
+
+            // Check Uno
+            if (players[playerIndex].length === 1) {
+                showUnoAnnounce();
+            }
+
+            // Handle Wild
+            if (card.type === 'wild') {
+                if (playerIndex === 0) {
+                    turnState = 'waiting_for_color';
+                    document.getElementById('colorPicker').classList.remove('hidden');
+                } else {
+                    // AI chooses color
+                    const color = aiChooseColor(playerIndex);
+                    finishPlay(card, color);
+                }
+            } else {
+                currentColor = card.color;
+                finishPlay(card);
+            }
+        }
+
+        function chooseColor(color) {
+            document.getElementById('colorPicker').classList.add('hidden');
+            currentColor = color;
+            // The card played was the last one in discard pile
+            const card = discardPile[discardPile.length - 1];
+            finishPlay(card, color);
+        }
+
+        function finishPlay(card, chosenColor = null) {
+            if (chosenColor) currentColor = chosenColor;
+
+            updateUI();
+
+            let skip = 0;
+            let drawInfo = null; // 记录加牌信息
+
+            // Special Effects
+            if (card.value === 'reverse') {
+                direction *= -1;
+                // In 2 player game, reverse acts like skip
+                if (players.length === 2) skip = 1;
+            } else if (card.value === 'skip') {
+                skip = 1;
+            } else if (card.value === 'draw2') {
+                const nextP = getNextPlayerIndex(1);
+                drawCardsForPlayer(nextP, 2);
+                drawInfo = { player: nextP, count: 2 };
+                skip = 1;
+            } else if (card.value === 'wild4') {
+                const nextP = getNextPlayerIndex(1);
+                drawCardsForPlayer(nextP, 4);
+                drawInfo = { player: nextP, count: 4 };
+                skip = 1;
+            }
+
+            // 显示加牌信息
+            if (drawInfo) {
+                const playerNames = ['你', '电脑1', '电脑2', '电脑3'];
+                if (drawInfo.player === 0) {
+                    document.getElementById('gameTip').textContent = `你被加了 ${drawInfo.count} 张牌！`;
+                } else {
+                    document.getElementById('gameTip').textContent = `${playerNames[drawInfo.player]} 被加了 ${drawInfo.count} 张牌！`;
+                }
+            }
+
+            setTimeout(() => nextPlayer(skip), 1000);
+        }
+
+        function getNextPlayerIndex(steps) {
+            let next = (currentPlayer + (direction * steps)) % 4;
+            if (next < 0) next += 4;
+            return next;
+        }
+
+        function drawCardsForPlayer(pIndex, count) {
+            for (let i = 0; i < count; i++) {
+                const c = drawFromDeck();
+                if (c) players[pIndex].push(c);
+            }
+            updateUI(); // Show cards flying to player?
+        }
+
+        // AI Logic
+        function aiTurn() {
+            const hand = players[currentPlayer];
+            
+            // Simple Strategy:
+            // 1. Find all playable cards
+            const playable = hand.map((c, i) => ({c, i})).filter(item => isPlayable(item.c));
+            
+            if (playable.length > 0) {
+                // Priority:
+                // 1. Play Draw2/Skip/Reverse if next player has few cards
+                // 2. Play Number of same color (keep Wilds for later)
+                // 3. Play Wild
+                
+                // Sort by priority (descending)
+                playable.sort((a, b) => {
+                    const score = (c) => {
+                        if (c.value === 'wild4') return 1;
+                        if (c.value === 'wild') return 2;
+                        if (c.type === 'special') return 4;
+                        return 3;
+                    };
+                    return score(a.c) - score(b.c);
+                });
+                
+                // Pick best
+                const best = playable[playable.length - 1]; // Highest score
+                playCard(currentPlayer, best.i, best.c);
+            } else {
+                // Draw
+                const card = drawFromDeck();
+                if (card) {
+                    players[currentPlayer].push(card);
+                    updateUI();
+                    
+                    if (isPlayable(card)) {
+                        setTimeout(() => {
+                            // Play the drawn card
+                            // Note: index is last
+                            playCard(currentPlayer, players[currentPlayer].length - 1, card);
+                        }, 800);
+                    } else {
+                        setTimeout(() => nextPlayer(), 800);
+                    }
+                } else {
+                    nextPlayer();
+                }
+            }
+        }
+
+        function aiChooseColor(pIndex) {
+            const hand = players[pIndex];
+            const counts = { red: 0, blue: 0, green: 0, yellow: 0 };
+            hand.forEach(c => {
+                if (c.color && c.color !== 'wild') counts[c.color]++;
+            });
+            // Return color with max count
+            return Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+        }
+
+        // UI Updates
+        function updateUI() {
+            // Update Current Card
+            const topCard = discardPile[discardPile.length - 1];
+            const container = document.getElementById('currentCardContainer');
+            container.innerHTML = `
+                <div class="card card-${currentColor}">
+                    <div class="card-inner">
+                        <div class="card-oval">
+                            <div class="card-value" style="color:${getColorHex(currentColor)}">
+                                ${getDisplayValue(topCard)}
+                            </div>
+                        </div>
+                        <div class="card-corner top-left">${getDisplayIcon(topCard)}</div>
+                        <div class="card-corner bottom-right">${getDisplayIcon(topCard)}</div>
+                    </div>
+                </div>
+            `;
+            
+            // Update Sidebar
+            document.getElementById('currentColor').style.background = getColorHex(currentColor);
+            document.getElementById('colorText').textContent = {red:'红', blue:'蓝', green:'绿', yellow:'黄', wild:'彩'}[currentColor] || currentColor;
+            
+            const arrow = document.getElementById('directionArrow');
+            if (direction === 1) {
+                arrow.classList.remove('reverse');
+                arrow.textContent = '⬇️';
+                document.getElementById('directionText').textContent = '顺时针';
+            } else {
+                arrow.classList.add('reverse');
+                arrow.textContent = '⬆️';
+                document.getElementById('directionText').textContent = '逆时针';
+            }
+
+            // Update Players
+            updateMyCardsUI();
+            updateOtherPlayersUI();
+            
+            // Active Player Highlight
+            [0,1,2,3].forEach(p => {
+                const el = document.getElementById(getPlayerId(p));
+                if (p === currentPlayer) el.classList.add('current-turn');
+                else el.classList.remove('current-turn');
+            });
+        }
+
+        function getPlayerId(index) {
+            if (index === 0) return 'myPlayerInfo';
+            if (index === 1) return 'leftPlayerInfo';
+            if (index === 2) return 'topPlayerInfo';
+            return 'rightPlayerInfo';
+        }
+
+        function updateMyCardsUI() {
+            const container = document.getElementById('myCards');
+            container.innerHTML = '';
+            players[0].forEach((card, index) => {
+                const el = document.createElement('div');
+                el.className = `my-card card-${card.color}`;
+                if (index === selectedCardIndex) el.classList.add('selected');
+                if (!isPlayable(card) && currentPlayer === 0) el.style.opacity = '0.7';
+                
+                el.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-corner top-left">${getDisplayIcon(card)}</div>
+                        <div class="card-oval">
+                            <div class="card-value">${getDisplayIcon(card)}</div>
+                        </div>
+                    </div>
+                `;
+                el.onclick = () => toggleSelectCard(index);
+                container.appendChild(el);
+            });
+            document.getElementById('myCardCount').textContent = `${players[0].length}张`;
+        }
+
+        function updateOtherPlayersUI() {
+            // Player 1 (Left)
+            updateBotUI('left', players[1]);
+            // Player 2 (Top)
+            updateBotUI('top', players[2]);
+            // Player 3 (Right)
+            updateBotUI('right', players[3]);
+        }
+
+        function updateBotUI(pos, cards) {
+            const countId = `${pos}CardCount`;
+            const backsId = `${pos}CardsBack`;
+            document.getElementById(countId).textContent = `${cards.length}张`;
+            
+            const container = document.getElementById(backsId);
+            container.innerHTML = '';
+            // Show max 5 card backs
+            const showCount = Math.min(cards.length, 5);
+            for (let i = 0; i < showCount; i++) {
+                const back = document.createElement('div');
+                back.className = 'card-back-small';
+                container.appendChild(back);
+            }
+        }
+
+        function getDisplayValue(card) {
+            if (card.value === 'wild') return '🎨';
+            if (card.value === 'wild4') return '+4';
+            if (card.value === 'draw2') return '+2';
+            if (card.value === 'skip') return '⊘';
+            if (card.value === 'reverse') return '⇄';
+            return card.value;
+        }
+
+        function getDisplayIcon(card) {
+            if (card.value === 'wild') return '🎨';
+            if (card.value === 'wild4') return '+4';
+            if (card.value === 'draw2') return '+2';
+            if (card.value === 'skip') return '⊘';
+            if (card.value === 'reverse') return '⇄';
+            return card.value;
+        }
+
+        function showUnoAnnounce() {
+            const el = document.getElementById('unoAnnounceText');
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 2000);
+        }
+
+        function showWinModal(winnerIndex) {
+            const modal = document.getElementById('gameModal');
+            const title = document.getElementById('modalTitle');
+            const text = document.getElementById('modalText');
+            
+            if (winnerIndex === 0) {
+                title.textContent = "胜利！";
+                text.textContent = "恭喜你赢得了比赛！";
+            } else {
+                title.textContent = "游戏结束";
+                text.textContent = `电脑 ${winnerIndex} 赢了！再接再厉。`;
+            }
+            modal.classList.add('active');
+            gameActive = false;
+        }
+
+        function closeModal() {
+            document.getElementById('gameModal').classList.remove('active');
+        }
+
+        // Init
+        initGame();
+    </script>
+</body>
+</html>

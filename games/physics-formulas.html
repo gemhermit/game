@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物理公式 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="物理公式把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="物理公式,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/physics-formulas.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="物理公式 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="物理公式把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/physics-formulas.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="物理公式 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="物理公式把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"物理公式","description":"物理公式把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/physics-formulas.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .topic-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .topic-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .topic-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .score-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .score-item {
+            margin: 10px;
+            font-size: 1.2em;
+        }
+        .score-value {
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+            font-size: 1.5em;
+        }
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .question-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+        .question-title {
+            font-size: 1.5em;
+            color: #2d3436;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .formula-display {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            font-size: 2em;
+            font-family: 'Times New Roman', serif;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .formula-incomplete {
+            border-color: #ffc107;
+            background: #fff3cd;
+        }
+        .formula-complete {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .formula-wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        .blank {
+            display: inline-block;
+            min-width: 60px;
+            height: 40px;
+            border-bottom: 3px solid #667eea;
+            margin: 0 10px;
+            text-align: center;
+            font-size: 1.2em;
+            background: transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            outline: none;
+            font-family: 'Times New Roman', serif;
+        }
+        .blank:focus {
+            border-bottom-color: #2196f3;
+            background: #e3f2fd;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .option-btn {
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+        }
+        .option-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .option-btn.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .option-btn.correct {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        .option-btn.wrong {
+            background: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+        .option-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .description {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .variables {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .variables h4 {
+            margin-bottom: 15px;
+            color: #856404;
+        }
+        .variable-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .variable-item {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .feedback {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            max-width: 800px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .feedback.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        .game-complete {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .game-complete h3 {
+            color: #1976d2;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .final-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .final-stat {
+            margin: 10px;
+        }
+        .final-stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>物理公式练习</h1>
+        
+        <div class="topic-selector">
+            <div class="topic-btn active" data-topic="mechanics">力学</div>
+            <div class="topic-btn" data-topic="thermodynamics">热学</div>
+            <div class="topic-btn" data-topic="electricity">电学</div>
+            <div class="topic-btn" data-topic="optics">光学</div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item">
+                得分
+                <span class="score-value" id="score">0</span>
+            </div>
+            <div class="score-item">
+                题目
+                <span class="score-value" id="questionNumber">1</span>
+            </div>
+            <div class="score-item">
+                正确数
+                <span class="score-value" id="correctCount">0</span>
+            </div>
+            <div class="score-item">
+                正确率
+                <span class="score-value" id="accuracy">0%</span>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+        </div>
+        
+        <div class="game-area">
+            <div class="question-container">
+                <div class="question-title" id="questionTitle">请完成下面的物理公式</div>
+                
+                <div class="formula-display" id="formulaDisplay">
+                    <!-- 公式将在这里显示 -->
+                </div>
+                
+                <div class="description" id="description">
+                    <!-- 公式描述 -->
+                </div>
+                
+                <div class="variables" id="variables">
+                    <h4>变量说明：</h4>
+                    <div class="variable-list" id="variableList">
+                        <!-- 变量说明 -->
+                    </div>
+                </div>
+                
+                <div class="options-container" id="optionsContainer">
+                    <!-- 选项将在这里显示 -->
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback" style="display: none;">
+                <!-- 反馈信息 -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" id="checkBtn" disabled>检查答案</button>
+                <button class="btn btn-warning" id="hintBtn">提示</button>
+                <button class="btn btn-warning" id="resetBtn">重置</button>
+                <button class="btn btn-success" id="nextBtn" style="display: none;">下一题</button>
+            </div>
+        </div>
+        
+        <div class="game-complete" id="gameComplete" style="display: none;">
+            <h3>练习完成！</h3>
+            <div class="final-stats">
+                <div class="final-stat">
+                    总题数
+                    <div class="final-stat-value" id="finalQuestions">0</div>
+                </div>
+                <div class="final-stat">
+                    正确数
+                    <div class="final-stat-value" id="finalCorrect">0</div>
+                </div>
+                <div class="final-stat">
+                    最终得分
+                    <div class="final-stat-value" id="finalScore">0</div>
+                </div>
+                <div class="final-stat">
+                    正确率
+                    <div class="final-stat-value" id="finalAccuracy">0%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class PhysicsFormulasGame {
+            constructor() {
+                this.formulas = {
+                    mechanics: [
+                        {
+                            name: "牛顿第二定律",
+                            formula: "F = m × a",
+                            blanks: ["F", "m", "a"],
+                            description: "物体的加速度与作用力成正比，与物体质量成反比",
+                            variables: {
+                                "F": "力 (N)",
+                                "m": "质量 (kg)",
+                                "a": "加速度 (m/s²)"
+                            },
+                            options: ["F", "m", "a", "v", "t", "s"]
+                        },
+                        {
+                            name: "动能公式",
+                            formula: "Ek = ½mv²",
+                            blanks: ["Ek", "m", "v"],
+                            description: "物体由于运动而具有的能量",
+                            variables: {
+                                "Ek": "动能 (J)",
+                                "m": "质量 (kg)",
+                                "v": "速度 (m/s)"
+                            },
+                            options: ["Ek", "m", "v", "a", "F", "t"]
+                        },
+                        {
+                            name: "重力势能公式",
+                            formula: "Ep = mgh",
+                            blanks: ["Ep", "m", "g", "h"],
+                            description: "物体由于被举高而具有的能量",
+                            variables: {
+                                "Ep": "重力势能 (J)",
+                                "m": "质量 (kg)",
+                                "g": "重力加速度 (m/s²)",
+                                "h": "高度 (m)"
+                            },
+                            options: ["Ep", "m", "g", "h", "v", "F"]
+                        },
+                        {
+                            name: "匀速直线运动",
+                            formula: "s = vt",
+                            blanks: ["s", "v", "t"],
+                            description: "物体在单位时间内通过的路程",
+                            variables: {
+                                "s": "路程 (m)",
+                                "v": "速度 (m/s)",
+                                "t": "时间 (s)"
+                            },
+                            options: ["s", "v", "t", "a", "F", "m"]
+                        }
+                    ],
+                    thermodynamics: [
+                        {
+                            name: "理想气体状态方程",
+                            formula: "PV = nRT",
+                            blanks: ["P", "V", "n", "R", "T"],
+                            description: "描述理想气体压强、体积、温度之间关系的方程",
+                            variables: {
+                                "P": "压强 (Pa)",
+                                "V": "体积 (m³)",
+                                "n": "物质的量 (mol)",
+                                "R": "气体常数",
+                                "T": "温度 (K)"
+                            },
+                            options: ["P", "V", "n", "R", "T", "m"]
+                        },
+                        {
+                            name: "热量计算公式",
+                            formula: "Q = cmΔT",
+                            blanks: ["Q", "c", "m", "ΔT"],
+                            description: "物体吸收或放出的热量",
+                            variables: {
+                                "Q": "热量 (J)",
+                                "c": "比热容 (J/(kg·K))",
+                                "m": "质量 (kg)",
+                                "ΔT": "温度变化 (K)"
+                            },
+                            options: ["Q", "c", "m", "ΔT", "T", "P"]
+                        },
+                        {
+                            name: "热力学第一定律",
+                            formula: "ΔU = Q - W",
+                            blanks: ["ΔU", "Q", "W"],
+                            description: "能量守恒定律在热力学中的表述",
+                            variables: {
+                                "ΔU": "内能变化 (J)",
+                                "Q": "吸收热量 (J)",
+                                "W": "对外做功 (J)"
+                            },
+                            options: ["ΔU", "Q", "W", "P", "V", "T"]
+                        }
+                    ],
+                    electricity: [
+                        {
+                            name: "欧姆定律",
+                            formula: "U = IR",
+                            blanks: ["U", "I", "R"],
+                            description: "导体中的电流与电压成正比，与电阻成反比",
+                            variables: {
+                                "U": "电压 (V)",
+                                "I": "电流 (A)",
+                                "R": "电阻 (Ω)"
+                            },
+                            options: ["U", "I", "R", "P", "Q", "t"]
+                        },
+                        {
+                            name: "电功率公式",
+                            formula: "P = UI",
+                            blanks: ["P", "U", "I"],
+                            description: "电路中消耗电能的快慢",
+                            variables: {
+                                "P": "电功率 (W)",
+                                "U": "电压 (V)",
+                                "I": "电流 (A)"
+                            },
+                            options: ["P", "U", "I", "R", "Q", "t"]
+                        },
+                        {
+                            name: "电功公式",
+                            formula: "W = UIt",
+                            blanks: ["W", "U", "I", "t"],
+                            description: "电流在一段时间内所做的功",
+                            variables: {
+                                "W": "电功 (J)",
+                                "U": "电压 (V)",
+                                "I": "电流 (A)",
+                                "t": "时间 (s)"
+                            },
+                            options: ["W", "U", "I", "t", "P", "R"]
+                        },
+                        {
+                            name: "库仑定律",
+                            formula: "F = kq₁q₂/r²",
+                            blanks: ["F", "k", "q₁", "q₂", "r"],
+                            description: "两个点电荷之间的相互作用力",
+                            variables: {
+                                "F": "库仑力 (N)",
+                                "k": "库仑常数",
+                                "q₁": "电荷1 (C)",
+                                "q₂": "电荷2 (C)",
+                                "r": "距离 (m)"
+                            },
+                            options: ["F", "k", "q₁", "q₂", "r", "E"]
+                        }
+                    ],
+                    optics: [
+                        {
+                            name: "折射定律",
+                            formula: "n₁sinθ₁ = n₂sinθ₂",
+                            blanks: ["n₁", "θ₁", "n₂", "θ₂"],
+                            description: "光线在两种介质界面上折射时遵循的规律",
+                            variables: {
+                                "n₁": "介质1折射率",
+                                "θ₁": "入射角",
+                                "n₂": "介质2折射率",
+                                "θ₂": "折射角"
+                            },
+                            options: ["n₁", "θ₁", "n₂", "θ₂", "c", "v"]
+                        },
+                        {
+                            name: "薄透镜成像公式",
+                            formula: "1/f = 1/u + 1/v",
+                            blanks: ["f", "u", "v"],
+                            description: "描述薄透镜成像规律的公式",
+                            variables: {
+                                "f": "焦距 (m)",
+                                "u": "物距 (m)",
+                                "v": "像距 (m)"
+                            },
+                            options: ["f", "u", "v", "h", "n", "θ"]
+                        },
+                        {
+                            name: "光速公式",
+                            formula: "c = λf",
+                            blanks: ["c", "λ", "f"],
+                            description: "光在真空中的传播速度",
+                            variables: {
+                                "c": "光速 (m/s)",
+                                "λ": "波长 (m)",
+                                "f": "频率 (Hz)"
+                            },
+                            options: ["c", "λ", "f", "v", "n", "T"]
+                        }
+                    ]
+                };
+                
+                this.currentTopic = 'mechanics';
+                this.currentQuestionIndex = 0;
+                this.currentFormula = null;
+                this.userAnswers = [];
+                this.score = 0;
+                this.correctCount = 0;
+                this.totalQuestions = 0;
+                
+                this.initElements();
+                this.bindEvents();
+                this.startGame();
+            }
+            
+            initElements() {
+                this.questionTitle = document.getElementById('questionTitle');
+                this.formulaDisplay = document.getElementById('formulaDisplay');
+                this.description = document.getElementById('description');
+                this.variableList = document.getElementById('variableList');
+                this.optionsContainer = document.getElementById('optionsContainer');
+                this.feedback = document.getElementById('feedback');
+                this.progressFill = document.getElementById('progressFill');
+                
+                this.checkBtn = document.getElementById('checkBtn');
+                this.hintBtn = document.getElementById('hintBtn');
+                this.resetBtn = document.getElementById('resetBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.gameComplete = document.getElementById('gameComplete');
+                
+                this.scoreSpan = document.getElementById('score');
+                this.questionNumberSpan = document.getElementById('questionNumber');
+                this.correctCountSpan = document.getElementById('correctCount');
+                this.accuracySpan = document.getElementById('accuracy');
+            }
+            
+            bindEvents() {
+                // 主题选择
+                document.querySelectorAll('.topic-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentTopic = e.target.dataset.topic;
+                        this.resetGame();
+                    });
+                });
+                
+                this.checkBtn.addEventListener('click', () => this.checkAnswer());
+                this.hintBtn.addEventListener('click', () => this.showHint());
+                this.resetBtn.addEventListener('click', () => this.resetQuestion());
+                this.nextBtn.addEventListener('click', () => this.nextQuestion());
+            }
+            
+            startGame() {
+                this.currentQuestionIndex = 0;
+                this.score = 0;
+                this.correctCount = 0;
+                this.totalQuestions = this.formulas[this.currentTopic].length;
+                this.gameComplete.style.display = 'none';
+                this.loadQuestion();
+            }
+            
+            loadQuestion() {
+                if (this.currentQuestionIndex >= this.formulas[this.currentTopic].length) {
+                    this.showGameComplete();
+                    return;
+                }
+                
+                this.currentFormula = this.formulas[this.currentTopic][this.currentQuestionIndex];
+                this.userAnswers = new Array(this.currentFormula.blanks.length).fill('');
+                
+                this.renderQuestion();
+                this.updateStats();
+                this.updateProgress();
+                
+                this.feedback.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.disabled = true;
+            }
+            
+            renderQuestion() {
+                this.questionTitle.textContent = `${this.currentFormula.name} (${this.currentQuestionIndex + 1}/${this.totalQuestions})`;
+                this.description.textContent = this.currentFormula.description;
+                
+                // 渲染公式
+                this.renderFormula();
+                
+                // 渲染变量说明
+                this.renderVariables();
+                
+                // 渲染选项
+                this.renderOptions();
+            }
+            
+            renderFormula() {
+                let formulaHtml = this.currentFormula.formula;
+                
+                // 为每个空白创建输入框
+                this.currentFormula.blanks.forEach((blank, index) => {
+                    const inputId = `blank-${index}`;
+                    const input = `<input type="text" class="blank" id="${inputId}" data-index="${index}" placeholder="?">`;
+                    formulaHtml = formulaHtml.replace(blank, input);
+                });
+                
+                this.formulaDisplay.innerHTML = formulaHtml;
+                this.formulaDisplay.className = 'formula-display formula-incomplete';
+                
+                // 绑定输入事件
+                this.formulaDisplay.querySelectorAll('.blank').forEach(input => {
+                    input.addEventListener('input', (e) => {
+                        const index = parseInt(e.target.dataset.index);
+                        this.userAnswers[index] = e.target.value.trim();
+                        this.checkBtn.disabled = this.userAnswers.some(answer => answer === '');
+                    });
+                });
+            }
+            
+            renderVariables() {
+                this.variableList.innerHTML = '';
+                
+                Object.entries(this.currentFormula.variables).forEach(([symbol, description]) => {
+                    const item = document.createElement('div');
+                    item.className = 'variable-item';
+                    item.textContent = `${symbol} = ${description}`;
+                    this.variableList.appendChild(item);
+                });
+            }
+            
+            renderOptions() {
+                this.optionsContainer.innerHTML = '';
+                
+                // 打乱选项顺序
+                const shuffledOptions = this.shuffleArray([...this.currentFormula.options]);
+                
+                shuffledOptions.forEach(option => {
+                    const btn = document.createElement('div');
+                    btn.className = 'option-btn';
+                    btn.textContent = option;
+                    btn.addEventListener('click', () => this.selectOption(btn, option));
+                    this.optionsContainer.appendChild(btn);
+                });
+            }
+            
+            selectOption(btn, option) {
+                // 找到当前聚焦的输入框
+                const focusedInput = document.activeElement;
+                if (focusedInput && focusedInput.classList.contains('blank')) {
+                    const index = parseInt(focusedInput.dataset.index);
+                    focusedInput.value = option;
+                    this.userAnswers[index] = option;
+                    
+                    // 移动到下一个输入框
+                    const nextInput = document.getElementById(`blank-${index + 1}`);
+                    if (nextInput) {
+                        nextInput.focus();
+                    }
+                    
+                    this.checkBtn.disabled = this.userAnswers.some(answer => answer === '');
+                }
+            }
+            
+            checkAnswer() {
+                const isCorrect = this.userAnswers.every((answer, index) => {
+                    return answer === this.currentFormula.blanks[index];
+                });
+                
+                // 显示结果
+                this.formulaDisplay.querySelectorAll('.blank').forEach((input, index) => {
+                    if (this.userAnswers[index] === this.currentFormula.blanks[index]) {
+                        input.style.background = '#d4edda';
+                        input.style.borderBottomColor = '#28a745';
+                    } else {
+                        input.style.background = '#f8d7da';
+                        input.style.borderBottomColor = '#dc3545';
+                    }
+                    input.disabled = true;
+                });
+                
+                // 显示选项结果
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    const option = btn.textContent;
+                    if (this.currentFormula.blanks.includes(option)) {
+                        btn.classList.add('correct');
+                    } else {
+                        btn.classList.add('wrong');
+                    }
+                    btn.style.pointerEvents = 'none';
+                });
+                
+                if (isCorrect) {
+                    this.score += 20;
+                    this.correctCount++;
+                    this.formulaDisplay.className = 'formula-display formula-complete';
+                    this.feedback.className = 'feedback correct';
+                    this.feedback.textContent = '恭喜！公式填写完全正确！';
+                } else {
+                    this.formulaDisplay.className = 'formula-display formula-wrong';
+                    this.feedback.className = 'feedback wrong';
+                    
+                    const correctFormula = this.currentFormula.formula;
+                    this.feedback.innerHTML = `
+                        <strong>填写有误！</strong><br>
+                        正确的公式是：<strong>${correctFormula}</strong>
+                    `;
+                }
+                
+                this.feedback.style.display = 'block';
+                this.checkBtn.disabled = true;
+                
+                if (this.currentQuestionIndex >= this.totalQuestions - 1) {
+                    this.nextBtn.textContent = '查看结果';
+                } else {
+                    this.nextBtn.textContent = '下一题';
+                }
+                this.nextBtn.style.display = 'inline-block';
+                
+                this.updateStats();
+            }
+            
+            showHint() {
+                // 显示第一个空白的提示
+                const firstBlankIndex = this.userAnswers.findIndex(answer => answer === '');
+                if (firstBlankIndex !== -1) {
+                    const correctAnswer = this.currentFormula.blanks[firstBlankIndex];
+                    const input = document.getElementById(`blank-${firstBlankIndex}`);
+                    
+                    input.style.background = '#fff3cd';
+                    input.style.borderBottomColor = '#ffeaa7';
+                    input.placeholder = correctAnswer;
+                    
+                    setTimeout(() => {
+                        input.style.background = '';
+                        input.style.borderBottomColor = '';
+                        input.placeholder = '?';
+                    }, 3000);
+                    
+                    this.feedback.className = 'feedback';
+                    this.feedback.textContent = `提示：第${firstBlankIndex + 1}个空白应该填入 "${correctAnswer}"`;
+                    this.feedback.style.display = 'block';
+                }
+            }
+            
+            resetQuestion() {
+                this.userAnswers = new Array(this.currentFormula.blanks.length).fill('');
+                
+                // 重置输入框
+                this.formulaDisplay.querySelectorAll('.blank').forEach(input => {
+                    input.value = '';
+                    input.disabled = false;
+                    input.style.background = '';
+                    input.style.borderBottomColor = '';
+                });
+                
+                // 重置选项
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.className = 'option-btn';
+                    btn.style.pointerEvents = '';
+                });
+                
+                this.formulaDisplay.className = 'formula-display formula-incomplete';
+                this.feedback.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.disabled = true;
+            }
+            
+            nextQuestion() {
+                this.currentQuestionIndex++;
+                this.loadQuestion();
+            }
+            
+            resetGame() {
+                this.currentQuestionIndex = 0;
+                this.score = 0;
+                this.correctCount = 0;
+                this.startGame();
+            }
+            
+            showGameComplete() {
+                const accuracy = Math.round((this.correctCount / this.totalQuestions) * 100);
+                
+                document.getElementById('finalQuestions').textContent = this.totalQuestions;
+                document.getElementById('finalCorrect').textContent = this.correctCount;
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('finalAccuracy').textContent = accuracy + '%';
+                
+                this.gameComplete.style.display = 'block';
+                this.nextBtn.style.display = 'none';
+                this.checkBtn.style.display = 'none';
+                this.hintBtn.style.display = 'none';
+                this.resetBtn.textContent = '重新开始';
+                this.resetBtn.onclick = () => this.resetGame();
+            }
+            
+            updateStats() {
+                this.scoreSpan.textContent = this.score;
+                this.questionNumberSpan.textContent = this.currentQuestionIndex + 1;
+                this.correctCountSpan.textContent = this.correctCount;
+                
+                const accuracy = this.totalQuestions > 0 ? 
+                    Math.round((this.correctCount / (this.currentQuestionIndex + 1)) * 100) : 0;
+                this.accuracySpan.textContent = accuracy + '%';
+            }
+            
+            updateProgress() {
+                const progress = this.totalQuestions > 0 ? 
+                    ((this.currentQuestionIndex + 1) / this.totalQuestions) * 100 : 0;
+                this.progressFill.style.width = progress + '%';
+            }
+            
+            shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+        }
+        
+        // 启动游戏
+        new PhysicsFormulasGame();
+    </script>
+</body>
+</html>

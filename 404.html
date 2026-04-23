@@ -3,82 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>页面未找到 - 贝谷游戏</title>
-    <link href="favicon.png" rel="icon">
-
-    <!-- Preconnect to CDN domains for faster resource loading -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-
-    <!-- Material 3 (BeerCSS) -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/beercss@3.5.1/dist/cdn/beer.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beercss@3.5.1/dist/cdn/beer.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beercss@3.5.1/dist/cdn/beer.min.css"></noscript>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.5.1/dist/cdn/beer.min.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.0/dist/cdn/material-dynamic-colors.min.js"></script>
-
+    <title>页面未找到 | 贝谷游戏</title>
+    <meta name="description" content="抱歉，你访问的页面不存在。可以返回贝谷游戏首页继续浏览最新在线小游戏。">
+    <meta name="robots" content="noindex,follow">
+    <link rel="canonical" href="https://game.bago.top/404.html">
+    <link rel="icon" href="/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
     <style>
         :root {
-            --primary: #005cbb;
-            --on-primary: #ffffff;
-            --primary-container: #d7e3ff;
-            --on-primary-container: #001b3f;
-            --radius: 28px;
+            --bg: #eff8ff;
+            --text: #102a43;
+            --muted: #486581;
+            --primary: #0f766e;
+            --card: rgba(255, 255, 255, 0.86);
+            --line: rgba(15, 23, 42, 0.08);
+            --font-sans: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
         }
+
+        * { box-sizing: border-box; }
+
         body {
-            background-color: var(--background);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
             margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at top left, rgba(29, 78, 216, 0.12), transparent 26%),
+                radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.16), transparent 30%),
+                linear-gradient(180deg, #f8fffd 0%, #eef7ff 100%);
+            color: var(--text);
+            font-family: var(--font-sans);
         }
-        main {
-            flex: 1;
+
+        .card {
+            width: min(100%, 720px);
+            padding: 36px;
+            border-radius: 32px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+            text-align: center;
+        }
+
+        .code {
+            margin: 0;
+            font-size: clamp(4rem, 12vw, 7rem);
+            line-height: 1;
+            letter-spacing: -0.08em;
+            color: var(--primary);
+        }
+
+        h1 {
+            margin: 14px 0 0;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+        }
+
+        p {
+            margin: 14px auto 0;
+            max-width: 520px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        .actions {
+            margin-top: 28px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 2rem;
-        }
-        .error-code {
-            font-size: 8rem;
+            min-width: 156px;
+            padding: 14px 18px;
+            border-radius: 999px;
+            border: 1px solid transparent;
             font-weight: 700;
-            color: var(--primary);
-            line-height: 1;
-            margin-bottom: 0.5rem;
         }
-        .error-message {
-            font-size: 1.5rem;
-            color: var(--on-surface);
-            margin-bottom: 3rem;
-            opacity: 0.8;
+
+        .button--primary {
+            background: linear-gradient(135deg, #0f766e, #1d4ed8);
+            color: white;
         }
-        .action-btn {
-            border-radius: 50px;
-            padding: 0 2.5rem;
-            height: 56px;
-            font-size: 1.1rem;
+
+        .button--secondary {
+            border-color: rgba(15, 23, 42, 0.12);
+            background: white;
         }
     </style>
 </head>
 <body>
-
-<main class="responsive">
-    <div class="error-code">404</div>
-    <div class="error-message">糟糕，页面走丢了</div>
-    
-    <a href="/" class="button fill large action-btn">
-        <i>home</i>
-        <span>返回首页</span>
-    </a>
-</main>
-
-<script>
-    // 自动重定向作为兜底，设置为 5 秒
-    setTimeout(function() {
-        window.location.href = '/';
-    }, 5000);
-</script>
-
+    <main class="card">
+        <p class="code">404</p>
+        <h1>这个页面暂时没有找到</h1>
+        <p>你可以返回首页继续查看全部游戏入口，也可以直接打开站点地图页，看看最近新增了哪些在线小游戏。</p>
+        <div class="actions">
+            <a class="button button--primary" href="/">返回首页</a>
+            <a class="button button--secondary" href="/sitemap.xml">查看站点地图</a>
+        </div>
+    </main>
 </body>
 </html>

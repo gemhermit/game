@@ -2,5 +2,8 @@
   "name": "bago-game",
   "version": "1.0.0",
   "description": "贝谷游戏门户",
-  "private": true
+  "private": true,
+  "scripts": {
+    "sync:site": "node scripts/sync-site.mjs"
+  }
 }

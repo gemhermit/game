@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉诺塔 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="汉诺塔是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="汉诺塔,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/hanoi.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="汉诺塔 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="汉诺塔是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/hanoi.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="汉诺塔 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="汉诺塔是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"汉诺塔","description":"汉诺塔是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/hanoi.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #8b5cf6;
+            --text-color: #1e293b;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --success-color: #22c55e;
+            --accent-color: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            z-index: 10;
+            box-shadow: 4px 0 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .header {
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* Controls */
+        .control-group {
+            margin-bottom: 24px;
+        }
+
+        .control-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .disk-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .disk-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .disk-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .disk-count {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: 'SF Mono', monospace;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7c3aed;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .btn-accent {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background: #d97706;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Stats */
+        .stats-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: auto;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .stat-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #0f172a;
+            font-family: 'SF Mono', monospace;
+        }
+
+        /* Main Area */
+        .main-area {
+            flex: 1;
+            position: relative;
+            background-color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #gameCanvas {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(20px);
+            opacity: 1;
+        }
+
+        /* Speed Control */
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .speed-label {
+            font-size: 13px;
+            color: #64748b;
+            min-width: 60px;
+        }
+        
+        input[type="range"] {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: #e2e8f0;
+            appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="header">
+            <h1>🏰 汉诺塔</h1>
+            <div class="subtitle">将所有圆盘从左边柱子移动到右边柱子，大盘不能压在小盘上。</div>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">圆盘数量</span>
+            <div class="disk-selector">
+                <button class="disk-btn" id="decreaseDisk">-</button>
+                <span class="disk-count" id="diskCount">3</span>
+                <button class="disk-btn" id="increaseDisk">+</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <button class="btn btn-primary" id="resetBtn">🔄 重置游戏</button>
+            
+            <div style="height: 1px; background: #e2e8f0; margin: 20px 0;"></div>
+            
+            <span class="control-label">AI 演示</span>
+            <div class="speed-control">
+                <span class="speed-label">演示速度</span>
+                <input type="range" id="speedSlider" min="1" max="10" value="5">
+            </div>
+            <button class="btn btn-accent" id="autoPlayBtn">▶️ 完整演示</button>
+            <button class="btn btn-secondary" id="nextStepBtn">👣 下一步</button>
+        </div>
+
+        <div class="stats-card">
+            <div class="stat-row">
+                <span>移动次数</span>
+                <span class="stat-value" id="moveCount">0</span>
+            </div>
+            <div class="stat-row">
+                <span>最少步数</span>
+                <span class="stat-value" id="minMoves">7</span>
+            </div>
+            <div class="stat-row">
+                <span>状态</span>
+                <span class="stat-value" id="statusText" style="color: var(--primary-color)">进行中</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-area">
+        <canvas id="gameCanvas" width="800" height="500"></canvas>
+    </div>
+
+    <div class="toast" id="toast">🎉 恭喜通关！</div>
+
+    <script>
+        class HanoiGame {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.width = canvas.width;
+                this.height = canvas.height;
+
+                // Configuration
+                this.numDisks = 3;
+                this.pegs = [[], [], []]; // Three pegs: 0, 1, 2
+                this.selectedPeg = -1; // Currently selected peg index
+                this.moves = 0;
+                this.minMoves = 0;
+                this.isAnimating = false;
+                this.animatingDisk = null; // { disk, x, y }
+                this.animationSpeed = 5; // 1-10
+                this.animationQueue = []; // Queue for animations
+                this.demoSolution = []; // Pre-calculated solution steps
+                this.demoStepIndex = 0;
+                this.isPlayingDemo = false;
+                this.demoTimer = null;
+
+                // Layout
+                this.pegWidth = 10;
+                this.pegHeight = 250;
+                this.baseHeight = 20;
+                this.diskHeight = 25;
+                this.pegSpacing = this.width / 4;
+                this.pegY = this.height - 100;
+                this.liftHeight = this.pegY - this.pegHeight - 60; // Height to lift disk to
+                
+                // Colors
+                this.colors = [
+                    '#ef4444', '#f97316', '#f59e0b', '#84cc16', 
+                    '#10b981', '#06b6d4', '#3b82f6', '#6366f1', 
+                    '#8b5cf6', '#d946ef'
+                ];
+
+                this.bindEvents();
+                this.initGame();
+            }
+
+            initGame() {
+                // Reset state
+                this.pegs = [[], [], []];
+                this.moves = 0;
+                this.minMoves = Math.pow(2, this.numDisks) - 1;
+                this.selectedPeg = -1;
+                this.isAnimating = false;
+                this.animationQueue = [];
+                this.demoSolution = [];
+                this.demoStepIndex = 0;
+                this.stopDemo();
+
+                // Fill first peg
+                for (let i = this.numDisks; i >= 1; i--) {
+                    this.pegs[0].push(i);
+                }
+
+                // Initial calculation (optional, but good for checking minMoves)
+                // Actually minMoves is always 2^n - 1 for standard game
+                // We don't need to pre-calculate demoSolution here anymore
+                
+                this.updateUI();
+                this.draw();
+            }
+
+            // Calculate solution from current state using a virtual board simulation
+            calculateCurrentSolution() {
+                // Clone current pegs to a virtual board to simulate moves
+                let virtualPegs = [
+                    [...this.pegs[0]],
+                    [...this.pegs[1]],
+                    [...this.pegs[2]]
+                ];
+                
+                let steps = [];
+                
+                // Recursive solver that updates virtual board
+                const moveTree = (n, target) => {
+                    if (n === 0) return;
+                    
+                    // Find where disk n is currently located
+                    let current = -1;
+                    for(let i=0; i<3; i++) {
+                        if(virtualPegs[i].includes(n)) { current = i; break; }
+                    }
+                    
+                    if (current === -1) {
+                        console.error(`Disk ${n} not found!`);
+                        return;
+                    }
+
+                    if (current === target) {
+                        // Disk n is already on target peg. 
+                        // Ensure it's in correct position (it must be at bottom of what we are moving)
+                        // In Hanoi, if n is on target, we just need to solve for n-1 on top of it.
+                        moveTree(n - 1, target);
+                        return;
+                    }
+                    
+                    // Disk n needs to move to target.
+                    // First, move n-1 tree to the auxiliary peg (neither current nor target)
+                    let other = 3 - current - target;
+                    
+                    moveTree(n - 1, other);
+                    
+                    // Now move n to target
+                    steps.push({from: current, to: target});
+                    
+                    // Update virtual board state
+                    // Remove n from current
+                    const index = virtualPegs[current].indexOf(n);
+                    if (index > -1) virtualPegs[current].splice(index, 1);
+                    // Add n to target
+                    virtualPegs[target].push(n);
+                    
+                    // Finally, move n-1 tree from other to target
+                    moveTree(n - 1, target);
+                };
+                
+                moveTree(this.numDisks, 2); // Target is always peg 2 (index 2)
+                return steps;
+            }
+
+            bindEvents() {
+                // Canvas interaction
+                this.canvas.addEventListener('click', (e) => this.handleClick(e));
+
+                // UI Controls
+                document.getElementById('decreaseDisk').addEventListener('click', () => {
+                    if (this.numDisks > 3) {
+                        this.numDisks--;
+                        this.initGame();
+                    }
+                });
+
+                document.getElementById('increaseDisk').addEventListener('click', () => {
+                    if (this.numDisks < 10) {
+                        this.numDisks++;
+                        this.initGame();
+                    }
+                });
+
+                document.getElementById('resetBtn').addEventListener('click', () => {
+                    this.initGame();
+                });
+
+                document.getElementById('speedSlider').addEventListener('input', (e) => {
+                    this.animationSpeed = parseInt(e.target.value);
+                    // Do not restart demo, just let the next step pick up the new speed
+                });
+
+                document.getElementById('autoPlayBtn').addEventListener('click', () => {
+                    if (this.isPlayingDemo) {
+                        this.stopDemo();
+                    } else {
+                        if (this.isAnimating) return; // Wait for current animation to finish
+                        if (this.checkWin()) {
+                            this.initGame();
+                            setTimeout(() => this.playDemo(), 500);
+                        } else {
+                            this.playDemo();
+                        }
+                    }
+                });
+
+                document.getElementById('nextStepBtn').addEventListener('click', () => {
+                    this.stopDemo();
+                    if (this.isAnimating) return; // Prevent concurrent moves
+                    if (this.checkWin()) return;
+                    
+                    // If we don't have a plan or finished it, generate one from current state
+                    if (!this.demoSolution || this.demoStepIndex >= this.demoSolution.length) {
+                        this.demoSolution = this.calculateCurrentSolution();
+                        this.demoStepIndex = 0;
+                    }
+                    
+                    this.executeNextDemoStep();
+                });
+            }
+
+            getPegX(index) {
+                return this.pegSpacing * (index + 1);
+            }
+
+            getDiskY(stackIndex) {
+                return this.pegY - (stackIndex * this.diskHeight) - this.diskHeight;
+            }
+
+            playDemo() {
+                // Always recalculate from current state when starting demo
+                // This ensures we handle any manual moves made by user
+                this.demoSolution = this.calculateCurrentSolution();
+                this.demoStepIndex = 0;
+
+                if (this.demoSolution.length === 0) return;
+
+                this.isPlayingDemo = true;
+                const btn = document.getElementById('autoPlayBtn');
+                btn.textContent = "⏸ 暂停演示";
+                btn.classList.add('btn-secondary');
+                btn.classList.remove('btn-accent');
+
+                const step = async () => {
+                    if (!this.isPlayingDemo) return;
+                    if (this.demoStepIndex >= this.demoSolution.length) {
+                        this.stopDemo();
+                        return;
+                    }
+
+                    await this.executeNextDemoStep();
+                    
+                    if (!this.isPlayingDemo) return; // Check again after await
+
+                    // Delay between moves
+                    // Reduce delay since animation takes time
+                    const delay = Math.max(50, 500 - (this.animationSpeed * 40)); 
+                    this.demoTimer = setTimeout(step, delay);
+                };
+
+                step();
+            }
+
+            stopDemo() {
+                this.isPlayingDemo = false;
+                if (this.demoTimer) clearTimeout(this.demoTimer);
+                this.demoTimer = null;
+                
+                const btn = document.getElementById('autoPlayBtn');
+                btn.textContent = "▶️ 完整演示";
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-accent');
+            }
+
+            async executeNextDemoStep() {
+                if (!this.demoSolution || this.demoStepIndex >= this.demoSolution.length) return;
+
+                const move = this.demoSolution[this.demoStepIndex];
+                
+                // Double check validity (in case state drifted somehow, though shouldn't happen with logic above)
+                if (this.pegs[move.from].length === 0) {
+                     // Plan is invalid for current state
+                     this.stopDemo();
+                     return;
+                }
+                
+                await this.moveDisk(move.from, move.to);
+                this.demoStepIndex++;
+            }
+
+            handleClick(e) {
+                if (this.isPlayingDemo || this.isAnimating) return; // Disable interaction during demo/anim
+                if (this.checkWin()) return;
+
+                const rect = this.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                // Determine clicked peg
+                let clickedPeg = -1;
+                for (let i = 0; i < 3; i++) {
+                    const pegX = this.pegSpacing * (i + 1);
+                    // Check if click is near peg
+                    if (Math.abs(x - pegX) < this.pegSpacing / 2) {
+                        clickedPeg = i;
+                        break;
+                    }
+                }
+
+                if (clickedPeg === -1) return;
+
+                if (this.selectedPeg === -1) {
+                    // Select peg if it has disks
+                    if (this.pegs[clickedPeg].length > 0) {
+                        this.selectedPeg = clickedPeg;
+                        this.draw();
+                    }
+                } else {
+                    // Try to move
+                    if (this.selectedPeg === clickedPeg) {
+                        // Deselect
+                        this.selectedPeg = -1;
+                    } else {
+                        // Attempt move
+                        if (this.isValidMove(this.selectedPeg, clickedPeg)) {
+                            // Manual move invalidates current demo plan
+                            this.demoSolution = null; 
+                            this.moveDisk(this.selectedPeg, clickedPeg); // No await needed here, just fire
+                            this.selectedPeg = -1;
+                        } else {
+                            // Invalid move, maybe show shake animation or toast
+                            this.showToast("🚫 大盘不能放在小盘上面");
+                            this.selectedPeg = -1;
+                        }
+                    }
+                    this.draw();
+                }
+            }
+
+            isValidMove(from, to) {
+                if (this.pegs[from].length === 0) return false;
+                if (this.pegs[to].length === 0) return true;
+                
+                const diskFrom = this.pegs[from][this.pegs[from].length - 1];
+                const diskTo = this.pegs[to][this.pegs[to].length - 1];
+                
+                return diskFrom < diskTo;
+            }
+
+            async moveDisk(from, to) {
+                this.isAnimating = true;
+                const disk = this.pegs[from].pop();
+                
+                const startX = this.getPegX(from);
+                const startY = this.getDiskY(this.pegs[from].length); // Previous stack top
+                const endX = this.getPegX(to);
+                const endY = this.getDiskY(this.pegs[to].length); // New stack top
+
+                await this.animateMove(disk, startX, startY, endX, endY);
+
+                this.pegs[to].push(disk);
+                this.moves++;
+                this.isAnimating = false;
+                this.animatingDisk = null;
+                
+                this.updateUI();
+                this.draw();
+
+                if (this.checkWin()) {
+                    this.stopDemo();
+                    this.showToast("🎉 恭喜通关！");
+                    document.getElementById('statusText').textContent = "已通关";
+                    document.getElementById('statusText').style.color = "var(--success-color)";
+                }
+            }
+
+            animateMove(disk, startX, startY, endX, endY) {
+                return new Promise(resolve => {
+                    const baseDuration = 600;
+                    const duration = Math.max(100, baseDuration - (this.animationSpeed * 40)); 
+                    const startTime = performance.now();
+                    
+                    const animate = (time) => {
+                        const elapsed = time - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        let currentX = startX;
+                        let currentY = startY;
+                        
+                        // Path: Up -> Over -> Down
+                        // 20% Up, 60% Over, 20% Down
+                        if (progress < 0.2) {
+                            // Up
+                            const p = progress / 0.2;
+                            // Ease out quad
+                            const ease = p * (2 - p);
+                            currentY = startY + (this.liftHeight - startY) * ease;
+                            currentX = startX;
+                        } else if (progress < 0.8) {
+                            // Over
+                            const p = (progress - 0.2) / 0.6;
+                            // Ease in out quad
+                            const ease = p < .5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+                            currentY = this.liftHeight;
+                            currentX = startX + (endX - startX) * ease;
+                        } else {
+                            // Down
+                            const p = (progress - 0.8) / 0.2;
+                            // Ease in quad
+                            const ease = p * p;
+                            currentY = this.liftHeight + (endY - this.liftHeight) * ease;
+                            currentX = endX;
+                        }
+                        
+                        this.animatingDisk = { disk, x: currentX, y: currentY };
+                        this.draw();
+
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
+                        } else {
+                            resolve();
+                        }
+                    };
+                    requestAnimationFrame(animate);
+                });
+            }
+
+            checkWin() {
+                // All disks on peg 2 (index 2)
+                return this.pegs[2].length === this.numDisks;
+            }
+
+            updateUI() {
+                document.getElementById('diskCount').textContent = this.numDisks;
+                document.getElementById('moveCount').textContent = this.moves;
+                document.getElementById('minMoves').textContent = this.minMoves;
+                
+                if (!this.checkWin()) {
+                    document.getElementById('statusText').textContent = "进行中";
+                    document.getElementById('statusText').style.color = "var(--primary-color)";
+                }
+
+                document.getElementById('decreaseDisk').disabled = this.numDisks <= 3;
+                document.getElementById('increaseDisk').disabled = this.numDisks >= 10;
+            }
+
+            showToast(msg) {
+                const toast = document.getElementById('toast');
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.width, this.height);
+
+                // Draw Base
+                this.ctx.fillStyle = '#cbd5e1';
+                this.ctx.fillRect(
+                    this.pegSpacing / 2, 
+                    this.pegY, 
+                    this.width - this.pegSpacing, 
+                    this.baseHeight
+                );
+
+                // Draw Pegs
+                for (let i = 0; i < 3; i++) {
+                    const x = this.pegSpacing * (i + 1);
+                    
+                    // Peg
+                    this.ctx.fillStyle = '#94a3b8';
+                    this.ctx.fillRect(
+                        x - this.pegWidth / 2,
+                        this.pegY - this.pegHeight,
+                        this.pegWidth,
+                        this.pegHeight
+                    );
+
+                    // Label
+                    this.ctx.fillStyle = '#64748b';
+                    this.ctx.font = 'bold 16px Arial';
+                    this.ctx.textAlign = 'center';
+                    this.ctx.fillText(
+                        ['A', 'B', 'C'][i], 
+                        x, 
+                        this.pegY + this.baseHeight + 25
+                    );
+
+                    // Disks
+                    const disks = this.pegs[i];
+                    for (let j = 0; j < disks.length; j++) {
+                        const diskSize = disks[j];
+                        this.drawDisk(i, j, diskSize, false);
+                    }
+                }
+
+                // Draw floating disk (selected)
+                if (this.selectedPeg !== -1) {
+                    const disks = this.pegs[this.selectedPeg];
+                    if (disks.length > 0) {
+                         const x = this.getPegX(this.selectedPeg);
+                         const y = this.getDiskY(disks.length - 1);
+                         
+                        // Highlight border
+                        this.ctx.strokeStyle = '#f59e0b'; // Accent color
+                        this.ctx.lineWidth = 3;
+                        const diskSize = disks[disks.length - 1];
+                        
+                        // Calculate width again to draw selection box
+                        const maxWidth = this.pegSpacing * 0.9;
+                        const minWidth = 40;
+                        const widthStep = (maxWidth - minWidth) / this.numDisks;
+                        const width = minWidth + (diskSize - 1) * widthStep;
+
+                        this.ctx.strokeRect(x - width/2 - 5, y - 5, width + 10, this.diskHeight + 10);
+                        
+                        // Draw an arrow above the peg
+                        this.ctx.fillStyle = '#f59e0b';
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(x, this.pegY - this.pegHeight - 20);
+                        this.ctx.lineTo(x - 10, this.pegY - this.pegHeight - 35);
+                        this.ctx.lineTo(x + 10, this.pegY - this.pegHeight - 35);
+                        this.ctx.closePath();
+                        this.ctx.fill();
+                    }
+                }
+
+                // Draw animating disk
+                if (this.animatingDisk) {
+                    this.drawDiskAt(
+                        this.animatingDisk.x, 
+                        this.animatingDisk.y, 
+                        this.animatingDisk.disk
+                    );
+                }
+            }
+
+            drawDisk(pegIndex, stackIndex, size) {
+                const x = this.getPegX(pegIndex);
+                const y = this.getDiskY(stackIndex);
+                this.drawDiskAt(x, y, size);
+            }
+
+            drawDiskAt(x, y, size) {
+                // Max width based on peg spacing
+                const maxWidth = this.pegSpacing * 0.9;
+                const minWidth = 40;
+                const widthStep = (maxWidth - minWidth) / this.numDisks;
+                const width = minWidth + (size - 1) * widthStep;
+                
+                // Color based on size
+                this.ctx.fillStyle = this.colors[(size - 1) % this.colors.length];
+                
+                // Draw rounded rectangle
+                this.roundRect(
+                    this.ctx, 
+                    x - width / 2, 
+                    y, 
+                    width, 
+                    this.diskHeight - 2, // -2 for gap
+                    5
+                );
+                this.ctx.fill();
+                
+                // Add shine/border
+                this.ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+                this.ctx.lineWidth = 1;
+                this.ctx.stroke();
+            }
+
+            roundRect(ctx, x, y, width, height, radius) {
+                ctx.beginPath();
+                ctx.moveTo(x + radius, y);
+                ctx.lineTo(x + width - radius, y);
+                ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+                ctx.lineTo(x + width, y + height - radius);
+                ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                ctx.lineTo(x + radius, y + height);
+                ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+                ctx.lineTo(x, y + radius);
+                ctx.quadraticCurveTo(x, y, x + radius, y);
+                ctx.closePath();
+            }
+        }
+
+        // Initialize
+        window.onload = () => {
+            const canvas = document.getElementById('gameCanvas');
+            const game = new HanoiGame(canvas);
+        };
+    </script>
+</body>
+</html>

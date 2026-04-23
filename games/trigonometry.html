@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角函数 - 在线学科练习小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="三角函数把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="三角函数,学科练习,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/trigonometry.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="三角函数 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta property="og:description" content="三角函数把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/trigonometry.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="三角函数 - 在线学科练习小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="三角函数把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"三角函数","description":"三角函数把知识点做成可互动的学科练习小游戏，适合边玩边学。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/trigonometry.html","genre":"学科练习","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1e293b;
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --sin-color: #ef4444;
+            --cos-color: #22c55e;
+            --tan-color: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 360px;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .header {
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Controls */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .control-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .control-value {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+            background: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        /* Mode Toggles */
+        .mode-toggles {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mode-btn.active {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .info-card h3 {
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-card-content {
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 16px;
+            color: #0f172a;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Main Display */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            gap: 24px;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .canvas-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .canvas-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .canvas-title {
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+
+        /* Formulas */
+        .formula-list {
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .formula-item {
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .formula-item strong {
+            color: #334155;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                height: auto;
+            }
+            .canvas-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="header">
+            <h1>三角函数演示</h1>
+            <div class="subtitle">Interactive Trigonometry Visualizer</div>
+        </div>
+
+        <div class="mode-toggles">
+            <button class="mode-btn active" data-mode="sine">正弦 (Sin)</button>
+            <button class="mode-btn" data-mode="cosine">余弦 (Cos)</button>
+            <button class="mode-btn" data-mode="tangent">正切 (Tan)</button>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">角度 (θ)</span>
+                    <span class="control-value" id="angleDisplay">0°</span>
+                </div>
+                <!-- 角度范围修改为 -360 到 360 -->
+                <input type="range" id="angleSlider" min="-360" max="360" value="0" step="1">
+            </div>
+
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">函数显示范围</span>
+                    <span class="control-value" id="zoomDisplay">360°</span>
+                </div>
+                <!-- 显示范围控制，90到720度 -->
+                <input type="range" id="zoomSlider" min="90" max="720" value="360" step="45">
+            </div>
+            
+            <div class="control-group">
+                <div class="control-header">
+                    <span class="control-label">单位圆半径</span>
+                    <span class="control-value" id="radiusDisplay">120</span>
+                </div>
+                <input type="range" id="radiusSlider" min="80" max="150" value="120">
+            </div>
+        </div>
+
+        <div class="info-cards">
+            <div class="info-card">
+                <h3><span class="legend-dot" style="background: var(--sin-color)"></span> Sin(θ)</h3>
+                <div class="info-card-content" id="sinValue">0.000</div>
+            </div>
+            <div class="info-card">
+                <h3><span class="legend-dot" style="background: var(--cos-color)"></span> Cos(θ)</h3>
+                <div class="info-card-content" id="cosValue">1.000</div>
+            </div>
+            <div class="info-card">
+                <h3><span class="legend-dot" style="background: var(--tan-color)"></span> Tan(θ)</h3>
+                <div class="info-card-content" id="tanValue">0.000</div>
+            </div>
+        </div>
+
+        <div class="formula-list">
+            <div class="formula-item">
+                <strong>Sin θ</strong> <span>对边 / 斜边</span>
+            </div>
+            <div class="formula-item">
+                <strong>Cos θ</strong> <span>邻边 / 斜边</span>
+            </div>
+            <div class="formula-item">
+                <strong>Tan θ</strong> <span>对边 / 邻边</span>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="canvas-wrapper">
+            <div class="canvas-card">
+                <div class="canvas-title">单位圆 (Unit Circle)</div>
+                <canvas id="unitCircleCanvas" width="400" height="400"></canvas>
+            </div>
+            <div class="canvas-card">
+                <div class="canvas-title">函数图像 (Function Graph)</div>
+                <canvas id="functionCanvas" width="500" height="400"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuration
+        const config = {
+            colors: {
+                primary: '#2563eb',
+                text: '#1e293b',
+                grid: '#e2e8f0',
+                axis: '#94a3b8',
+                sin: '#ef4444',
+                cos: '#22c55e',
+                tan: '#f59e0b',
+                highlight: '#8b5cf6'
+            },
+            fonts: {
+                main: '14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+            }
+        };
+
+        // DOM Elements
+        const elements = {
+            angleSlider: document.getElementById('angleSlider'),
+            radiusSlider: document.getElementById('radiusSlider'),
+            zoomSlider: document.getElementById('zoomSlider'),
+            angleDisplay: document.getElementById('angleDisplay'),
+            radiusDisplay: document.getElementById('radiusDisplay'),
+            zoomDisplay: document.getElementById('zoomDisplay'),
+            sinValue: document.getElementById('sinValue'),
+            cosValue: document.getElementById('cosValue'),
+            tanValue: document.getElementById('tanValue'),
+            unitCanvas: document.getElementById('unitCircleCanvas'),
+            funcCanvas: document.getElementById('functionCanvas'),
+            modeBtns: document.querySelectorAll('.mode-btn')
+        };
+
+        const ctx = {
+            unit: elements.unitCanvas.getContext('2d'),
+            func: elements.funcCanvas.getContext('2d')
+        };
+
+        // State
+        let state = {
+            angle: 0,
+            radius: 120,
+            mode: 'sine', // sine, cosine, tangent
+            zoom: 360 // Display range in degrees
+        };
+
+        // Special Angles Logic
+        const specialAngles = {
+            0: { sin: '0', cos: '1', tan: '0' },
+            30: { sin: '1/2', cos: '√3/2', tan: '√3/3' },
+            45: { sin: '√2/2', cos: '√2/2', tan: '1' },
+            60: { sin: '√3/2', cos: '1/2', tan: '√3' },
+            90: { sin: '1', cos: '0', tan: '∞' },
+            120: { sin: '√3/2', cos: '-1/2', tan: '-√3' },
+            135: { sin: '√2/2', cos: '-√2/2', tan: '-1' },
+            150: { sin: '1/2', cos: '-√3/2', tan: '-√3/3' },
+            180: { sin: '0', cos: '-1', tan: '0' },
+            210: { sin: '-1/2', cos: '-√3/2', tan: '√3/3' },
+            225: { sin: '-√2/2', cos: '-√2/2', tan: '1' },
+            240: { sin: '-√3/2', cos: '-1/2', tan: '√3' },
+            270: { sin: '-1', cos: '0', tan: '∞' },
+            300: { sin: '-√3/2', cos: '1/2', tan: '-√3' },
+            315: { sin: '-√2/2', cos: '√2/2', tan: '-1' },
+            330: { sin: '-1/2', cos: '√3/2', tan: '-√3/3' },
+            360: { sin: '0', cos: '1', tan: '0' }
+        };
+
+        function formatValue(angle, type, val) {
+            // Normalize angle to 0-360 for lookup
+            let normAngle = angle % 360;
+            if (normAngle < 0) normAngle += 360;
+            
+            // Check if close to integer
+            if (Math.abs(normAngle - Math.round(normAngle)) < 0.1) {
+                const intAngle = Math.round(normAngle);
+                if (specialAngles[intAngle]) {
+                    return specialAngles[intAngle][type];
+                }
+            }
+            
+            if (Math.abs(val) > 100) return '∞';
+            return val.toFixed(3);
+        }
+
+        // Initialize
+        function init() {
+            setupListeners();
+            animate();
+        }
+
+        function setupListeners() {
+            elements.angleSlider.addEventListener('input', (e) => {
+                state.angle = parseFloat(e.target.value);
+                updateUI();
+            });
+
+            elements.radiusSlider.addEventListener('input', (e) => {
+                state.radius = parseFloat(e.target.value);
+                updateUI();
+            });
+            
+            elements.zoomSlider.addEventListener('input', (e) => {
+                state.zoom = parseFloat(e.target.value);
+                updateUI();
+            });
+
+            elements.modeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    elements.modeBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.mode = btn.dataset.mode;
+                    updateUI();
+                });
+            });
+        }
+
+        function updateUI() {
+            elements.angleDisplay.textContent = `${state.angle}°`;
+            elements.radiusDisplay.textContent = state.radius;
+            elements.zoomDisplay.textContent = `${state.zoom}°`;
+            
+            const rad = (state.angle * Math.PI) / 180;
+            const sinVal = Math.sin(rad);
+            const cosVal = Math.cos(rad);
+            const tanVal = Math.tan(rad);
+
+            elements.sinValue.textContent = formatValue(state.angle, 'sin', sinVal);
+            elements.cosValue.textContent = formatValue(state.angle, 'cos', cosVal);
+            elements.tanValue.textContent = formatValue(state.angle, 'tan', tanVal);
+
+            draw();
+        }
+
+        function draw() {
+            drawUnitCircle();
+            drawFunction();
+        }
+
+        function drawUnitCircle() {
+            const { unit } = ctx;
+            const w = elements.unitCanvas.width;
+            const h = elements.unitCanvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            const r = state.radius;
+            const rad = (state.angle * Math.PI) / 180;
+
+            // Clear
+            unit.clearRect(0, 0, w, h);
+
+            // Grid
+            drawGrid(unit, w, h, 40);
+
+            // Axes
+            unit.strokeStyle = config.colors.axis;
+            unit.lineWidth = 1;
+            unit.beginPath();
+            unit.moveTo(0, cy);
+            unit.lineTo(w, cy);
+            unit.moveTo(cx, 0);
+            unit.lineTo(cx, h);
+            unit.stroke();
+
+            // Unit Circle
+            unit.strokeStyle = config.colors.text;
+            unit.lineWidth = 2;
+            unit.beginPath();
+            unit.arc(cx, cy, r, 0, Math.PI * 2);
+            unit.stroke();
+
+            // Calculate point
+            const px = cx + Math.cos(rad) * r;
+            const py = cy - Math.sin(rad) * r; // Canvas Y is inverted
+
+            // Draw Triangle Components
+            
+            // Cosine Line (Horizontal)
+            unit.strokeStyle = config.colors.cos;
+            unit.lineWidth = 3;
+            unit.beginPath();
+            unit.moveTo(cx, cy);
+            unit.lineTo(px, cy);
+            unit.stroke();
+
+            // Sine Line (Vertical)
+            unit.strokeStyle = config.colors.sin;
+            unit.lineWidth = 3;
+            unit.beginPath();
+            unit.moveTo(px, cy);
+            unit.lineTo(px, py);
+            unit.stroke();
+
+            // Hypotenuse (Radius)
+            unit.strokeStyle = config.colors.text;
+            unit.lineWidth = 1;
+            unit.beginPath();
+            unit.moveTo(cx, cy);
+            unit.lineTo(px, py);
+            unit.stroke();
+
+            // Angle Arc
+            unit.strokeStyle = config.colors.highlight;
+            unit.lineWidth = 2;
+            unit.beginPath();
+            // Handle negative angles for arc drawing
+            unit.arc(cx, cy, 30, 0, -rad, rad > 0); 
+            unit.stroke();
+
+            // Tangent Line
+            if (state.mode === 'tangent') {
+                // Tangent is always vertical at x = r (if -90 < angle < 90) or x = -r
+                // But typically visually we extend from origin through point to tangent line
+                // Standard visual: Tangent line at (1,0) i.e. x=r
+                
+                // If cos is 0, tan is undefined
+                if (Math.abs(Math.cos(rad)) > 0.01) {
+                     // The tangent line is perpendicular to radius at (cx+r, cy)? 
+                     // No, typically defined as segment on the line x=1.
+                     // Point T is intersection of line OP and line x=1
+                     
+                     // If we want to show "tan theta", it's the Y-coordinate of the intersection 
+                     // of the ray and the line x=1 (right side of circle)
+                     
+                     // Wait, if angle is in 2nd/3rd quadrant, we extend to left side?
+                     // Let's stick to the line x=r for consistency or switch based on quadrant?
+                     // Standard textbook: always tangent at (1,0). Ray extends backwards if needed.
+                     
+                     const tx = cx + r; // The vertical line x=r
+                     const ty = cy - Math.tan(rad) * r;
+                     
+                     // Limit drawing range
+                     if (Math.abs(ty - cy) < 2000) { // arbitrary large limit
+                        unit.strokeStyle = config.colors.tan;
+                        unit.lineWidth = 2;
+                        unit.beginPath();
+                        unit.moveTo(tx, cy);
+                        unit.lineTo(tx, ty);
+                        unit.stroke();
+                        
+                        // Extension line from center to tangent point
+                        // This might be forward or backward extension
+                        unit.strokeStyle = config.colors.axis;
+                        unit.setLineDash([5, 5]);
+                        unit.beginPath();
+                        unit.moveTo(cx, cy);
+                        unit.lineTo(tx, ty);
+                        unit.stroke();
+                        unit.setLineDash([]);
+                     }
+                }
+            }
+
+            // Point P
+            unit.fillStyle = config.colors.primary;
+            unit.beginPath();
+            unit.arc(px, py, 6, 0, Math.PI * 2);
+            unit.fill();
+        }
+
+        function drawFunction() {
+            const { func } = ctx;
+            const w = elements.funcCanvas.width;
+            const h = elements.funcCanvas.height;
+            const cy = h / 2;
+            
+            // X-axis settings
+            const paddingX = 40;
+            const graphW = w - 2 * paddingX;
+            
+            // Zoom determines the total degree range shown
+            const totalRange = state.zoom; 
+            const minDeg = -totalRange / 2;
+            const maxDeg = totalRange / 2;
+            
+            const scaleX = graphW / totalRange; // pixels per degree
+            const scaleY = state.radius; 
+
+            func.clearRect(0, 0, w, h);
+            
+            // Grid
+            drawGrid(func, w, h, 40);
+
+            // Axes
+            func.strokeStyle = config.colors.axis;
+            func.lineWidth = 1;
+            func.beginPath();
+            
+            // X axis
+            func.moveTo(paddingX, cy);
+            func.lineTo(w - paddingX, cy); 
+            
+            // Y axis (at 0 degrees)
+            // 0 degrees is at the center of the graphW because minDeg = -maxDeg
+            const zeroX = paddingX + (0 - minDeg) * scaleX;
+            func.moveTo(zeroX, 20);
+            func.lineTo(zeroX, h - 20); 
+            
+            func.stroke();
+
+            // X Axis Labels
+            func.fillStyle = config.colors.text;
+            func.font = '10px sans-serif';
+            func.textAlign = 'center';
+            
+            // Determine grid step based on zoom
+            let step = 45;
+            if (totalRange <= 180) step = 30;
+            if (totalRange > 360) step = 90;
+
+            // Start from first multiple of step after minDeg
+            const startDeg = Math.ceil(minDeg / step) * step;
+
+            for (let d = startDeg; d <= maxDeg; d += step) {
+                const x = paddingX + (d - minDeg) * scaleX;
+                func.fillText(`${d}°`, x, cy + 20);
+                // Tick
+                func.beginPath();
+                func.moveTo(x, cy - 3);
+                func.lineTo(x, cy + 3);
+                func.stroke();
+            }
+
+            // Plot Function
+            const mode = state.mode;
+            let color = config.colors.sin;
+            if (mode === 'cosine') color = config.colors.cos;
+            if (mode === 'tangent') color = config.colors.tan;
+
+            func.strokeStyle = color;
+            func.lineWidth = 3;
+            func.beginPath();
+
+            let first = true;
+            // Iterate pixels
+            for (let x = 0; x <= graphW; x+=2) {
+                const deg = minDeg + (x / graphW) * totalRange;
+                const rad = (deg * Math.PI) / 180;
+                let val;
+
+                if (mode === 'sine') val = Math.sin(rad);
+                else if (mode === 'cosine') val = Math.cos(rad);
+                else if (mode === 'tangent') val = Math.tan(rad);
+
+                // Clip tangent
+                if (mode === 'tangent' && Math.abs(val) > 3) {
+                    first = true;
+                    continue;
+                }
+
+                const plotX = paddingX + x;
+                const plotY = cy - val * scaleY;
+
+                if (first) {
+                    func.moveTo(plotX, plotY);
+                    first = false;
+                } else {
+                    func.lineTo(plotX, plotY);
+                }
+            }
+            func.stroke();
+
+            // Current Value Marker
+            // Only draw if current angle is within visible range
+            if (state.angle >= minDeg && state.angle <= maxDeg) {
+                const markerX = paddingX + (state.angle - minDeg) * scaleX;
+                const rad = (state.angle * Math.PI) / 180;
+                let val;
+                if (mode === 'sine') val = Math.sin(rad);
+                else if (mode === 'cosine') val = Math.cos(rad);
+                else if (mode === 'tangent') val = Math.tan(rad);
+
+                if (mode !== 'tangent' || Math.abs(val) < 3) {
+                    const markerY = cy - val * scaleY;
+
+                    // Guide line
+                    func.strokeStyle = config.colors.text;
+                    func.setLineDash([4, 4]);
+                    func.lineWidth = 1;
+                    func.beginPath();
+                    func.moveTo(markerX, cy);
+                    func.lineTo(markerX, markerY);
+                    func.lineTo(zeroX, markerY); // Line to Y axis
+                    func.stroke();
+                    func.setLineDash([]);
+
+                    // Dot
+                    func.fillStyle = color;
+                    func.beginPath();
+                    func.arc(markerX, markerY, 6, 0, Math.PI * 2);
+                    func.fill();
+                    
+                    // Value Label
+                    func.fillStyle = config.colors.text;
+                    func.textAlign = 'left';
+                    // Prevent label from going off screen
+                    let labelX = markerX + 10;
+                    if (labelX > w - 50) labelX = markerX - 40;
+                    
+                    func.fillText(val.toFixed(2), labelX, markerY - 10);
+                }
+            }
+        }
+
+        function drawGrid(ctx, w, h, step) {
+            ctx.strokeStyle = '#f1f5f9';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            for (let x = step; x < w; x += step) {
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, h);
+            }
+            for (let y = step; y < h; y += step) {
+                ctx.moveTo(0, y);
+                ctx.lineTo(w, y);
+            }
+            ctx.stroke();
+        }
+
+        function animate() {
+            // requestAnimationFrame(animate); // Not needed unless we have continuous animation
+            draw();
+        }
+
+        // Start
+        init();
+        // Initial Draw
+        updateUI();
+
+    </script>
+</body>
+</html>

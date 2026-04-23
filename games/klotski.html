@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华容道 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="华容道是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="华容道,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/klotski.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="华容道 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="华容道是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/klotski.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="华容道 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="华容道是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"华容道","description":"华容道是一款经典耐玩的益智解谜小游戏，适合碎片时间随开随玩。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/klotski.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --primary-color: #d97706; /* Amber */
+            --bg-color: #fffbeb;
+            --panel-bg: #ffffff;
+            --border-color: #fcd34d;
+            --text-color: #451a03;
+            --wood-dark: #92400e;
+            --wood-light: #fef3c7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "KaiTi", "楷体", "STKaiti", serif; /* Traditional Chinese feel */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: var(--panel-bg);
+            border-right: 2px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--wood-dark);
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #78350f;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .control-group { margin-bottom: 20px; }
+        .control-label { font-weight: bold; margin-bottom: 8px; display: block; }
+
+        .level-select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 16px;
+            margin-bottom: 12px;
+            background: var(--wood-light);
+            color: var(--wood-dark);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            background: var(--primary-color);
+            color: white;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 0 #92400e;
+        }
+
+        .btn:active { transform: translateY(2px); box-shadow: none; }
+        .btn:hover { background: #b45309; }
+        .btn:disabled { background: #ccc; color: #666; cursor: not-allowed; box-shadow: none; }
+        
+        .btn-secondary { background: #fde68a; color: #92400e; box-shadow: 0 2px 0 #d97706; }
+        .btn-secondary:hover { background: #fcd34d; }
+        
+        .btn-ai { background: #8b5cf6; color: white; box-shadow: 0 2px 0 #5b21b6; }
+        .btn-ai:hover { background: #7c3aed; }
+
+        .stats-box {
+            background: var(--wood-light);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        .stat-row { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 15px; }
+        .stat-value { font-weight: bold; font-family: monospace; }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(#fcd34d 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .game-board {
+            position: relative;
+            width: 340px; /* 4 cols * 80px + 20px padding */
+            height: 420px; /* 5 rows * 80px + 20px padding */
+            background: #78350f;
+            border-radius: 12px;
+            border: 6px solid #451a03;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .block {
+            position: absolute;
+            background: #f59e0b;
+            border: 2px solid #78350f;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #451a03;
+            cursor: pointer;
+            transition: transform 0.15s ease-out;
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.2);
+            user-select: none;
+            z-index: 1;
+        }
+
+        .block.caocao {
+            background: #ef4444; /* Red for Cao Cao */
+            color: white;
+            font-size: 32px;
+            z-index: 2;
+        }
+
+        .block.general {
+            background: #fcd34d; /* Yellow for Generals */
+        }
+
+        .block.soldier {
+            background: #a3e635; /* Green for Soldiers */
+            font-size: 18px;
+        }
+
+        .block.hint {
+            animation: hintPulse 0.8s ease-in-out 3;
+            box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.8);
+            z-index: 10;
+        }
+
+        @keyframes hintPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .exit-zone {
+            position: absolute;
+            bottom: -10px;
+            left: 85px; /* (340 - 160) / 2 - 5 */
+            width: 160px;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .exit-label {
+            position: absolute;
+            bottom: -30px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #78350f;
+            font-weight: bold;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            color: white;
+            border-radius: 6px;
+            display: none;
+        }
+        .loading-overlay.show { display: flex; }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 10px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>华容道</h1>
+        <div class="subtitle">三国经典益智拼图</div>
+
+        <div class="control-group">
+            <label class="control-label">选择关卡</label>
+            <select id="levelSelect" class="level-select">
+                <option value="0">横刀立马 (经典)</option>
+                <option value="1">指挥若定</option>
+                <option value="2">兵分三路</option>
+                <option value="3">屯兵东路</option>
+                <option value="4">左右布兵</option>
+            </select>
+        </div>
+
+        <button class="btn" id="resetBtn">🔄 重新开始</button>
+        <button class="btn btn-secondary" id="undoBtn">↩️ 撤销一步</button>
+        <button class="btn btn-secondary" id="hintBtn">💡 提示</button>
+        <button class="btn btn-ai" id="aiBtn">🤖 AI 演示</button>
+        <button class="btn btn-secondary" id="stopAiBtn" style="display:none; background: #ef4444; color:white; box-shadow: 0 2px 0 #b91c1c;">⏹️ 停止演示</button>
+
+        <div class="stats-box">
+            <div class="stat-row">
+                <span>步数</span>
+                <span class="stat-value" id="stepCount">0</span>
+            </div>
+            <div class="stat-row">
+                <span>状态</span>
+                <span class="stat-value" id="gameStatus">进行中</span>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; font-size: 13px; color: #78350f; line-height: 1.6;">
+            <strong>玩法说明：</strong><br>
+            移动棋子，帮助曹操（红色大方块）从下方出口逃脱。棋子只能在空白处移动。
+        </div>
+    </div>
+
+    <div class="main-area">
+        <div class="game-board" id="board">
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="spinner"></div>
+                <div>AI 正在思考中...</div>
+            </div>
+            <div class="exit-zone"></div>
+            <div class="exit-label">⬇️ 出口 ⬇️</div>
+            <!-- Blocks will be generated here -->
+        </div>
+    </div>
+
+    <div class="toast" id="toast">🎉 曹操逃出生天！</div>
+
+    <script>
+        // Game Constants
+        const COLS = 4;
+        const ROWS = 5;
+        const CELL_SIZE = 80;
+        const GAP = 4;
+        const BOARD_PADDING = 10;
+
+        // Block Types: 
+        // 1: Cao Cao (2x2)
+        // 2: Vertical General (1x2)
+        // 3: Horizontal General (2x1)
+        // 4: Soldier (1x1)
+        
+        // Coordinates are 0-based: x [0-3], y [0-4]
+        const LEVELS = [
+            {
+                name: "横刀立马 (经典)",
+                layout: [
+                    {type: 2, x: 0, y: 0, name: "张飞"},
+                    {type: 1, x: 1, y: 0, name: "曹操"},
+                    {type: 2, x: 3, y: 0, name: "赵云"},
+                    {type: 2, x: 0, y: 2, name: "马超"},
+                    {type: 3, x: 1, y: 2, name: "关羽"},
+                    {type: 2, x: 3, y: 2, name: "黄忠"},
+                    {type: 4, x: 1, y: 3, name: "卒"},
+                    {type: 4, x: 2, y: 3, name: "卒"},
+                    {type: 4, x: 0, y: 4, name: "卒"},
+                    {type: 4, x: 3, y: 4, name: "卒"}
+                ]
+            },
+            {
+                name: "一路进军",
+                layout: [
+                    {type: 1, x: 1, y: 0, name: "曹操"},
+                    {type: 2, x: 0, y: 0, name: "张飞"},
+                    {type: 2, x: 3, y: 0, name: "赵云"},
+                    {type: 2, x: 0, y: 2, name: "马超"},
+                    {type: 2, x: 3, y: 2, name: "黄忠"},
+                    {type: 3, x: 1, y: 2, name: "关羽"},
+                    {type: 4, x: 0, y: 4, name: "卒"},
+                    {type: 4, x: 1, y: 4, name: "卒"},
+                    {type: 4, x: 2, y: 4, name: "卒"},
+                    {type: 4, x: 3, y: 4, name: "卒"}
+                ]
+            },
+            {
+                name: "兵分三路",
+                layout: [
+                    {type: 1, x: 1, y: 0, name: "曹操"},
+                    {type: 4, x: 0, y: 0, name: "卒"},
+                    {type: 4, x: 3, y: 0, name: "卒"},
+                    {type: 2, x: 0, y: 1, name: "张飞"},
+                    {type: 2, x: 3, y: 1, name: "赵云"},
+                    {type: 3, x: 1, y: 2, name: "关羽"},
+                    {type: 2, x: 0, y: 3, name: "马超"},
+                    {type: 2, x: 3, y: 3, name: "黄忠"},
+                    {type: 4, x: 1, y: 3, name: "卒"},
+                    {type: 4, x: 2, y: 3, name: "卒"}
+                ]
+            },
+            {
+                name: "齐头并进",
+                layout: [
+                    {type: 1, x: 1, y: 0, name: "曹操"},
+                    {type: 2, x: 0, y: 0, name: "张飞"},
+                    {type: 2, x: 3, y: 0, name: "赵云"},
+                    {type: 4, x: 0, y: 2, name: "卒"},
+                    {type: 4, x: 1, y: 2, name: "卒"},
+                    {type: 4, x: 2, y: 2, name: "卒"},
+                    {type: 4, x: 3, y: 2, name: "卒"},
+                    {type: 2, x: 0, y: 3, name: "马超"},
+                    {type: 2, x: 3, y: 3, name: "黄忠"},
+                    {type: 3, x: 1, y: 3, name: "关羽"}
+                ]
+            },
+            {
+                name: "插翅难飞",
+                layout: [
+                    {type: 1, x: 1, y: 0, name: "曹操"},
+                    {type: 2, x: 0, y: 0, name: "张飞"},
+                    {type: 2, x: 3, y: 0, name: "赵云"},
+                    {type: 3, x: 1, y: 2, name: "关羽"},
+                    {type: 4, x: 0, y: 2, name: "卒"},
+                    {type: 4, x: 3, y: 2, name: "卒"},
+                    {type: 3, x: 1, y: 3, name: "马超"},
+                    {type: 4, x: 0, y: 3, name: "卒"},
+                    {type: 4, x: 3, y: 3, name: "卒"},
+                    {type: 3, x: 1, y: 4, name: "黄忠"}
+                ]
+            },
+            {
+                name: "层层设防",
+                layout: [
+                    {type: 1, x: 1, y: 0, name: "曹操"},
+                    {type: 2, x: 0, y: 0, name: "张飞"},
+                    {type: 2, x: 3, y: 0, name: "赵云"},
+                    {type: 3, x: 1, y: 2, name: "关羽"},
+                    {type: 4, x: 0, y: 2, name: "卒"},
+                    {type: 4, x: 3, y: 2, name: "卒"},
+                    {type: 2, x: 1, y: 3, name: "马超"},
+                    {type: 2, x: 2, y: 3, name: "黄忠"},
+                    {type: 4, x: 0, y: 4, name: "卒"},
+                    {type: 4, x: 3, y: 4, name: "卒"}
+                ]
+            }
+        ];
+
+        class KlotskiSolver {
+            constructor() {
+                this.visited = new Set();
+                this.queue = [];
+            }
+
+            // Encodes board state to a canonical string
+            encode(blocks) {
+                // Create 5x4 grid
+                const grid = new Int8Array(20).fill(0);
+                
+                // Fill grid
+                // 1: CC, 2: V, 3: H, 4: S
+                // But we need to handle identical pieces. 
+                // We'll just mark the type.
+                for (let b of blocks) {
+                    let type = 0;
+                    if (b.type === 1) type = 1; // CC
+                    else if (b.type === 2) type = 2; // V
+                    else if (b.type === 3) type = 3; // H
+                    else if (b.type === 4) type = 4; // S
+                    
+                    const w = (b.type === 1 || b.type === 3) ? 2 : 1;
+                    const h = (b.type === 1 || b.type === 2) ? 2 : 1;
+                    
+                    for(let dy=0; dy<h; dy++) {
+                        for(let dx=0; dx<w; dx++) {
+                            grid[(b.y + dy) * 4 + (b.x + dx)] = type;
+                        }
+                    }
+                }
+                
+                // To handle identical pieces (soldiers, generals) being swappable,
+                // the grid representation is actually already canonical enough 
+                // because we just store TYPE at each cell.
+                // "Soldier at (0,0)" and "Soldier at (1,0)" are just 4 at 0 and 4 at 1.
+                // Swapping them doesn't change the grid.
+                // However, we need to distinguish "Start of block" vs "Continuation".
+                // Otherwise two soldiers side-by-side (4,4) look like a horizontal general (3,3).
+                // So we need to mark them differently or rely on scanning.
+                // Let's use a smarter grid:
+                // We just list the top-left coordinates of each piece type, sorted.
+                // Canonical string: "CC:(x,y)|V:(x,y),(x,y)...|H:(x,y)...|S:(x,y)..."
+                
+                let cc = null;
+                const v = [];
+                const h = [];
+                const s = [];
+                
+                for (let b of blocks) {
+                    if (b.type === 1) cc = `${b.x},${b.y}`;
+                    else if (b.type === 2) v.push((b.y * 4 + b.x)); // Store index for easier sorting
+                    else if (b.type === 3) h.push((b.y * 4 + b.x));
+                    else if (b.type === 4) s.push((b.y * 4 + b.x));
+                }
+                
+                v.sort((a,b) => a-b);
+                h.sort((a,b) => a-b);
+                s.sort((a,b) => a-b);
+                
+                return `${cc}|${v.join(',')}|${h.join(',')}|${s.join(',')}`;
+            }
+
+            async solve(initialBlocks) {
+                this.visited.clear();
+                // Queue item: { blocks, path }
+                // Path is array of { blockIndex, direction } moves.
+                // We need to map blockIndex back to actual block ID in the game.
+                // But blocks order might change if we are not careful.
+                // Let's store full blocks array in queue? Too heavy.
+                // Store minimal state and reconstruct?
+                // For JS BFS with ~20k states, storing full blocks is okay-ish (20k * object size).
+                // Let's try storing simplified blocks.
+                
+                const startState = JSON.parse(JSON.stringify(initialBlocks));
+                // Ensure blocks have stable indices for tracking
+                startState.forEach((b, i) => b.idx = i);
+                
+                const startHash = this.encode(startState);
+                this.visited.add(startHash);
+                
+                this.queue = [{
+                    blocks: startState,
+                    path: []
+                }];
+                
+                let iterations = 0;
+                const maxIterations = 200000;
+                
+                while(this.queue.length > 0) {
+                    iterations++;
+                    if (iterations > maxIterations) throw new Error("Too many steps");
+                    
+                    // Yield to UI every 500 iterations
+                    if (iterations % 500 === 0) {
+                        await new Promise(r => setTimeout(r, 0));
+                    }
+                    
+                    const { blocks, path } = this.queue.shift();
+                    
+                    // Check win
+                    const caocao = blocks.find(b => b.type === 1);
+                    if (caocao.x === 1 && caocao.y === 3) {
+                        return path;
+                    }
+                    
+                    // Generate moves
+                    const moves = this.getPossibleMovesForState(blocks);
+                    
+                    for (const move of moves) {
+                        // Apply move
+                        const newBlocks = this.applyMove(blocks, move);
+                        const newHash = this.encode(newBlocks);
+                        
+                        if (!this.visited.has(newHash)) {
+                            this.visited.add(newHash);
+                            this.queue.push({
+                                blocks: newBlocks,
+                                path: [...path, move]
+                            });
+                        }
+                    }
+                }
+                
+                return null; // No solution
+            }
+            
+            getPossibleMovesForState(blocks) {
+                const moves = [];
+                // Build grid for collision check
+                const grid = new Int8Array(20).fill(0); // 0 empty, 1 occupied
+                for(let b of blocks) {
+                    const w = (b.type === 1 || b.type === 3) ? 2 : 1;
+                    const h = (b.type === 1 || b.type === 2) ? 2 : 1;
+                    for(let dy=0; dy<h; dy++) {
+                        for(let dx=0; dx<w; dx++) {
+                            grid[(b.y + dy) * 4 + (b.x + dx)] = 1;
+                        }
+                    }
+                }
+                
+                const directions = [
+                    {dx: 0, dy: -1, name: '上'},
+                    {dx: 0, dy: 1, name: '下'},
+                    {dx: -1, dy: 0, name: '左'},
+                    {dx: 1, dy: 0, name: '右'}
+                ];
+                
+                for(let i=0; i<blocks.length; i++) {
+                    const b = blocks[i];
+                    const w = (b.type === 1 || b.type === 3) ? 2 : 1;
+                    const h = (b.type === 1 || b.type === 2) ? 2 : 1;
+                    
+                    for(let dir of directions) {
+                        const tx = b.x + dir.dx;
+                        const ty = b.y + dir.dy;
+                        
+                        // Boundary
+                        if (tx < 0 || tx + w > 4 || ty < 0 || ty + h > 5) continue;
+                        
+                        // Collision
+                        let collision = false;
+                        // We need to check if target cells are empty OR occupied by self
+                        // Easier: check target cells in grid. 
+                        // But grid has '1' for self too.
+                        // So we remove self from grid momentarily? Or just check explicitly.
+                        
+                        for(let dy=0; dy<h; dy++) {
+                            for(let dx=0; dx<w; dx++) {
+                                const cx = tx + dx;
+                                const cy = ty + dy;
+                                // If this cell is NOT part of current block, check if it is occupied
+                                // A cell (cx, cy) is part of current block if 
+                                // cx >= b.x && cx < b.x + w && cy >= b.y && cy < b.y + h
+                                const isSelf = (cx >= b.x && cx < b.x + w && cy >= b.y && cy < b.y + h);
+                                if (!isSelf && grid[cy * 4 + cx] === 1) {
+                                    collision = true;
+                                    break;
+                                }
+                            }
+                            if(collision) break;
+                        }
+                        
+                        if (!collision) {
+                            moves.push({
+                                blockIdx: b.idx, // Use the stable index
+                                dx: dir.dx,
+                                dy: dir.dy
+                            });
+                        }
+                    }
+                }
+                return moves;
+            }
+            
+            applyMove(blocks, move) {
+                // Clone blocks
+                const newBlocks = blocks.map(b => ({...b}));
+                const b = newBlocks.find(x => x.idx === move.blockIdx);
+                b.x += move.dx;
+                b.y += move.dy;
+                return newBlocks;
+            }
+        }
+
+        class KlotskiGame {
+            constructor() {
+                this.boardEl = document.getElementById('board');
+                this.levelSelect = document.getElementById('levelSelect');
+                this.stepCountEl = document.getElementById('stepCount');
+                this.gameStatusEl = document.getElementById('gameStatus');
+                this.resetBtn = document.getElementById('resetBtn');
+                this.undoBtn = document.getElementById('undoBtn');
+                this.hintBtn = document.getElementById('hintBtn');
+                this.aiBtn = document.getElementById('aiBtn');
+                this.stopAiBtn = document.getElementById('stopAiBtn');
+                this.toast = document.getElementById('toast');
+                this.loadingOverlay = document.getElementById('loadingOverlay');
+
+                this.blocks = [];
+                this.steps = 0;
+                this.history = [];
+                this.selectedBlock = null;
+                this.currentLevel = 0;
+                this.hintBlockId = null;
+                this.isAiPlaying = false;
+                this.solver = new KlotskiSolver();
+                
+                this.initLevels();
+                this.bindEvents();
+                this.loadLevel(0);
+            }
+            
+            initLevels() {
+                this.levelSelect.innerHTML = '';
+                LEVELS.forEach((l, i) => {
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.textContent = l.name;
+                    this.levelSelect.appendChild(opt);
+                });
+            }
+
+            bindEvents() {
+                this.levelSelect.addEventListener('change', (e) => {
+                    this.loadLevel(parseInt(e.target.value));
+                });
+
+                this.resetBtn.addEventListener('click', () => {
+                    this.loadLevel(this.currentLevel);
+                });
+
+                this.undoBtn.addEventListener('click', () => {
+                    if (this.isAiPlaying) return;
+                    this.undo();
+                });
+
+                this.hintBtn.addEventListener('click', () => {
+                    if (this.isAiPlaying) return;
+                    this.showHint();
+                });
+                
+                this.aiBtn.addEventListener('click', () => {
+                    this.runAi();
+                });
+                
+                this.stopAiBtn.addEventListener('click', () => {
+                    this.stopAi();
+                });
+
+                // Touch/Mouse handling
+                this.boardEl.addEventListener('mousedown', this.handleStart.bind(this));
+                this.boardEl.addEventListener('touchstart', this.handleStart.bind(this), {passive: false});
+                
+                document.addEventListener('mousemove', this.handleMove.bind(this));
+                document.addEventListener('touchmove', this.handleMove.bind(this), {passive: false});
+                
+                document.addEventListener('mouseup', this.handleEnd.bind(this));
+                document.addEventListener('touchend', this.handleEnd.bind(this));
+            }
+
+            loadLevel(index) {
+                this.stopAi();
+                this.currentLevel = index;
+                this.steps = 0;
+                this.history = [];
+                this.clearHint();
+                this.updateStats();
+                this.gameStatusEl.textContent = "进行中";
+                this.gameStatusEl.style.color = "";
+                
+                // Keep overlay and exit zone
+                // We need to preserve loadingOverlay
+                const overlay = this.loadingOverlay;
+                this.boardEl.innerHTML = '<div class="exit-zone"></div><div class="exit-label">⬇️ 出口 ⬇️</div>';
+                this.boardEl.appendChild(overlay);
+                
+                const levelData = LEVELS[index];
+                // Assign IDs and also idx for solver compatibility
+                this.blocks = levelData.layout.map((b, i) => ({
+                    ...b, 
+                    id: Math.random().toString(36).substr(2, 9),
+                    idx: i // Stable index for AI
+                }));
+                
+                this.renderBlocks();
+            }
+
+            renderBlocks() {
+                // Clear existing blocks (but keep static elements)
+                const existing = this.boardEl.querySelectorAll('.block');
+                existing.forEach(el => el.remove());
+
+                this.blocks.forEach(block => {
+                    const el = document.createElement('div');
+                    el.className = this.getBlockClass(block.type);
+                    el.textContent = block.name;
+                    el.style.width = (this.getBlockWidth(block.type) * CELL_SIZE - 2 * GAP) + 'px';
+                    el.style.height = (this.getBlockHeight(block.type) * CELL_SIZE - 2 * GAP) + 'px';
+                    el.style.left = (BOARD_PADDING + block.x * CELL_SIZE + GAP) + 'px';
+                    el.style.top = (BOARD_PADDING + block.y * CELL_SIZE + GAP) + 'px';
+                    el.dataset.id = block.id;
+                    this.boardEl.appendChild(el);
+                });
+            }
+
+            getBlockClass(type) {
+                switch(type) {
+                    case 1: return 'block caocao';
+                    case 2: return 'block general';
+                    case 3: return 'block general';
+                    case 4: return 'block soldier';
+                    default: return 'block';
+                }
+            }
+
+            getBlockWidth(type) { return (type === 1 || type === 3) ? 2 : 1; }
+            getBlockHeight(type) { return (type === 1 || type === 2) ? 2 : 1; }
+
+            showHint() {
+                this.clearHint();
+                const caocao = this.blocks.find(b => b.type === 1);
+                if (!caocao) return;
+                const moves = this.getPossibleMoves(caocao);
+                if (moves.length > 0) {
+                    this.highlightBlock(caocao.id);
+                    this.showToast('曹操可以直接移动！');
+                } else {
+                    // Simple heuristic hint: try to move blocks below Cao Cao
+                    const below = this.blocks.filter(b => b.y > caocao.y && b.y <= caocao.y + 2);
+                    if (below.length > 0) {
+                        const random = below[Math.floor(Math.random() * below.length)];
+                        this.highlightBlock(random.id);
+                        this.showToast(`尝试移动「${random.name}」`);
+                    }
+                }
+            }
+            
+            highlightBlock(id) {
+                this.hintBlockId = id;
+                const el = this.boardEl.querySelector(`.block[data-id="${id}"]`);
+                if (el) el.classList.add('hint');
+            }
+
+            getPossibleMoves(block) {
+                const moves = [];
+                const w = this.getBlockWidth(block.type);
+                const h = this.getBlockHeight(block.type);
+                const directions = [
+                    {dx: 0, dy: -1}, {dx: 0, dy: 1}, {dx: -1, dy: 0}, {dx: 1, dy: 0}
+                ];
+
+                for (const dir of directions) {
+                    const targetX = block.x + dir.dx;
+                    const targetY = block.y + dir.dy;
+                    if (targetX < 0 || targetX + w > COLS || targetY < 0 || targetY + h > ROWS) continue;
+                    const collision = this.blocks.some(other => {
+                        if (other.id === block.id) return false;
+                        const ow = this.getBlockWidth(other.type);
+                        const oh = this.getBlockHeight(other.type);
+                        return (targetX < other.x + ow && targetX + w > other.x &&
+                                targetY < other.y + oh && targetY + h > other.y);
+                    });
+                    if (!collision) moves.push({x: targetX, y: targetY});
+                }
+                return moves;
+            }
+
+            clearHint() {
+                document.querySelectorAll('.block.hint').forEach(el => el.classList.remove('hint'));
+                this.hintBlockId = null;
+            }
+
+            showToast(message) {
+                this.toast.textContent = message;
+                this.toast.classList.add('show');
+                setTimeout(() => this.toast.classList.remove('show'), 2000);
+            }
+
+            handleStart(e) {
+                if (this.isAiPlaying) return;
+                if (e.target.classList.contains('block')) {
+                    e.preventDefault();
+                    const blockId = e.target.dataset.id;
+                    const block = this.blocks.find(b => b.id === blockId);
+                    this.selectedBlock = {
+                        block: block,
+                        el: e.target,
+                        startX: e.type.includes('touch') ? e.touches[0].clientX : e.clientX,
+                        startY: e.type.includes('touch') ? e.touches[0].clientY : e.clientY,
+                    };
+                }
+            }
+
+            handleMove(e) {
+                if (!this.selectedBlock || this.isAiPlaying) return;
+                e.preventDefault();
+                const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+                const dx = clientX - this.selectedBlock.startX;
+                const dy = clientY - this.selectedBlock.startY;
+
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    this.tryPreviewMove(this.selectedBlock.block, dx / CELL_SIZE, 0);
+                } else {
+                    this.tryPreviewMove(this.selectedBlock.block, 0, dy / CELL_SIZE);
+                }
+            }
+
+            tryPreviewMove(block, dx, dy) {
+                const clamp = (val) => Math.max(-1, Math.min(1, val));
+                const visX = clamp(dx) * CELL_SIZE;
+                const visY = clamp(dy) * CELL_SIZE;
+                this.selectedBlock.el.style.transform = `translate(${visX}px, ${visY}px)`;
+            }
+
+            handleEnd(e) {
+                if (!this.selectedBlock || this.isAiPlaying) return;
+                const clientX = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
+                const clientY = e.type.includes('touch') ? e.changedTouches[0].clientY : e.clientY;
+                const dx = clientX - this.selectedBlock.startX;
+                const dy = clientY - this.selectedBlock.startY;
+
+                this.selectedBlock.el.style.transform = '';
+                const threshold = CELL_SIZE / 2;
+                let moveX = 0;
+                let moveY = 0;
+
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    if (Math.abs(dx) > threshold) moveX = Math.sign(dx);
+                } else {
+                    if (Math.abs(dy) > threshold) moveY = Math.sign(dy);
+                }
+
+                if (moveX !== 0 || moveY !== 0) {
+                    this.attemptMove(this.selectedBlock.block, moveX, moveY);
+                }
+                this.selectedBlock = null;
+            }
+
+            attemptMove(block, dx, dy) {
+                const w = this.getBlockWidth(block.type);
+                const h = this.getBlockHeight(block.type);
+                const targetX = block.x + dx;
+                const targetY = block.y + dy;
+
+                if (targetX < 0 || targetX + w > COLS || targetY < 0 || targetY + h > ROWS) return false;
+
+                const collision = this.blocks.some(other => {
+                    if (other.id === block.id) return false;
+                    const ow = this.getBlockWidth(other.type);
+                    const oh = this.getBlockHeight(other.type);
+                    return (targetX < other.x + ow && targetX + w > other.x &&
+                            targetY < other.y + oh && targetY + h > other.y);
+                });
+
+                if (!collision) {
+                    this.history.push(JSON.parse(JSON.stringify(this.blocks)));
+                    if (this.history.length > 50) this.history.shift();
+                    block.x = targetX;
+                    block.y = targetY;
+                    this.steps++;
+                    this.clearHint();
+                    this.updateBlockPosition(block);
+                    this.updateStats();
+                    this.checkWin();
+                    return true;
+                }
+                return false;
+            }
+
+            updateBlockPosition(block) {
+                const el = this.boardEl.querySelector(`.block[data-id="${block.id}"]`);
+                if(el) {
+                    el.style.left = (BOARD_PADDING + block.x * CELL_SIZE + GAP) + 'px';
+                    el.style.top = (BOARD_PADDING + block.y * CELL_SIZE + GAP) + 'px';
+                }
+            }
+
+            undo() {
+                if (this.history.length > 0) {
+                    this.blocks = this.history.pop();
+                    this.steps--;
+                    this.renderBlocks();
+                    this.updateStats();
+                }
+            }
+
+            updateStats() {
+                this.stepCountEl.textContent = this.steps;
+            }
+
+            checkWin() {
+                const caocao = this.blocks.find(b => b.type === 1);
+                if (caocao.x === 1 && caocao.y === 3) {
+                    this.gameStatusEl.textContent = "胜利！";
+                    this.gameStatusEl.style.color = "red";
+                    this.toast.classList.add('show');
+                    this.stopAi(); // Stop AI if it wins
+                    setTimeout(() => this.toast.classList.remove('show'), 3000);
+                }
+            }
+            
+            async runAi() {
+                if (this.isAiPlaying) return;
+                
+                this.loadingOverlay.classList.add('show');
+                this.isAiPlaying = true;
+                this.disableControls(true);
+                this.aiBtn.style.display = 'none';
+                this.stopAiBtn.style.display = 'block';
+                
+                try {
+                    // Small delay to let UI render loading state
+                    await new Promise(r => setTimeout(r, 100));
+                    
+                    const solution = await this.solver.solve(this.blocks);
+                    
+                    this.loadingOverlay.classList.remove('show');
+                    
+                    if (!solution) {
+                        this.showToast('AI 无法解开当前局势 (可能无解)');
+                        this.stopAi();
+                        return;
+                    }
+                    
+                    this.showToast(`AI 找到 ${solution.length} 步解法，开始演示...`);
+                    
+                    for (const move of solution) {
+                        if (!this.isAiPlaying) break;
+                        
+                        // Find block by idx
+                        const block = this.blocks.find(b => b.idx === move.blockIdx);
+                        if (block) {
+                            this.attemptMove(block, move.dx, move.dy);
+                        }
+                        
+                        await new Promise(r => setTimeout(r, 600)); // Animation delay
+                    }
+                    
+                    if (this.isAiPlaying) {
+                        this.stopAi();
+                    }
+                    
+                } catch (e) {
+                    console.error(e);
+                    this.loadingOverlay.classList.remove('show');
+                    this.showToast('AI 计算出错');
+                    this.stopAi();
+                }
+            }
+            
+            stopAi() {
+                this.isAiPlaying = false;
+                this.disableControls(false);
+                this.aiBtn.style.display = 'block';
+                this.stopAiBtn.style.display = 'none';
+                this.loadingOverlay.classList.remove('show');
+            }
+            
+            disableControls(disabled) {
+                this.resetBtn.disabled = disabled;
+                this.undoBtn.disabled = disabled;
+                this.hintBtn.disabled = disabled;
+                this.levelSelect.disabled = disabled;
+                this.boardEl.style.pointerEvents = disabled ? 'none' : 'auto';
+            }
+        }
+
+        // Init
+        new KlotskiGame();
+    </script>
+</body>
+</html>
