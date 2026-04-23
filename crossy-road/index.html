@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>天天过马路 - 在线动作街机小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="经典体素风格的无尽过马路游戏，控制角色躲避车辆、跳过河流、避开火车。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="天天过马路,Crossy Road,跑酷游戏,体素游戏,动作街机,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/crossy-road/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="天天过马路 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta property="og:description" content="经典体素风格的无尽过马路游戏，控制角色躲避车辆、跳过河流、避开火车。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/crossy-road/">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="天天过马路 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="经典体素风格的无尽过马路游戏，控制角色躲避车辆、跳过河流、避开火车。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"天天过马路","description":"经典体素风格的无尽过马路游戏，控制角色躲避车辆、跳过河流、避开火车。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/crossy-road/","genre":"动作街机","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+
+    <style>
+        @font-face {
+            font-family: 'Pixel';
+            src: local('Courier New'), monospace;
+            font-weight: bold;
+        }
+
+        :root {
+            --ui-text: #ffffff;
+            --ui-bg: rgba(0, 0, 0, 0.4);
+            --brand: #4ca3dd;
+            --accent: #ffb732;
+            --danger: #ff4b4b;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #8bd054;
+            font-family: 'Pixel', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--ui-text);
+        }
+
+        #game-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* UI Layer */
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HUD */
+        #hud {
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #hud.visible {
+            opacity: 1;
+        }
+
+        .score-display {
+            font-size: 48px;
+            font-weight: 900;
+            text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 0 rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .high-score {
+            font-size: 24px;
+            color: var(--accent);
+            text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+            text-align: right;
+        }
+
+        /* Menus */
+        .menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(139, 208, 84, 0.85);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            pointer-events: auto;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            z-index: 20;
+        }
+
+        .menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .logo {
+            font-size: 64px;
+            font-weight: 900;
+            text-align: center;
+            text-shadow: 4px 4px 0 #000;
+            margin-bottom: 10px;
+            line-height: 1.1;
+            transform: rotate(-2deg);
+        }
+
+        .logo-sub {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 0 #000;
+            transform: rotate(1deg);
+        }
+
+        .btn {
+            background: #ffffff;
+            color: #000000;
+            border: 4px solid #000000;
+            border-radius: 12px;
+            padding: 16px 48px;
+            font-size: 28px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #000000;
+            transition: transform 0.1s, box-shadow 0.1s;
+            text-transform: uppercase;
+            margin: 10px;
+        }
+
+        .btn:active, .btn.pressed {
+            transform: translateY(8px);
+            box-shadow: 0 0 0 #000000;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+        }
+
+        .controls-hint {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 18px;
+            color: #ffffff;
+            text-shadow: 1px 1px 0 #000;
+            background: var(--ui-bg);
+            padding: 16px 24px;
+            border-radius: 16px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .controls-hint img {
+            width: 32px;
+            vertical-align: middle;
+            margin: 0 8px;
+        }
+
+        .keyboard-keys {
+            display: inline-flex;
+            gap: 4px;
+            margin-left: 8px;
+        }
+        
+        .key {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 14px;
+            box-shadow: 0 2px 0 #000;
+        }
+
+        /* Game Over Menu */
+        #game-over-menu {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .game-over-title {
+            color: var(--danger);
+            font-size: 56px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0 #000;
+        }
+
+        .final-score-box {
+            background: #fff;
+            color: #000;
+            border: 4px solid #000;
+            border-radius: 16px;
+            padding: 24px 48px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 8px 8px 0 #000;
+            transform: rotate(-1deg);
+        }
+
+        .final-score-label {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .final-score-value {
+            font-size: 64px;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .new-record {
+            color: var(--danger);
+            font-size: 20px;
+            margin-top: 10px;
+            animation: blink 0.5s infinite alternate;
+            display: none;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Loading Screen */
+        #loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #8bd054;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            transition: opacity 0.5s;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Touch Controls Layer (invisible, handles swipes) */
+        #touch-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            touch-action: none;
+        }
+        
+        /* Footer links */
+        .footer-links {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            pointer-events: auto;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            margin: 0 10px;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 48px; }
+            .logo-sub { font-size: 24px; margin-bottom: 40px; }
+            .btn { padding: 14px 36px; font-size: 24px; }
+            .controls-hint { font-size: 16px; width: 90%; }
+            .keyboard-keys { display: none; } /* Hide keyboard hints on mobile */
+            .mobile-hint { display: inline !important; }
+        }
+        
+        .mobile-hint {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading">
+        <div class="loader"></div>
+        <div style="font-size: 24px; font-weight: bold; text-shadow: 2px 2px 0 #000;">加载中...</div>
+    </div>
+
+    <!-- 3D Canvas Container -->
+    <div id="game-container"></div>
+    
+    <!-- Touch interaction layer -->
+    <div id="touch-layer"></div>
+
+    <!-- UI Layer -->
+    <div id="ui-layer">
+        <!-- HUD (Heads Up Display) -->
+        <div id="hud">
+            <div class="score-display" id="current-score">0</div>
+            <div class="high-score">TOP<br><span id="best-score">0</span></div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="menu active">
+            <div class="logo">天天过马路</div>
+            <div class="logo-sub">CROSSY ROAD</div>
+            
+            <button class="btn btn-primary" id="btn-start">开始游戏</button>
+            
+            <div class="controls-hint">
+                <div class="mobile-hint">👆 <strong>点击</strong>前进 / <strong>滑动</strong>转向 ↔️</div>
+                <div class="keyboard-keys">
+                    操作说明: 
+                    <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span>
+                    或 <span class="key">↑</span><span class="key">↓</span><span class="key">←</span><span class="key">→</span>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="/">返回首页</a>
+                <a href="https://about.bago.top/privacy.html" target="_blank">隐私政策</a>
+            </div>
+        </div>
+
+        <!-- Game Over Menu -->
+        <div id="game-over-menu" class="menu">
+            <div class="game-over-title" id="death-reason">游戏结束</div>
+            
+            <div class="final-score-box">
+                <div class="final-score-label">得分</div>
+                <div class="final-score-value" id="final-score">0</div>
+                <div class="new-record" id="new-record-badge">新纪录!</div>
+            </div>
+            
+            <button class="btn btn-primary" id="btn-restart">再来一局</button>
+            <button class="btn" id="btn-menu" style="margin-top: 20px; font-size: 20px; padding: 12px 32px;">主菜单</button>
+        </div>
+    </div>
+
+    <!-- Import Three.js and GSAP via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Game Logic -->
+    <script>
+        // --- CONSTANTS & CONFIG ---
+        const CONFIG = {
+            gridSize: 1,          // Size of one voxel unit
+            lanesForward: 25,     // How many lanes to render ahead
+            lanesBackward: 8,     // How many lanes to render behind
+            cameraOffset: { x: -8, y: 12, z: -8 }, // Isometric camera offset
+            cameraSpeed: 0.012,   // How fast camera moves forward automatically (increases over time)
+            maxCameraSpeed: 0.05, // Cap auto-scroll so the eagle pressure ramps up more gently
+            eagleCatchDistance: 7,// How far behind the camera the player can fall before the eagle catches them
+            jumpDuration: 0.15,   // Seconds
+            jumpHeight: 0.5,      // Units
+            laneWidth: 15,        // How wide the playable area is (from -7 to +7)
+            colors: {
+                grass: 0x8bd054,
+                grassDark: 0x7ab848,
+                road: 0x3f3f3f,
+                roadLine: 0xffffff,
+                river: 0x4ca3dd,
+                riverDark: 0x3a8bc2,
+                track: 0x5a4332,
+                trackMetal: 0xcccccc,
+                treeBase: 0x6e4c30,
+                treeLeaves1: 0x3d8236,
+                treeLeaves2: 0x2e6328,
+                rock: 0x8a8a8a,
+                car1: 0xff4b4b,
+                car2: 0x4ca3dd,
+                car3: 0xfcb045,
+                truckCab: 0xeeeeee,
+                truckTrailer: 0x4ca3dd,
+                log: 0x7a5c40,
+                train: 0xcc3333,
+                player: 0xffffff,
+                playerComb: 0xdd2222,
+                playerBeak: 0xffaa00
+            }
+        };
+
+        // --- GLOBAL STATE ---
+        const STATE = {
+            status: 'loading', // 'loading', 'menu', 'playing', 'gameover'
+            score: 0,
+            highScore: parseInt(localStorage.getItem('crossy_high_score') || '0'),
+            maxZ: 0,           // Furthest row reached
+            playerPos: { x: 0, y: 0, z: 0 },
+            playerIsMoving: false,
+            isDead: false,
+            cameraBaseZ: 0,    // Camera's auto-scrolling Z position
+            rows: [],          // Array of terrain objects
+            obstacles: [],     // Active moving obstacles (cars, logs, trains)
+            trees: [],         // Active static obstacles
+            lastTime: 0,
+            difficultyMultiplier: 1
+        };
+
+        // --- DOM ELEMENTS ---
+        const DOM = {
+            loading: document.getElementById('loading'),
+            hud: document.getElementById('hud'),
+            mainMenu: document.getElementById('main-menu'),
+            gameOverMenu: document.getElementById('game-over-menu'),
+            currentScore: document.getElementById('current-score'),
+            bestScore: document.getElementById('best-score'),
+            finalScore: document.getElementById('final-score'),
+            newRecordBadge: document.getElementById('new-record-badge'),
+            deathReason: document.getElementById('death-reason'),
+            btnStart: document.getElementById('btn-start'),
+            btnRestart: document.getElementById('btn-restart'),
+            btnMenu: document.getElementById('btn-menu'),
+            touchLayer: document.getElementById('touch-layer')
+        };
+
+        // Update High Score Display
+        DOM.bestScore.innerText = STATE.highScore;
+
+        // --- THREE.JS SETUP ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x87CEEB); // Sky blue
+        scene.fog = new THREE.Fog(0x87CEEB, 15, 40);
+
+        // Isometric Camera
+        const aspect = window.innerWidth / window.innerHeight;
+        const d = 10;
+        const camera = new THREE.OrthographicCamera(-d * aspect, d * aspect, d, -d, 1, 100);
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.getElementById('game-container').appendChild(renderer.domElement);
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        dirLight.position.set(-10, 20, -10);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 2048;
+        dirLight.shadow.mapSize.height = 2048;
+        dirLight.shadow.camera.near = 0.5;
+        dirLight.shadow.camera.far = 50;
+        dirLight.shadow.camera.left = -15;
+        dirLight.shadow.camera.right = 15;
+        dirLight.shadow.camera.top = 15;
+        dirLight.shadow.camera.bottom = -15;
+        scene.add(dirLight);
+
+        // --- MATERIALS & GEOMETRIES (Shared for performance) ---
+        const geoBox = new THREE.BoxGeometry(1, 1, 1);
+        const geoLane = new THREE.BoxGeometry(CONFIG.laneWidth * 2, 1, 1);
+        
+        const materials = {
+            grass: new THREE.MeshStandardMaterial({ color: CONFIG.colors.grass, roughness: 0.8 }),
+            grassDark: new THREE.MeshStandardMaterial({ color: CONFIG.colors.grassDark, roughness: 0.8 }),
+            road: new THREE.MeshStandardMaterial({ color: CONFIG.colors.road, roughness: 0.6 }),
+            roadLine: new THREE.MeshStandardMaterial({ color: CONFIG.colors.roadLine, roughness: 0.9 }),
+            river: new THREE.MeshStandardMaterial({ color: CONFIG.colors.river, roughness: 0.1, transparent: true, opacity: 0.8 }),
+            track: new THREE.MeshStandardMaterial({ color: CONFIG.colors.track, roughness: 0.9 }),
+            trackMetal: new THREE.MeshStandardMaterial({ color: CONFIG.colors.trackMetal, roughness: 0.4, metalness: 0.8 }),
+            wood: new THREE.MeshStandardMaterial({ color: CONFIG.colors.treeBase, roughness: 0.9 }),
+            leaves1: new THREE.MeshStandardMaterial({ color: CONFIG.colors.treeLeaves1, roughness: 0.9 }),
+            leaves2: new THREE.MeshStandardMaterial({ color: CONFIG.colors.treeLeaves2, roughness: 0.9 }),
+            rock: new THREE.MeshStandardMaterial({ color: CONFIG.colors.rock, roughness: 0.9 }),
+            car1: new THREE.MeshStandardMaterial({ color: CONFIG.colors.car1, roughness: 0.3 }),
+            car2: new THREE.MeshStandardMaterial({ color: CONFIG.colors.car2, roughness: 0.3 }),
+            car3: new THREE.MeshStandardMaterial({ color: CONFIG.colors.car3, roughness: 0.3 }),
+            truckCab: new THREE.MeshStandardMaterial({ color: CONFIG.colors.truckCab, roughness: 0.3 }),
+            truckTrailer: new THREE.MeshStandardMaterial({ color: CONFIG.colors.truckTrailer, roughness: 0.5 }),
+            log: new THREE.MeshStandardMaterial({ color: CONFIG.colors.log, roughness: 0.9 }),
+            train: new THREE.MeshStandardMaterial({ color: CONFIG.colors.train, roughness: 0.3 }),
+            player: new THREE.MeshStandardMaterial({ color: CONFIG.colors.player, roughness: 0.5 }),
+            red: new THREE.MeshStandardMaterial({ color: 0xff0000, roughness: 0.5, emissive: 0x550000 })
+        };
+
+        // --- GAME OBJECTS ---
+        
+        // 1. Player (Chicken)
+        const playerGroup = new THREE.Group();
+        const playerVisual = new THREE.Group();
+        playerGroup.add(playerVisual);
+        
+        // Body
+        const body = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), materials.player);
+        body.position.y = 0.35;
+        body.castShadow = true;
+        body.receiveShadow = true;
+        playerVisual.add(body);
+        
+        // Comb (Red thing on head)
+        const comb = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.2, 0.3), materials.red);
+        comb.position.set(0, 0.8, 0.1);
+        playerVisual.add(comb);
+        
+        // Beak
+        const beak = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.1, 0.2), new THREE.MeshStandardMaterial({ color: CONFIG.colors.playerBeak }));
+        beak.position.set(0, 0.5, 0.4);
+        playerVisual.add(beak);
+        
+        // Wings
+        const wingL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.3, 0.4), materials.player);
+        wingL.position.set(-0.4, 0.35, 0);
+        playerVisual.add(wingL);
+        
+        const wingR = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.3, 0.4), materials.player);
+        wingR.position.set(0.4, 0.35, 0);
+        playerVisual.add(wingR);
+
+        scene.add(playerGroup);
+
+        // Eagle (for anti-camping)
+        const eagleGroup = new THREE.Group();
+        const eagleBody = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.5, 1.5), new THREE.MeshStandardMaterial({ color: 0x333333 }));
+        eagleBody.castShadow = true;
+        eagleGroup.add(eagleBody);
+        eagleGroup.position.set(0, 15, 0);
+        eagleGroup.visible = false;
+        scene.add(eagleGroup);
+
+        // Terrain Container
+        const terrainGroup = new THREE.Group();
+        scene.add(terrainGroup);
+        
+        const obstaclesGroup = new THREE.Group();
+        scene.add(obstaclesGroup);
+
+        // --- GENERATION LOGIC ---
+
+        function createTree(x, z) {
+            const tree = new THREE.Group();
+            
+            // Trunk
+            const trunk = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.6, 0.4), materials.wood);
+            trunk.position.y = 0.3;
+            trunk.castShadow = true;
+            tree.add(trunk);
+            
+            // Leaves (randomize a bit)
+            const isTall = Math.random() > 0.5;
+            const leafMat = Math.random() > 0.5 ? materials.leaves1 : materials.leaves2;
+            const h = isTall ? 1.5 : 1.0;
+            const w = isTall ? 0.8 : 1.0;
+            
+            const leaves = new THREE.Mesh(new THREE.BoxGeometry(w, h, w), leafMat);
+            leaves.position.y = 0.6 + h/2;
+            leaves.castShadow = true;
+            tree.add(leaves);
+            
+            tree.position.set(x, 0, z);
+            terrainGroup.add(tree);
+            
+            STATE.trees.push({
+                mesh: tree,
+                x: x,
+                z: z
+            });
+        }
+
+        function createRock(x, z) {
+            const rock = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.8), materials.rock);
+            rock.position.set(x, 0.3, z);
+            rock.castShadow = true;
+            rock.rotation.y = Math.random() * Math.PI;
+            terrainGroup.add(rock);
+            
+            STATE.trees.push({
+                mesh: rock,
+                x: x,
+                z: z
+            });
+        }
+
+        function createCar(type, rowData) {
+            const car = new THREE.Group();
+            const z = rowData.z;
+            const direction = rowData.direction; // 1 (right) or -1 (left)
+            const speed = rowData.speed;
+            
+            // Start position (off screen)
+            const startX = direction === 1 ? -CONFIG.laneWidth - 2 : CONFIG.laneWidth + 2;
+            
+            if (type === 'car') {
+                const colors = [materials.car1, materials.car2, materials.car3];
+                const mat = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Lower body
+                const body = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.5, 0.9), mat);
+                body.position.y = 0.35;
+                body.castShadow = true;
+                car.add(body);
+                
+                // Top
+                const top = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.4, 0.8), mat);
+                top.position.y = 0.8;
+                top.position.x = direction === 1 ? -0.2 : 0.2; // Cabin slightly back
+                top.castShadow = true;
+                car.add(top);
+                
+                car.userData = { type: 'car', width: 1.6, speed, direction, rowZ: z };
+            } 
+            else if (type === 'truck') {
+                // Cab
+                const cab = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.0, 0.9), materials.truckCab);
+                cab.position.y = 0.6;
+                cab.position.x = direction === 1 ? 1.0 : -1.0;
+                cab.castShadow = true;
+                car.add(cab);
+                
+                // Trailer
+                const trailer = new THREE.Mesh(new THREE.BoxGeometry(2.5, 1.2, 0.9), materials.truckTrailer);
+                trailer.position.y = 0.7;
+                trailer.position.x = direction === 1 ? -0.9 : 0.9;
+                trailer.castShadow = true;
+                car.add(trailer);
+                
+                car.userData = { type: 'car', width: 3.7, speed, direction, rowZ: z };
+            }
+            
+            car.position.set(startX, 0, z);
+            obstaclesGroup.add(car);
+            STATE.obstacles.push(car);
+        }
+
+        function createLog(rowData) {
+            const z = rowData.z;
+            const direction = rowData.direction;
+            const speed = rowData.speed;
+            const length = Math.floor(Math.random() * 2) + 2; // 2 or 3 blocks long
+            
+            const log = new THREE.Mesh(new THREE.BoxGeometry(length, 0.4, 0.8), materials.log);
+            log.position.y = -0.2; // Slightly sunken in water
+            
+            const startX = direction === 1 ? -CONFIG.laneWidth - length : CONFIG.laneWidth + length;
+            log.position.set(startX, 0, z);
+            log.receiveShadow = true;
+            
+            log.userData = { type: 'log', width: length, speed, direction, rowZ: z };
+            
+            obstaclesGroup.add(log);
+            STATE.obstacles.push(log);
+        }
+
+        function createTrain(rowData) {
+            const z = rowData.z;
+            const direction = rowData.direction;
+            const speed = 25; // Very fast
+            
+            const train = new THREE.Group();
+            
+            // Engine
+            const engine = new THREE.Mesh(new THREE.BoxGeometry(2.5, 1.5, 0.9), materials.train);
+            engine.position.y = 0.85;
+            engine.position.x = direction === 1 ? 4 : -4;
+            engine.castShadow = true;
+            train.add(engine);
+            
+            // Cars
+            for(let i=0; i<5; i++) {
+                const car = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 0.9), materials.truckTrailer);
+                car.position.y = 0.7;
+                const offsetX = direction === 1 ? (1 - i*3.2) : (-1 + i*3.2);
+                car.position.x = offsetX;
+                car.castShadow = true;
+                train.add(car);
+            }
+            
+            const startX = direction === 1 ? -CONFIG.laneWidth - 15 : CONFIG.laneWidth + 15;
+            train.position.set(startX, 0, z);
+            
+            train.userData = { type: 'train', width: 20, speed, direction, rowZ: z, isActive: false };
+            
+            obstaclesGroup.add(train);
+            STATE.obstacles.push(train);
+            
+            // Add light indicator
+            const light = new THREE.PointLight(0xff0000, 0, 10);
+            light.position.set(direction === 1 ? -8 : 8, 1, z);
+            terrainGroup.add(light);
+            rowData.signalLight = light;
+        }
+
+        function generateRow(z) {
+            // Determine row type
+            let type = 'grass';
+            let speed = 0;
+            let direction = Math.random() > 0.5 ? 1 : -1;
+            
+            if (z <= 2) {
+                type = 'grass'; // Start area is safe
+            } else {
+                // Get previous row types to avoid e.g. 10 rivers in a row
+                const prev1 = STATE.rows.length > 0 ? STATE.rows[STATE.rows.length - 1].type : 'grass';
+                const prev2 = STATE.rows.length > 1 ? STATE.rows[STATE.rows.length - 2].type : 'grass';
+                
+                const rand = Math.random();
+                
+                // Logic to balance terrain generation
+                if (prev1 === 'grass' && prev2 === 'grass') {
+                    // Force road or river after too much grass
+                    type = rand > 0.4 ? 'road' : 'river';
+                } else if (prev1 === 'river' && prev2 === 'river') {
+                    // Cap rivers to max 3
+                    const prev3 = STATE.rows.length > 2 ? STATE.rows[STATE.rows.length - 3].type : 'grass';
+                    if (prev3 === 'river') {
+                        type = 'grass'; // Force safe spot
+                    } else {
+                        type = rand > 0.3 ? 'river' : 'grass';
+                    }
+                } else if (prev1 === 'track') {
+                    type = rand > 0.8 ? 'grass' : 'road'; // Rarely two tracks
+                } else {
+                    // Normal distribution
+                    if (rand < 0.25) type = 'grass';
+                    else if (rand < 0.6) type = 'road';
+                    else if (rand < 0.9) type = 'river';
+                    else type = 'track';
+                }
+            }
+
+            // Create base mesh
+            let mat = materials.grass;
+            if (type === 'grass') mat = (z % 2 === 0) ? materials.grass : materials.grassDark;
+            else if (type === 'road') mat = materials.road;
+            else if (type === 'river') mat = (z % 2 === 0) ? materials.river : materials.riverDark;
+            else if (type === 'track') mat = materials.trackMetal; // Base track
+
+            const block = new THREE.Mesh(geoLane, mat);
+            
+            if (type === 'river') {
+                block.position.set(0, -0.4, z); // Sunken
+                block.scale.y = 0.2;
+            } else {
+                block.position.set(0, -0.5, z);
+            }
+            
+            block.receiveShadow = true;
+            terrainGroup.add(block);
+
+            const rowData = { z, type, mesh: block, direction, speed: 0, timer: 0, interval: 0 };
+
+            // Populate Row
+            if (type === 'grass') {
+                // Add trees/rocks
+                // Ensure a path exists! Keep center mostly clear at start
+                for (let x = -8; x <= 8; x++) {
+                    if (x === 0 && z < 5) continue; // Keep spawn clear
+                    
+                    // Borders are always solid
+                    if (x <= -6 || x >= 6) {
+                        createTree(x, z);
+                        continue;
+                    }
+                    
+                    // Random obstacles
+                    if (Math.random() < 0.2) {
+                        if (Math.random() < 0.7) createTree(x, z);
+                        else createRock(x, z);
+                    }
+                }
+            } 
+            else if (type === 'road') {
+                // Add road markings
+                if (z % 2 !== 0) { // Add lines between roads
+                    for (let x = -8; x <= 8; x += 2) {
+                        const line = new THREE.Mesh(new THREE.BoxGeometry(1, 0.05, 0.2), materials.roadLine);
+                        line.position.set(x, 0.01, z - 0.5);
+                        terrainGroup.add(line);
+                        // Save to clean up later
+                        if (!rowData.decorations) rowData.decorations = [];
+                        rowData.decorations.push(line);
+                    }
+                }
+                
+                rowData.speed = 3 + Math.random() * 4 * STATE.difficultyMultiplier;
+                rowData.interval = 1.5 + Math.random() * 2; // Time between cars
+                rowData.timer = Math.random() * rowData.interval; // Random start offset
+                
+                // Initial cars
+                const initialCars = Math.floor(Math.random() * 2) + 1;
+                for(let i=0; i<initialCars; i++) {
+                    rowData.timer = rowData.interval; // Force spawn on first update
+                }
+            }
+            else if (type === 'river') {
+                rowData.speed = 2 + Math.random() * 3 * STATE.difficultyMultiplier;
+                rowData.interval = 1.8 + Math.random() * 1.5;
+                rowData.timer = Math.random() * rowData.interval;
+                
+                // Add lily pads (safe static spots) sometimes
+                if (Math.random() < 0.3) {
+                    const padX = Math.floor(Math.random() * 10) - 5;
+                    const pad = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.1, 8), materials.grassDark);
+                    pad.position.set(padX, -0.05, z);
+                    terrainGroup.add(pad);
+                    STATE.trees.push({ mesh: pad, x: padX, z: z, isPad: true }); // Treat as safe static spot
+                }
+            }
+            else if (type === 'track') {
+                // Add wooden sleepers
+                for (let x = -8; x <= 8; x += 1) {
+                    const sleeper = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.1, 0.8), materials.wood);
+                    sleeper.position.set(x, 0.02, z);
+                    terrainGroup.add(sleeper);
+                    if (!rowData.decorations) rowData.decorations = [];
+                    rowData.decorations.push(sleeper);
+                }
+                
+                rowData.interval = 5 + Math.random() * 5; // Trains are rare
+                rowData.timer = Math.random() * 3;
+            }
+
+            STATE.rows.push(rowData);
+            return rowData;
+        }
+
+        function initMap() {
+            // Clear existing
+            while(terrainGroup.children.length > 0){ 
+                terrainGroup.remove(terrainGroup.children[0]); 
+            }
+            while(obstaclesGroup.children.length > 0){ 
+                obstaclesGroup.remove(obstaclesGroup.children[0]); 
+            }
+            STATE.rows = [];
+            STATE.obstacles = [];
+            STATE.trees = [];
+
+            // Generate initial map (z from -lanesBackward to lanesForward)
+            for (let z = -CONFIG.lanesBackward; z <= CONFIG.lanesForward; z++) {
+                generateRow(z);
+            }
+        }
+
+        function updateMap() {
+            const playerZ = STATE.playerPos.z;
+            
+            // Generate new rows ahead
+            const furthestRow = STATE.rows[STATE.rows.length - 1].z;
+            if (furthestRow < playerZ + CONFIG.lanesForward) {
+                generateRow(furthestRow + 1);
+            }
+            
+            // Cleanup old rows behind
+            const oldestRowZ = playerZ - CONFIG.lanesBackward - 5; // Give some buffer
+            
+            // Clean obstacles
+            for (let i = STATE.obstacles.length - 1; i >= 0; i--) {
+                const obs = STATE.obstacles[i];
+                // Remove if far behind OR driven off screen
+                if (obs.userData.rowZ < oldestRowZ || 
+                    obs.position.x > CONFIG.laneWidth + 20 || 
+                    obs.position.x < -CONFIG.laneWidth - 20) {
+                    obstaclesGroup.remove(obs);
+                    STATE.obstacles.splice(i, 1);
+                }
+            }
+            
+            // Clean trees
+            for (let i = STATE.trees.length - 1; i >= 0; i--) {
+                const tree = STATE.trees[i];
+                if (tree.z < oldestRowZ) {
+                    terrainGroup.remove(tree.mesh);
+                    STATE.trees.splice(i, 1);
+                }
+            }
+            
+            // Clean rows
+            while (STATE.rows.length > 0 && STATE.rows[0].z < oldestRowZ) {
+                const row = STATE.rows.shift();
+                terrainGroup.remove(row.mesh);
+                if (row.decorations) {
+                    row.decorations.forEach(d => terrainGroup.remove(d));
+                }
+                if (row.signalLight) {
+                    terrainGroup.remove(row.signalLight);
+                }
+            }
+        }
+
+        // --- GAME LOGIC ---
+
+        function resetPlayerPose() {
+            gsap.killTweensOf(playerVisual.position);
+            gsap.killTweensOf(playerVisual.rotation);
+            gsap.killTweensOf(playerVisual.scale);
+            playerVisual.position.set(0, 0, 0);
+            playerVisual.rotation.set(0, 0, 0);
+            playerVisual.scale.set(1, 1, 1);
+        }
+
+        function startGame() {
+            if (STATE.status === 'playing') return;
+            
+            STATE.status = 'playing';
+            STATE.score = 0;
+            STATE.maxZ = 0;
+            STATE.isDead = false;
+            STATE.playerPos = { x: 0, y: 0, z: 0 };
+            STATE.cameraBaseZ = 0;
+            STATE.difficultyMultiplier = 1;
+            
+            DOM.currentScore.innerText = '0';
+            DOM.newRecordBadge.style.display = 'none';
+            
+            // Reset Player
+            if (!scene.children.includes(playerGroup)) {
+                scene.add(playerGroup);
+            }
+            playerGroup.position.set(0, 0, 0);
+            playerGroup.rotation.set(0, 0, 0);
+            playerGroup.scale.set(1, 1, 1);
+            resetPlayerPose();
+            eagleGroup.visible = false;
+            
+            initMap();
+            
+            // Camera initial pos
+            updateCamera(true);
+            
+            // UI
+            DOM.mainMenu.classList.remove('active');
+            DOM.gameOverMenu.classList.remove('active');
+            DOM.hud.classList.add('visible');
+        }
+
+        function die(reason) {
+            if (STATE.isDead) return;
+            STATE.isDead = true;
+            STATE.status = 'gameover';
+            
+            // Death Animation based on reason
+            gsap.killTweensOf(playerGroup.position);
+            gsap.killTweensOf(playerGroup.scale);
+            resetPlayerPose();
+            
+            if (reason === 'car' || reason === 'train') {
+                // Flatten
+                gsap.to(playerGroup.scale, { y: 0.1, duration: 0.1 });
+                gsap.to(playerGroup.position, { y: 0.05, duration: 0.1 });
+            } else if (reason === 'water') {
+                // Sink
+                gsap.to(playerGroup.position, { y: -1, duration: 0.5, ease: "power2.in" });
+                // Splash particle effect could go here
+            } else if (reason === 'eagle') {
+                // Eagle swoops in
+                eagleGroup.position.set(STATE.playerPos.x, 15, STATE.playerPos.z - 5);
+                eagleGroup.visible = true;
+                
+                const tl = gsap.timeline();
+                tl.to(eagleGroup.position, { y: 0.5, z: STATE.playerPos.z, duration: 0.3, ease: "power1.in" })
+                  .add(() => {
+                      // Grab player
+                      eagleGroup.add(playerGroup);
+                      playerGroup.position.set(0, -0.5, 0);
+                  })
+                  .to(eagleGroup.position, { y: 15, z: STATE.playerPos.z + 10, duration: 0.5, ease: "power1.out" });
+            }
+
+            // Save score
+            let isNewRecord = false;
+            if (STATE.score > STATE.highScore) {
+                STATE.highScore = STATE.score;
+                localStorage.setItem('crossy_high_score', STATE.highScore);
+                DOM.bestScore.innerText = STATE.highScore;
+                isNewRecord = true;
+            }
+
+            // Show UI after delay
+            setTimeout(() => {
+                DOM.hud.classList.remove('visible');
+                DOM.finalScore.innerText = STATE.score;
+                DOM.deathReason.innerText = reason === 'water' ? '落水了！' : 
+                                            reason === 'eagle' ? '被老鹰抓走了！' : '撞车了！';
+                
+                if (isNewRecord && STATE.score > 0) {
+                    DOM.newRecordBadge.style.display = 'block';
+                }
+                
+                DOM.gameOverMenu.classList.add('active');
+            }, 1000);
+        }
+
+        function movePlayer(dx, dz) {
+            if (STATE.isDead || STATE.playerIsMoving || STATE.status !== 'playing') return;
+
+            const newX = Math.round(STATE.playerPos.x + dx);
+            const newZ = Math.round(STATE.playerPos.z + dz);
+
+            // Boundary check (horizontal)
+            if (newX < -5 || newX > 5) return;
+            
+            // Backward limit (cannot go behind camera)
+            if (newZ < STATE.cameraBaseZ - 3) return;
+
+            // Collision check with static objects (trees, rocks)
+            const obstacle = STATE.trees.find(t => t.x === newX && t.z === newZ);
+            if (obstacle && !obstacle.isPad) return; // Can't move there (unless it's a lily pad)
+
+            STATE.playerIsMoving = true;
+
+            // Rotation
+            let rotY = 0;
+            if (dx > 0) rotY = -Math.PI / 2;
+            else if (dx < 0) rotY = Math.PI / 2;
+            else if (dz < 0) rotY = Math.PI;
+            
+            gsap.to(playerGroup.rotation, { y: rotY, duration: 0.1 });
+
+            const duration = CONFIG.jumpDuration;
+            const jumpHeight = dz > 0 ? CONFIG.jumpHeight * 1.25 : CONFIG.jumpHeight;
+            const hopTilt = dz > 0 ? -0.55 : dz < 0 ? 0.35 : -0.28;
+            const hopPush = dz > 0 ? 0.22 : dx !== 0 ? 0.14 : 0.08;
+
+            resetPlayerPose();
+
+            // Jump animation
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    STATE.playerPos.x = newX;
+                    STATE.playerPos.z = newZ;
+                    STATE.playerIsMoving = false;
+                    
+                    // Score update
+                    if (newZ > STATE.maxZ) {
+                        STATE.maxZ = newZ;
+                        STATE.score++;
+                        DOM.currentScore.innerText = STATE.score;
+                        
+                        // Increase difficulty slightly
+                        STATE.difficultyMultiplier = 1 + (STATE.score / 50);
+                    }
+                    
+                    updateMap();
+                    checkCollisions(); // Check immediately upon landing
+                }
+            });
+
+            tl.to(playerGroup.position, {
+                x: newX,
+                z: newZ,
+                duration: duration,
+                ease: "power1.inOut"
+            }, 0);
+
+            // Parabolic Y movement
+            tl.to(playerGroup.position, {
+                y: jumpHeight,
+                duration: duration / 2,
+                ease: "power2.out"
+            }, 0).to(playerGroup.position, {
+                y: 0,
+                duration: duration / 2,
+                ease: "power2.in"
+            }, duration / 2);
+
+            // Make the chicken feel like it is hopping forward instead of sliding.
+            tl.to(playerVisual.position, {
+                z: hopPush,
+                duration: duration * 0.45,
+                ease: "power2.out"
+            }, 0).to(playerVisual.position, {
+                z: 0,
+                duration: duration * 0.55,
+                ease: "power2.in"
+            }, duration * 0.45);
+
+            tl.to(playerVisual.rotation, {
+                x: hopTilt,
+                duration: duration * 0.45,
+                ease: "power2.out"
+            }, 0).to(playerVisual.rotation, {
+                x: 0,
+                duration: duration * 0.55,
+                ease: "back.out(2)"
+            }, duration * 0.45);
+
+            tl.to(playerVisual.scale, {
+                x: 1.08,
+                y: 0.88,
+                z: 0.94,
+                duration: duration * 0.22,
+                ease: "power1.out"
+            }, 0).to(playerVisual.scale, {
+                x: 0.96,
+                y: 1.08,
+                z: 1.02,
+                duration: duration * 0.28,
+                ease: "power2.out"
+            }, duration * 0.22).to(playerVisual.scale, {
+                x: 1,
+                y: 1,
+                z: 1,
+                duration: duration * 0.5,
+                ease: "back.out(2)"
+            }, duration * 0.5);
+        }
+
+        function checkCollisions() {
+            if (STATE.isDead || STATE.playerIsMoving) return;
+
+            const px = STATE.playerPos.x;
+            const pz = STATE.playerPos.z;
+            
+            // 1. Check if behind camera (Eagle)
+            if (pz < STATE.cameraBaseZ - CONFIG.eagleCatchDistance) {
+                die('eagle');
+                return;
+            }
+
+            // Find current row
+            const currentRow = STATE.rows.find(r => r.z === pz);
+            if (!currentRow) return;
+
+            const rowType = currentRow.type;
+
+            // 2. Check moving obstacles (Cars, Trains)
+            if (rowType === 'road' || rowType === 'track') {
+                const vehicles = STATE.obstacles.filter(o => o.userData.rowZ === pz);
+                for (let v of vehicles) {
+                    const vx = v.position.x;
+                    const halfWidth = v.userData.width / 2;
+                    
+                    // Simple AABB 1D collision on X axis (Z is already matched)
+                    // Player width is ~0.7
+                    if (Math.abs(px - vx) < halfWidth + 0.35) {
+                        die(v.userData.type);
+                        return;
+                    }
+                }
+            }
+
+            // 3. Check River (Logs)
+            if (rowType === 'river') {
+                // Check if on a static lily pad first
+                const onPad = STATE.trees.find(t => t.x === px && t.z === pz && t.isPad);
+                if (onPad) return; // Safe
+
+                const logs = STATE.obstacles.filter(o => o.userData.rowZ === pz && o.userData.type === 'log');
+                let onLog = null;
+                
+                for (let log of logs) {
+                    const lx = log.position.x;
+                    const halfWidth = log.userData.width / 2;
+                    
+                    // Lenient collision for getting on logs
+                    if (Math.abs(px - lx) < halfWidth + 0.2) {
+                        onLog = log;
+                        break;
+                    }
+                }
+
+                if (onLog) {
+                    // Move player with log
+                    const moveAmount = onLog.userData.speed * (1/60) * onLog.userData.direction;
+                    STATE.playerPos.x += moveAmount;
+                    playerGroup.position.x = STATE.playerPos.x;
+                    
+                    // Die if carried off screen
+                    if (STATE.playerPos.x > 6 || STATE.playerPos.x < -6) {
+                        die('water'); // Swept away
+                    }
+                } else {
+                    die('water'); // Missed the log
+                }
+            }
+        }
+
+        function updateSpawners(dt) {
+            if (STATE.status !== 'playing') return;
+
+            // Active rows range
+            const minZ = STATE.cameraBaseZ - 2;
+            const maxZ = STATE.cameraBaseZ + CONFIG.lanesForward;
+
+            STATE.rows.forEach(row => {
+                if (row.z < minZ || row.z > maxZ) return;
+
+                if (row.type === 'road' || row.type === 'river') {
+                    row.timer -= dt;
+                    if (row.timer <= 0) {
+                        row.timer = row.interval + (Math.random() * 0.5 - 0.2); // Add slight randomness
+                        
+                        if (row.type === 'road') {
+                            const type = Math.random() > 0.8 ? 'truck' : 'car';
+                            createCar(type, row);
+                        } else {
+                            createLog(row);
+                        }
+                    }
+                }
+                else if (row.type === 'track') {
+                    row.timer -= dt;
+                    
+                    // Signal light logic
+                    if (row.timer <= 1.5 && row.timer > 0) {
+                        // Blink red light
+                        if (row.signalLight) {
+                            row.signalLight.intensity = (Math.floor(row.timer * 8) % 2 === 0) ? 2 : 0;
+                        }
+                    }
+                    
+                    if (row.timer <= 0) {
+                        row.timer = row.interval;
+                        if (row.signalLight) row.signalLight.intensity = 0;
+                        createTrain(row);
+                    }
+                }
+            });
+        }
+
+        function updateObstacles(dt) {
+            STATE.obstacles.forEach(obs => {
+                const data = obs.userData;
+                obs.position.x += data.speed * dt * data.direction;
+            });
+        }
+
+        function updateCamera(instant = false) {
+            // Target Z is the maximum of player's Z or the auto-scrolling camera base
+            
+            // Advance auto-scrolling base
+            if (STATE.status === 'playing' && !STATE.isDead) {
+                // Speed increases with score, but caps out
+                const currentSpeed = Math.min(CONFIG.cameraSpeed + (STATE.score * 0.00035), CONFIG.maxCameraSpeed);
+                STATE.cameraBaseZ += currentSpeed;
+                
+                // If player is far ahead, snap base to player
+                if (STATE.playerPos.z > STATE.cameraBaseZ + 3) {
+                    STATE.cameraBaseZ = STATE.playerPos.z - 3;
+                }
+            }
+
+            const targetZ = Math.max(STATE.playerPos.z, Math.floor(STATE.cameraBaseZ));
+            
+            const targetCamPos = {
+                x: STATE.playerPos.x * 0.2 + CONFIG.cameraOffset.x, // Slight follow on X
+                y: CONFIG.cameraOffset.y,
+                z: targetZ + CONFIG.cameraOffset.z
+            };
+
+            if (instant) {
+                camera.position.set(targetCamPos.x, targetCamPos.y, targetCamPos.z);
+            } else {
+                // Smooth follow
+                camera.position.x += (targetCamPos.x - camera.position.x) * 0.1;
+                camera.position.z += (targetCamPos.z - camera.position.z) * 0.1;
+            }
+            
+            // Always look at a point relative to camera, not directly at player, to keep angle constant
+            const lookAtTarget = new THREE.Vector3(
+                camera.position.x - CONFIG.cameraOffset.x,
+                0,
+                camera.position.z - CONFIG.cameraOffset.z
+            );
+            camera.lookAt(lookAtTarget);
+            
+            // Update light shadow camera position
+            dirLight.position.set(lookAtTarget.x - 10, 20, lookAtTarget.z - 10);
+            dirLight.target.position.copy(lookAtTarget);
+            dirLight.target.updateMatrixWorld();
+        }
+
+        // --- MAIN LOOP ---
+        function animate(time) {
+            requestAnimationFrame(animate);
+            
+            // Calculate delta time in seconds
+            const dt = Math.min((time - STATE.lastTime) / 1000, 0.1); // Cap at 0.1s to prevent huge jumps
+            STATE.lastTime = time;
+
+            if (STATE.status === 'playing') {
+                updateSpawners(dt);
+                updateObstacles(dt);
+                if (!STATE.isDead) {
+                    checkCollisions();
+                }
+            }
+
+            // Always update camera & render
+            updateCamera();
+            renderer.render(scene, camera);
+        }
+
+        // --- INPUT HANDLING ---
+        
+        // Keyboard
+        window.addEventListener('keydown', (e) => {
+            if (STATE.status !== 'playing') return;
+            
+            switch(e.key) {
+                case 'ArrowUp':
+                case 'w':
+                case 'W':
+                    movePlayer(0, 1);
+                    break;
+                case 'ArrowDown':
+                case 's':
+                case 'S':
+                    movePlayer(0, -1);
+                    break;
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    movePlayer(-1, 0);
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    movePlayer(1, 0);
+                    break;
+            }
+        });
+
+        // Touch / Swipe
+        let touchStartX = 0;
+        let touchStartY = 0;
+        const swipeThreshold = 30; // pixels
+
+        DOM.touchLayer.addEventListener('touchstart', (e) => {
+            if (STATE.status !== 'playing') return;
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+            e.preventDefault();
+        }, { passive: false });
+
+        DOM.touchLayer.addEventListener('touchend', (e) => {
+            if (STATE.status !== 'playing') return;
+            
+            const touchEndX = e.changedTouches[0].screenX;
+            const touchEndY = e.changedTouches[0].screenY;
+            
+            const dx = touchEndX - touchStartX;
+            const dy = touchEndY - touchStartY;
+            
+            // Determine swipe direction or tap
+            if (Math.abs(dx) < swipeThreshold && Math.abs(dy) < swipeThreshold) {
+                // Tap -> Move Forward
+                movePlayer(0, 1);
+            } else {
+                // Swipe
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    // Horizontal
+                    if (dx > 0) movePlayer(1, 0); // Right
+                    else movePlayer(-1, 0);       // Left
+                } else {
+                    // Vertical
+                    if (dy > 0) movePlayer(0, -1); // Down (Swipe down = move back)
+                    else movePlayer(0, 1);         // Up (Swipe up = move forward)
+                }
+            }
+            e.preventDefault();
+        }, { passive: false });
+
+        // Resize
+        window.addEventListener('resize', () => {
+            const aspect = window.innerWidth / window.innerHeight;
+            camera.left = -d * aspect;
+            camera.right = d * aspect;
+            camera.top = d;
+            camera.bottom = -d;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Buttons
+        DOM.btnStart.addEventListener('click', startGame);
+        DOM.btnRestart.addEventListener('click', startGame);
+        DOM.btnMenu.addEventListener('click', () => {
+            DOM.gameOverMenu.classList.remove('active');
+            DOM.mainMenu.classList.add('active');
+            STATE.status = 'menu';
+            // Reset player to center menu view
+            if(scene.children.includes(playerGroup)) {
+                scene.remove(playerGroup);
+            }
+            initMap();
+            STATE.playerPos = {x:0, y:0, z:0};
+            STATE.cameraBaseZ = 0;
+            updateCamera(true);
+        });
+
+        // --- INIT ---
+        
+        // Setup initial background scene for menu
+        initMap();
+        updateCamera(true);
+        
+        // Remove loading screen
+        setTimeout(() => {
+            DOM.loading.style.opacity = '0';
+            setTimeout(() => {
+                DOM.loading.style.display = 'none';
+                STATE.status = 'menu';
+                DOM.mainMenu.classList.add('active');
+                
+                // Start animation loop
+                requestAnimationFrame(animate);
+            }, 500);
+        }, 1000);
+
+    </script>
+</body>
+</html>

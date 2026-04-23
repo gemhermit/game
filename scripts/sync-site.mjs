@@ -83,6 +83,16 @@ const STATIC_ENTRIES = [
     summary: "Chrome 经典离线小恐龙，点击即可起跳，节奏轻快耐玩。",
     keywords: ["小恐龙", "Dino", "离线游戏"],
   },
+  {
+    slug: "crossy-road",
+    href: "/crossy-road/",
+    sourceFile: "crossy-road/index.html",
+    displayName: "天天过马路",
+    category: "动作街机",
+    emoji: "🐔",
+    summary: "经典体素风格的无尽过马路游戏，控制角色躲避车辆、跳过河流、避开火车。",
+    keywords: ["天天过马路", "Crossy Road", "跑酷游戏", "体素游戏"],
+  },
 ];
 
 const GAME_OVERRIDES = {
@@ -157,7 +167,7 @@ function categorizeGame(slug, displayName) {
     return GAME_OVERRIDES[slug].category;
   }
 
-  if (/(surf|subway|dino|snake|typing-rain|whack-a-mole)/.test(slug)) {
+  if (/(surf|subway|dino|snake|typing-rain|whack-a-mole|crossy-road)/.test(slug)) {
     return "动作街机";
   }
 
