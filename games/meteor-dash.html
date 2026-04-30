@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彗星闪避 - 在线动作街机小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="彗星闪避结合了闪避与收集玩法，拖动飞船穿梭星海挑战高分。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="彗星闪避,动作街机,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/meteor-dash.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="彗星闪避 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta property="og:description" content="彗星闪避结合了闪避与收集玩法，拖动飞船穿梭星海挑战高分。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/meteor-dash.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="彗星闪避 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="彗星闪避结合了闪避与收集玩法，拖动飞船穿梭星海挑战高分。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"彗星闪避","description":"彗星闪避结合了闪避与收集玩法，拖动飞船穿梭星海挑战高分。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/meteor-dash.html","genre":"动作街机","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #020617;
+            --panel: rgba(15, 23, 42, 0.9);
+            --border: rgba(148, 163, 184, 0.18);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --primary: #38bdf8;
+            --accent: #f472b6;
+            --shadow: 0 22px 56px rgba(2, 6, 23, 0.42);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            color: var(--text);
+            font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), transparent 25%),
+                radial-gradient(circle at top right, rgba(244, 114, 182, 0.18), transparent 26%),
+                linear-gradient(180deg, #020617 0%, #091225 45%, #0f172a 100%);
+        }
+
+        .sidebar {
+            width: 350px;
+            padding: 28px;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+            backdrop-filter: blur(14px);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            z-index: 2;
+        }
+
+        .title {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .title__icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #0ea5e9, #a855f7);
+            box-shadow: 0 14px 32px rgba(14, 165, 233, 0.24);
+        }
+
+        h1 {
+            font-size: 1.95rem;
+            line-height: 1;
+        }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .card,
+        .tips {
+            padding: 18px;
+            background: rgba(15, 23, 42, 0.86);
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 28px rgba(2, 6, 23, 0.2);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.6rem;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        button {
+            border: none;
+            border-radius: 15px;
+            padding: 13px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.16s ease, filter 0.16s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.04);
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: #162235;
+        }
+
+        .status {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .status strong {
+            color: var(--text);
+        }
+
+        .tips h2 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .tips li::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+        }
+
+        .canvas-shell {
+            width: min(100%, 560px);
+            aspect-ratio: 10 / 16;
+            border-radius: 34px;
+            overflow: hidden;
+            background: rgba(15, 23, 42, 0.68);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .overlay__panel {
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            box-shadow: 0 14px 36px rgba(2, 6, 23, 0.34);
+        }
+
+        .overlay__panel strong {
+            display: block;
+            font-size: 1.55rem;
+        }
+
+        .overlay__panel p {
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 940px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .main-area {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="title">
+            <div class="title__icon">☄️</div>
+            <div>
+                <h1>彗星闪避</h1>
+                <p class="subtitle">拖动飞船左右移动，避开彗星并尽量多收集星星。护盾偶尔出现，抓住它能多扛一下。</p>
+            </div>
+        </div>
+
+        <section class="card">
+            <div class="stats">
+                <div class="stat">
+                    <strong id="score">0</strong>
+                    <span>当前分数</span>
+                </div>
+                <div class="stat">
+                    <strong id="best">0</strong>
+                    <span>最佳成绩</span>
+                </div>
+            </div>
+            <div class="status" style="margin-top: 16px;">
+                <span>护盾 <strong id="shield">0</strong></span>
+                <span>连吃星星 <strong id="combo">0</strong></span>
+            </div>
+            <div class="buttons">
+                <button class="btn-primary" id="startBtn">开始冲刺</button>
+                <button class="btn-secondary" id="restartBtn">重新开始</button>
+            </div>
+        </section>
+
+        <section class="tips">
+            <h2>玩法提示</h2>
+            <ul>
+                <li>用鼠标、手指拖动或方向键控制飞船左右移动。</li>
+                <li>收集星星会提高分数和连击，连续收集分数涨得更快。</li>
+                <li>撞到彗星会先消耗护盾，没有护盾时游戏结束。</li>
+            </ul>
+        </section>
+    </aside>
+
+    <main class="main-area">
+        <div class="canvas-shell">
+            <canvas id="dashCanvas" width="560" height="900"></canvas>
+            <div class="overlay" id="overlay">
+                <div class="overlay__panel">
+                    <strong id="overlayTitle">准备起飞</strong>
+                    <p id="overlayText">点击“开始冲刺”或直接按空格，然后拖动飞船左右闪避。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById("dashCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+        const bestEl = document.getElementById("best");
+        const shieldEl = document.getElementById("shield");
+        const comboEl = document.getElementById("combo");
+        const overlay = document.getElementById("overlay");
+        const overlayTitle = document.getElementById("overlayTitle");
+        const overlayText = document.getElementById("overlayText");
+
+        const bestKey = "meteor_dash_best";
+        let best = Number(localStorage.getItem(bestKey) || 0);
+        bestEl.textContent = best;
+
+        const state = {
+            running: false,
+            gameOver: false,
+            score: 0,
+            combo: 0,
+            shield: 0,
+            lastTime: 0,
+            spawnTimer: 0,
+            starTimer: 0,
+            shieldTimer: 0,
+            starsBg: [],
+            meteors: [],
+            stars: [],
+            shields: [],
+            bursts: []
+        };
+
+        const ship = {
+            x: canvas.width / 2,
+            y: canvas.height - 128,
+            width: 48,
+            height: 72,
+            targetX: canvas.width / 2
+        };
+
+        function showOverlay(title, text) {
+            overlayTitle.textContent = title;
+            overlayText.textContent = text;
+            overlay.style.display = "flex";
+        }
+
+        function hideOverlay() {
+            overlay.style.display = "none";
+        }
+
+        function createStarfield() {
+            return Array.from({ length: 90 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 1,
+                speed: 25 + Math.random() * 55
+            }));
+        }
+
+        function resetGame() {
+            state.running = false;
+            state.gameOver = false;
+            state.score = 0;
+            state.combo = 0;
+            state.shield = 0;
+            state.lastTime = 0;
+            state.spawnTimer = 0;
+            state.starTimer = 0;
+            state.shieldTimer = 0;
+            state.meteors = [];
+            state.stars = [];
+            state.shields = [];
+            state.bursts = [];
+            state.starsBg = createStarfield();
+            ship.x = canvas.width / 2;
+            ship.targetX = ship.x;
+            syncHud();
+            showOverlay("准备起飞", "点击“开始冲刺”或直接按空格，然后拖动飞船左右闪避。");
+            drawScene();
+        }
+
+        function syncHud() {
+            scoreEl.textContent = Math.floor(state.score);
+            comboEl.textContent = state.combo;
+            shieldEl.textContent = state.shield;
+            bestEl.textContent = best;
+        }
+
+        function startGame() {
+            if (state.running) return;
+            if (state.gameOver) {
+                resetGame();
+            }
+            state.running = true;
+            state.gameOver = false;
+            hideOverlay();
+        }
+
+        function endGame() {
+            state.running = false;
+            state.gameOver = true;
+            if (state.score > best) {
+                best = Math.floor(state.score);
+                localStorage.setItem(bestKey, String(best));
+            }
+            syncHud();
+            showOverlay("被彗星击中了", `这次拿到了 ${Math.floor(state.score)} 分。点“重新开始”继续冲更高分。`);
+        }
+
+        function spawnMeteor() {
+            const size = 22 + Math.random() * 34;
+            state.meteors.push({
+                x: 30 + Math.random() * (canvas.width - 60),
+                y: -60,
+                size,
+                speed: 280 + Math.random() * 170 + state.score * 1.2,
+                spin: (Math.random() - 0.5) * 4,
+                angle: Math.random() * Math.PI * 2
+            });
+        }
+
+        function spawnCollectible(type) {
+            const item = {
+                x: 40 + Math.random() * (canvas.width - 80),
+                y: -40,
+                size: type === "shield" ? 18 : 14,
+                speed: type === "shield" ? 220 : 260,
+                wobble: Math.random() * Math.PI * 2
+            };
+            if (type === "shield") state.shields.push(item);
+            else state.stars.push(item);
+        }
+
+        function addBurst(x, y, color) {
+            for (let i = 0; i < 10; i += 1) {
+                state.bursts.push({
+                    x,
+                    y,
+                    vx: Math.cos((Math.PI * 2 * i) / 10) * (60 + Math.random() * 80),
+                    vy: Math.sin((Math.PI * 2 * i) / 10) * (60 + Math.random() * 80),
+                    life: 0.55,
+                    color
+                });
+            }
+        }
+
+        function hitShip() {
+            if (state.shield > 0) {
+                state.shield -= 1;
+                state.combo = 0;
+                addBurst(ship.x, ship.y, "#38bdf8");
+                syncHud();
+            } else {
+                endGame();
+            }
+        }
+
+        function intersects(a, b, padding = 0) {
+            return Math.abs(a.x - b.x) < a.size + padding && Math.abs(a.y - b.y) < a.size + padding;
+        }
+
+        function update(dt) {
+            ship.x += (ship.targetX - ship.x) * Math.min(1, dt * 10);
+            ship.x = Math.max(42, Math.min(canvas.width - 42, ship.x));
+
+            state.starsBg.forEach((star) => {
+                star.y += star.speed * dt;
+                if (star.y > canvas.height + 4) {
+                    star.y = -4;
+                    star.x = Math.random() * canvas.width;
+                }
+            });
+
+            if (!state.running) return;
+
+            state.score += dt * (14 + state.combo * 1.8);
+            state.spawnTimer += dt;
+            state.starTimer += dt;
+            state.shieldTimer += dt;
+
+            if (state.spawnTimer > Math.max(0.24, 0.62 - state.score / 260)) {
+                state.spawnTimer = 0;
+                spawnMeteor();
+            }
+
+            if (state.starTimer > 0.9) {
+                state.starTimer = 0;
+                spawnCollectible("star");
+            }
+
+            if (state.shieldTimer > 10) {
+                state.shieldTimer = 0;
+                spawnCollectible("shield");
+            }
+
+            state.meteors.forEach((meteor) => {
+                meteor.y += meteor.speed * dt;
+                meteor.angle += meteor.spin * dt;
+                if (intersects({ x: ship.x, y: ship.y, size: 20 }, meteor, 8)) {
+                    meteor.y = canvas.height + 100;
+                    hitShip();
+                }
+            });
+            state.meteors = state.meteors.filter((meteor) => meteor.y < canvas.height + 80);
+
+            state.stars.forEach((star) => {
+                star.y += star.speed * dt;
+                star.wobble += dt * 4;
+                if (intersects({ x: ship.x, y: ship.y, size: 18 }, star, 6)) {
+                    state.score += 24 + state.combo * 8;
+                    state.combo += 1;
+                    addBurst(star.x, star.y, "#fde047");
+                    star.y = canvas.height + 100;
+                    if (state.score > best) {
+                        best = Math.floor(state.score);
+                        localStorage.setItem(bestKey, String(best));
+                    }
+                    syncHud();
+                }
+            });
+            state.stars = state.stars.filter((star) => star.y < canvas.height + 60);
+
+            state.shields.forEach((shield) => {
+                shield.y += shield.speed * dt;
+                shield.wobble += dt * 3;
+                if (intersects({ x: ship.x, y: ship.y, size: 18 }, shield, 8)) {
+                    state.shield = Math.min(3, state.shield + 1);
+                    addBurst(shield.x, shield.y, "#60a5fa");
+                    shield.y = canvas.height + 100;
+                    syncHud();
+                }
+            });
+            state.shields = state.shields.filter((shield) => shield.y < canvas.height + 60);
+
+            state.bursts.forEach((burst) => {
+                burst.life -= dt;
+                burst.x += burst.vx * dt;
+                burst.y += burst.vy * dt;
+            });
+            state.bursts = state.bursts.filter((burst) => burst.life > 0);
+
+            syncHud();
+        }
+
+        function drawBackground() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, "#020617");
+            gradient.addColorStop(0.5, "#081225");
+            gradient.addColorStop(1, "#0f172a");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            state.starsBg.forEach((star) => {
+                ctx.fillStyle = "rgba(255,255,255,0.9)";
+                ctx.fillRect(star.x, star.y, star.size, star.size);
+            });
+        }
+
+        function drawShip() {
+            ctx.save();
+            ctx.translate(ship.x, ship.y);
+
+            if (state.shield > 0) {
+                ctx.strokeStyle = "rgba(56, 189, 248, 0.78)";
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.arc(0, 0, 34, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = "#38bdf8";
+            ctx.beginPath();
+            ctx.moveTo(0, -34);
+            ctx.lineTo(22, 24);
+            ctx.lineTo(0, 12);
+            ctx.lineTo(-22, 24);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = "#e879f9";
+            ctx.beginPath();
+            ctx.moveTo(0, -12);
+            ctx.lineTo(12, 18);
+            ctx.lineTo(-12, 18);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = "#f8fafc";
+            ctx.beginPath();
+            ctx.arc(0, -4, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "#fb7185";
+            ctx.fillRect(-12, 24, 8, 18);
+            ctx.fillRect(4, 24, 8, 18);
+
+            ctx.restore();
+        }
+
+        function drawMeteor(meteor) {
+            ctx.save();
+            ctx.translate(meteor.x, meteor.y);
+            ctx.rotate(meteor.angle);
+            ctx.fillStyle = "#fb923c";
+            ctx.beginPath();
+            ctx.arc(0, 0, meteor.size, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#7c2d12";
+            ctx.beginPath();
+            ctx.arc(-meteor.size * 0.2, -meteor.size * 0.1, meteor.size * 0.3, 0, Math.PI * 2);
+            ctx.arc(meteor.size * 0.25, meteor.size * 0.22, meteor.size * 0.18, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawStar(item) {
+            ctx.save();
+            ctx.translate(item.x, item.y);
+            ctx.rotate(item.wobble);
+            ctx.fillStyle = "#fde047";
+            ctx.beginPath();
+            for (let i = 0; i < 10; i += 1) {
+                const angle = (Math.PI / 5) * i;
+                const radius = i % 2 === 0 ? item.size : item.size * 0.46;
+                const x = Math.cos(angle - Math.PI / 2) * radius;
+                const y = Math.sin(angle - Math.PI / 2) * radius;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawShield(item) {
+            ctx.save();
+            ctx.translate(item.x, item.y);
+            ctx.rotate(item.wobble * 0.5);
+            ctx.strokeStyle = "#60a5fa";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(0, -item.size);
+            ctx.lineTo(item.size * 0.8, -item.size * 0.3);
+            ctx.lineTo(item.size * 0.55, item.size * 0.95);
+            ctx.lineTo(0, item.size * 1.2);
+            ctx.lineTo(-item.size * 0.55, item.size * 0.95);
+            ctx.lineTo(-item.size * 0.8, -item.size * 0.3);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawBursts() {
+            state.bursts.forEach((burst) => {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, burst.life / 0.55);
+                ctx.fillStyle = burst.color;
+                ctx.fillRect(burst.x, burst.y, 5, 5);
+                ctx.restore();
+            });
+        }
+
+        function drawHud() {
+            ctx.fillStyle = "rgba(15, 23, 42, 0.54)";
+            ctx.beginPath();
+            ctx.roundRect(18, 18, 170, 56, 18);
+            ctx.fill();
+            ctx.fillStyle = "#e2e8f0";
+            ctx.font = "700 22px 'Avenir Next', sans-serif";
+            ctx.fillText(`分数 ${Math.floor(state.score)}`, 34, 53);
+        }
+
+        function drawScene() {
+            drawBackground();
+            state.meteors.forEach(drawMeteor);
+            state.stars.forEach(drawStar);
+            state.shields.forEach(drawShield);
+            drawBursts();
+            drawShip();
+            drawHud();
+        }
+
+        function frame(time) {
+            if (!state.lastTime) state.lastTime = time;
+            const dt = Math.min((time - state.lastTime) / 1000, 0.032);
+            state.lastTime = time;
+            update(dt);
+            drawScene();
+            requestAnimationFrame(frame);
+        }
+
+        function updateTarget(clientX) {
+            const rect = canvas.getBoundingClientRect();
+            const ratio = canvas.width / rect.width;
+            ship.targetX = (clientX - rect.left) * ratio;
+        }
+
+        document.getElementById("startBtn").addEventListener("click", startGame);
+        document.getElementById("restartBtn").addEventListener("click", () => {
+            resetGame();
+            startGame();
+        });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.code === "Space") {
+                event.preventDefault();
+                if (state.gameOver) resetGame();
+                startGame();
+            }
+            if (event.code === "ArrowLeft") ship.targetX -= 45;
+            if (event.code === "ArrowRight") ship.targetX += 45;
+        });
+
+        canvas.addEventListener("pointerdown", (event) => {
+            if (state.gameOver) resetGame();
+            startGame();
+            updateTarget(event.clientX);
+        });
+
+        canvas.addEventListener("pointermove", (event) => {
+            if (event.buttons || event.pointerType === "touch") {
+                updateTarget(event.clientX);
+            }
+        });
+
+        canvas.addEventListener("touchmove", (event) => {
+            updateTarget(event.touches[0].clientX);
+        }, { passive: true });
+
+        resetGame();
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>

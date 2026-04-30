@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>像素飞鸡 - 在线动作街机小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="像素飞鸡是一款节奏明快的穿越管道小游戏，轻点即可振翅冲分。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="像素飞鸡,动作街机,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/flappy-chicken.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="像素飞鸡 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta property="og:description" content="像素飞鸡是一款节奏明快的穿越管道小游戏，轻点即可振翅冲分。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/flappy-chicken.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="像素飞鸡 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="像素飞鸡是一款节奏明快的穿越管道小游戏，轻点即可振翅冲分。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"像素飞鸡","description":"像素飞鸡是一款节奏明快的穿越管道小游戏，轻点即可振翅冲分。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/flappy-chicken.html","genre":"动作街机","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #eef7ff;
+            --panel: rgba(255, 255, 255, 0.92);
+            --border: rgba(15, 23, 42, 0.08);
+            --text: #102a43;
+            --muted: #52667a;
+            --primary: #fb923c;
+            --accent: #22c55e;
+            --shadow: 0 20px 48px rgba(15, 23, 42, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            color: var(--text);
+            font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(251, 146, 60, 0.18), transparent 26%),
+                radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 22%),
+                linear-gradient(180deg, #f6fbff 0%, #eaf5ff 52%, #f3fbf4 100%);
+            display: flex;
+        }
+
+        .sidebar {
+            width: 360px;
+            padding: 28px;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            z-index: 2;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .title__icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #f97316, #facc15);
+            box-shadow: 0 14px 30px rgba(249, 115, 22, 0.28);
+        }
+
+        h1 {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .card,
+        .controls,
+        .tips {
+            padding: 18px;
+            border-radius: 22px;
+            background: white;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.55rem;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            display: grid;
+            gap: 14px;
+        }
+
+        .controls h2,
+        .tips h2 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            border-radius: 16px;
+            padding: 13px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.16s ease, filter 0.16s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.02);
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #fb923c, #f97316);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: #edf6ff;
+        }
+
+        .difficulty {
+            display: grid;
+            gap: 10px;
+        }
+
+        .difficulty__row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+        }
+
+        .tips ul {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .tips li::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            position: relative;
+        }
+
+        .canvas-shell {
+            width: min(100%, 520px);
+            aspect-ratio: 9 / 16;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.82);
+            border-radius: 34px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: manipulation;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .overlay__panel {
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 14px 36px rgba(15, 23, 42, 0.12);
+        }
+
+        .overlay__panel strong {
+            display: block;
+            font-size: 1.5rem;
+        }
+
+        .overlay__panel p {
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 960px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .main-area {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div>
+            <div class="title">
+                <div class="title__icon">🐥</div>
+                <div>
+                    <h1>像素飞鸡</h1>
+                    <p class="subtitle">轻点屏幕让小鸡振翅，穿过不断逼近的管道。节奏越稳，分数越高。</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="stats card">
+            <div class="stat">
+                <strong id="score">0</strong>
+                <span>当前分数</span>
+            </div>
+            <div class="stat">
+                <strong id="best">0</strong>
+                <span>最佳成绩</span>
+            </div>
+            <div class="stat">
+                <strong id="streak">0</strong>
+                <span>连续穿越</span>
+            </div>
+        </section>
+
+        <section class="controls">
+            <h2>开始挑战</h2>
+            <div class="buttons">
+                <button class="btn-primary" id="startBtn">开始游戏</button>
+                <button class="btn-secondary" id="restartBtn">重新开始</button>
+            </div>
+            <div class="difficulty">
+                <div class="difficulty__row">
+                    <span>飞行速度</span>
+                    <strong id="speedLabel">标准</strong>
+                </div>
+                <input id="speedRange" type="range" min="1" max="3" step="1" value="2">
+            </div>
+        </section>
+
+        <section class="tips">
+            <h2>玩法提示</h2>
+            <ul>
+                <li>按空格、点击屏幕或轻触画布都能让小鸡向上飞一下。</li>
+                <li>每成功穿过一组管道会加 1 分，连续通过会触发小加速手感。</li>
+                <li>前两组障碍会更宽松，适合快速进入状态。</li>
+            </ul>
+        </section>
+    </aside>
+
+    <main class="main-area">
+        <div class="canvas-shell">
+            <canvas id="gameCanvas" width="540" height="960"></canvas>
+            <div class="overlay" id="overlay">
+                <div class="overlay__panel">
+                    <strong id="overlayTitle">点击开始振翅</strong>
+                    <p id="overlayText">准备好了就按空格、点击画布或使用右侧按钮开始。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+        const bestEl = document.getElementById("best");
+        const streakEl = document.getElementById("streak");
+        const overlay = document.getElementById("overlay");
+        const overlayTitle = document.getElementById("overlayTitle");
+        const overlayText = document.getElementById("overlayText");
+        const speedRange = document.getElementById("speedRange");
+        const speedLabel = document.getElementById("speedLabel");
+
+        const bestKey = "flappy_chicken_best";
+        let best = Number(localStorage.getItem(bestKey) || 0);
+        bestEl.textContent = best;
+
+        const speedPresets = {
+            1: { label: "轻松", pipeSpeed: 180, gap: 240 },
+            2: { label: "标准", pipeSpeed: 220, gap: 214 },
+            3: { label: "狂飙", pipeSpeed: 258, gap: 196 }
+        };
+
+        const state = {
+            running: false,
+            gameOver: false,
+            started: false,
+            score: 0,
+            streak: 0,
+            level: 2,
+            lastTime: 0,
+            spawnTimer: 0,
+            clouds: [],
+            pipes: [],
+            particles: []
+        };
+
+        const bird = {
+            x: 160,
+            y: 420,
+            radius: 28,
+            velocity: 0,
+            gravity: 1380,
+            flapForce: -430,
+            rotation: 0,
+            bob: 0
+        };
+
+        function resetGame() {
+            state.running = false;
+            state.gameOver = false;
+            state.started = false;
+            state.score = 0;
+            state.streak = 0;
+            state.lastTime = 0;
+            state.spawnTimer = 0;
+            state.pipes = [];
+            state.particles = [];
+            state.clouds = createClouds();
+            bird.y = 420;
+            bird.velocity = 0;
+            bird.rotation = 0;
+            scoreEl.textContent = "0";
+            streakEl.textContent = "0";
+            showOverlay("点击开始振翅", "准备好了就按空格、点击画布或使用右侧按钮开始。");
+            drawScene(0);
+        }
+
+        function createClouds() {
+            return Array.from({ length: 6 }, (_, index) => ({
+                x: Math.random() * canvas.width,
+                y: 120 + index * 105 + Math.random() * 40,
+                width: 80 + Math.random() * 70,
+                speed: 10 + Math.random() * 12
+            }));
+        }
+
+        function showOverlay(title, text) {
+            overlayTitle.textContent = title;
+            overlayText.textContent = text;
+            overlay.style.display = "flex";
+        }
+
+        function hideOverlay() {
+            overlay.style.display = "none";
+        }
+
+        function currentPreset() {
+            return speedPresets[state.level];
+        }
+
+        function syncSpeedLabel() {
+            speedLabel.textContent = currentPreset().label;
+        }
+
+        function startGame() {
+            if (state.running) return;
+            if (state.gameOver || !state.started) {
+                resetMotion();
+            }
+            state.running = true;
+            state.started = true;
+            state.gameOver = false;
+            hideOverlay();
+        }
+
+        function resetMotion() {
+            state.score = 0;
+            state.streak = 0;
+            state.spawnTimer = 0;
+            state.pipes = [];
+            state.particles = [];
+            bird.y = 420;
+            bird.velocity = 0;
+            bird.rotation = 0;
+            scoreEl.textContent = "0";
+            streakEl.textContent = "0";
+        }
+
+        function flap() {
+            if (!state.running) {
+                startGame();
+            }
+            if (state.gameOver) return;
+            bird.velocity = bird.flapForce;
+            addFeathers();
+        }
+
+        function addFeathers() {
+            for (let i = 0; i < 6; i += 1) {
+                state.particles.push({
+                    x: bird.x - 8,
+                    y: bird.y + 6,
+                    vx: -80 - Math.random() * 90,
+                    vy: -60 + Math.random() * 120,
+                    life: 0.45 + Math.random() * 0.2
+                });
+            }
+        }
+
+        function spawnPipe() {
+            const preset = currentPreset();
+            const safeMargin = 140;
+            const firstEasy = state.score < 2;
+            const gap = firstEasy ? preset.gap + 26 : preset.gap;
+            const gapY = safeMargin + Math.random() * (canvas.height - 280 - gap);
+            state.pipes.push({
+                x: canvas.width + 120,
+                width: 92,
+                gapY,
+                gapHeight: gap,
+                passed: false
+            });
+        }
+
+        function addScore() {
+            state.score += 1;
+            state.streak += 1;
+            scoreEl.textContent = state.score;
+            streakEl.textContent = state.streak;
+            if (state.score > best) {
+                best = state.score;
+                localStorage.setItem(bestKey, String(best));
+                bestEl.textContent = best;
+            }
+        }
+
+        function endGame() {
+            state.running = false;
+            state.gameOver = true;
+            showOverlay("撞上啦", `这次拿到了 ${state.score} 分。按空格、点击画布或点“重新开始”再来一局。`);
+        }
+
+        function update(dt) {
+            if (!state.running) {
+                bird.bob += dt * 2.4;
+                return;
+            }
+
+            const preset = currentPreset();
+            const pipeSpeed = preset.pipeSpeed + Math.min(state.streak, 8) * 3;
+
+            state.spawnTimer += dt;
+            if (state.spawnTimer >= 1.55) {
+                state.spawnTimer = 0;
+                spawnPipe();
+            }
+
+            bird.velocity += bird.gravity * dt;
+            bird.y += bird.velocity * dt;
+            bird.rotation = Math.max(-0.7, Math.min(1.1, bird.velocity / 360));
+
+            if (bird.y + bird.radius > canvas.height - 94 || bird.y - bird.radius < 50) {
+                endGame();
+            }
+
+            state.clouds.forEach((cloud) => {
+                cloud.x -= cloud.speed * dt;
+                if (cloud.x + cloud.width < -30) {
+                    cloud.x = canvas.width + Math.random() * 60;
+                }
+            });
+
+            state.pipes.forEach((pipe) => {
+                pipe.x -= pipeSpeed * dt;
+                if (!pipe.passed && pipe.x + pipe.width < bird.x) {
+                    pipe.passed = true;
+                    addScore();
+                }
+
+                const hitX = bird.x + bird.radius > pipe.x && bird.x - bird.radius < pipe.x + pipe.width;
+                const hitY = bird.y - bird.radius < pipe.gapY || bird.y + bird.radius > pipe.gapY + pipe.gapHeight;
+                if (hitX && hitY) {
+                    endGame();
+                }
+            });
+
+            state.pipes = state.pipes.filter((pipe) => pipe.x + pipe.width > -30);
+
+            state.particles.forEach((particle) => {
+                particle.life -= dt;
+                particle.x += particle.vx * dt;
+                particle.y += particle.vy * dt;
+                particle.vy += 180 * dt;
+            });
+            state.particles = state.particles.filter((particle) => particle.life > 0);
+        }
+
+        function drawSky() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, "#8fd3ff");
+            gradient.addColorStop(0.62, "#b7e5ff");
+            gradient.addColorStop(1, "#d9f8c6");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawClouds() {
+            ctx.save();
+            ctx.fillStyle = "rgba(255,255,255,0.82)";
+            state.clouds.forEach((cloud) => {
+                ctx.beginPath();
+                ctx.ellipse(cloud.x, cloud.y, cloud.width * 0.38, 32, 0, 0, Math.PI * 2);
+                ctx.ellipse(cloud.x + 36, cloud.y - 10, cloud.width * 0.28, 28, 0, 0, Math.PI * 2);
+                ctx.ellipse(cloud.x - 32, cloud.y - 4, cloud.width * 0.24, 24, 0, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.restore();
+        }
+
+        function drawGround() {
+            ctx.fillStyle = "#65a30d";
+            ctx.fillRect(0, canvas.height - 94, canvas.width, 94);
+            ctx.fillStyle = "#4d7c0f";
+            for (let x = 0; x < canvas.width; x += 34) {
+                ctx.fillRect(x, canvas.height - 94, 18, 10);
+            }
+        }
+
+        function drawPipes() {
+            state.pipes.forEach((pipe) => {
+                ctx.fillStyle = "#22c55e";
+                ctx.strokeStyle = "#166534";
+                ctx.lineWidth = 6;
+
+                const topHeight = pipe.gapY;
+                const bottomY = pipe.gapY + pipe.gapHeight;
+                const bottomHeight = canvas.height - bottomY - 94;
+
+                ctx.fillRect(pipe.x, 0, pipe.width, topHeight);
+                ctx.strokeRect(pipe.x, 0, pipe.width, topHeight);
+                ctx.fillRect(pipe.x - 8, topHeight - 28, pipe.width + 16, 28);
+                ctx.strokeRect(pipe.x - 8, topHeight - 28, pipe.width + 16, 28);
+
+                ctx.fillRect(pipe.x, bottomY, pipe.width, bottomHeight);
+                ctx.strokeRect(pipe.x, bottomY, pipe.width, bottomHeight);
+                ctx.fillRect(pipe.x - 8, bottomY, pipe.width + 16, 28);
+                ctx.strokeRect(pipe.x - 8, bottomY, pipe.width + 16, 28);
+            });
+        }
+
+        function drawBird(dt) {
+            const bob = !state.running ? Math.sin(bird.bob) * 8 : 0;
+
+            ctx.save();
+            ctx.translate(bird.x, bird.y + bob);
+            ctx.rotate(bird.rotation);
+
+            ctx.fillStyle = "#facc15";
+            ctx.beginPath();
+            ctx.arc(0, 0, bird.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "#f59e0b";
+            ctx.beginPath();
+            ctx.ellipse(-4, 4, 18, 14, -0.2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(10, -8, 7, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "#111827";
+            ctx.beginPath();
+            ctx.arc(12, -8, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "#fb923c";
+            ctx.beginPath();
+            ctx.moveTo(24, 0);
+            ctx.lineTo(44, -5);
+            ctx.lineTo(24, 8);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = "#ef4444";
+            ctx.beginPath();
+            ctx.moveTo(-6, -24);
+            ctx.lineTo(4, -36);
+            ctx.lineTo(10, -18);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawParticles() {
+            ctx.save();
+            ctx.fillStyle = "#fef08a";
+            state.particles.forEach((particle) => {
+                ctx.globalAlpha = Math.max(0, particle.life / 0.6);
+                ctx.fillRect(particle.x, particle.y, 6, 6);
+            });
+            ctx.restore();
+        }
+
+        function drawHud() {
+            ctx.fillStyle = "rgba(255,255,255,0.82)";
+            ctx.beginPath();
+            ctx.roundRect(18, 18, 132, 52, 18);
+            ctx.fill();
+            ctx.fillStyle = "#102a43";
+            ctx.font = "700 22px 'Avenir Next', sans-serif";
+            ctx.fillText(`分数 ${state.score}`, 34, 52);
+        }
+
+        function drawScene(dt) {
+            drawSky();
+            drawClouds();
+            drawPipes();
+            drawGround();
+            drawParticles();
+            drawBird(dt);
+            drawHud();
+        }
+
+        function frame(time) {
+            if (!state.lastTime) state.lastTime = time;
+            const dt = Math.min((time - state.lastTime) / 1000, 0.032);
+            state.lastTime = time;
+            update(dt);
+            drawScene(dt);
+            requestAnimationFrame(frame);
+        }
+
+        document.getElementById("startBtn").addEventListener("click", startGame);
+        document.getElementById("restartBtn").addEventListener("click", () => {
+            resetGame();
+            startGame();
+        });
+
+        speedRange.addEventListener("input", (event) => {
+            state.level = Number(event.target.value);
+            syncSpeedLabel();
+        });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.code === "Space" || event.code === "ArrowUp") {
+                event.preventDefault();
+                if (state.gameOver) {
+                    resetGame();
+                }
+                flap();
+            }
+        });
+
+        canvas.addEventListener("pointerdown", () => {
+            if (state.gameOver) {
+                resetGame();
+            }
+            flap();
+        });
+
+        syncSpeedLabel();
+        resetGame();
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>

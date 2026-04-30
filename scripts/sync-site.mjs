@@ -8,6 +8,7 @@ const TODAY = new Date().toISOString().slice(0, 10);
 
 const CATEGORY_ORDER = [
   "动作街机",
+  "策略经营",
   "棋牌纸牌",
   "益智解谜",
   "学科练习",
@@ -19,6 +20,11 @@ const CATEGORY_META = {
     emoji: "🎮",
     accent: "速度反应",
     description: "跑酷、躲避、打字和即时反应类小游戏合集。",
+  },
+  "策略经营": {
+    emoji: "🏙️",
+    accent: "长期养成",
+    description: "城市、商队、殖民地和资源调度类策略经营小游戏合集。",
   },
   "棋牌纸牌": {
     emoji: "♟️",
@@ -93,6 +99,26 @@ const STATIC_ENTRIES = [
     summary: "经典体素风格的无尽过马路游戏，控制角色躲避车辆、跳过河流、避开火车。",
     keywords: ["天天过马路", "Crossy Road", "跑酷游戏", "体素游戏"],
   },
+  {
+    slug: "life-restart",
+    href: "/life-restart/",
+    sourceFile: "life-restart/index.html",
+    displayName: "人生重开模拟器",
+    category: "创意工具",
+    emoji: "🎲",
+    summary: "经典文字人生模拟游戏，随机分配天赋与属性，体验不一样的人生轨迹。",
+    keywords: ["人生重开模拟器", "Life Restart", "文字游戏", "模拟器"],
+  },
+  {
+    slug: "reigns-clone",
+    href: "/reigns-clone/",
+    sourceFile: "reigns-clone/index.html",
+    displayName: "王权模拟器",
+    category: "创意工具",
+    emoji: "👑",
+    summary: "滑动卡牌策略文字游戏，平衡宗教、民心、军事和财富，尽可能延长统治时间。",
+    keywords: ["王权", "Reigns", "卡牌游戏", "文字游戏", "策略"],
+  },
 ];
 
 const GAME_OVERRIDES = {
@@ -117,6 +143,53 @@ const GAME_OVERRIDES = {
   "instrument-reading": {
     category: "创意工具",
     summary: "仪器读数练习小游戏，帮助熟悉常见实验仪表读数方式。",
+  },
+  "flappy-chicken": {
+    category: "动作街机",
+    summary: "像素飞鸡是一款节奏明快的穿越管道小游戏，轻点即可振翅冲分。",
+  },
+  "meteor-dash": {
+    category: "动作街机",
+    summary: "彗星闪避结合了闪避与收集玩法，拖动飞船穿梭星海挑战高分。",
+  },
+  "candy-catcher": {
+    category: "动作街机",
+    summary: "糖果接接乐是一款轻松上头的接物小游戏，连击越高分数涨得越快。",
+  },
+  "bubble-pop": {
+    category: "动作街机",
+    summary: "泡泡啪嗒乐是一款越点越上头的戳泡泡小游戏，连击和特效会越来越爽。",
+  },
+  "cat-fishing": {
+    category: "动作街机",
+    summary: "猫猫钓鱼王主打轻松收放鱼钩，找准深度把大鱼和宝箱一把钓上来。",
+  },
+  "orbit-jump": {
+    category: "动作街机",
+    summary: "轨道跳跳星主打时机跃迁，找准角度让小球连续跳上下一颗星球。",
+  },
+  "brick-breaker": {
+    category: "动作街机",
+    summary: "霓虹打砖块是一款经典又解压的街机小游戏，接住弹球一路清板冲关。",
+  },
+  "relic-runner": {
+    category: "动作街机",
+    summary: "遗迹狂奔是一款神庙冒险感的三路跑酷小游戏，包含跳跃、滑铲、道具、任务和永久升级。",
+  },
+  "space-colony-manager": {
+    category: "策略经营",
+    summary: "星港殖民地是一款回合制太空经营小游戏，建造设施、调配资源并带领殖民地完成独立。",
+  },
+  "night-market-tycoon": {
+    category: "策略经营",
+    summary: "夜市摊主王是一款摊位经营小游戏，备货、定价、升级设备，在 30 天内把小摊做成招牌夜市。",
+  },
+  "caravan-merchant": {
+    category: "策略经营",
+    summary: "王国商队是一款商路经营策略小游戏，观察行情、接订单、升级车队并在风险路线上赚到第一桶金。",
+  },
+  "stack-tower": {
+    summary: "叠塔高手是一款越叠越上头的节奏小游戏，考验时机与稳定手感。",
   },
   multimeter: {
     category: "创意工具",
@@ -167,7 +240,11 @@ function categorizeGame(slug, displayName) {
     return GAME_OVERRIDES[slug].category;
   }
 
-  if (/(surf|subway|dino|snake|typing-rain|whack-a-mole|crossy-road)/.test(slug)) {
+  if (/(tycoon|manager|merchant|colony|market|caravan|经营|商队|殖民地|摊主|城市|工厂|农场)/.test(slug) || /经营|商队|殖民地|摊主|城市|工厂|农场/.test(displayName)) {
+    return "策略经营";
+  }
+
+  if (/(surf|subway|dino|snake|typing-rain|whack-a-mole|crossy-road|flappy-chicken|meteor-dash|candy-catcher|bubble-pop|cat-fishing|orbit-jump|brick-breaker|relic-runner)/.test(slug)) {
     return "动作街机";
   }
 
@@ -198,6 +275,8 @@ function buildSummary(displayName, category) {
   switch (category) {
     case "动作街机":
       return `${displayName}是一款节奏轻快的动作街机小游戏，支持手机和电脑直接打开即玩。`;
+    case "策略经营":
+      return `${displayName}是一款节奏完整的策略经营小游戏，适合慢慢规划、反复挑战更高结局。`;
     case "棋牌纸牌":
       return `${displayName}是一款适合随时开局的棋牌纸牌小游戏，兼顾休闲与策略体验。`;
     case "学科练习":
@@ -230,14 +309,27 @@ function pickGameEmoji(slug, displayName, category) {
     [/surf|冲浪/, "🏄"],
     [/subway|地铁跑酷|maze|迷宫/, "🏃"],
     [/dino|恐龙/, "🦖"],
+    [/flappy|飞鸡/, "🐥"],
+    [/candy|糖果/, "🍬"],
+    [/bubble|泡泡/, "🫧"],
+    [/cat|钓鱼|fishing/, "🐱"],
     [/snake|贪吃蛇/, "🐍"],
     [/whack-a-mole|打地鼠/, "🔨"],
+    [/orbit|轨道|planet|星球/, "🪐"],
+    [/meteor|彗星|comet/, "☄️"],
     [/typing|打字/, "⌨️"],
+    [/brick|打砖块|breakout/, "🧱"],
+    [/relic|temple|runner|遗迹|狂奔|神庙/, "🏛️"],
+    [/colony|殖民地|space|星港/, "🛰️"],
+    [/market|tycoon|摊主|夜市/, "🏮"],
+    [/merchant|caravan|商队|商路/, "🧭"],
+    [/manager|经营|城市|工厂|农场/, "🏙️"],
     [/mahjong|麻将/, "🀄"],
     [/象棋|xiangqi|chess|国际象棋/, "♟️"],
     [/五子棋|gomoku/, "⚫"],
     [/dou-dizhu|uno|freecell|solitaire|klondike|card-memory|纸牌/, "🃏"],
     [/hanoi|汉诺塔/, "🗼"],
+    [/stack|叠塔/, "🧱"],
     [/klotski|华容道/, "🚪"],
     [/连连看|matching|yang-le-ge-yang|羊了个羊/, "🧩"],
     [/minesweeper|扫雷/, "💣"],
@@ -264,6 +356,7 @@ function pickGameEmoji(slug, displayName, category) {
 
   const fallbackMap = {
     "动作街机": "🎮",
+    "策略经营": "🏙️",
     "棋牌纸牌": "♟️",
     "益智解谜": "🧩",
     "学科练习": "🧪",
@@ -468,7 +561,7 @@ function buildHomePage(entries) {
     .join("");
 
   const homeDescription =
-    "贝谷游戏收录大量在线小游戏，覆盖数独、扫雷、2048、麻将、象棋、跑酷、英语拼写、化学、物理和地理等主题，支持手机和电脑浏览器直接打开即玩。";
+    "贝谷游戏收录大量在线小游戏，覆盖策略经营、数独、扫雷、2048、麻将、象棋、跑酷、英语拼写、化学、物理和地理等主题，支持手机和电脑浏览器直接打开即玩。";
 
   const structuredData = [
     {
@@ -514,7 +607,7 @@ function buildHomePage(entries) {
           name: "贝谷游戏有哪些类型？",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "本站收录动作街机、棋牌纸牌、益智解谜、学科练习和创意工具等多个分类，适合休闲娱乐和课堂互动。",
+            text: "本站收录动作街机、策略经营、棋牌纸牌、益智解谜、学科练习和创意工具等多个分类，适合休闲娱乐和课堂互动。",
           },
         },
         {
@@ -522,7 +615,7 @@ function buildHomePage(entries) {
           name: "怎么更快找到想玩的游戏？",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "可以直接使用首页搜索框输入游戏名、学科名称或玩法关键词，也可以按分类浏览动作街机、棋牌纸牌、益智解谜、学科练习和创意工具等专区。",
+            text: "可以直接使用首页搜索框输入游戏名、学科名称或玩法关键词，也可以按分类浏览动作街机、策略经营、棋牌纸牌、益智解谜、学科练习和创意工具等专区。",
           },
         },
       ],
@@ -534,9 +627,9 @@ function buildHomePage(entries) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>贝谷游戏 - 在线小游戏大全 | 益智、棋牌、动作、学习类游戏</title>
+    <title>贝谷游戏 - 在线小游戏大全 | 策略、益智、棋牌、动作、学习类游戏</title>
     <meta name="description" content="${escapeAttr(homeDescription)}">
-    <meta name="keywords" content="贝谷游戏,在线小游戏,网页游戏,益智游戏,棋牌游戏,数独,扫雷,2048,中国象棋,麻将,英语拼写,物理化学游戏">
+    <meta name="keywords" content="贝谷游戏,在线小游戏,网页游戏,策略经营游戏,益智游戏,棋牌游戏,数独,扫雷,2048,中国象棋,麻将,英语拼写,物理化学游戏">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="${BASE_URL}/">
     <link rel="icon" href="/favicon.png">

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>糖果接接乐 - 在线动作街机小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="糖果接接乐是一款轻松上头的接物小游戏，连击越高分数涨得越快。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="糖果接接乐,动作街机,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/candy-catcher.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="糖果接接乐 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta property="og:description" content="糖果接接乐是一款轻松上头的接物小游戏，连击越高分数涨得越快。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/candy-catcher.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="糖果接接乐 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="糖果接接乐是一款轻松上头的接物小游戏，连击越高分数涨得越快。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"糖果接接乐","description":"糖果接接乐是一款轻松上头的接物小游戏，连击越高分数涨得越快。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/candy-catcher.html","genre":"动作街机","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #fff7fb;
+            --panel: rgba(255, 255, 255, 0.92);
+            --border: rgba(126, 34, 206, 0.08);
+            --text: #3b164f;
+            --muted: #7e5a88;
+            --primary: #ec4899;
+            --shadow: 0 20px 48px rgba(76, 29, 149, 0.14);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            color: var(--text);
+            font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(244, 114, 182, 0.18), transparent 24%),
+                radial-gradient(circle at top right, rgba(168, 85, 247, 0.16), transparent 24%),
+                linear-gradient(180deg, #fff9fd 0%, #fff1fb 52%, #fef6ff 100%);
+        }
+
+        .sidebar {
+            width: 350px;
+            padding: 28px;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .title {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .title__icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ec4899, #a855f7);
+            color: white;
+            box-shadow: 0 14px 32px rgba(168, 85, 247, 0.2);
+        }
+
+        h1 { font-size: 2rem; line-height: 1; }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .card, .tips {
+            padding: 18px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: 0 12px 28px rgba(76, 29, 149, 0.06);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.5rem;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        button {
+            border: none;
+            border-radius: 15px;
+            padding: 13px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.16s ease, filter 0.16s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #ec4899, #f97316);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: #fce7f3;
+        }
+
+        .tips h2 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .tips li::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+        }
+
+        .canvas-shell {
+            width: min(100%, 620px);
+            aspect-ratio: 10 / 13;
+            border-radius: 34px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.92);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .overlay__panel {
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.94);
+            box-shadow: 0 14px 36px rgba(76, 29, 149, 0.14);
+        }
+
+        .overlay__panel strong {
+            display: block;
+            font-size: 1.55rem;
+        }
+
+        .overlay__panel p {
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 940px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .main-area { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="title">
+            <div class="title__icon">🍬</div>
+            <div>
+                <h1>糖果接接乐</h1>
+                <p class="subtitle">移动小篮子接住从天而降的糖果，避开辣椒炸弹，尽量连击冲分。</p>
+            </div>
+        </div>
+
+        <section class="card">
+            <div class="stats">
+                <div class="stat">
+                    <strong id="score">0</strong>
+                    <span>当前分数</span>
+                </div>
+                <div class="stat">
+                    <strong id="combo">0</strong>
+                    <span>连击数</span>
+                </div>
+                <div class="stat">
+                    <strong id="lives">3</strong>
+                    <span>剩余爱心</span>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="btn-primary" id="startBtn">开始接糖</button>
+                <button class="btn-secondary" id="restartBtn">重新开始</button>
+            </div>
+        </section>
+
+        <section class="tips">
+            <h2>玩法提示</h2>
+            <ul>
+                <li>左右拖动或用方向键移动篮子，尽量别漏掉糖果。</li>
+                <li>连续接住糖果会增加连击倍率，分数涨得更快。</li>
+                <li>碰到辣椒炸弹或漏掉太多糖果会扣爱心，爱心归零游戏结束。</li>
+            </ul>
+        </section>
+    </aside>
+
+    <main class="main-area">
+        <div class="canvas-shell">
+            <canvas id="candyCanvas" width="620" height="820"></canvas>
+            <div class="overlay" id="overlay">
+                <div class="overlay__panel">
+                    <strong id="overlayTitle">糖果雨要开始啦</strong>
+                    <p id="overlayText">点击“开始接糖”或直接拖动画布，先热热身再冲高分。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById("candyCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+        const comboEl = document.getElementById("combo");
+        const livesEl = document.getElementById("lives");
+        const overlay = document.getElementById("overlay");
+        const overlayTitle = document.getElementById("overlayTitle");
+        const overlayText = document.getElementById("overlayText");
+
+        const state = {
+            running: false,
+            gameOver: false,
+            score: 0,
+            combo: 0,
+            lives: 3,
+            lastTime: 0,
+            spawnTimer: 0,
+            items: [],
+            particles: [],
+            bgDots: Array.from({ length: 40 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: 10 + Math.random() * 22,
+                color: ["#fce7f3", "#fae8ff", "#fef3c7"][Math.floor(Math.random() * 3)]
+            }))
+        };
+
+        const basket = {
+            x: canvas.width / 2,
+            y: canvas.height - 86,
+            width: 120,
+            height: 46,
+            targetX: canvas.width / 2
+        };
+
+        function showOverlay(title, text) {
+            overlayTitle.textContent = title;
+            overlayText.textContent = text;
+            overlay.style.display = "flex";
+        }
+
+        function hideOverlay() {
+            overlay.style.display = "none";
+        }
+
+        function syncHud() {
+            scoreEl.textContent = Math.floor(state.score);
+            comboEl.textContent = state.combo;
+            livesEl.textContent = state.lives;
+        }
+
+        function resetGame() {
+            state.running = false;
+            state.gameOver = false;
+            state.score = 0;
+            state.combo = 0;
+            state.lives = 3;
+            state.lastTime = 0;
+            state.spawnTimer = 0;
+            state.items = [];
+            state.particles = [];
+            basket.x = canvas.width / 2;
+            basket.targetX = basket.x;
+            syncHud();
+            showOverlay("糖果雨要开始啦", "点击“开始接糖”或直接拖动画布，先热热身再冲高分。");
+            drawScene();
+        }
+
+        function startGame() {
+            if (state.running) return;
+            if (state.gameOver) resetGame();
+            state.running = true;
+            hideOverlay();
+        }
+
+        function endGame() {
+            state.running = false;
+            state.gameOver = true;
+            showOverlay("甜蜜挑战结束", `这次拿到了 ${Math.floor(state.score)} 分。重新开始再来一把更顺手的连击。`);
+        }
+
+        function addParticles(x, y, color) {
+            for (let i = 0; i < 8; i += 1) {
+                state.particles.push({
+                    x,
+                    y,
+                    vx: (Math.random() - 0.5) * 180,
+                    vy: -60 - Math.random() * 100,
+                    life: 0.55,
+                    color
+                });
+            }
+        }
+
+        function spawnItem() {
+            const isBomb = Math.random() < 0.18;
+            const size = isBomb ? 24 : 18 + Math.random() * 8;
+            state.items.push({
+                type: isBomb ? "bomb" : "candy",
+                x: 40 + Math.random() * (canvas.width - 80),
+                y: -30,
+                size,
+                speed: (isBomb ? 280 : 230) + Math.random() * 120 + state.score * 1.4,
+                drift: (Math.random() - 0.5) * 50,
+                hue: Math.floor(Math.random() * 360)
+            });
+        }
+
+        function update(dt) {
+            basket.x += (basket.targetX - basket.x) * Math.min(1, dt * 12);
+            basket.x = Math.max(70, Math.min(canvas.width - 70, basket.x));
+
+            if (!state.running) return;
+
+            state.spawnTimer += dt;
+            if (state.spawnTimer > Math.max(0.26, 0.75 - state.score / 120)) {
+                state.spawnTimer = 0;
+                spawnItem();
+            }
+
+            state.items.forEach((item) => {
+                item.y += item.speed * dt;
+                item.x += item.drift * dt;
+
+                const hitX = Math.abs(item.x - basket.x) < basket.width * 0.42;
+                const hitY = item.y + item.size > basket.y - basket.height * 0.5 && item.y - item.size < basket.y + 14;
+                if (hitX && hitY) {
+                    if (item.type === "bomb") {
+                        state.lives -= 1;
+                        state.combo = 0;
+                        addParticles(item.x, item.y, "#ef4444");
+                    } else {
+                        state.combo += 1;
+                        state.score += 12 + state.combo * 4;
+                        addParticles(item.x, item.y, `hsl(${item.hue} 92% 66%)`);
+                    }
+                    item.y = canvas.height + 80;
+                } else if (item.y > canvas.height + 30) {
+                    if (item.type === "candy") {
+                        state.lives -= 1;
+                        state.combo = 0;
+                    }
+                    item.y = canvas.height + 80;
+                }
+            });
+
+            state.items = state.items.filter((item) => item.y < canvas.height + 60);
+
+            state.particles.forEach((particle) => {
+                particle.life -= dt;
+                particle.x += particle.vx * dt;
+                particle.y += particle.vy * dt;
+                particle.vy += 260 * dt;
+            });
+            state.particles = state.particles.filter((particle) => particle.life > 0);
+
+            if (state.lives <= 0) endGame();
+            syncHud();
+        }
+
+        function drawBackground() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, "#fff1fa");
+            gradient.addColorStop(0.52, "#fef3ff");
+            gradient.addColorStop(1, "#fff7ed");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            state.bgDots.forEach((dot) => {
+                ctx.fillStyle = dot.color;
+                ctx.beginPath();
+                ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function drawCandy(item) {
+            ctx.save();
+            ctx.translate(item.x, item.y);
+            if (item.type === "bomb") {
+                ctx.fillStyle = "#ef4444";
+                ctx.beginPath();
+                ctx.arc(0, 0, item.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "700 20px sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText("!", 0, 8);
+            } else {
+                ctx.fillStyle = `hsl(${item.hue} 88% 62%)`;
+                ctx.beginPath();
+                ctx.arc(0, 0, item.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = `hsla(${item.hue} 95% 92% / 0.7)`;
+                ctx.beginPath();
+                ctx.arc(-item.size * 0.28, -item.size * 0.28, item.size * 0.36, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = `hsl(${item.hue} 80% 52%)`;
+                ctx.beginPath();
+                ctx.moveTo(-item.size, -6);
+                ctx.lineTo(-item.size - 16, -16);
+                ctx.lineTo(-item.size - 16, 16);
+                ctx.closePath();
+                ctx.fill();
+                ctx.beginPath();
+                ctx.moveTo(item.size, -6);
+                ctx.lineTo(item.size + 16, -16);
+                ctx.lineTo(item.size + 16, 16);
+                ctx.closePath();
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        function drawBasket() {
+            ctx.save();
+            ctx.translate(basket.x, basket.y);
+            ctx.fillStyle = "#f97316";
+            ctx.beginPath();
+            ctx.roundRect(-basket.width / 2, -basket.height / 2, basket.width, basket.height, 18);
+            ctx.fill();
+            ctx.fillStyle = "#7c2d12";
+            ctx.fillRect(-basket.width / 2 + 12, -basket.height / 2 + 8, basket.width - 24, 10);
+            ctx.strokeStyle = "#92400e";
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.arc(0, -20, 40, Math.PI, 0);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawParticles() {
+            state.particles.forEach((particle) => {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, particle.life / 0.55);
+                ctx.fillStyle = particle.color;
+                ctx.fillRect(particle.x, particle.y, 6, 6);
+                ctx.restore();
+            });
+        }
+
+        function drawHud() {
+            ctx.fillStyle = "rgba(255,255,255,0.7)";
+            ctx.beginPath();
+            ctx.roundRect(18, 18, 170, 56, 18);
+            ctx.fill();
+            ctx.fillStyle = "#3b164f";
+            ctx.font = "700 22px 'Avenir Next', sans-serif";
+            ctx.fillText(`分数 ${Math.floor(state.score)}`, 34, 53);
+        }
+
+        function drawScene() {
+            drawBackground();
+            state.items.forEach(drawCandy);
+            drawParticles();
+            drawBasket();
+            drawHud();
+        }
+
+        function frame(time) {
+            if (!state.lastTime) state.lastTime = time;
+            const dt = Math.min((time - state.lastTime) / 1000, 0.032);
+            state.lastTime = time;
+            update(dt);
+            drawScene();
+            requestAnimationFrame(frame);
+        }
+
+        function updateTarget(clientX) {
+            const rect = canvas.getBoundingClientRect();
+            const ratio = canvas.width / rect.width;
+            basket.targetX = (clientX - rect.left) * ratio;
+        }
+
+        document.getElementById("startBtn").addEventListener("click", startGame);
+        document.getElementById("restartBtn").addEventListener("click", () => {
+            resetGame();
+            startGame();
+        });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.code === "Space") {
+                event.preventDefault();
+                if (state.gameOver) resetGame();
+                startGame();
+            }
+            if (event.code === "ArrowLeft") basket.targetX -= 40;
+            if (event.code === "ArrowRight") basket.targetX += 40;
+        });
+
+        canvas.addEventListener("pointerdown", (event) => {
+            if (state.gameOver) resetGame();
+            startGame();
+            updateTarget(event.clientX);
+        });
+
+        canvas.addEventListener("pointermove", (event) => {
+            if (event.buttons || event.pointerType === "touch") {
+                updateTarget(event.clientX);
+            }
+        });
+
+        canvas.addEventListener("touchmove", (event) => {
+            updateTarget(event.touches[0].clientX);
+        }, { passive: true });
+
+        resetGame();
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>

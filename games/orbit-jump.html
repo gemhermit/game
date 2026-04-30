@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轨道跳跳星 - 在线动作街机小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="轨道跳跳星主打时机跃迁，找准角度让小球连续跳上下一颗星球。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="轨道跳跳星,动作街机,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/orbit-jump.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="轨道跳跳星 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta property="og:description" content="轨道跳跳星主打时机跃迁，找准角度让小球连续跳上下一颗星球。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/orbit-jump.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="轨道跳跳星 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="轨道跳跳星主打时机跃迁，找准角度让小球连续跳上下一颗星球。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"轨道跳跳星","description":"轨道跳跳星主打时机跃迁，找准角度让小球连续跳上下一颗星球。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/orbit-jump.html","genre":"动作街机","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #050816;
+            --panel: rgba(11, 19, 43, 0.92);
+            --border: rgba(125, 211, 252, 0.14);
+            --text: #e0f2fe;
+            --muted: #94a3b8;
+            --primary: #38bdf8;
+            --shadow: 0 22px 56px rgba(2, 6, 23, 0.45);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            color: var(--text);
+            font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 24%),
+                radial-gradient(circle at top right, rgba(96, 165, 250, 0.18), transparent 22%),
+                linear-gradient(180deg, #040713 0%, #081224 55%, #081528 100%);
+        }
+
+        .sidebar {
+            width: 350px;
+            padding: 28px;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .title {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .title__icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+            color: white;
+            box-shadow: 0 14px 32px rgba(14, 165, 233, 0.24);
+        }
+
+        h1 { font-size: 2rem; line-height: 1; }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .card, .tips {
+            padding: 18px;
+            background: rgba(15, 23, 42, 0.86);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: 0 12px 28px rgba(2, 6, 23, 0.2);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.5rem;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        button {
+            border: none;
+            border-radius: 15px;
+            padding: 13px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.16s ease, filter 0.16s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.04);
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: #13213c;
+        }
+
+        .tips h2 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .tips li::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+        }
+
+        .canvas-shell {
+            width: min(100%, 620px);
+            aspect-ratio: 10 / 12;
+            border-radius: 34px;
+            overflow: hidden;
+            background: rgba(8, 15, 32, 0.74);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: manipulation;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .overlay__panel {
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: rgba(10, 18, 38, 0.82);
+            border: 1px solid rgba(125, 211, 252, 0.14);
+            box-shadow: 0 14px 36px rgba(2, 6, 23, 0.32);
+        }
+
+        .overlay__panel strong {
+            display: block;
+            font-size: 1.55rem;
+        }
+
+        .overlay__panel p {
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 940px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .main-area { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="title">
+            <div class="title__icon">🪐</div>
+            <div>
+                <h1>轨道跳跳星</h1>
+                <p class="subtitle">让小球绕着星球旋转，在恰当时机起跳，顺利落到下一颗星球上继续前进。</p>
+            </div>
+        </div>
+
+        <section class="card">
+            <div class="stats">
+                <div class="stat">
+                    <strong id="score">0</strong>
+                    <span>成功跳跃</span>
+                </div>
+                <div class="stat">
+                    <strong id="best">0</strong>
+                    <span>最佳纪录</span>
+                </div>
+                <div class="stat">
+                    <strong id="speed">1x</strong>
+                    <span>节奏速度</span>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="btn-primary" id="startBtn">开始跃迁</button>
+                <button class="btn-secondary" id="restartBtn">重新开始</button>
+            </div>
+        </section>
+
+        <section class="tips">
+            <h2>玩法提示</h2>
+            <ul>
+                <li>按空格、回车或点击画布起跳，落在下一颗星球引力范围内才算成功。</li>
+                <li>连续成功后旋转速度会慢慢加快，越到后面越考验出手时机。</li>
+                <li>轨迹圈会给你大概的引力范围，别急着出手，等到最顺眼的角度。</li>
+            </ul>
+        </section>
+    </aside>
+
+    <main class="main-area">
+        <div class="canvas-shell">
+            <canvas id="orbitCanvas" width="620" height="760"></canvas>
+            <div class="overlay" id="overlay">
+                <div class="overlay__panel">
+                    <strong id="overlayTitle">下一颗星球已就位</strong>
+                    <p id="overlayText">点击“开始跃迁”或直接按空格，小球会先绕轨道飞行，再由你决定起跳时机。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById("orbitCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+        const bestEl = document.getElementById("best");
+        const speedEl = document.getElementById("speed");
+        const overlay = document.getElementById("overlay");
+        const overlayTitle = document.getElementById("overlayTitle");
+        const overlayText = document.getElementById("overlayText");
+
+        const bestKey = "orbit_jump_best";
+        let best = Number(localStorage.getItem(bestKey) || 0);
+        bestEl.textContent = best;
+
+        const state = {
+            running: false,
+            gameOver: false,
+            phase: "orbit",
+            score: 0,
+            lastTime: 0,
+            planets: [],
+            particles: []
+        };
+
+        const orb = {
+            x: 0,
+            y: 0,
+            orbitAngle: -Math.PI / 2,
+            orbitRadius: 78,
+            orbitSpeed: 1.8,
+            planetIndex: 0,
+            vx: 0,
+            vy: 0,
+            trail: []
+        };
+
+        function showOverlay(title, text) {
+            overlayTitle.textContent = title;
+            overlayText.textContent = text;
+            overlay.style.display = "flex";
+        }
+
+        function hideOverlay() {
+            overlay.style.display = "none";
+        }
+
+        function syncHud() {
+            scoreEl.textContent = state.score;
+            speedEl.textContent = `${orb.orbitSpeed.toFixed(1)}x`;
+            bestEl.textContent = best;
+        }
+
+        function createPlanets() {
+            return [
+                { x: 180, y: 510, r: 36, color: "#22c55e" },
+                { x: 370, y: 380, r: 42, color: "#38bdf8" },
+                { x: 230, y: 220, r: 34, color: "#f97316" },
+                { x: 470, y: 120, r: 46, color: "#a855f7" }
+            ];
+        }
+
+        function resetGame() {
+            state.running = false;
+            state.gameOver = false;
+            state.phase = "orbit";
+            state.score = 0;
+            state.lastTime = 0;
+            state.particles = [];
+            state.planets = createPlanets();
+            orb.planetIndex = 0;
+            orb.orbitAngle = -Math.PI / 2;
+            orb.orbitRadius = 78;
+            orb.orbitSpeed = 1.8;
+            orb.vx = 0;
+            orb.vy = 0;
+            orb.trail = [];
+            attachToCurrentPlanet();
+            syncHud();
+            showOverlay("下一颗星球已就位", "点击“开始跃迁”或直接按空格，小球会先绕轨道飞行，再由你决定起跳时机。");
+            drawScene();
+        }
+
+        function attachToCurrentPlanet() {
+            const planet = state.planets[orb.planetIndex];
+            orb.x = planet.x + Math.cos(orb.orbitAngle) * orb.orbitRadius;
+            orb.y = planet.y + Math.sin(orb.orbitAngle) * orb.orbitRadius;
+        }
+
+        function startGame() {
+            if (state.running) return;
+            if (state.gameOver) resetGame();
+            state.running = true;
+            hideOverlay();
+        }
+
+        function addParticles(x, y, color) {
+            for (let i = 0; i < 10; i += 1) {
+                state.particles.push({
+                    x,
+                    y,
+                    vx: (Math.random() - 0.5) * 180,
+                    vy: (Math.random() - 0.5) * 180,
+                    life: 0.6,
+                    color
+                });
+            }
+        }
+
+        function endGame() {
+            state.running = false;
+            state.gameOver = true;
+            showOverlay("跃迁失败了", `这次成功跳了 ${state.score} 次。重开后再找更稳的出手角度。`);
+        }
+
+        function jump() {
+            if (!state.running) {
+                startGame();
+                return;
+            }
+            if (state.phase !== "orbit") return;
+            state.phase = "flight";
+            orb.vx = Math.cos(orb.orbitAngle) * orb.orbitSpeed * 180;
+            orb.vy = Math.sin(orb.orbitAngle) * orb.orbitSpeed * 180;
+        }
+
+        function advancePlanet() {
+            state.score += 1;
+            if (state.score > best) {
+                best = state.score;
+                localStorage.setItem(bestKey, String(best));
+            }
+            orb.planetIndex = Math.min(orb.planetIndex + 1, state.planets.length - 1);
+            if (orb.planetIndex === state.planets.length - 1) {
+                const last = state.planets[state.planets.length - 1];
+                state.planets.shift();
+                const next = {
+                    x: 160 + Math.random() * 320,
+                    y: 100 + Math.random() * 220,
+                    r: 30 + Math.random() * 18,
+                    color: ["#38bdf8", "#22c55e", "#f97316", "#a855f7"][Math.floor(Math.random() * 4)]
+                };
+                next.x = Math.max(120, Math.min(canvas.width - 120, next.x));
+                state.planets.push(next);
+                state.planets.forEach((planet) => {
+                    planet.y += 110;
+                });
+                state.planets = state.planets.filter((planet) => planet.y < canvas.height + 120);
+                orb.planetIndex = state.planets.findIndex((planet) => planet === last);
+                if (orb.planetIndex < 0) orb.planetIndex = 1;
+            }
+            orb.orbitSpeed = Math.min(3.8, orb.orbitSpeed + 0.12);
+            state.phase = "orbit";
+            orb.orbitAngle = -Math.PI / 2;
+            attachToCurrentPlanet();
+            addParticles(orb.x, orb.y, "#7dd3fc");
+            syncHud();
+        }
+
+        function update(dt) {
+            if (!state.running) return;
+
+            if (state.phase === "orbit") {
+                orb.orbitAngle += orb.orbitSpeed * dt;
+                attachToCurrentPlanet();
+            } else {
+                orb.x += orb.vx * dt;
+                orb.y += orb.vy * dt;
+
+                const target = state.planets[Math.min(orb.planetIndex + 1, state.planets.length - 1)];
+                const dx = target.x - orb.x;
+                const dy = target.y - orb.y;
+                const distance = Math.hypot(dx, dy);
+
+                if (distance < target.r + 18) {
+                    advancePlanet();
+                } else if (orb.x < -80 || orb.x > canvas.width + 80 || orb.y < -80 || orb.y > canvas.height + 80) {
+                    endGame();
+                }
+            }
+
+            orb.trail.push({ x: orb.x, y: orb.y });
+            if (orb.trail.length > 14) orb.trail.shift();
+
+            state.particles.forEach((particle) => {
+                particle.life -= dt;
+                particle.x += particle.vx * dt;
+                particle.y += particle.vy * dt;
+            });
+            state.particles = state.particles.filter((particle) => particle.life > 0);
+        }
+
+        function drawBackground() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, "#040713");
+            gradient.addColorStop(0.5, "#081224");
+            gradient.addColorStop(1, "#0b1730");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < 90; i += 1) {
+                const x = (i * 67) % canvas.width;
+                const y = (i * 37) % canvas.height;
+                ctx.fillStyle = i % 3 === 0 ? "rgba(255,255,255,0.8)" : "rgba(148,163,184,0.45)";
+                ctx.fillRect(x, y, 2, 2);
+            }
+        }
+
+        function drawPlanet(planet, active = false) {
+            const gradient = ctx.createRadialGradient(
+                planet.x - planet.r * 0.35,
+                planet.y - planet.r * 0.35,
+                planet.r * 0.2,
+                planet.x,
+                planet.y,
+                planet.r
+            );
+            gradient.addColorStop(0, "rgba(255,255,255,0.8)");
+            gradient.addColorStop(1, planet.color);
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(planet.x, planet.y, planet.r, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (active) {
+                ctx.strokeStyle = "rgba(125, 211, 252, 0.45)";
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(planet.x, planet.y, orb.orbitRadius, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+        }
+
+        function drawTrail() {
+            orb.trail.forEach((point, index) => {
+                const alpha = (index + 1) / orb.trail.length;
+                ctx.fillStyle = `rgba(125, 211, 252, ${alpha * 0.45})`;
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 4 + alpha * 6, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function drawOrb() {
+            ctx.fillStyle = "#e0f2fe";
+            ctx.beginPath();
+            ctx.arc(orb.x, orb.y, 14, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#38bdf8";
+            ctx.beginPath();
+            ctx.arc(orb.x - 4, orb.y - 4, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawParticles() {
+            state.particles.forEach((particle) => {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, particle.life / 0.6);
+                ctx.fillStyle = particle.color;
+                ctx.fillRect(particle.x, particle.y, 5, 5);
+                ctx.restore();
+            });
+        }
+
+        function drawHud() {
+            ctx.fillStyle = "rgba(10, 18, 38, 0.58)";
+            ctx.beginPath();
+            ctx.roundRect(18, 18, 166, 56, 18);
+            ctx.fill();
+            ctx.fillStyle = "#e0f2fe";
+            ctx.font = "700 22px 'Avenir Next', sans-serif";
+            ctx.fillText(`跳跃 ${state.score}`, 34, 53);
+        }
+
+        function drawScene() {
+            drawBackground();
+            state.planets.forEach((planet, index) => drawPlanet(planet, index === orb.planetIndex));
+            drawTrail();
+            drawParticles();
+            drawOrb();
+            drawHud();
+        }
+
+        function frame(time) {
+            if (!state.lastTime) state.lastTime = time;
+            const dt = Math.min((time - state.lastTime) / 1000, 0.032);
+            state.lastTime = time;
+            update(dt);
+            drawScene();
+            requestAnimationFrame(frame);
+        }
+
+        document.getElementById("startBtn").addEventListener("click", startGame);
+        document.getElementById("restartBtn").addEventListener("click", () => {
+            resetGame();
+            startGame();
+        });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.code === "Space" || event.code === "Enter") {
+                event.preventDefault();
+                if (state.gameOver) resetGame();
+                jump();
+            }
+        });
+
+        canvas.addEventListener("pointerdown", () => {
+            if (state.gameOver) resetGame();
+            jump();
+        });
+
+        resetGame();
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>

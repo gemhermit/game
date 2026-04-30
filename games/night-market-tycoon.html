@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夜市摊主王 - 在线策略经营小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="夜市摊主王是一款摊位经营小游戏，备货、定价、升级设备，在 30 天内把小摊做成招牌夜市。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="夜市摊主王,策略经营,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/night-market-tycoon.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="夜市摊主王 - 在线策略经营小游戏 | 贝谷游戏">
+    <meta property="og:description" content="夜市摊主王是一款摊位经营小游戏，备货、定价、升级设备，在 30 天内把小摊做成招牌夜市。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/night-market-tycoon.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="夜市摊主王 - 在线策略经营小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="夜市摊主王是一款摊位经营小游戏，备货、定价、升级设备，在 30 天内把小摊做成招牌夜市。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"夜市摊主王","description":"夜市摊主王是一款摊位经营小游戏，备货、定价、升级设备，在 30 天内把小摊做成招牌夜市。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/night-market-tycoon.html","genre":"策略经营","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #fff8ec;
+            --panel: rgba(255, 255, 255, 0.92);
+            --panel-strong: #ffffff;
+            --line: rgba(88, 52, 18, 0.12);
+            --text: #3b2412;
+            --muted: #795c45;
+            --primary: #c2410c;
+            --accent: #0f766e;
+            --good: #15803d;
+            --danger: #dc2626;
+            --shadow: 0 22px 58px rgba(88, 52, 18, 0.16);
+            --font: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text);
+            font-family: var(--font);
+            background:
+                linear-gradient(135deg, rgba(255, 237, 213, 0.95), rgba(220, 252, 231, 0.78)),
+                repeating-linear-gradient(90deg, rgba(194, 65, 12, 0.06) 0 16px, transparent 16px 32px);
+        }
+
+        button,
+        select {
+            border: 0;
+            border-radius: 14px;
+            padding: 11px 13px;
+            font: inherit;
+            font-weight: 800;
+        }
+
+        button {
+            cursor: pointer;
+            color: var(--text);
+            transition: transform 0.16s ease, filter 0.16s ease, opacity 0.16s ease;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.48;
+        }
+
+        .game-shell {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 350px minmax(0, 1fr);
+        }
+
+        .sidebar {
+            padding: 26px;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(14px);
+            border-right: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand__icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #c2410c, #f59e0b);
+            box-shadow: 0 16px 34px rgba(194, 65, 12, 0.24);
+        }
+
+        h1, h2, h3, p { margin: 0; }
+
+        h1 {
+            font-size: 2rem;
+            line-height: 1.04;
+        }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .card,
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: var(--panel);
+            box-shadow: 0 10px 26px rgba(88, 52, 18, 0.06);
+        }
+
+        .card { padding: 16px; }
+
+        .goal {
+            display: grid;
+            gap: 9px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.94rem;
+        }
+
+        .goal strong { color: var(--text); }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .stat {
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.74);
+            border: 1px solid rgba(88, 52, 18, 0.08);
+        }
+
+        .stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .stat strong {
+            display: block;
+            margin-top: 6px;
+            font-size: 1.32rem;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #c2410c, #f97316);
+        }
+
+        .btn-secondary {
+            color: #4a2d16;
+            background: #ffedd5;
+        }
+
+        .btn-wide { grid-column: 1 / -1; }
+
+        .main {
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            min-width: 0;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 22px;
+            border-radius: 28px;
+            color: white;
+            background:
+                linear-gradient(135deg, rgba(194, 65, 12, 0.94), rgba(15, 118, 110, 0.9)),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 10px, transparent 10px 20px);
+            box-shadow: var(--shadow);
+        }
+
+        .topbar h2 {
+            margin-top: 8px;
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            line-height: 1;
+        }
+
+        .topbar p {
+            max-width: 720px;
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.84);
+            line-height: 1.7;
+        }
+
+        .pill {
+            display: inline-flex;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.94);
+            font-weight: 900;
+            font-size: 0.9rem;
+        }
+
+        .scorebox {
+            min-width: 148px;
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.16);
+            text-align: right;
+        }
+
+        .scorebox span {
+            display: block;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.85rem;
+        }
+
+        .scorebox strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 1.55rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(310px, 0.92fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .panel {
+            padding: 18px;
+            min-width: 0;
+        }
+
+        .panel h3 {
+            font-size: 1.15rem;
+            margin-bottom: 14px;
+        }
+
+        .product-grid,
+        .upgrade-grid,
+        .price-row {
+            display: grid;
+            gap: 12px;
+        }
+
+        .product-grid,
+        .upgrade-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .product,
+        .upgrade,
+        .price-btn,
+        .report {
+            border: 1px solid rgba(88, 52, 18, 0.09);
+            border-radius: 18px;
+            background: white;
+        }
+
+        .product,
+        .upgrade,
+        .report {
+            padding: 15px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .product__head,
+        .upgrade__head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 900;
+        }
+
+        .icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #fff7ed;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 8px;
+            border-radius: 999px;
+            background: #f7f1ea;
+            color: #65432a;
+            font-size: 0.78rem;
+            font-weight: 900;
+        }
+
+        .product p,
+        .upgrade p,
+        .report p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .product button,
+        .upgrade button {
+            color: white;
+            background: #c2410c;
+        }
+
+        .price-row {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin-bottom: 16px;
+        }
+
+        .price-btn {
+            min-height: 82px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.84);
+        }
+
+        .price-btn.is-active {
+            color: white;
+            background: linear-gradient(135deg, #0f766e, #f97316);
+        }
+
+        .price-btn span {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.78rem;
+            opacity: 0.72;
+        }
+
+        .meters {
+            display: grid;
+            gap: 13px;
+        }
+
+        .meter {
+            display: grid;
+            gap: 7px;
+        }
+
+        .meter__label {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .meter__track {
+            height: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #f1e7dc;
+        }
+
+        .meter__fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #c2410c, #0f766e);
+            transition: width 0.25s ease;
+        }
+
+        .log {
+            max-height: 250px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            padding-right: 4px;
+        }
+
+        .log p {
+            padding: 10px 12px;
+            border-radius: 14px;
+            color: #61452e;
+            background: #fffaf3;
+            line-height: 1.55;
+            font-size: 0.9rem;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: rgba(55, 31, 14, 0.44);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal[hidden] { display: none; }
+
+        .modal__panel {
+            width: min(680px, 100%);
+            padding: 24px;
+            border-radius: 28px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .modal__panel h2 {
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+        }
+
+        .modal__panel p {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .choices {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .choice {
+            padding: 14px;
+            border-radius: 18px;
+            border: 1px solid rgba(88, 52, 18, 0.1);
+            background: #fffaf3;
+            text-align: left;
+        }
+
+        .choice strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .choice span {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 980px) {
+            .game-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .grid,
+            .product-grid,
+            .upgrade-grid,
+            .price-row {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+            }
+
+            .scorebox {
+                width: 100%;
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .main,
+            .sidebar {
+                padding: 18px;
+            }
+
+            .stats,
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="game-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand__icon" aria-hidden="true">🏮</div>
+                <div>
+                    <h1>夜市摊主王</h1>
+                    <p class="subtitle">从一辆小餐车开始，靠备货、定价和口碑把摊位做成夜市招牌。</p>
+                </div>
+            </div>
+
+            <section class="card goal">
+                <strong>30 天目标</strong>
+                <span>结算时现金 ≥ 5200，口碑 ≥ 70。备货不足会丢客，定价太狠会伤口碑。</span>
+            </section>
+
+            <section class="card">
+                <div class="stats" id="stats"></div>
+            </section>
+
+            <section class="card">
+                <div class="actions">
+                    <button class="btn-primary btn-wide" id="openBtn">开摊营业</button>
+                    <button class="btn-secondary" id="restBtn">休整半天</button>
+                    <button class="btn-secondary" id="restartBtn">重新开局</button>
+                </div>
+            </section>
+        </aside>
+
+        <section class="main">
+            <div class="topbar">
+                <div>
+                    <span class="pill" id="weatherPill">今日天气</span>
+                    <h2 id="statusTitle">夜市灯牌刚亮</h2>
+                    <p id="statusText">先备一点三类食材，再根据天气和库存决定价格。设备升级会逐渐改变你的经营上限。</p>
+                </div>
+                <div class="scorebox">
+                    <span>当前评分</span>
+                    <strong id="scoreValue">0</strong>
+                </div>
+            </div>
+
+            <div class="grid">
+                <section class="panel">
+                    <h3>备货进料</h3>
+                    <div class="product-grid" id="productGrid"></div>
+                </section>
+
+                <div>
+                    <section class="panel">
+                        <h3>今日策略</h3>
+                        <div class="price-row" id="priceRow"></div>
+                        <div class="actions">
+                            <button class="btn-secondary" id="adBtn">发短视频揽客</button>
+                            <button class="btn-secondary" id="clearAdBtn">取消推广</button>
+                        </div>
+                    </section>
+
+                    <section class="panel" style="margin-top:18px;">
+                        <h3>经营状态</h3>
+                        <div class="meters" id="meters"></div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="grid">
+                <section class="panel">
+                    <h3>设备升级</h3>
+                    <div class="upgrade-grid" id="upgradeGrid"></div>
+                </section>
+
+                <section class="panel">
+                    <h3>营业日报</h3>
+                    <div class="report" id="report"></div>
+                    <div class="log" id="log" style="margin-top:12px;"></div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="eventModal" hidden>
+        <div class="modal__panel">
+            <h2 id="eventTitle"></h2>
+            <p id="eventText"></p>
+            <div class="choices" id="eventChoices"></div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: "skewer", icon: "🍢", name: "烤串", cost: 8, price: 19, demand: 0.38, desc: "大众爆款，晴天和节庆夜特别好卖。" },
+            { id: "noodle", icon: "🍜", name: "热汤面", cost: 11, price: 26, demand: 0.34, desc: "雨夜最稳的现金流，库存太少会错过大客流。" },
+            { id: "tea", icon: "🧋", name: "果茶", cost: 6, price: 16, demand: 0.28, desc: "利润轻快，适合配合推广拉年轻客群。" }
+        ];
+
+        const priceModes = {
+            cheap: { name: "亲民价", desc: "客流 +22%，单价 -12%，口碑更友好", price: 0.88, demand: 1.22, rep: 2 },
+            normal: { name: "标准价", desc: "客流稳定，口碑自然增长", price: 1, demand: 1, rep: 0 },
+            premium: { name: "招牌价", desc: "单价 +26%，客流 -18%，口碑更挑剔", price: 1.26, demand: 0.82, rep: -2 }
+        };
+
+        const weatherList = [
+            { icon: "☀️", name: "晴朗", demand: 1.08, focus: "skewer", text: "人流舒服，烤串会更受欢迎。" },
+            { icon: "🌧️", name: "小雨", demand: 0.88, focus: "noodle", text: "逛夜市的人变少，热汤面能稳住销量。" },
+            { icon: "🎆", name: "节庆夜", demand: 1.35, focus: "skewer", text: "今晚人潮很凶，库存和出餐速度都要跟上。" },
+            { icon: "💨", name: "降温", demand: 0.96, focus: "noodle", text: "冷风一吹，热食销量更稳。" },
+            { icon: "🎵", name: "街演", demand: 1.18, focus: "tea", text: "年轻客群聚集，果茶和推广更容易起效果。" }
+        ];
+
+        const upgrades = [
+            { id: "grill", icon: "🔥", name: "猛火烤炉", max: 4, base: 420, desc: "提高接待上限，并让烤串更容易卖完。" },
+            { id: "fridge", icon: "🧊", name: "保鲜冰柜", max: 4, base: 360, desc: "减少每日损耗，适合提前囤货。" },
+            { id: "sign", icon: "🪧", name: "霓虹招牌", max: 4, base: 390, desc: "提升自然客流和口碑恢复速度。" },
+            { id: "helper", icon: "🧑‍🍳", name: "熟手帮工", max: 3, base: 520, desc: "提升服务上限，降低疲劳消耗。" },
+            { id: "recipe", icon: "📜", name: "招牌配方", max: 3, base: 620, desc: "提高单品价值，让高价策略更容易成立。" },
+            { id: "seat", icon: "🪑", name: "折叠桌椅", max: 3, base: 460, desc: "增加停留客人，雨天和降温时更有价值。" }
+        ];
+
+        const events = [
+            {
+                title: "美食博主路过",
+                text: "一个本地美食博主停在摊前。给他安排一份完整套餐，可能换来一波自然流量。",
+                choices: [
+                    { label: "送招牌套餐", cost: { skewer: 6, noodle: 4, tea: 5 }, effect: { reputation: 9, marketing: 1 }, note: "博主发了短视频，明天客流会更热。" },
+                    { label: "付费合作", cost: { cash: 360 }, effect: { reputation: 5, marketing: 2 }, note: "视频很快排上热门，本周热度稳稳抬升。" },
+                    { label: "礼貌婉拒", cost: {}, effect: { reputation: -1, cash: 80 }, note: "你省下了食材，只接了几单路过客。" }
+                ]
+            },
+            {
+                title: "供应商清仓",
+                text: "老供应商临时清仓，价格不错，但囤太多会考验保鲜能力。",
+                choices: [
+                    { label: "大量进货", cost: { cash: 420 }, effect: { skewer: 24, noodle: 18, tea: 24 }, note: "仓位一下子满了，接下来几天可以大胆营业。" },
+                    { label: "只拿高周转食材", cost: { cash: 210 }, effect: { skewer: 15, tea: 15 }, note: "你补足了快销品，没有把现金压得太死。" },
+                    { label: "不冒库存风险", cost: {}, effect: { reputation: 1 }, note: "你保持轻库存，心态很稳。" }
+                ]
+            },
+            {
+                title: "市场抽检",
+                text: "夜市管理处突击检查卫生和明码标价。",
+                choices: [
+                    { label: "提前停业清洁", cost: { cash: 160 }, effect: { reputation: 8, stamina: 18 }, note: "卫生评级上升，回头客更放心。" },
+                    { label: "请帮工加班整理", cost: { cash: 260 }, effect: { reputation: 5, stamina: 8 }, note: "检查顺利通过，营业节奏也没乱。" },
+                    { label: "边卖边整理", cost: {}, effect: { reputation: -6, cash: 120 }, note: "现金入账了，但卫生评分被挑了毛病。" }
+                ]
+            }
+        ];
+
+        const els = {
+            stats: document.getElementById("stats"),
+            openBtn: document.getElementById("openBtn"),
+            restBtn: document.getElementById("restBtn"),
+            restartBtn: document.getElementById("restartBtn"),
+            weatherPill: document.getElementById("weatherPill"),
+            statusTitle: document.getElementById("statusTitle"),
+            statusText: document.getElementById("statusText"),
+            scoreValue: document.getElementById("scoreValue"),
+            productGrid: document.getElementById("productGrid"),
+            priceRow: document.getElementById("priceRow"),
+            adBtn: document.getElementById("adBtn"),
+            clearAdBtn: document.getElementById("clearAdBtn"),
+            meters: document.getElementById("meters"),
+            upgradeGrid: document.getElementById("upgradeGrid"),
+            report: document.getElementById("report"),
+            log: document.getElementById("log"),
+            eventModal: document.getElementById("eventModal"),
+            eventTitle: document.getElementById("eventTitle"),
+            eventText: document.getElementById("eventText"),
+            eventChoices: document.getElementById("eventChoices")
+        };
+
+        let state = createInitialState();
+
+        function createInitialState() {
+            return {
+                day: 1,
+                cash: 900,
+                reputation: 46,
+                stamina: 94,
+                priceMode: "normal",
+                marketing: 0,
+                ended: false,
+                pendingEvent: null,
+                seed: Math.floor(Math.random() * 10000),
+                stock: { skewer: 16, noodle: 12, tea: 18 },
+                upgrades: Object.fromEntries(upgrades.map((item) => [item.id, 0])),
+                report: "今晚还没开摊。先看看天气，准备库存。",
+                log: ["第 1 天：摊车通电，第一锅汤底已经滚起来。"],
+                best: readBestScore()
+            };
+        }
+
+        function readBestScore() {
+            try {
+                return Number(localStorage.getItem("night-market-best") || 0);
+            } catch (error) {
+                return 0;
+            }
+        }
+
+        function saveBestScore(score) {
+            if (score <= state.best) return;
+            state.best = score;
+            try {
+                localStorage.setItem("night-market-best", String(score));
+            } catch (error) {
+                // localStorage may be blocked by browser settings.
+            }
+        }
+
+        function rand() {
+            const value = Math.sin(state.seed++) * 10000;
+            return value - Math.floor(value);
+        }
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+
+        function format(value) {
+            return Math.round(value).toLocaleString("zh-CN");
+        }
+
+        function getWeather() {
+            const index = (state.day * 7 + state.seed + state.upgrades.sign) % weatherList.length;
+            return weatherList[index];
+        }
+
+        function upgradeCost(item) {
+            return Math.round(item.base * (1 + state.upgrades[item.id] * 0.62));
+        }
+
+        function canAfford(cost) {
+            return Object.entries(cost).every(([key, value]) => {
+                if (key in state.stock) return state.stock[key] >= value;
+                return state[key] >= value;
+            });
+        }
+
+        function applyCost(cost) {
+            for (const [key, value] of Object.entries(cost)) {
+                if (key in state.stock) {
+                    state.stock[key] -= value;
+                } else {
+                    state[key] -= value;
+                }
+            }
+        }
+
+        function applyEffect(effect) {
+            for (const [key, value] of Object.entries(effect)) {
+                if (key in state.stock) {
+                    state.stock[key] += value;
+                } else if (key in state) {
+                    state[key] += value;
+                }
+            }
+            normalizeState();
+        }
+
+        function normalizeState() {
+            state.cash = Math.max(0, state.cash);
+            state.reputation = clamp(Math.round(state.reputation), 0, 100);
+            state.stamina = clamp(Math.round(state.stamina), 0, 100);
+            state.marketing = clamp(Math.round(state.marketing), 0, 3);
+            for (const key of Object.keys(state.stock)) {
+                state.stock[key] = Math.max(0, Math.round(state.stock[key]));
+            }
+        }
+
+        function addLog(message) {
+            state.log.unshift(message);
+            state.log = state.log.slice(0, 18);
+        }
+
+        function stockValue() {
+            return products.reduce((sum, item) => sum + state.stock[item.id] * item.cost, 0);
+        }
+
+        function buyProduct(id) {
+            if (state.ended || state.pendingEvent) return;
+            const product = products.find((item) => item.id === id);
+            const quantity = 10;
+            const cost = product.cost * quantity;
+            if (state.cash < cost) return;
+            state.cash -= cost;
+            state.stock[id] += quantity;
+            addLog(`第 ${state.day} 天：进货 ${product.name} x${quantity}，花费 ${cost}。`);
+            render();
+        }
+
+        function buyUpgrade(id) {
+            if (state.ended || state.pendingEvent) return;
+            const item = upgrades.find((entry) => entry.id === id);
+            const owned = state.upgrades[id];
+            const cost = upgradeCost(item);
+            if (owned >= item.max || state.cash < cost) return;
+            state.cash -= cost;
+            state.upgrades[id] += 1;
+            state.reputation += id === "sign" || id === "recipe" ? 2 : 0;
+            addLog(`第 ${state.day} 天：升级「${item.name}」到 ${state.upgrades[id]} 级。`);
+            normalizeState();
+            render();
+        }
+
+        function buyAd() {
+            if (state.ended || state.pendingEvent || state.marketing >= 3 || state.cash < 180) return;
+            state.cash -= 180;
+            state.marketing += 1;
+            addLog(`第 ${state.day} 天：投放一条短视频推广，明晚客流会更旺。`);
+            render();
+        }
+
+        function clearAd() {
+            if (state.ended || state.pendingEvent) return;
+            state.marketing = 0;
+            addLog(`第 ${state.day} 天：取消推广预算，今晚靠自然客流。`);
+            render();
+        }
+
+        function serviceCapacity() {
+            return Math.round(44 + state.upgrades.grill * 15 + state.upgrades.helper * 18 + state.stamina * 0.28);
+        }
+
+        function openStall() {
+            if (state.ended || state.pendingEvent) return;
+            const weather = getWeather();
+            const price = priceModes[state.priceMode];
+            const seatBonus = weather.focus === "noodle" ? state.upgrades.seat * 5 : state.upgrades.seat * 3;
+            const baseDemand = 24 + state.reputation * 0.58 + state.upgrades.sign * 8 + state.upgrades.recipe * 4 + state.marketing * 14 + seatBonus;
+            const staminaFactor = state.stamina < 35 ? 0.78 : 1;
+            const customers = Math.max(4, Math.round(baseDemand * weather.demand * price.demand * staminaFactor * (0.9 + rand() * 0.22)));
+            const capacity = serviceCapacity();
+            let served = 0;
+            let missed = 0;
+            let revenue = 0;
+            const sold = { skewer: 0, noodle: 0, tea: 0 };
+            const weights = Object.fromEntries(products.map((item) => [item.id, item.demand]));
+            weights[weather.focus] += 0.16;
+            weights.skewer += state.upgrades.grill * 0.025;
+            weights.tea += state.marketing * 0.025;
+            weights.noodle += state.upgrades.seat * 0.02;
+            const totalWeight = weights.skewer + weights.noodle + weights.tea;
+
+            for (let i = 0; i < customers; i += 1) {
+                if (served >= capacity) {
+                    missed += 1;
+                    continue;
+                }
+                const roll = rand() * totalWeight;
+                let choice = "tea";
+                if (roll < weights.skewer) choice = "skewer";
+                else if (roll < weights.skewer + weights.noodle) choice = "noodle";
+                if (state.stock[choice] <= 0) {
+                    const fallback = products.find((item) => state.stock[item.id] > 0);
+                    if (!fallback) {
+                        missed += 1;
+                        continue;
+                    }
+                    choice = fallback.id;
+                }
+                const product = products.find((item) => item.id === choice);
+                const finalPrice = Math.round((product.price + state.upgrades.recipe * 2) * price.price);
+                state.stock[choice] -= 1;
+                sold[choice] += 1;
+                revenue += finalPrice;
+                served += 1;
+            }
+
+            const helperWage = state.upgrades.helper * 45;
+            state.cash += revenue - helperWage;
+            const wasteRate = clamp(0.16 - state.upgrades.fridge * 0.032, 0.035, 0.16);
+            const waste = {};
+            for (const product of products) {
+                waste[product.id] = Math.floor(state.stock[product.id] * wasteRate);
+                state.stock[product.id] -= waste[product.id];
+            }
+            const fatigue = Math.max(8, served * 0.42 - state.upgrades.helper * 5);
+            state.stamina -= fatigue;
+            state.reputation += price.rep + Math.round((served / Math.max(1, customers)) * 8) - (missed > customers * 0.18 ? 7 : 1) + state.upgrades.sign;
+            if (revenue > 900) state.reputation += 2;
+            state.marketing = Math.max(0, state.marketing - 1);
+            normalizeState();
+
+            const soldText = products.map((item) => `${item.name}${sold[item.id]}`).join("、");
+            const wasteCount = Object.values(waste).reduce((sum, value) => sum + value, 0);
+            state.report = `${weather.icon} ${weather.name}：到店 ${customers} 人，服务 ${served} 人，收入 ${format(revenue)}，帮工工资 ${format(helperWage)}，损耗 ${wasteCount} 份。售出：${soldText}。`;
+            addLog(`第 ${state.day} 天营业：净入账 ${format(revenue - helperWage)}，口碑 ${state.reputation}，体力 ${state.stamina}。`);
+            state.day += 1;
+
+            if (!state.ended && state.day <= 30 && state.day % 6 === 0) {
+                openEvent();
+            }
+            checkEnd();
+            render();
+        }
+
+        function restDay() {
+            if (state.ended || state.pendingEvent) return;
+            const rent = 80 + state.upgrades.helper * 20;
+            state.cash = Math.max(0, state.cash - rent);
+            state.stamina += 34;
+            state.reputation += state.upgrades.sign > 0 ? 1 : 0;
+            state.report = `休整半天：体力恢复，固定成本 ${rent}。`;
+            addLog(`第 ${state.day} 天：休整补状态，花费 ${rent}。`);
+            state.day += 1;
+            normalizeState();
+            checkEnd();
+            render();
+        }
+
+        function openEvent() {
+            const index = (state.day + state.reputation + state.upgrades.sign) % events.length;
+            state.pendingEvent = events[index];
+        }
+
+        function chooseEvent(choice) {
+            if (!state.pendingEvent || !canAfford(choice.cost)) return;
+            applyCost(choice.cost);
+            applyEffect(choice.effect);
+            addLog(`第 ${state.day} 天事件：${choice.note}`);
+            state.pendingEvent = null;
+            render();
+        }
+
+        function calculateScore() {
+            return Math.max(0, Math.round(
+                state.cash +
+                stockValue() * 0.65 +
+                state.reputation * 78 +
+                state.stamina * 12 +
+                Object.values(state.upgrades).reduce((sum, value) => sum + value, 0) * 165
+            ));
+        }
+
+        function checkEnd() {
+            if (state.ended) return;
+            if (state.cash <= 0 && stockValue() <= 20) {
+                state.ended = true;
+                state.statusTitle = "现金断档";
+                state.statusText = "摊位没有现金也没有库存，只能提前收车。下一局可以少囤高价货，先稳住周转。";
+            } else if (state.day > 30) {
+                state.ended = true;
+                const won = state.cash >= 5200 && state.reputation >= 70;
+                state.statusTitle = won ? "夜市招牌诞生" : "摊位还差火候";
+                state.statusText = won
+                    ? "30 天经营结束，你的小摊已经有稳定客流和响亮口碑。"
+                    : "小摊撑过了 30 天，但现金或口碑还没达标。试试更早升级招牌和保鲜。";
+            }
+            if (state.ended) {
+                const score = calculateScore();
+                saveBestScore(score);
+                addLog(`${state.statusTitle}：最终评分 ${format(score)}。`);
+            }
+        }
+
+        function costText(cost) {
+            const names = { cash: "现金", skewer: "烤串", noodle: "热汤面", tea: "果茶" };
+            const entries = Object.entries(cost);
+            if (entries.length === 0) return "无需成本";
+            return entries.map(([key, value]) => `${names[key]} ${value}`).join("，");
+        }
+
+        function renderStats() {
+            const items = [
+                ["天数", `${state.day}/30`],
+                ["现金", format(state.cash)],
+                ["口碑", `${state.reputation}%`],
+                ["体力", `${state.stamina}%`],
+                ["库存价值", format(stockValue())],
+                ["最佳", format(state.best)]
+            ];
+            els.stats.innerHTML = items.map(([label, value]) => `
+                <div class="stat">
+                    <span>${label}</span>
+                    <strong>${value}</strong>
+                </div>
+            `).join("");
+        }
+
+        function renderProducts() {
+            els.productGrid.innerHTML = products.map((product) => {
+                const cost = product.cost * 10;
+                return `
+                    <article class="product">
+                        <div class="product__head">
+                            <div class="name"><span class="icon">${product.icon}</span>${product.name}</div>
+                            <span class="chip">库存 ${state.stock[product.id]}</span>
+                        </div>
+                        <p>${product.desc}</p>
+                        <span class="chip">进货 10 份 / ${cost} 现金</span>
+                        <button data-buy="${product.id}" ${state.cash < cost || state.ended || state.pendingEvent ? "disabled" : ""}>进货</button>
+                    </article>
+                `;
+            }).join("");
+            els.productGrid.querySelectorAll("button[data-buy]").forEach((button) => {
+                button.addEventListener("click", () => buyProduct(button.dataset.buy));
+            });
+        }
+
+        function renderPriceModes() {
+            els.priceRow.innerHTML = Object.entries(priceModes).map(([id, mode]) => `
+                <button class="price-btn ${state.priceMode === id ? "is-active" : ""}" data-price="${id}" ${state.ended || state.pendingEvent ? "disabled" : ""}>
+                    ${mode.name}
+                    <span>${mode.desc}</span>
+                </button>
+            `).join("");
+            els.priceRow.querySelectorAll("button").forEach((button) => {
+                button.addEventListener("click", () => {
+                    state.priceMode = button.dataset.price;
+                    addLog(`第 ${state.day} 天：价格策略调整为「${priceModes[state.priceMode].name}」。`);
+                    render();
+                });
+            });
+        }
+
+        function renderUpgrades() {
+            els.upgradeGrid.innerHTML = upgrades.map((item) => {
+                const owned = state.upgrades[item.id];
+                const maxed = owned >= item.max;
+                const cost = upgradeCost(item);
+                return `
+                    <article class="upgrade">
+                        <div class="upgrade__head">
+                            <div class="name"><span class="icon">${item.icon}</span>${item.name}</div>
+                            <span class="chip">${owned}/${item.max}</span>
+                        </div>
+                        <p>${item.desc}</p>
+                        <span class="chip">${maxed ? "已满级" : `升级 ${cost} 现金`}</span>
+                        <button data-upgrade="${item.id}" ${maxed || state.cash < cost || state.ended || state.pendingEvent ? "disabled" : ""}>升级</button>
+                    </article>
+                `;
+            }).join("");
+            els.upgradeGrid.querySelectorAll("button[data-upgrade]").forEach((button) => {
+                button.addEventListener("click", () => buyUpgrade(button.dataset.upgrade));
+            });
+        }
+
+        function renderMeters() {
+            const weather = getWeather();
+            const items = [
+                ["接待上限", `${serviceCapacity()} 人`, clamp(serviceCapacity() / 125 * 100, 0, 100)],
+                ["自然客流", `${Math.round(weather.demand * 100)}%`, clamp(weather.demand * 76, 0, 100)],
+                ["口碑", `${state.reputation}%`, state.reputation],
+                ["体力", `${state.stamina}%`, state.stamina],
+                ["推广热度", `${state.marketing}/3`, state.marketing / 3 * 100]
+            ];
+            els.meters.innerHTML = items.map(([label, value, percent]) => `
+                <div class="meter">
+                    <div class="meter__label"><span>${label}</span><strong>${value}</strong></div>
+                    <div class="meter__track"><div class="meter__fill" style="width:${clamp(percent, 0, 100)}%"></div></div>
+                </div>
+            `).join("");
+        }
+
+        function renderReport() {
+            els.report.innerHTML = `<p>${state.report}</p>`;
+            els.log.innerHTML = state.log.map((item) => `<p>${item}</p>`).join("");
+        }
+
+        function renderEvent() {
+            if (!state.pendingEvent) {
+                els.eventModal.hidden = true;
+                return;
+            }
+            const event = state.pendingEvent;
+            els.eventTitle.textContent = event.title;
+            els.eventText.textContent = event.text;
+            els.eventChoices.innerHTML = event.choices.map((choice, index) => `
+                <button class="choice" data-choice="${index}" ${canAfford(choice.cost) ? "" : "disabled"}>
+                    <strong>${choice.label}</strong>
+                    <span>${costText(choice.cost)}。${choice.note}</span>
+                </button>
+            `).join("");
+            els.eventChoices.querySelectorAll("button").forEach((button) => {
+                button.addEventListener("click", () => chooseEvent(event.choices[Number(button.dataset.choice)]));
+            });
+            els.eventModal.hidden = false;
+        }
+
+        function renderStatus() {
+            const weather = getWeather();
+            els.weatherPill.textContent = `${weather.icon} ${weather.name}`;
+            if (state.ended) {
+                els.statusTitle.textContent = state.statusTitle;
+                els.statusText.textContent = state.statusText;
+            } else {
+                els.statusTitle.textContent = weather.name === "节庆夜" ? "今晚客流爆发" : weather.name === "小雨" ? "雨夜考验备货" : "夜市准备营业";
+                els.statusText.textContent = `${weather.text} 当前价格是「${priceModes[state.priceMode].name}」，推广热度 ${state.marketing}/3。`;
+            }
+            els.scoreValue.textContent = format(calculateScore());
+            els.openBtn.disabled = state.ended || Boolean(state.pendingEvent);
+            els.restBtn.disabled = state.ended || Boolean(state.pendingEvent);
+            els.adBtn.disabled = state.ended || Boolean(state.pendingEvent) || state.cash < 180 || state.marketing >= 3;
+            els.clearAdBtn.disabled = state.ended || Boolean(state.pendingEvent) || state.marketing <= 0;
+        }
+
+        function render() {
+            renderStats();
+            renderProducts();
+            renderPriceModes();
+            renderUpgrades();
+            renderMeters();
+            renderReport();
+            renderStatus();
+            renderEvent();
+        }
+
+        els.openBtn.addEventListener("click", openStall);
+        els.restBtn.addEventListener("click", restDay);
+        els.restartBtn.addEventListener("click", () => {
+            state = createInitialState();
+            render();
+        });
+        els.adBtn.addEventListener("click", buyAd);
+        els.clearAdBtn.addEventListener("click", clearAd);
+
+        render();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王国商队 - 在线策略经营小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="王国商队是一款商路经营策略小游戏，观察行情、接订单、升级车队并在风险路线上赚到第一桶金。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="王国商队,策略经营,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/caravan-merchant.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="王国商队 - 在线策略经营小游戏 | 贝谷游戏">
+    <meta property="og:description" content="王国商队是一款商路经营策略小游戏，观察行情、接订单、升级车队并在风险路线上赚到第一桶金。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/caravan-merchant.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="王国商队 - 在线策略经营小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="王国商队是一款商路经营策略小游戏，观察行情、接订单、升级车队并在风险路线上赚到第一桶金。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"王国商队","description":"王国商队是一款商路经营策略小游戏，观察行情、接订单、升级车队并在风险路线上赚到第一桶金。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/caravan-merchant.html","genre":"策略经营","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #f5faf0;
+            --panel: rgba(255, 255, 255, 0.92);
+            --line: rgba(34, 69, 42, 0.12);
+            --text: #21321d;
+            --muted: #627258;
+            --primary: #166534;
+            --accent: #a16207;
+            --danger: #b91c1c;
+            --shadow: 0 22px 58px rgba(34, 69, 42, 0.15);
+            --font: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text);
+            font-family: var(--font);
+            background:
+                radial-gradient(circle at 16% 10%, rgba(250, 204, 21, 0.18), transparent 24%),
+                radial-gradient(circle at 88% 0%, rgba(20, 184, 166, 0.16), transparent 26%),
+                linear-gradient(135deg, #fbfff4 0%, #eef8ff 48%, #fff9ec 100%);
+        }
+
+        button {
+            border: 0;
+            border-radius: 14px;
+            padding: 11px 13px;
+            font: inherit;
+            font-weight: 850;
+            color: var(--text);
+            cursor: pointer;
+            transition: transform 0.16s ease, filter 0.16s ease, opacity 0.16s ease;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.46;
+        }
+
+        .game-shell {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 360px minmax(0, 1fr);
+        }
+
+        .sidebar {
+            padding: 26px;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(14px);
+            border-right: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand__icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #166534, #ca8a04);
+            box-shadow: 0 16px 34px rgba(22, 101, 52, 0.24);
+        }
+
+        h1, h2, h3, p { margin: 0; }
+
+        h1 {
+            font-size: 2rem;
+            line-height: 1.04;
+        }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .card,
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: var(--panel);
+            box-shadow: 0 10px 26px rgba(34, 69, 42, 0.06);
+        }
+
+        .card { padding: 16px; }
+
+        .goal {
+            display: grid;
+            gap: 9px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.94rem;
+        }
+
+        .goal strong { color: var(--text); }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .stat {
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(34, 69, 42, 0.08);
+        }
+
+        .stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .stat strong {
+            display: block;
+            margin-top: 6px;
+            font-size: 1.32rem;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #166534, #0f766e);
+        }
+
+        .btn-secondary {
+            color: #26381f;
+            background: #dcfce7;
+        }
+
+        .btn-wide { grid-column: 1 / -1; }
+
+        .main {
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            min-width: 0;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 22px;
+            border-radius: 28px;
+            color: white;
+            background:
+                linear-gradient(135deg, rgba(22, 101, 52, 0.94), rgba(161, 98, 7, 0.9)),
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 9px, transparent 9px 18px);
+            box-shadow: var(--shadow);
+        }
+
+        .topbar h2 {
+            margin-top: 8px;
+            font-size: clamp(1.8rem, 3.4vw, 3rem);
+            line-height: 1;
+        }
+
+        .topbar p {
+            max-width: 720px;
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.84);
+            line-height: 1.7;
+        }
+
+        .pill {
+            display: inline-flex;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.94);
+            font-weight: 900;
+            font-size: 0.9rem;
+        }
+
+        .scorebox {
+            min-width: 148px;
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.16);
+            text-align: right;
+        }
+
+        .scorebox span {
+            display: block;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.85rem;
+        }
+
+        .scorebox strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 1.55rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .panel {
+            padding: 18px;
+            min-width: 0;
+        }
+
+        .panel h3 {
+            font-size: 1.15rem;
+            margin-bottom: 14px;
+        }
+
+        .market,
+        .route-list,
+        .upgrade-grid,
+        .contract-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .market-row,
+        .route,
+        .upgrade,
+        .contract,
+        .cargo-line {
+            border: 1px solid rgba(34, 69, 42, 0.09);
+            border-radius: 18px;
+            background: white;
+        }
+
+        .market-row,
+        .route,
+        .upgrade,
+        .contract,
+        .cargo-line {
+            padding: 15px;
+        }
+
+        .market-row__head,
+        .route__head,
+        .upgrade__head,
+        .contract__head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 900;
+        }
+
+        .icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #f0fdf4;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 8px;
+            border-radius: 999px;
+            background: #eff6e7;
+            color: #415934;
+            font-size: 0.78rem;
+            font-weight: 900;
+        }
+
+        .market-row p,
+        .route p,
+        .upgrade p,
+        .contract p,
+        .cargo-line p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .row-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .row-actions button {
+            color: white;
+            background: #166534;
+        }
+
+        .row-actions button:last-child {
+            background: #a16207;
+        }
+
+        .upgrade-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .upgrade button,
+        .route button,
+        .contract button {
+            width: 100%;
+            margin-top: 10px;
+            color: white;
+            background: #166534;
+        }
+
+        .contract.is-active {
+            border-color: rgba(161, 98, 7, 0.32);
+            background: #fffaf0;
+        }
+
+        .meters {
+            display: grid;
+            gap: 13px;
+        }
+
+        .meter {
+            display: grid;
+            gap: 7px;
+        }
+
+        .meter__label {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .meter__track {
+            height: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e7efdf;
+        }
+
+        .meter__fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #166534, #eab308);
+            transition: width 0.25s ease;
+        }
+
+        .log {
+            max-height: 260px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            padding-right: 4px;
+        }
+
+        .log p {
+            padding: 10px 12px;
+            border-radius: 14px;
+            color: #4c5c42;
+            background: #fbfff6;
+            line-height: 1.55;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 980px) {
+            .game-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .grid,
+            .upgrade-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+            }
+
+            .scorebox {
+                width: 100%;
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .main,
+            .sidebar {
+                padding: 18px;
+            }
+
+            .stats,
+            .actions,
+            .row-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="game-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand__icon" aria-hidden="true">🧭</div>
+                <div>
+                    <h1>王国商队</h1>
+                    <p class="subtitle">低买高卖、接合约、升级车队，在 45 天内跑出一条赚钱商路。</p>
+                </div>
+            </div>
+
+            <section class="card goal">
+                <strong>商会目标</strong>
+                <span>第 45 天结算时：现金 ≥ 8000，声望 ≥ 60。路上有风险，货仓和护卫决定你能贪多大。</span>
+            </section>
+
+            <section class="card">
+                <div class="stats" id="stats"></div>
+            </section>
+
+            <section class="card">
+                <div class="actions">
+                    <button class="btn-secondary" id="restBtn">原地整备</button>
+                    <button class="btn-secondary" id="restartBtn">重新开局</button>
+                </div>
+            </section>
+        </aside>
+
+        <section class="main">
+            <div class="topbar">
+                <div>
+                    <span class="pill" id="cityPill">当前城市</span>
+                    <h2 id="statusTitle">商队等待装货</h2>
+                    <p id="statusText">观察各城价格，优先把低价货运到需求高的城市。合约奖励高，但逾期会扣声望。</p>
+                </div>
+                <div class="scorebox">
+                    <span>当前评分</span>
+                    <strong id="scoreValue">0</strong>
+                </div>
+            </div>
+
+            <div class="grid">
+                <section class="panel">
+                    <h3>本地市场</h3>
+                    <div class="market" id="market"></div>
+                </section>
+
+                <div>
+                    <section class="panel">
+                        <h3>货仓与车队</h3>
+                        <div class="cargo-line" id="cargo"></div>
+                        <div class="meters" id="meters" style="margin-top:14px;"></div>
+                    </section>
+
+                    <section class="panel" style="margin-top:18px;">
+                        <h3>商会合约</h3>
+                        <div class="contract-list" id="contracts"></div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="grid">
+                <section class="panel">
+                    <h3>商路出发</h3>
+                    <div class="route-list" id="routes"></div>
+                </section>
+
+                <section class="panel">
+                    <h3>车队升级</h3>
+                    <div class="upgrade-grid" id="upgrades"></div>
+                </section>
+            </div>
+
+            <section class="panel">
+                <h3>旅途日志</h3>
+                <div class="log" id="log"></div>
+            </section>
+        </section>
+    </main>
+
+    <script>
+        const goods = [
+            { id: "grain", icon: "🌾", name: "谷物", base: 24, weight: 1, desc: "便宜耐卖，适合填满剩余仓位。" },
+            { id: "iron", icon: "⚒️", name: "铁锭", base: 58, weight: 2, desc: "重货，利润稳但很占容量。" },
+            { id: "silk", icon: "🧵", name: "丝绸", base: 86, weight: 1, desc: "高价值轻货，价格波动明显。" },
+            { id: "spice", icon: "🌶️", name: "香料", base: 112, weight: 1, desc: "风险高回报高，沙漠城常有低价。" }
+        ];
+
+        const cities = [
+            { id: "rivergate", icon: "🌉", name: "河门城", note: "人口密集，谷物和果腹商品走量快。", prices: { grain: 1.18, iron: 0.96, silk: 0.92, spice: 1.08 } },
+            { id: "ironhold", icon: "⛰️", name: "铁砧堡", note: "矿山城市，铁锭便宜，奢侈品贵。", prices: { grain: 1.04, iron: 0.72, silk: 1.1, spice: 1.16 } },
+            { id: "sandbazaar", icon: "🏜️", name: "沙海集市", note: "香料产地，缺粮也爱收丝绸。", prices: { grain: 1.28, iron: 1.02, silk: 1.18, spice: 0.72 } },
+            { id: "frostford", icon: "❄️", name: "霜渡镇", note: "北境寒冷，铁器和香料能卖高价。", prices: { grain: 0.94, iron: 1.2, silk: 0.98, spice: 1.34 } },
+            { id: "sunport", icon: "⚓", name: "日帆港", note: "港口货源杂，丝绸便宜，谷物价格平稳。", prices: { grain: 0.98, iron: 1.06, silk: 0.76, spice: 0.98 } }
+        ];
+
+        const upgradeDefs = [
+            { id: "cart", icon: "🛞", name: "加挂货车", max: 5, base: 520, desc: "每级货仓容量 +18。" },
+            { id: "guard", icon: "🛡️", name: "雇佣护卫", max: 5, base: 430, desc: "降低旅途损失，也提升商队威慑。" },
+            { id: "scout", icon: "🔭", name: "前路斥候", max: 4, base: 480, desc: "降低路线风险，并缩短部分旅途天数。" },
+            { id: "guild", icon: "📜", name: "商会执照", max: 4, base: 620, desc: "提高合约奖励，完成合约获得更多声望。" }
+        ];
+
+        const els = {
+            stats: document.getElementById("stats"),
+            restBtn: document.getElementById("restBtn"),
+            restartBtn: document.getElementById("restartBtn"),
+            cityPill: document.getElementById("cityPill"),
+            statusTitle: document.getElementById("statusTitle"),
+            statusText: document.getElementById("statusText"),
+            scoreValue: document.getElementById("scoreValue"),
+            market: document.getElementById("market"),
+            cargo: document.getElementById("cargo"),
+            meters: document.getElementById("meters"),
+            contracts: document.getElementById("contracts"),
+            routes: document.getElementById("routes"),
+            upgrades: document.getElementById("upgrades"),
+            log: document.getElementById("log")
+        };
+
+        let state = createInitialState();
+
+        function createInitialState() {
+            return {
+                day: 1,
+                cash: 1350,
+                reputation: 36,
+                location: "rivergate",
+                seed: Math.floor(Math.random() * 10000),
+                ended: false,
+                cargo: { grain: 0, iron: 0, silk: 0, spice: 0 },
+                upgrades: { cart: 0, guard: 1, scout: 0, guild: 0 },
+                contract: null,
+                log: ["第 1 天：商队在河门城集结，货仓空空，路标刚刷上新漆。"],
+                best: readBestScore(),
+                statusTitle: "",
+                statusText: ""
+            };
+        }
+
+        function readBestScore() {
+            try {
+                return Number(localStorage.getItem("caravan-merchant-best") || 0);
+            } catch (error) {
+                return 0;
+            }
+        }
+
+        function saveBestScore(score) {
+            if (score <= state.best) return;
+            state.best = score;
+            try {
+                localStorage.setItem("caravan-merchant-best", String(score));
+            } catch (error) {
+                // localStorage may be unavailable in strict privacy modes.
+            }
+        }
+
+        function rand() {
+            const value = Math.sin(state.seed++) * 10000;
+            return value - Math.floor(value);
+        }
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+
+        function format(value) {
+            return Math.round(value).toLocaleString("zh-CN");
+        }
+
+        function currentCity() {
+            return cities.find((city) => city.id === state.location);
+        }
+
+        function cityIndex(id) {
+            return cities.findIndex((city) => city.id === id);
+        }
+
+        function cargoUsed() {
+            return goods.reduce((sum, item) => sum + state.cargo[item.id] * item.weight, 0);
+        }
+
+        function capacity() {
+            return 42 + state.upgrades.cart * 18;
+        }
+
+        function cargoValueAt(cityId) {
+            return goods.reduce((sum, item) => sum + state.cargo[item.id] * sellPrice(cityId, item.id), 0);
+        }
+
+        function marketPrice(cityId, goodId) {
+            const city = cities.find((item) => item.id === cityId);
+            const good = goods.find((item) => item.id === goodId);
+            const wave = Math.sin((state.day + 3) * (cityIndex(cityId) + 2) * (goods.findIndex((item) => item.id === goodId) + 3));
+            return Math.max(4, Math.round(good.base * city.prices[goodId] * (0.92 + wave * 0.11)));
+        }
+
+        function buyPrice(cityId, goodId) {
+            return marketPrice(cityId, goodId);
+        }
+
+        function sellPrice(cityId, goodId) {
+            return Math.floor(marketPrice(cityId, goodId) * 0.86);
+        }
+
+        function routeInfo(targetId) {
+            const distance = Math.abs(cityIndex(state.location) - cityIndex(targetId)) + 1;
+            const days = Math.max(1, distance + 1 - Math.floor(state.upgrades.scout / 2));
+            const risk = clamp(0.08 + distance * 0.055 - state.upgrades.guard * 0.035 - state.upgrades.scout * 0.025, 0.03, 0.42);
+            const upkeep = days * (42 + state.upgrades.guard * 18 + state.upgrades.scout * 12);
+            return { distance, days, risk, upkeep };
+        }
+
+        function upgradeCost(item) {
+            return Math.round(item.base * (1 + state.upgrades[item.id] * 0.58));
+        }
+
+        function addLog(message) {
+            state.log.unshift(message);
+            state.log = state.log.slice(0, 20);
+        }
+
+        function buyGood(id) {
+            if (state.ended) return;
+            const good = goods.find((item) => item.id === id);
+            const quantity = 5;
+            const cost = buyPrice(state.location, id) * quantity;
+            if (state.cash < cost || cargoUsed() + good.weight * quantity > capacity()) return;
+            state.cash -= cost;
+            state.cargo[id] += quantity;
+            addLog(`第 ${state.day} 天：在${currentCity().name}买入 ${good.name} x${quantity}，花费 ${cost}。`);
+            render();
+        }
+
+        function sellGood(id) {
+            if (state.ended) return;
+            const good = goods.find((item) => item.id === id);
+            const quantity = Math.min(5, state.cargo[id]);
+            if (quantity <= 0) return;
+            const revenue = sellPrice(state.location, id) * quantity;
+            state.cargo[id] -= quantity;
+            state.cash += revenue;
+            addLog(`第 ${state.day} 天：在${currentCity().name}卖出 ${good.name} x${quantity}，收入 ${revenue}。`);
+            checkContract();
+            render();
+        }
+
+        function buyUpgrade(id) {
+            if (state.ended) return;
+            const item = upgradeDefs.find((entry) => entry.id === id);
+            const owned = state.upgrades[id];
+            const cost = upgradeCost(item);
+            if (owned >= item.max || state.cash < cost) return;
+            state.cash -= cost;
+            state.upgrades[id] += 1;
+            state.reputation += id === "guild" ? 2 : 1;
+            addLog(`第 ${state.day} 天：升级「${item.name}」到 ${state.upgrades[id]} 级。`);
+            normalizeState();
+            render();
+        }
+
+        function normalizeState() {
+            state.cash = Math.max(0, Math.round(state.cash));
+            state.reputation = clamp(Math.round(state.reputation), 0, 100);
+            for (const key of Object.keys(state.cargo)) {
+                state.cargo[key] = Math.max(0, Math.round(state.cargo[key]));
+            }
+        }
+
+        function travel(targetId) {
+            if (state.ended || targetId === state.location) return;
+            const target = cities.find((city) => city.id === targetId);
+            const route = routeInfo(targetId);
+            if (state.cash < route.upkeep) return;
+            state.cash -= route.upkeep;
+            state.day += route.days;
+            state.location = targetId;
+            const dangerRoll = rand();
+            if (dangerRoll < route.risk) {
+                const loadedGoods = goods.filter((item) => state.cargo[item.id] > 0);
+                const lossText = [];
+                if (loadedGoods.length > 0) {
+                    const lostGood = loadedGoods[Math.floor(rand() * loadedGoods.length)];
+                    const lostQty = Math.max(1, Math.ceil(state.cargo[lostGood.id] * (0.18 + rand() * 0.18)));
+                    state.cargo[lostGood.id] -= lostQty;
+                    lossText.push(`${lostGood.name} -${lostQty}`);
+                }
+                const cashLoss = Math.min(state.cash, Math.round(100 + route.upkeep * (0.5 + rand())));
+                state.cash -= cashLoss;
+                state.reputation -= 5;
+                addLog(`第 ${state.day} 天：抵达${target.name}，途中遇险，${lossText.join("，") || "货物安全"}，现金 -${cashLoss}。`);
+            } else {
+                const bonus = Math.round(45 + route.distance * 28 + state.upgrades.scout * 18);
+                state.cash += bonus;
+                state.reputation += route.risk < 0.08 ? 1 : 2;
+                addLog(`第 ${state.day} 天：顺利抵达${target.name}，沿途带货捎信收入 ${bonus}。`);
+            }
+            normalizeState();
+            checkContract();
+            checkEnd();
+            render();
+        }
+
+        function rest() {
+            if (state.ended) return;
+            const city = currentCity();
+            const cost = 95 + state.upgrades.guard * 15;
+            state.cash = Math.max(0, state.cash - cost);
+            state.day += 1;
+            state.reputation += 1 + state.upgrades.guild;
+            addLog(`第 ${state.day} 天：在${city.name}整备车队，花费 ${cost}，声望略有提升。`);
+            checkContract();
+            checkEnd();
+            render();
+        }
+
+        function generateOffer(index) {
+            const cityPool = cities.filter((city) => city.id !== state.location);
+            const target = cityPool[(state.day + index * 2 + state.reputation) % cityPool.length];
+            const good = goods[(state.day + index + cityIndex(target.id)) % goods.length];
+            const route = routeInfo(target.id);
+            const quantity = 8 + index * 4 + state.upgrades.guild * 2;
+            const due = state.day + route.days + 8 + index * 2;
+            const reward = Math.round(quantity * marketPrice(target.id, good.id) * (1.35 + state.upgrades.guild * 0.1) + route.distance * 160);
+            return {
+                id: `${state.day}-${state.location}-${index}`,
+                target: target.id,
+                good: good.id,
+                quantity,
+                due,
+                reward
+            };
+        }
+
+        function acceptContract(index) {
+            if (state.ended || state.contract) return;
+            const offer = generateOffer(index);
+            state.contract = offer;
+            addLog(`第 ${state.day} 天：接下合约，运送 ${goods.find((item) => item.id === offer.good).name} x${offer.quantity} 到 ${cities.find((city) => city.id === offer.target).name}。`);
+            render();
+        }
+
+        function abandonContract() {
+            if (!state.contract || state.ended) return;
+            state.reputation -= 8;
+            addLog(`第 ${state.day} 天：放弃当前合约，商会声望下降。`);
+            state.contract = null;
+            normalizeState();
+            render();
+        }
+
+        function checkContract() {
+            const contract = state.contract;
+            if (!contract) return;
+            if (state.day > contract.due) {
+                state.reputation -= 7;
+                addLog(`第 ${state.day} 天：合约逾期，商会扣减声望。`);
+                state.contract = null;
+                normalizeState();
+                return;
+            }
+            if (state.location === contract.target && state.cargo[contract.good] >= contract.quantity) {
+                state.cargo[contract.good] -= contract.quantity;
+                state.cash += contract.reward;
+                state.reputation += 8 + state.upgrades.guild * 2;
+                addLog(`第 ${state.day} 天：合约交付完成，获得 ${contract.reward} 现金和商会声望。`);
+                state.contract = null;
+                normalizeState();
+            }
+        }
+
+        function calculateScore() {
+            return Math.max(0, Math.round(
+                state.cash +
+                cargoValueAt(state.location) +
+                state.reputation * 95 +
+                Object.values(state.upgrades).reduce((sum, value) => sum + value, 0) * 220 -
+                Math.max(0, 45 - state.day) * 10
+            ));
+        }
+
+        function checkEnd() {
+            if (state.ended) return;
+            if (state.cash <= 0 && cargoValueAt(state.location) <= 80) {
+                state.ended = true;
+                state.statusTitle = "商队破产";
+                state.statusText = "现金和货值都不足以继续上路。下一局可以先跑低风险短线，稳住护卫和仓位。";
+            } else if (state.day > 45) {
+                state.ended = true;
+                const won = state.cash >= 8000 && state.reputation >= 60;
+                state.statusTitle = won ? "商路之王" : "商会试炼结束";
+                state.statusText = won
+                    ? "45 天内你建立了稳定商路，现金和声望都达到商会标准。"
+                    : "商队撑过了试炼，但现金或声望还不够。多看城市差价，少在高风险路线上裸奔。";
+            }
+            if (state.ended) {
+                const score = calculateScore();
+                saveBestScore(score);
+                addLog(`${state.statusTitle}：最终评分 ${format(score)}。`);
+            }
+        }
+
+        function renderStats() {
+            const items = [
+                ["天数", `${state.day}/45`],
+                ["现金", format(state.cash)],
+                ["声望", `${state.reputation}%`],
+                ["货值", format(cargoValueAt(state.location))],
+                ["仓位", `${cargoUsed()}/${capacity()}`],
+                ["最佳", format(state.best)]
+            ];
+            els.stats.innerHTML = items.map(([label, value]) => `
+                <div class="stat">
+                    <span>${label}</span>
+                    <strong>${value}</strong>
+                </div>
+            `).join("");
+        }
+
+        function renderMarket() {
+            els.market.innerHTML = goods.map((good) => {
+                const buy = buyPrice(state.location, good.id);
+                const sell = sellPrice(state.location, good.id);
+                const canBuy = state.cash >= buy * 5 && cargoUsed() + good.weight * 5 <= capacity();
+                const canSell = state.cargo[good.id] > 0;
+                return `
+                    <article class="market-row">
+                        <div class="market-row__head">
+                            <div class="name"><span class="icon">${good.icon}</span>${good.name}</div>
+                            <span class="chip">仓内 ${state.cargo[good.id]}</span>
+                        </div>
+                        <p>${good.desc}</p>
+                        <div class="row-actions">
+                            <button data-buy="${good.id}" ${!canBuy || state.ended ? "disabled" : ""}>买 5 / ${buy * 5}</button>
+                            <button data-sell="${good.id}" ${!canSell || state.ended ? "disabled" : ""}>卖 ${Math.min(5, state.cargo[good.id])} / ${sell * Math.min(5, state.cargo[good.id])}</button>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+            els.market.querySelectorAll("button[data-buy]").forEach((button) => {
+                button.addEventListener("click", () => buyGood(button.dataset.buy));
+            });
+            els.market.querySelectorAll("button[data-sell]").forEach((button) => {
+                button.addEventListener("click", () => sellGood(button.dataset.sell));
+            });
+        }
+
+        function renderCargo() {
+            const text = goods.map((good) => `${good.icon} ${good.name} ${state.cargo[good.id]}`).join("　");
+            els.cargo.innerHTML = `
+                <p>${text || "暂无货物"}</p>
+                <p style="margin-top:8px;">当前城市估值 ${format(cargoValueAt(state.location))}，仓位 ${cargoUsed()}/${capacity()}。买卖差价存在损耗，别在同城反复倒手。</p>
+            `;
+        }
+
+        function renderMeters() {
+            const riskAvg = cities
+                .filter((city) => city.id !== state.location)
+                .reduce((sum, city) => sum + routeInfo(city.id).risk, 0) / (cities.length - 1);
+            const items = [
+                ["仓位利用", `${cargoUsed()}/${capacity()}`, cargoUsed() / capacity() * 100],
+                ["平均路线安全", `${Math.round((1 - riskAvg) * 100)}%`, (1 - riskAvg) * 100],
+                ["声望", `${state.reputation}%`, state.reputation],
+                ["现金目标", `${format(state.cash)} / 8000`, state.cash / 8000 * 100]
+            ];
+            els.meters.innerHTML = items.map(([label, value, percent]) => `
+                <div class="meter">
+                    <div class="meter__label"><span>${label}</span><strong>${value}</strong></div>
+                    <div class="meter__track"><div class="meter__fill" style="width:${clamp(percent, 0, 100)}%"></div></div>
+                </div>
+            `).join("");
+        }
+
+        function renderContracts() {
+            if (state.contract) {
+                const contract = state.contract;
+                const good = goods.find((item) => item.id === contract.good);
+                const target = cities.find((city) => city.id === contract.target);
+                els.contracts.innerHTML = `
+                    <article class="contract is-active">
+                        <div class="contract__head">
+                            <div class="name"><span class="icon">📦</span>进行中</div>
+                            <span class="chip">截止 ${contract.due} 天</span>
+                        </div>
+                        <p>运送 ${good.name} x${contract.quantity} 到 ${target.name}，奖励 ${format(contract.reward)}。当前携带 ${state.cargo[contract.good]}。</p>
+                        <button id="abandonBtn" ${state.ended ? "disabled" : ""}>放弃合约</button>
+                    </article>
+                `;
+                document.getElementById("abandonBtn").addEventListener("click", abandonContract);
+                return;
+            }
+
+            els.contracts.innerHTML = [0, 1, 2].map((index) => {
+                const offer = generateOffer(index);
+                const good = goods.find((item) => item.id === offer.good);
+                const target = cities.find((city) => city.id === offer.target);
+                return `
+                    <article class="contract">
+                        <div class="contract__head">
+                            <div class="name"><span class="icon">${target.icon}</span>${target.name}</div>
+                            <span class="chip">奖励 ${format(offer.reward)}</span>
+                        </div>
+                        <p>${good.name} x${offer.quantity}，截止第 ${offer.due} 天。先在低价城市备货，再送到目标城。</p>
+                        <button data-contract="${index}" ${state.ended ? "disabled" : ""}>接受合约</button>
+                    </article>
+                `;
+            }).join("");
+            els.contracts.querySelectorAll("button[data-contract]").forEach((button) => {
+                button.addEventListener("click", () => acceptContract(Number(button.dataset.contract)));
+            });
+        }
+
+        function renderRoutes() {
+            els.routes.innerHTML = cities.filter((city) => city.id !== state.location).map((city) => {
+                const route = routeInfo(city.id);
+                return `
+                    <article class="route">
+                        <div class="route__head">
+                            <div class="name"><span class="icon">${city.icon}</span>${city.name}</div>
+                            <span class="chip">${route.days} 天 / 风险 ${Math.round(route.risk * 100)}%</span>
+                        </div>
+                        <p>${city.note} 路费和维护 ${format(route.upkeep)}。</p>
+                        <button data-travel="${city.id}" ${state.cash < route.upkeep || state.ended ? "disabled" : ""}>前往${city.name}</button>
+                    </article>
+                `;
+            }).join("");
+            els.routes.querySelectorAll("button[data-travel]").forEach((button) => {
+                button.addEventListener("click", () => travel(button.dataset.travel));
+            });
+        }
+
+        function renderUpgrades() {
+            els.upgrades.innerHTML = upgradeDefs.map((item) => {
+                const owned = state.upgrades[item.id];
+                const maxed = owned >= item.max;
+                const cost = upgradeCost(item);
+                return `
+                    <article class="upgrade">
+                        <div class="upgrade__head">
+                            <div class="name"><span class="icon">${item.icon}</span>${item.name}</div>
+                            <span class="chip">${owned}/${item.max}</span>
+                        </div>
+                        <p>${item.desc}</p>
+                        <button data-upgrade="${item.id}" ${maxed || state.cash < cost || state.ended ? "disabled" : ""}>${maxed ? "已满级" : `升级 ${format(cost)}`}</button>
+                    </article>
+                `;
+            }).join("");
+            els.upgrades.querySelectorAll("button[data-upgrade]").forEach((button) => {
+                button.addEventListener("click", () => buyUpgrade(button.dataset.upgrade));
+            });
+        }
+
+        function renderStatus() {
+            const city = currentCity();
+            els.cityPill.textContent = `${city.icon} ${city.name}`;
+            if (state.ended) {
+                els.statusTitle.textContent = state.statusTitle;
+                els.statusText.textContent = state.statusText;
+            } else {
+                els.statusTitle.textContent = `停靠在${city.name}`;
+                els.statusText.textContent = `${city.note} 当前货仓 ${cargoUsed()}/${capacity()}，可先看本地低价货，再决定下一站。`;
+            }
+            els.scoreValue.textContent = format(calculateScore());
+            els.restBtn.disabled = state.ended;
+        }
+
+        function renderLog() {
+            els.log.innerHTML = state.log.map((item) => `<p>${item}</p>`).join("");
+        }
+
+        function render() {
+            renderStats();
+            renderMarket();
+            renderCargo();
+            renderMeters();
+            renderContracts();
+            renderRoutes();
+            renderUpgrades();
+            renderStatus();
+            renderLog();
+        }
+
+        els.restBtn.addEventListener("click", rest);
+        els.restartBtn.addEventListener("click", () => {
+            state = createInitialState();
+            render();
+        });
+
+        render();
+    </script>
+</body>
+</html>

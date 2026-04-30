@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泡泡啪嗒乐 - 在线动作街机小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="泡泡啪嗒乐是一款越点越上头的戳泡泡小游戏，连击和特效会越来越爽。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="泡泡啪嗒乐,动作街机,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/bubble-pop.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="泡泡啪嗒乐 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta property="og:description" content="泡泡啪嗒乐是一款越点越上头的戳泡泡小游戏，连击和特效会越来越爽。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/bubble-pop.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="泡泡啪嗒乐 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="泡泡啪嗒乐是一款越点越上头的戳泡泡小游戏，连击和特效会越来越爽。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"泡泡啪嗒乐","description":"泡泡啪嗒乐是一款越点越上头的戳泡泡小游戏，连击和特效会越来越爽。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/bubble-pop.html","genre":"动作街机","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #f3fbff;
+            --panel: rgba(255, 255, 255, 0.92);
+            --border: rgba(14, 116, 144, 0.08);
+            --text: #14324a;
+            --muted: #5d7990;
+            --primary: #06b6d4;
+            --shadow: 0 22px 54px rgba(14, 116, 144, 0.14);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            color: var(--text);
+            font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(6, 182, 212, 0.18), transparent 24%),
+                radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 24%),
+                linear-gradient(180deg, #f8fdff 0%, #eefaff 55%, #f6fdff 100%);
+        }
+
+        .sidebar {
+            width: 350px;
+            padding: 28px;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .title {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .title__icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            color: white;
+            background: linear-gradient(135deg, #06b6d4, #38bdf8);
+            box-shadow: 0 14px 32px rgba(6, 182, 212, 0.22);
+        }
+
+        h1 { font-size: 2rem; line-height: 1; }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .card, .tips {
+            padding: 18px;
+            background: white;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 28px rgba(14, 116, 144, 0.06);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.5rem;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        button {
+            border: none;
+            border-radius: 15px;
+            padding: 13px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.16s ease, filter 0.16s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: #e0f2fe;
+        }
+
+        .tips h2 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .tips li::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+        }
+
+        .canvas-shell {
+            width: min(100%, 700px);
+            aspect-ratio: 10 / 12;
+            border-radius: 34px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.92);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .overlay__panel {
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid rgba(255, 255, 255, 0.94);
+            box-shadow: 0 14px 36px rgba(14, 116, 144, 0.14);
+        }
+
+        .overlay__panel strong {
+            display: block;
+            font-size: 1.55rem;
+        }
+
+        .overlay__panel p {
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 940px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .main-area { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="title">
+            <div class="title__icon">🫧</div>
+            <div>
+                <h1>泡泡啪嗒乐</h1>
+                <p class="subtitle">疯狂点爆泡泡冲连击。炸弹泡泡会清场，冰霜泡泡能短暂冻结时间，手感特别上头。</p>
+            </div>
+        </div>
+
+        <section class="card">
+            <div class="stats">
+                <div class="stat">
+                    <strong id="score">0</strong>
+                    <span>当前分数</span>
+                </div>
+                <div class="stat">
+                    <strong id="combo">0</strong>
+                    <span>连击数</span>
+                </div>
+                <div class="stat">
+                    <strong id="time">45</strong>
+                    <span>剩余秒数</span>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="btn-primary" id="startBtn">开始戳泡泡</button>
+                <button class="btn-secondary" id="restartBtn">重新开始</button>
+            </div>
+        </section>
+
+        <section class="tips">
+            <h2>玩法提示</h2>
+            <ul>
+                <li>普通泡泡加分，连续快速点爆会累计连击倍率。</li>
+                <li>炸弹泡泡会把周围一圈一起清掉，特别适合高密度时出手。</li>
+                <li>雪花泡泡会短暂停住全场，给你补节奏的机会。</li>
+            </ul>
+        </section>
+    </aside>
+
+    <main class="main-area">
+        <div class="canvas-shell">
+            <canvas id="bubbleCanvas" width="700" height="840"></canvas>
+            <div class="overlay" id="overlay">
+                <div class="overlay__panel">
+                    <strong id="overlayTitle">泡泡要飘起来了</strong>
+                    <p id="overlayText">点击开始后就能直接戳，越快越准，越容易打出一长串连击。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById("bubbleCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+        const comboEl = document.getElementById("combo");
+        const timeEl = document.getElementById("time");
+        const overlay = document.getElementById("overlay");
+        const overlayTitle = document.getElementById("overlayTitle");
+        const overlayText = document.getElementById("overlayText");
+
+        const state = {
+            running: false,
+            gameOver: false,
+            score: 0,
+            combo: 0,
+            timeLeft: 45,
+            lastTime: 0,
+            spawnTimer: 0,
+            freezeTimer: 0,
+            bubbles: [],
+            particles: []
+        };
+
+        function showOverlay(title, text) {
+            overlayTitle.textContent = title;
+            overlayText.textContent = text;
+            overlay.style.display = "flex";
+        }
+
+        function hideOverlay() {
+            overlay.style.display = "none";
+        }
+
+        function syncHud() {
+            scoreEl.textContent = state.score;
+            comboEl.textContent = state.combo;
+            timeEl.textContent = Math.ceil(state.timeLeft);
+        }
+
+        function resetGame() {
+            state.running = false;
+            state.gameOver = false;
+            state.score = 0;
+            state.combo = 0;
+            state.timeLeft = 45;
+            state.lastTime = 0;
+            state.spawnTimer = 0;
+            state.freezeTimer = 0;
+            state.bubbles = [];
+            state.particles = [];
+            syncHud();
+            showOverlay("泡泡要飘起来了", "点击开始后就能直接戳，越快越准，越容易打出一长串连击。");
+            drawScene();
+        }
+
+        function startGame() {
+            if (state.running) return;
+            if (state.gameOver) resetGame();
+            state.running = true;
+            hideOverlay();
+        }
+
+        function endGame() {
+            state.running = false;
+            state.gameOver = true;
+            showOverlay("泡泡时间结束", `这次拿到了 ${state.score} 分。重新开始再冲一轮更高连击。`);
+        }
+
+        function addParticles(x, y, color, count = 8) {
+            for (let i = 0; i < count; i += 1) {
+                state.particles.push({
+                    x,
+                    y,
+                    vx: (Math.random() - 0.5) * 180,
+                    vy: (Math.random() - 0.5) * 180,
+                    life: 0.55,
+                    color
+                });
+            }
+        }
+
+        function spawnBubble() {
+            const roll = Math.random();
+            let type = "normal";
+            if (roll > 0.92) type = "bomb";
+            else if (roll > 0.82) type = "freeze";
+
+            const radius = type === "bomb" ? 34 : type === "freeze" ? 30 : 24 + Math.random() * 14;
+            const hue = Math.floor(Math.random() * 360);
+            state.bubbles.push({
+                x: 60 + Math.random() * (canvas.width - 120),
+                y: canvas.height + radius,
+                radius,
+                vy: 70 + Math.random() * 90,
+                wobble: Math.random() * Math.PI * 2,
+                hue,
+                type
+            });
+        }
+
+        function popBubble(bubble, chain = false) {
+            if (bubble.popped) return;
+            bubble.popped = true;
+
+            if (bubble.type === "bomb") {
+                addParticles(bubble.x, bubble.y, "#fb7185", 14);
+                state.bubbles.forEach((target) => {
+                    if (target.popped) return;
+                    const dx = target.x - bubble.x;
+                    const dy = target.y - bubble.y;
+                    if (Math.hypot(dx, dy) < bubble.radius + target.radius + 80) {
+                        popBubble(target, true);
+                    }
+                });
+                state.score += 20 + state.combo * 2;
+            } else if (bubble.type === "freeze") {
+                state.freezeTimer = 3.2;
+                addParticles(bubble.x, bubble.y, "#7dd3fc", 12);
+                state.score += 16 + state.combo * 2;
+            } else {
+                addParticles(bubble.x, bubble.y, `hsl(${bubble.hue} 88% 62%)`);
+                state.score += 10 + state.combo * 3;
+            }
+
+            state.combo += chain ? 0 : 1;
+            syncHud();
+        }
+
+        function update(dt) {
+            if (!state.running) return;
+
+            state.timeLeft -= dt;
+            if (state.timeLeft <= 0) {
+                state.timeLeft = 0;
+                endGame();
+            }
+
+            state.spawnTimer += dt;
+            if (state.spawnTimer > Math.max(0.18, 0.42 - state.combo * 0.008)) {
+                state.spawnTimer = 0;
+                spawnBubble();
+            }
+
+            if (state.freezeTimer > 0) {
+                state.freezeTimer -= dt;
+            } else {
+                state.bubbles.forEach((bubble) => {
+                    bubble.y -= bubble.vy * dt;
+                    bubble.x += Math.sin(bubble.wobble) * 18 * dt;
+                    bubble.wobble += dt * 2;
+                });
+            }
+
+            state.bubbles = state.bubbles.filter((bubble) => {
+                if (bubble.popped) return false;
+                if (bubble.y + bubble.radius < -40) {
+                    state.combo = 0;
+                    syncHud();
+                    return false;
+                }
+                return true;
+            });
+
+            state.particles.forEach((particle) => {
+                particle.life -= dt;
+                particle.x += particle.vx * dt;
+                particle.y += particle.vy * dt;
+            });
+            state.particles = state.particles.filter((particle) => particle.life > 0);
+        }
+
+        function hitTest(x, y) {
+            for (let i = state.bubbles.length - 1; i >= 0; i -= 1) {
+                const bubble = state.bubbles[i];
+                const dx = x - bubble.x;
+                const dy = y - bubble.y;
+                if (Math.hypot(dx, dy) <= bubble.radius) {
+                    popBubble(bubble);
+                    return true;
+                }
+            }
+            state.combo = 0;
+            syncHud();
+            return false;
+        }
+
+        function drawBackground() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, "#f0fbff");
+            gradient.addColorStop(0.5, "#e0f7ff");
+            gradient.addColorStop(1, "#f8fdff");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < 16; i += 1) {
+                ctx.fillStyle = i % 2 === 0 ? "rgba(125, 211, 252, 0.12)" : "rgba(147, 197, 253, 0.12)";
+                ctx.beginPath();
+                ctx.arc((i * 88) % canvas.width, 60 + (i * 46) % canvas.height, 28 + (i % 4) * 10, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function drawBubble(bubble) {
+            ctx.save();
+            const gradient = ctx.createRadialGradient(
+                bubble.x - bubble.radius * 0.35,
+                bubble.y - bubble.radius * 0.35,
+                bubble.radius * 0.2,
+                bubble.x,
+                bubble.y,
+                bubble.radius
+            );
+            if (bubble.type === "bomb") {
+                gradient.addColorStop(0, "#ffe4e6");
+                gradient.addColorStop(1, "#fb7185");
+            } else if (bubble.type === "freeze") {
+                gradient.addColorStop(0, "#ecfeff");
+                gradient.addColorStop(1, "#67e8f9");
+            } else {
+                gradient.addColorStop(0, "rgba(255,255,255,0.95)");
+                gradient.addColorStop(1, `hsl(${bubble.hue} 88% 66%)`);
+            }
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "rgba(255,255,255,0.55)";
+            ctx.beginPath();
+            ctx.arc(bubble.x - bubble.radius * 0.3, bubble.y - bubble.radius * 0.3, bubble.radius * 0.26, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (bubble.type === "bomb") {
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "700 22px sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText("💥", bubble.x, bubble.y + 8);
+            } else if (bubble.type === "freeze") {
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "700 22px sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText("❄️", bubble.x, bubble.y + 8);
+            }
+            ctx.restore();
+        }
+
+        function drawParticles() {
+            state.particles.forEach((particle) => {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, particle.life / 0.55);
+                ctx.fillStyle = particle.color;
+                ctx.fillRect(particle.x, particle.y, 6, 6);
+                ctx.restore();
+            });
+        }
+
+        function drawHud() {
+            ctx.fillStyle = "rgba(255,255,255,0.72)";
+            ctx.beginPath();
+            ctx.roundRect(18, 18, 176, 56, 18);
+            ctx.fill();
+            ctx.fillStyle = "#14324a";
+            ctx.font = "700 22px 'Avenir Next', sans-serif";
+            ctx.fillText(`分数 ${state.score}`, 34, 53);
+
+            if (state.freezeTimer > 0) {
+                ctx.fillStyle = "rgba(14, 165, 233, 0.72)";
+                ctx.beginPath();
+                ctx.roundRect(canvas.width - 166, 18, 148, 46, 16);
+                ctx.fill();
+                ctx.fillStyle = "#ffffff";
+                ctx.fillText(`冻结 ${state.freezeTimer.toFixed(1)}s`, canvas.width - 150, 49);
+            }
+        }
+
+        function drawScene() {
+            drawBackground();
+            state.bubbles.forEach(drawBubble);
+            drawParticles();
+            drawHud();
+        }
+
+        function frame(time) {
+            if (!state.lastTime) state.lastTime = time;
+            const dt = Math.min((time - state.lastTime) / 1000, 0.032);
+            state.lastTime = time;
+            update(dt);
+            drawScene();
+            requestAnimationFrame(frame);
+        }
+
+        function pointerHandler(event) {
+            const rect = canvas.getBoundingClientRect();
+            const ratio = canvas.width / rect.width;
+            const x = (event.clientX - rect.left) * ratio;
+            const y = (event.clientY - rect.top) * ratio;
+            if (state.gameOver) resetGame();
+            startGame();
+            hitTest(x, y);
+        }
+
+        document.getElementById("startBtn").addEventListener("click", startGame);
+        document.getElementById("restartBtn").addEventListener("click", () => {
+            resetGame();
+            startGame();
+        });
+
+        canvas.addEventListener("pointerdown", pointerHandler);
+
+        resetGame();
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>

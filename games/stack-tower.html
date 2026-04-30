@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叠塔高手 - 在线益智解谜小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="叠塔高手是一款越叠越上头的节奏小游戏，考验时机与稳定手感。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="叠塔高手,益智解谜,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/stack-tower.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="叠塔高手 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta property="og:description" content="叠塔高手是一款越叠越上头的节奏小游戏，考验时机与稳定手感。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/stack-tower.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="叠塔高手 - 在线益智解谜小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="叠塔高手是一款越叠越上头的节奏小游戏，考验时机与稳定手感。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"叠塔高手","description":"叠塔高手是一款越叠越上头的节奏小游戏，考验时机与稳定手感。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/stack-tower.html","genre":"益智解谜","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #fff7ed;
+            --panel: rgba(255, 255, 255, 0.92);
+            --border: rgba(124, 45, 18, 0.08);
+            --text: #431407;
+            --muted: #7c5c4c;
+            --primary: #ea580c;
+            --shadow: 0 18px 46px rgba(124, 45, 18, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            color: var(--text);
+            font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(251, 146, 60, 0.2), transparent 24%),
+                radial-gradient(circle at top right, rgba(251, 191, 36, 0.16), transparent 22%),
+                linear-gradient(180deg, #fffaf2 0%, #fff1df 100%);
+        }
+
+        .sidebar {
+            width: 340px;
+            padding: 28px;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .title {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .title__icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #f97316, #facc15);
+            box-shadow: 0 12px 28px rgba(234, 88, 12, 0.24);
+        }
+
+        h1 {
+            font-size: 1.95rem;
+            line-height: 1;
+        }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .card,
+        .tips {
+            padding: 18px;
+            background: white;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 24px rgba(124, 45, 18, 0.05);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.7rem;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        button {
+            border: none;
+            border-radius: 15px;
+            padding: 13px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.16s ease, filter 0.16s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #ea580c, #f97316);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: #ffedd5;
+        }
+
+        .tips h2 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .tips li::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            position: relative;
+        }
+
+        .canvas-shell {
+            width: min(100%, 700px);
+            aspect-ratio: 4 / 5;
+            border-radius: 34px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.76);
+            border: 1px solid rgba(255, 255, 255, 0.86);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: manipulation;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .overlay__panel {
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 14px 36px rgba(124, 45, 18, 0.12);
+        }
+
+        .overlay__panel strong {
+            display: block;
+            font-size: 1.6rem;
+        }
+
+        .overlay__panel p {
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 920px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .main-area {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="title">
+            <div class="title__icon">🧱</div>
+            <div>
+                <h1>叠塔高手</h1>
+                <p class="subtitle">等移动方块对准塔顶时立刻放下。叠得越准，塔越高；错得越多，平台就会越来越窄。</p>
+            </div>
+        </div>
+
+        <section class="card">
+            <div class="stats">
+                <div class="stat">
+                    <strong id="score">0</strong>
+                    <span>当前层数</span>
+                </div>
+                <div class="stat">
+                    <strong id="best">0</strong>
+                    <span>最佳纪录</span>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="btn-primary" id="startBtn">开始叠塔</button>
+                <button class="btn-secondary" id="restartBtn">重新开始</button>
+            </div>
+        </section>
+
+        <section class="tips">
+            <h2>玩法提示</h2>
+            <ul>
+                <li>按空格、回车、点击画布或轻触屏幕都能放下当前方块。</li>
+                <li>完美对齐会触发“精准落点”，塔身颜色会更明亮。</li>
+                <li>方块越高速度越快，越往后越考验节奏感。</li>
+            </ul>
+        </section>
+    </aside>
+
+    <main class="main-area">
+        <div class="canvas-shell">
+            <canvas id="towerCanvas" width="700" height="860"></canvas>
+            <div class="overlay" id="overlay">
+                <div class="overlay__panel">
+                    <strong id="overlayTitle">准备起手第一层</strong>
+                    <p id="overlayText">点击“开始叠塔”或直接按空格，抓住节奏把方块一层层叠高。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById("towerCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+        const bestEl = document.getElementById("best");
+        const overlay = document.getElementById("overlay");
+        const overlayTitle = document.getElementById("overlayTitle");
+        const overlayText = document.getElementById("overlayText");
+
+        const bestKey = "stack_tower_best";
+        let best = Number(localStorage.getItem(bestKey) || 0);
+        bestEl.textContent = best;
+
+        const state = {
+            running: false,
+            gameOver: false,
+            score: 0,
+            blocks: [],
+            active: null,
+            fallingPieces: [],
+            cameraOffset: 0,
+            lastTime: 0
+        };
+
+        const config = {
+            blockHeight: 34,
+            baseY: canvas.height - 92,
+            minWidth: 54,
+            moveRange: 250
+        };
+
+        function showOverlay(title, text) {
+            overlayTitle.textContent = title;
+            overlayText.textContent = text;
+            overlay.style.display = "flex";
+        }
+
+        function hideOverlay() {
+            overlay.style.display = "none";
+        }
+
+        function hueForLevel(level) {
+            return (level * 22 + 18) % 360;
+        }
+
+        function createBlock(level, width, y) {
+            return {
+                x: canvas.width / 2 - width / 2,
+                y,
+                width,
+                height: config.blockHeight,
+                color: `hsl(${hueForLevel(level)} 88% 58%)`,
+                glow: `hsla(${hueForLevel(level)} 95% 60% / 0.32)`
+            };
+        }
+
+        function spawnActiveBlock() {
+            const previous = state.blocks[state.blocks.length - 1];
+            const level = state.blocks.length;
+            const width = previous.width;
+            const y = previous.y - config.blockHeight;
+            state.active = {
+                ...createBlock(level, width, y),
+                direction: level % 2 === 0 ? 1 : -1,
+                offset: 0,
+                speed: Math.min(180 + state.score * 6, 340)
+            };
+        }
+
+        function resetGame() {
+            state.running = false;
+            state.gameOver = false;
+            state.score = 0;
+            state.cameraOffset = 0;
+            state.lastTime = 0;
+            state.fallingPieces = [];
+            state.blocks = [
+                {
+                    ...createBlock(0, 240, config.baseY),
+                    x: canvas.width / 2 - 120
+                }
+            ];
+            scoreEl.textContent = "0";
+            spawnActiveBlock();
+            showOverlay("准备起手第一层", "点击“开始叠塔”或直接按空格，抓住节奏把方块一层层叠高。");
+            drawScene();
+        }
+
+        function startGame() {
+            if (state.running || state.gameOver) {
+                if (!state.gameOver) return;
+                resetGame();
+            }
+            state.running = true;
+            hideOverlay();
+        }
+
+        function finishGame() {
+            state.running = false;
+            state.gameOver = true;
+            showOverlay("塔塌了", `这次叠到了 ${state.score} 层。点击重新开始再冲一轮更高纪录。`);
+        }
+
+        function dropBlock() {
+            if (!state.running || !state.active) return;
+
+            const previous = state.blocks[state.blocks.length - 1];
+            const overlapStart = Math.max(state.active.x, previous.x);
+            const overlapEnd = Math.min(state.active.x + state.active.width, previous.x + previous.width);
+            const overlapWidth = overlapEnd - overlapStart;
+
+            if (overlapWidth <= 0) {
+                state.fallingPieces.push({
+                    x: state.active.x,
+                    y: state.active.y,
+                    width: state.active.width,
+                    height: state.active.height,
+                    color: state.active.color,
+                    vx: state.active.direction * 160,
+                    vy: -70
+                });
+                finishGame();
+                return;
+            }
+
+            const cutLeft = overlapStart - state.active.x;
+            const cutRight = state.active.x + state.active.width - overlapEnd;
+            const perfect = Math.abs(overlapWidth - previous.width) < 6;
+
+            if (cutLeft > 0) {
+                state.fallingPieces.push({
+                    x: state.active.x,
+                    y: state.active.y,
+                    width: cutLeft,
+                    height: state.active.height,
+                    color: state.active.color,
+                    vx: -140,
+                    vy: -40
+                });
+            }
+
+            if (cutRight > 0) {
+                state.fallingPieces.push({
+                    x: overlapEnd,
+                    y: state.active.y,
+                    width: cutRight,
+                    height: state.active.height,
+                    color: state.active.color,
+                    vx: 140,
+                    vy: -40
+                });
+            }
+
+            const placedBlock = {
+                ...state.active,
+                x: perfect ? previous.x : overlapStart,
+                width: perfect ? previous.width : overlapWidth
+            };
+
+            if (perfect) {
+                placedBlock.color = `hsl(${hueForLevel(state.blocks.length + 2)} 92% 64%)`;
+                placedBlock.glow = `hsla(${hueForLevel(state.blocks.length + 2)} 100% 62% / 0.46)`;
+            }
+
+            state.blocks.push(placedBlock);
+            state.score += 1;
+            scoreEl.textContent = state.score;
+
+            if (state.score > best) {
+                best = state.score;
+                localStorage.setItem(bestKey, String(best));
+                bestEl.textContent = best;
+            }
+
+            if (state.blocks.length > 7) {
+                const targetOffset = Math.max(0, config.baseY - placedBlock.y - 180);
+                state.cameraOffset = targetOffset;
+            }
+
+            spawnActiveBlock();
+        }
+
+        function update(dt) {
+            if (state.running && state.active) {
+                state.active.offset += state.active.direction * state.active.speed * dt;
+                if (state.active.offset > config.moveRange) {
+                    state.active.offset = config.moveRange;
+                    state.active.direction = -1;
+                }
+                if (state.active.offset < -config.moveRange) {
+                    state.active.offset = -config.moveRange;
+                    state.active.direction = 1;
+                }
+
+                const centerX = canvas.width / 2 - state.active.width / 2;
+                state.active.x = centerX + state.active.offset;
+            }
+
+            state.fallingPieces.forEach((piece) => {
+                piece.x += piece.vx * dt;
+                piece.y += piece.vy * dt;
+                piece.vy += 520 * dt;
+            });
+            state.fallingPieces = state.fallingPieces.filter((piece) => piece.y < canvas.height + 120);
+        }
+
+        function drawBackground() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, "#fef3c7");
+            gradient.addColorStop(0.55, "#fed7aa");
+            gradient.addColorStop(1, "#ffedd5");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "rgba(255,255,255,0.65)";
+            for (let i = 0; i < 5; i += 1) {
+                const x = 90 + i * 128;
+                const y = 110 + (i % 2) * 56;
+                ctx.beginPath();
+                ctx.ellipse(x, y, 58, 20, 0, 0, Math.PI * 2);
+                ctx.ellipse(x + 24, y - 10, 36, 18, 0, 0, Math.PI * 2);
+                ctx.ellipse(x - 28, y - 6, 28, 16, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function drawPedestal() {
+            ctx.fillStyle = "#9a3412";
+            ctx.fillRect(0, canvas.height - 74, canvas.width, 74);
+            ctx.fillStyle = "#7c2d12";
+            for (let x = 0; x < canvas.width; x += 24) {
+                ctx.fillRect(x, canvas.height - 74, 12, 8);
+            }
+        }
+
+        function drawBlock(block) {
+            const y = block.y + state.cameraOffset;
+            ctx.save();
+            ctx.shadowColor = block.glow;
+            ctx.shadowBlur = 16;
+            ctx.fillStyle = block.color;
+            ctx.fillRect(block.x, y, block.width, block.height);
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = "rgba(255,255,255,0.2)";
+            ctx.fillRect(block.x, y, block.width, 7);
+            ctx.fillStyle = "rgba(0,0,0,0.14)";
+            ctx.fillRect(block.x + block.width - 7, y, 7, block.height);
+            ctx.restore();
+        }
+
+        function drawFallingPieces() {
+            state.fallingPieces.forEach((piece) => {
+                ctx.fillStyle = piece.color;
+                ctx.fillRect(piece.x, piece.y + state.cameraOffset, piece.width, piece.height);
+            });
+        }
+
+        function drawAimLine() {
+            if (!state.active || !state.running) return;
+            const targetY = state.active.y + state.cameraOffset + config.blockHeight;
+            ctx.strokeStyle = "rgba(124, 45, 18, 0.18)";
+            ctx.setLineDash([10, 12]);
+            ctx.beginPath();
+            ctx.moveTo(0, targetY);
+            ctx.lineTo(canvas.width, targetY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawScene() {
+            drawBackground();
+            drawPedestal();
+            drawAimLine();
+            state.blocks.forEach(drawBlock);
+            if (state.active) drawBlock(state.active);
+            drawFallingPieces();
+        }
+
+        function frame(time) {
+            if (!state.lastTime) state.lastTime = time;
+            const dt = Math.min((time - state.lastTime) / 1000, 0.032);
+            state.lastTime = time;
+            update(dt);
+            drawScene();
+            requestAnimationFrame(frame);
+        }
+
+        document.getElementById("startBtn").addEventListener("click", startGame);
+        document.getElementById("restartBtn").addEventListener("click", () => {
+            resetGame();
+            startGame();
+        });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.code === "Space" || event.code === "Enter") {
+                event.preventDefault();
+                if (!state.running && !state.gameOver) {
+                    startGame();
+                } else if (state.gameOver) {
+                    resetGame();
+                    startGame();
+                } else {
+                    dropBlock();
+                }
+            }
+        });
+
+        canvas.addEventListener("pointerdown", () => {
+            if (!state.running && !state.gameOver) {
+                startGame();
+            } else if (state.gameOver) {
+                resetGame();
+                startGame();
+            } else {
+                dropBlock();
+            }
+        });
+
+        resetGame();
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>

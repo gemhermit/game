@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猫猫钓鱼王 - 在线动作街机小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="猫猫钓鱼王主打轻松收放鱼钩，找准深度把大鱼和宝箱一把钓上来。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="猫猫钓鱼王,动作街机,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/cat-fishing.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="猫猫钓鱼王 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta property="og:description" content="猫猫钓鱼王主打轻松收放鱼钩，找准深度把大鱼和宝箱一把钓上来。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/cat-fishing.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="猫猫钓鱼王 - 在线动作街机小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="猫猫钓鱼王主打轻松收放鱼钩，找准深度把大鱼和宝箱一把钓上来。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"猫猫钓鱼王","description":"猫猫钓鱼王主打轻松收放鱼钩，找准深度把大鱼和宝箱一把钓上来。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/cat-fishing.html","genre":"动作街机","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #eefcf7;
+            --panel: rgba(255, 255, 255, 0.92);
+            --border: rgba(5, 150, 105, 0.08);
+            --text: #14322a;
+            --muted: #55756d;
+            --primary: #10b981;
+            --shadow: 0 22px 54px rgba(5, 150, 105, 0.14);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            color: var(--text);
+            font-family: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 24%),
+                radial-gradient(circle at top right, rgba(45, 212, 191, 0.16), transparent 22%),
+                linear-gradient(180deg, #f4fffb 0%, #edfff8 55%, #f8fffb 100%);
+        }
+
+        .sidebar {
+            width: 350px;
+            padding: 28px;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .title {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .title__icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            color: white;
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+            box-shadow: 0 14px 32px rgba(5, 150, 105, 0.22);
+        }
+
+        h1 { font-size: 2rem; line-height: 1; }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .card, .tips {
+            padding: 18px;
+            background: white;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 28px rgba(5, 150, 105, 0.06);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.5rem;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        button {
+            border: none;
+            border-radius: 15px;
+            padding: 13px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.16s ease, filter 0.16s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            background: #d1fae5;
+        }
+
+        .tips h2 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .tips li::before {
+            content: "•";
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+        }
+
+        .canvas-shell {
+            width: min(100%, 680px);
+            aspect-ratio: 10 / 12;
+            border-radius: 34px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.92);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .overlay__panel {
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid rgba(255, 255, 255, 0.94);
+            box-shadow: 0 14px 36px rgba(5, 150, 105, 0.14);
+        }
+
+        .overlay__panel strong {
+            display: block;
+            font-size: 1.55rem;
+        }
+
+        .overlay__panel p {
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 940px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .main-area { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="title">
+            <div class="title__icon">🐱</div>
+            <div>
+                <h1>猫猫钓鱼王</h1>
+                <p class="subtitle">控制猫猫在小船上放钩收竿，尽量钓到大鱼和宝箱，别让旧靴子占了钩位。</p>
+            </div>
+        </div>
+
+        <section class="card">
+            <div class="stats">
+                <div class="stat">
+                    <strong id="score">0</strong>
+                    <span>当前分数</span>
+                </div>
+                <div class="stat">
+                    <strong id="streak">0</strong>
+                    <span>连续命中</span>
+                </div>
+                <div class="stat">
+                    <strong id="time">60</strong>
+                    <span>剩余秒数</span>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="btn-primary" id="startBtn">开始钓鱼</button>
+                <button class="btn-secondary" id="restartBtn">重新开始</button>
+            </div>
+        </section>
+
+        <section class="tips">
+            <h2>玩法提示</h2>
+            <ul>
+                <li>点击画布或按空格放钩，再按一次就能立即收钩。</li>
+                <li>鱼越大分值越高，连续命中会额外加分。</li>
+                <li>钓到破靴子会打断连击，宝箱则会给一大笔奖励。</li>
+            </ul>
+        </section>
+    </aside>
+
+    <main class="main-area">
+        <div class="canvas-shell">
+            <canvas id="fishingCanvas" width="680" height="820"></canvas>
+            <div class="overlay" id="overlay">
+                <div class="overlay__panel">
+                    <strong id="overlayTitle">猫猫已经坐上船啦</strong>
+                    <p id="overlayText">点击开始后就能收放鱼钩，越会判断深度，钓到的鱼就越肥。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById("fishingCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+        const streakEl = document.getElementById("streak");
+        const timeEl = document.getElementById("time");
+        const overlay = document.getElementById("overlay");
+        const overlayTitle = document.getElementById("overlayTitle");
+        const overlayText = document.getElementById("overlayText");
+
+        const state = {
+            running: false,
+            gameOver: false,
+            score: 0,
+            streak: 0,
+            timeLeft: 60,
+            lastTime: 0,
+            fish: [],
+            particles: []
+        };
+
+        const hook = {
+            x: canvas.width / 2,
+            y: 120,
+            length: 0,
+            state: "idle",
+            speed: 290,
+            caught: null
+        };
+
+        function showOverlay(title, text) {
+            overlayTitle.textContent = title;
+            overlayText.textContent = text;
+            overlay.style.display = "flex";
+        }
+
+        function hideOverlay() {
+            overlay.style.display = "none";
+        }
+
+        function syncHud() {
+            scoreEl.textContent = state.score;
+            streakEl.textContent = state.streak;
+            timeEl.textContent = Math.ceil(state.timeLeft);
+        }
+
+        function randomFish(type = "fish") {
+            const large = Math.random() > 0.7;
+            return {
+                type,
+                x: 80 + Math.random() * (canvas.width - 160),
+                y: 220 + Math.random() * (canvas.height - 290),
+                vx: (Math.random() > 0.5 ? 1 : -1) * (type === "boot" ? 40 : 60 + Math.random() * 60),
+                size: type === "chest" ? 28 : type === "boot" ? 24 : large ? 30 : 22,
+                value: type === "chest" ? 45 : type === "boot" ? -8 : large ? 16 : 10,
+                hue: Math.floor(Math.random() * 360)
+            };
+        }
+
+        function fillFish() {
+            state.fish = [];
+            for (let i = 0; i < 10; i += 1) state.fish.push(randomFish());
+            for (let i = 0; i < 2; i += 1) state.fish.push(randomFish("boot"));
+            state.fish.push(randomFish("chest"));
+        }
+
+        function resetGame() {
+            state.running = false;
+            state.gameOver = false;
+            state.score = 0;
+            state.streak = 0;
+            state.timeLeft = 60;
+            state.lastTime = 0;
+            state.particles = [];
+            hook.length = 0;
+            hook.state = "idle";
+            hook.caught = null;
+            fillFish();
+            syncHud();
+            showOverlay("猫猫已经坐上船啦", "点击开始后就能收放鱼钩，越会判断深度，钓到的鱼就越肥。");
+            drawScene();
+        }
+
+        function startGame() {
+            if (state.running) return;
+            if (state.gameOver) resetGame();
+            state.running = true;
+            hideOverlay();
+        }
+
+        function endGame() {
+            state.running = false;
+            state.gameOver = true;
+            showOverlay("收杆时间到", `这次钓到了 ${state.score} 分。重新开始再冲更肥的鱼和宝箱。`);
+        }
+
+        function addParticles(x, y, color) {
+            for (let i = 0; i < 8; i += 1) {
+                state.particles.push({
+                    x,
+                    y,
+                    vx: (Math.random() - 0.5) * 140,
+                    vy: (Math.random() - 0.5) * 140,
+                    life: 0.55,
+                    color
+                });
+            }
+        }
+
+        function toggleHook() {
+            if (!state.running) {
+                startGame();
+                return;
+            }
+
+            if (hook.state === "idle") {
+                hook.state = "dropping";
+            } else if (hook.state === "dropping") {
+                hook.state = "reeling";
+            }
+        }
+
+        function catchFish(fish) {
+            hook.caught = fish;
+            hook.state = "reeling";
+        }
+
+        function releaseCatch() {
+            if (!hook.caught) return;
+            const item = hook.caught;
+            if (item.type === "boot") {
+                state.score = Math.max(0, state.score - 8);
+                state.streak = 0;
+                addParticles(hook.x, 120, "#92400e");
+            } else {
+                state.streak += 1;
+                state.score += item.value + state.streak * 2;
+                addParticles(hook.x, 120, item.type === "chest" ? "#f59e0b" : `hsl(${item.hue} 80% 62%)`);
+            }
+
+            const index = state.fish.indexOf(item);
+            if (index >= 0) state.fish.splice(index, 1);
+            state.fish.push(randomFish(Math.random() < 0.12 ? "chest" : Math.random() < 0.18 ? "boot" : "fish"));
+            hook.caught = null;
+            syncHud();
+        }
+
+        function update(dt) {
+            if (!state.running) return;
+
+            state.timeLeft -= dt;
+            if (state.timeLeft <= 0) {
+                state.timeLeft = 0;
+                endGame();
+            }
+
+            state.fish.forEach((fish) => {
+                if (hook.caught === fish) return;
+                fish.x += fish.vx * dt;
+                if (fish.x < 40 || fish.x > canvas.width - 40) {
+                    fish.vx *= -1;
+                }
+            });
+
+            if (hook.state === "dropping") {
+                hook.length += hook.speed * dt;
+                if (hook.length > canvas.height - 180) hook.state = "reeling";
+            } else if (hook.state === "reeling") {
+                hook.length -= hook.speed * dt;
+                if (hook.length <= 0) {
+                    hook.length = 0;
+                    hook.state = "idle";
+                    releaseCatch();
+                }
+            }
+
+            if (hook.state !== "idle" && !hook.caught) {
+                const tipX = hook.x;
+                const tipY = 120 + hook.length;
+                state.fish.forEach((fish) => {
+                    const dx = tipX - fish.x;
+                    const dy = tipY - fish.y;
+                    if (Math.hypot(dx, dy) < fish.size + 10) {
+                        catchFish(fish);
+                    }
+                });
+            }
+
+            if (hook.caught) {
+                hook.caught.x = hook.x;
+                hook.caught.y = 120 + hook.length + 12;
+            }
+
+            state.particles.forEach((particle) => {
+                particle.life -= dt;
+                particle.x += particle.vx * dt;
+                particle.y += particle.vy * dt;
+            });
+            state.particles = state.particles.filter((particle) => particle.life > 0);
+            syncHud();
+        }
+
+        function drawBackground() {
+            ctx.fillStyle = "#e6fffb";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#d1fae5";
+            ctx.fillRect(0, 0, canvas.width, 180);
+
+            const water = ctx.createLinearGradient(0, 180, 0, canvas.height);
+            water.addColorStop(0, "#7dd3fc");
+            water.addColorStop(0.6, "#38bdf8");
+            water.addColorStop(1, "#0ea5e9");
+            ctx.fillStyle = water;
+            ctx.fillRect(0, 180, canvas.width, canvas.height - 180);
+
+            for (let i = 0; i < 12; i += 1) {
+                ctx.strokeStyle = "rgba(255,255,255,0.28)";
+                ctx.beginPath();
+                ctx.moveTo(0, 210 + i * 46);
+                ctx.bezierCurveTo(120, 198 + i * 46, 260, 222 + i * 46, canvas.width, 208 + i * 46);
+                ctx.stroke();
+            }
+        }
+
+        function drawBoat() {
+            ctx.fillStyle = "#92400e";
+            ctx.beginPath();
+            ctx.moveTo(hook.x - 80, 150);
+            ctx.lineTo(hook.x + 80, 150);
+            ctx.lineTo(hook.x + 58, 178);
+            ctx.lineTo(hook.x - 58, 178);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = "#1f2937";
+            ctx.beginPath();
+            ctx.arc(hook.x, 128, 24, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(hook.x - 10, 120, 6, 0, Math.PI * 2);
+            ctx.arc(hook.x + 10, 120, 6, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#111827";
+            ctx.beginPath();
+            ctx.arc(hook.x - 10, 120, 2, 0, Math.PI * 2);
+            ctx.arc(hook.x + 10, 120, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawHook() {
+            ctx.strokeStyle = "#334155";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(hook.x, 150);
+            ctx.lineTo(hook.x, 120 + hook.length);
+            ctx.stroke();
+
+            const tipY = 120 + hook.length;
+            ctx.strokeStyle = "#111827";
+            ctx.beginPath();
+            ctx.arc(hook.x, tipY, 8, -0.3, Math.PI + 0.5);
+            ctx.stroke();
+        }
+
+        function drawFish(fish) {
+            ctx.save();
+            ctx.translate(fish.x, fish.y);
+            if (fish.vx < 0) ctx.scale(-1, 1);
+
+            if (fish.type === "boot") {
+                ctx.fillStyle = "#92400e";
+                ctx.fillRect(-12, -14, 24, 28);
+                ctx.fillRect(2, 6, 12, 18);
+            } else if (fish.type === "chest") {
+                ctx.fillStyle = "#f59e0b";
+                ctx.fillRect(-18, -12, 36, 24);
+                ctx.fillStyle = "#7c2d12";
+                ctx.fillRect(-18, -2, 36, 6);
+            } else {
+                ctx.fillStyle = `hsl(${fish.hue} 80% 62%)`;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, fish.size, fish.size * 0.6, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.moveTo(-fish.size, 0);
+                ctx.lineTo(-fish.size - 18, -12);
+                ctx.lineTo(-fish.size - 18, 12);
+                ctx.closePath();
+                ctx.fill();
+                ctx.fillStyle = "#ffffff";
+                ctx.beginPath();
+                ctx.arc(fish.size * 0.35, -4, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = "#111827";
+                ctx.beginPath();
+                ctx.arc(fish.size * 0.35, -4, 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        function drawParticles() {
+            state.particles.forEach((particle) => {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, particle.life / 0.55);
+                ctx.fillStyle = particle.color;
+                ctx.fillRect(particle.x, particle.y, 5, 5);
+                ctx.restore();
+            });
+        }
+
+        function drawHud() {
+            ctx.fillStyle = "rgba(255,255,255,0.72)";
+            ctx.beginPath();
+            ctx.roundRect(18, 18, 176, 56, 18);
+            ctx.fill();
+            ctx.fillStyle = "#14322a";
+            ctx.font = "700 22px 'Avenir Next', sans-serif";
+            ctx.fillText(`分数 ${state.score}`, 34, 53);
+        }
+
+        function drawScene() {
+            drawBackground();
+            state.fish.forEach(drawFish);
+            drawBoat();
+            drawHook();
+            drawParticles();
+            drawHud();
+        }
+
+        function frame(time) {
+            if (!state.lastTime) state.lastTime = time;
+            const dt = Math.min((time - state.lastTime) / 1000, 0.032);
+            state.lastTime = time;
+            update(dt);
+            drawScene();
+            requestAnimationFrame(frame);
+        }
+
+        document.getElementById("startBtn").addEventListener("click", startGame);
+        document.getElementById("restartBtn").addEventListener("click", () => {
+            resetGame();
+            startGame();
+        });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.code === "Space") {
+                event.preventDefault();
+                if (state.gameOver) resetGame();
+                toggleHook();
+            }
+        });
+
+        canvas.addEventListener("pointerdown", () => {
+            if (state.gameOver) resetGame();
+            toggleHook();
+        });
+
+        resetGame();
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>

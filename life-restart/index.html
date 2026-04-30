@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人生重开模拟器 - 在线创意工具小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="经典文字人生模拟游戏，随机分配天赋与属性，体验不一样的人生轨迹。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="人生重开模拟器,Life Restart,文字游戏,模拟器,创意工具,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/life-restart/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="人生重开模拟器 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta property="og:description" content="经典文字人生模拟游戏，随机分配天赋与属性，体验不一样的人生轨迹。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/life-restart/">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="人生重开模拟器 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="经典文字人生模拟游戏，随机分配天赋与属性，体验不一样的人生轨迹。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"人生重开模拟器","description":"经典文字人生模拟游戏，随机分配天赋与属性，体验不一样的人生轨迹。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/life-restart/","genre":"创意工具","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            background-color: #111;
+            color: #eee;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+        .event-log {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .text-rare { color: #f59e0b; } /* amber-500 */
+        .text-epic { color: #a855f7; } /* blue-500 -> purple-500 */
+        .text-legendary { color: #ec4899; } /* purple-500 -> pink-500 */
+        .text-mythic { color: #ef4444; text-shadow: 0 0 5px #ef4444; }
+        .text-dead { color: #ef4444; }
+    </style>
+</head>
+<body class="flex flex-col items-center min-h-screen">
+    <div class="w-full max-w-md bg-neutral-900 min-h-screen shadow-2xl relative overflow-hidden flex flex-col">
+        <!-- Header -->
+        <header class="p-4 border-b border-neutral-800 text-center bg-neutral-900 sticky top-0 z-10">
+            <h1 class="text-xl font-bold tracking-widest text-white">人生重开模拟器</h1>
+            <p class="text-xs text-neutral-400 mt-1">Life Restart</p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="app-container" class="flex-1 flex flex-col p-4 relative overflow-y-auto">
+            <!-- Screen 1: Welcome -->
+            <div id="screen-welcome" class="flex-1 flex flex-col items-center justify-center text-center">
+                <h2 class="text-2xl font-bold mb-4">这垃圾人生一秒也不想待了</h2>
+                <button onclick="startGame()" class="mt-8 px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors transform hover:scale-105 duration-200">
+                    立即重开
+                </button>
+            </div>
+
+            <!-- Screen 2: Talent Selection -->
+            <div id="screen-talents" class="hidden flex-1 flex flex-col">
+                <h2 class="text-lg font-bold mb-2 text-center">天赋抽卡</h2>
+                <p class="text-sm text-neutral-400 text-center mb-6">请选择 3 个初始天赋</p>
+                <div id="talent-list" class="flex flex-col gap-3 flex-1 overflow-y-auto pb-20">
+                    <!-- Talents will be generated here -->
+                </div>
+                <div class="absolute bottom-4 left-0 right-0 px-4">
+                    <button id="btn-confirm-talents" onclick="confirmTalents()" class="w-full py-3 bg-neutral-700 text-neutral-400 font-bold rounded-full transition-colors" disabled>
+                        请选择3个 (0/3)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Screen 3: Stats Allocation -->
+            <div id="screen-stats" class="hidden flex-1 flex flex-col">
+                <h2 class="text-lg font-bold mb-2 text-center">调整初始属性</h2>
+                <p class="text-sm text-center mb-6 text-neutral-400">可用属性点：<span id="avail-points" class="text-white font-bold">20</span></p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between bg-neutral-800 p-4 rounded-xl">
+                        <span class="font-bold w-12">颜值</span>
+                        <div class="flex items-center gap-4">
+                            <button onclick="adjustStat('CHR', -1)" class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center hover:bg-neutral-600">-</button>
+                            <span id="stat-CHR" class="w-6 text-center font-bold">0</span>
+                            <button onclick="adjustStat('CHR', 1)" class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center hover:bg-neutral-600">+</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-neutral-800 p-4 rounded-xl">
+                        <span class="font-bold w-12">智力</span>
+                        <div class="flex items-center gap-4">
+                            <button onclick="adjustStat('INT', -1)" class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center hover:bg-neutral-600">-</button>
+                            <span id="stat-INT" class="w-6 text-center font-bold">0</span>
+                            <button onclick="adjustStat('INT', 1)" class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center hover:bg-neutral-600">+</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-neutral-800 p-4 rounded-xl">
+                        <span class="font-bold w-12">体质</span>
+                        <div class="flex items-center gap-4">
+                            <button onclick="adjustStat('STR', -1)" class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center hover:bg-neutral-600">-</button>
+                            <span id="stat-STR" class="w-6 text-center font-bold">0</span>
+                            <button onclick="adjustStat('STR', 1)" class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center hover:bg-neutral-600">+</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between bg-neutral-800 p-4 rounded-xl">
+                        <span class="font-bold w-12">家境</span>
+                        <div class="flex items-center gap-4">
+                            <button onclick="adjustStat('MNY', -1)" class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center hover:bg-neutral-600">-</button>
+                            <span id="stat-MNY" class="w-6 text-center font-bold">0</span>
+                            <button onclick="adjustStat('MNY', 1)" class="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center hover:bg-neutral-600">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-4 left-0 right-0 px-4">
+                    <button id="btn-start-life" onclick="startLife()" class="w-full py-3 bg-neutral-700 text-neutral-400 font-bold rounded-full transition-colors" disabled>
+                        开始新人生
+                    </button>
+                </div>
+            </div>
+
+            <!-- Screen 4: Life Log -->
+            <div id="screen-life" class="hidden flex-1 flex flex-col">
+                <div class="flex justify-between items-center bg-neutral-800 p-3 rounded-lg mb-4 text-sm font-bold sticky top-0 z-10">
+                    <span>颜值:<span id="live-CHR" class="text-amber-300 ml-1">0</span></span>
+                    <span>智力:<span id="live-INT" class="text-amber-300 ml-1">0</span></span>
+                    <span>体质:<span id="live-STR" class="text-amber-300 ml-1">0</span></span>
+                    <span>家境:<span id="live-MNY" class="text-amber-300 ml-1">0</span></span>
+                </div>
+                <div id="life-logs" class="flex-1 space-y-3 pb-20">
+                    <!-- Logs go here -->
+                </div>
+                <div id="life-controls" class="fixed bottom-4 left-0 right-0 px-4 max-w-md mx-auto hidden">
+                    <button onclick="nextYear()" class="w-full py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors shadow-lg">
+                        下一年
+                    </button>
+                </div>
+            </div>
+
+            <!-- Screen 5: Summary -->
+            <div id="screen-summary" class="hidden flex-1 flex flex-col items-center justify-center text-center pb-20">
+                <h2 class="text-3xl font-bold mb-2 text-white">人生总结</h2>
+                <p id="summary-age" class="text-xl text-neutral-400 mb-8">享年 0 岁</p>
+                
+                <div class="w-full bg-neutral-800 rounded-2xl p-6 space-y-4 mb-8">
+                    <div class="flex justify-between">
+                        <span class="text-neutral-400">颜值评分</span>
+                        <span id="sum-CHR" class="font-bold">0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-neutral-400">智力评分</span>
+                        <span id="sum-INT" class="font-bold">0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-neutral-400">体质评分</span>
+                        <span id="sum-STR" class="font-bold">0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-neutral-400">家境评分</span>
+                        <span id="sum-MNY" class="font-bold">0</span>
+                    </div>
+                    <div class="h-px bg-neutral-700 my-2"></div>
+                    <div class="flex justify-between text-lg">
+                        <span class="font-bold text-white">总评</span>
+                        <span id="sum-total" class="font-bold text-amber-400">0</span>
+                    </div>
+                </div>
+
+                <button onclick="resetGame()" class="w-full py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors">
+                    再次重开
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Data Models
+        const ALL_TALENTS = [
+            { id: 1, name: "天命之子", desc: "初始全属性+2", effect: { CHR: 2, INT: 2, STR: 2, MNY: 2 }, rarity: "legendary" },
+            { id: 2, name: "富二代", desc: "初始家境+5", effect: { MNY: 5 }, rarity: "epic" },
+            { id: 3, name: "早产儿", desc: "初始体质-3，智力+1", effect: { STR: -3, INT: 1 }, rarity: "rare" },
+            { id: 4, name: "倾国倾城", desc: "初始颜值+5", effect: { CHR: 5 }, rarity: "epic" },
+            { id: 5, name: "过目不忘", desc: "初始智力+5", effect: { INT: 5 }, rarity: "epic" },
+            { id: 6, name: "天生牛马", desc: "体质+3，家境-2", effect: { STR: 3, MNY: -2 }, rarity: "rare" },
+            { id: 7, name: "平平无奇", desc: "无任何加成", effect: {}, rarity: "normal" },
+            { id: 8, name: "小镇做题家", desc: "智力+3，家境-1", effect: { INT: 3, MNY: -1 }, rarity: "rare" },
+            { id: 9, name: "天妒英才", desc: "智力+8，体质-5", effect: { INT: 8, STR: -5 }, rarity: "legendary" },
+            { id: 10, name: "拆二代", desc: "家境+4", effect: { MNY: 4 }, rarity: "epic" }
+        ];
+
+        const EVENTS = [
+            { cond: "age == 0", text: "你出生了，是个男孩。" },
+            { cond: "age == 0 && MNY >= 5", text: "你出生在富裕家庭，含着金汤匙长大。" },
+            { cond: "age == 0 && MNY < 3", text: "你出生在贫寒家庭，父母为了生计日夜奔波。" },
+            { cond: "age == 3", text: "你学会了走路。" },
+            { cond: "age == 5 && INT >= 5", text: "你表现出惊人的记忆力，长辈称你为神童。", effect: { INT: 1 } },
+            { cond: "age == 7", text: "你上小学了。" },
+            { cond: "age == 12", text: "你上了初中，成绩还算不错。" },
+            { cond: "age == 15", text: "你上了高中，进入了青春期。" },
+            { cond: "age == 15 && CHR >= 5", text: "因为长得好看，你收到了很多情书。" },
+            { cond: "age == 18 && INT >= 6", text: "你考上了一所重点大学。", effect: { INT: 2 } },
+            { cond: "age == 18 && INT < 6", text: "你高考失利，去了一所普通大专。" },
+            { cond: "age == 22", text: "你大学毕业了，开始找工作。" },
+            { cond: "age == 23 && MNY >= 8", text: "家里给你安排了一份轻松高薪的工作。", effect: { MNY: 2 } },
+            { cond: "age == 25 && STR < 3", text: "你经常熬夜加班，身体大不如前。", effect: { STR: -1 } },
+            { cond: "age == 28", text: "家里开始催婚。" },
+            { cond: "age == 30 && CHR >= 6", text: "你和一个门当户对的人结婚了。" },
+            { cond: "age == 30 && CHR < 6", text: "你还是单身，相亲屡战屡败。" },
+            { cond: "age == 35", text: "工作压力很大，你开始脱发。", effect: { CHR: -1 } },
+            { cond: "age == 40 && INT >= 8", text: "你的事业迎来了巅峰，成为了公司高管。", effect: { MNY: 3 } },
+            { cond: "age == 50 && STR < 5", text: "你生了一场大病，花了不少积蓄。", effect: { STR: -2, MNY: -2 } },
+            { cond: "age == 60", text: "你顺利退休，开始享受晚年生活。" },
+            { cond: "age == 70", text: "你每天在公园里下棋遛鸟。" },
+            { cond: "age == 80 && STR >= 8", text: "你身体硬朗，还能去旅游。" },
+            { cond: "age > 50 && STR <= 0", text: "你因病医治无效，离开了人世。", dead: true },
+            { cond: "age == 90", text: "你在睡梦中安详离世。", dead: true }
+        ];
+
+        // State
+        let state = {
+            talents: [], // drawn talents
+            selectedTalents: [],
+            points: 20,
+            stats: { CHR: 0, INT: 0, STR: 0, MNY: 0 },
+            age: -1,
+            isDead: false
+        };
+
+        // Utility
+        function switchScreen(screenId) {
+            document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
+            document.getElementById(screenId).classList.remove('hidden');
+            if (screenId === 'screen-life') {
+                document.getElementById('life-controls').classList.remove('hidden');
+            } else {
+                document.getElementById('life-controls').classList.add('hidden');
+            }
+        }
+
+        // Logic
+        function startGame() {
+            // Draw 10 random talents
+            let shuffled = [...ALL_TALENTS].sort(() => 0.5 - Math.random());
+            state.talents = shuffled.slice(0, 10);
+            state.selectedTalents = [];
+            
+            const list = document.getElementById('talent-list');
+            list.innerHTML = '';
+            
+            state.talents.forEach((t, i) => {
+                let colorClass = 'text-white';
+                if(t.rarity === 'rare') colorClass = 'text-rare';
+                if(t.rarity === 'epic') colorClass = 'text-epic';
+                if(t.rarity === 'legendary') colorClass = 'text-legendary';
+
+                const div = document.createElement('div');
+                div.className = `p-3 rounded-lg border border-neutral-700 bg-neutral-800 cursor-pointer transition-colors hover:bg-neutral-700 flex justify-between items-center`;
+                div.onclick = () => toggleTalent(i, div);
+                div.innerHTML = `
+                    <div>
+                        <div class="font-bold ${colorClass}">${t.name}</div>
+                        <div class="text-xs text-neutral-400 mt-1">${t.desc}</div>
+                    </div>
+                    <div class="w-5 h-5 rounded border border-neutral-500 flex items-center justify-center checkmark">
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+
+            switchScreen('screen-talents');
+        }
+
+        function toggleTalent(index, el) {
+            const t = state.talents[index];
+            const isSelected = state.selectedTalents.includes(t);
+            const checkmark = el.querySelector('.checkmark');
+
+            if (isSelected) {
+                state.selectedTalents = state.selectedTalents.filter(x => x !== t);
+                el.classList.remove('border-white', 'bg-neutral-700');
+                el.classList.add('border-neutral-700');
+                checkmark.innerHTML = '';
+                checkmark.classList.remove('bg-white', 'border-white');
+            } else {
+                if (state.selectedTalents.length >= 3) return;
+                state.selectedTalents.push(t);
+                el.classList.add('border-white', 'bg-neutral-700');
+                el.classList.remove('border-neutral-700');
+                checkmark.innerHTML = '<span class="text-black text-xs font-bold">✓</span>';
+                checkmark.classList.add('bg-white', 'border-white');
+            }
+
+            const btn = document.getElementById('btn-confirm-talents');
+            if (state.selectedTalents.length === 3) {
+                btn.disabled = false;
+                btn.className = "w-full py-3 bg-white text-black font-bold rounded-full transition-colors";
+                btn.textContent = "确认天赋";
+            } else {
+                btn.disabled = true;
+                btn.className = "w-full py-3 bg-neutral-700 text-neutral-400 font-bold rounded-full transition-colors";
+                btn.textContent = `请选择3个 (${state.selectedTalents.length}/3)`;
+            }
+        }
+
+        function confirmTalents() {
+            state.points = 20;
+            state.stats = { CHR: 0, INT: 0, STR: 0, MNY: 0 };
+            updateStatsUI();
+            switchScreen('screen-stats');
+        }
+
+        function adjustStat(key, delta) {
+            if (delta > 0 && state.points > 0) {
+                state.stats[key]++;
+                state.points--;
+            } else if (delta < 0 && state.stats[key] > 0) {
+                state.stats[key]--;
+                state.points++;
+            }
+            updateStatsUI();
+        }
+
+        function updateStatsUI() {
+            document.getElementById('avail-points').textContent = state.points;
+            ['CHR', 'INT', 'STR', 'MNY'].forEach(key => {
+                document.getElementById(`stat-${key}`).textContent = state.stats[key];
+            });
+
+            const btn = document.getElementById('btn-start-life');
+            if (state.points === 0) {
+                btn.disabled = false;
+                btn.className = "w-full py-3 bg-white text-black font-bold rounded-full transition-colors";
+            } else {
+                btn.disabled = true;
+                btn.className = "w-full py-3 bg-neutral-700 text-neutral-400 font-bold rounded-full transition-colors";
+            }
+        }
+
+        function startLife() {
+            // Apply talents
+            state.selectedTalents.forEach(t => {
+                for (let k in t.effect) {
+                    state.stats[k] = (state.stats[k] || 0) + t.effect[k];
+                }
+            });
+
+            state.age = -1;
+            state.isDead = false;
+            document.getElementById('life-logs').innerHTML = '';
+            switchScreen('screen-life');
+            updateLiveStatsUI();
+            nextYear();
+        }
+
+        function updateLiveStatsUI() {
+            ['CHR', 'INT', 'STR', 'MNY'].forEach(key => {
+                document.getElementById(`live-${key}`).textContent = state.stats[key];
+            });
+        }
+
+        function evaluateCondition(condStr) {
+            try {
+                // Safe eval context
+                const f = new Function('age', 'CHR', 'INT', 'STR', 'MNY', `return ${condStr}`);
+                return f(state.age, state.stats.CHR, state.stats.INT, state.stats.STR, state.stats.MNY);
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function nextYear() {
+            if (state.isDead) return;
+            state.age++;
+            
+            // Random default events if no specific events triggered
+            let logs = [];
+            
+            // Find triggered events
+            const triggered = EVENTS.filter(e => evaluateCondition(e.cond));
+            
+            if (triggered.length > 0) {
+                triggered.forEach(e => {
+                    logs.push(e);
+                    if (e.effect) {
+                        for(let k in e.effect) {
+                            state.stats[k] += e.effect[k];
+                        }
+                    }
+                    if (e.dead) {
+                        state.isDead = true;
+                    }
+                });
+            } else {
+                // Generic filler log
+                const fillers = ["平淡无奇的一年。", "这一年没什么特别的事情发生。", "你平安地度过了一年。"];
+                logs.push({ text: fillers[Math.floor(Math.random() * fillers.length)] });
+            }
+
+            updateLiveStatsUI();
+
+            // Render logs
+            const container = document.getElementById('life-logs');
+            
+            logs.forEach((log, index) => {
+                const el = document.createElement('div');
+                el.className = "event-log flex gap-3";
+                
+                let textColor = "text-neutral-300";
+                if(log.dead) textColor = "text-dead font-bold";
+                else if (log.effect) textColor = "text-amber-200";
+
+                el.innerHTML = `
+                    <div class="w-10 text-right text-neutral-500 flex-shrink-0">${state.age}岁:</div>
+                    <div class="${textColor}">${log.text}</div>
+                `;
+                container.appendChild(el);
+                
+                // Animate
+                gsap.to(el, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4,
+                    delay: index * 0.2,
+                    ease: "power2.out"
+                });
+            });
+
+            // Auto scroll
+            setTimeout(() => {
+                container.parentElement.scrollTop = container.parentElement.scrollHeight;
+            }, logs.length * 200 + 100);
+
+            if (state.isDead || state.age >= 100) {
+                state.isDead = true;
+                document.getElementById('life-controls').classList.add('hidden');
+                
+                setTimeout(() => {
+                    showSummary();
+                }, 1500);
+            }
+        }
+
+        function showSummary() {
+            switchScreen('screen-summary');
+            document.getElementById('summary-age').textContent = `享年 ${state.age} 岁`;
+            
+            ['CHR', 'INT', 'STR', 'MNY'].forEach(key => {
+                document.getElementById(`sum-${key}`).textContent = state.stats[key];
+            });
+
+            const total = state.stats.CHR + state.stats.INT + state.stats.STR + state.stats.MNY + state.age;
+            document.getElementById('sum-total').textContent = total;
+            
+            gsap.from("#screen-summary > div", {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "back.out(1.7)"
+            });
+        }
+
+        function resetGame() {
+            switchScreen('screen-welcome');
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.from("#screen-welcome > h2", { opacity: 0, y: -20, duration: 1 });
+            gsap.from("#screen-welcome > button", { opacity: 0, scale: 0.8, duration: 1, delay: 0.3, ease: "elastic.out(1, 0.3)" });
+        });
+    </script>
+</body>
+</html>

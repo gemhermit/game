@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星港殖民地 - 在线策略经营小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="星港殖民地是一款回合制太空经营小游戏，建造设施、调配资源并带领殖民地完成独立。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="星港殖民地,策略经营,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/games/space-colony-manager.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="星港殖民地 - 在线策略经营小游戏 | 贝谷游戏">
+    <meta property="og:description" content="星港殖民地是一款回合制太空经营小游戏，建造设施、调配资源并带领殖民地完成独立。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/games/space-colony-manager.html">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="星港殖民地 - 在线策略经营小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="星港殖民地是一款回合制太空经营小游戏，建造设施、调配资源并带领殖民地完成独立。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"星港殖民地","description":"星港殖民地是一款回合制太空经营小游戏，建造设施、调配资源并带领殖民地完成独立。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/games/space-colony-manager.html","genre":"策略经营","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<style>
+        :root {
+            --bg: #eef7f3;
+            --panel: rgba(255, 255, 255, 0.9);
+            --panel-strong: #ffffff;
+            --line: rgba(18, 65, 84, 0.12);
+            --text: #102a37;
+            --muted: #607986;
+            --primary: #0f766e;
+            --accent: #2563eb;
+            --danger: #dc2626;
+            --warning: #b45309;
+            --good: #15803d;
+            --shadow: 0 22px 60px rgba(15, 42, 55, 0.13);
+            --font: "Avenir Next", "Trebuchet MS", "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text);
+            font-family: var(--font);
+            background:
+                radial-gradient(circle at top left, rgba(14, 165, 233, 0.18), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(20, 184, 166, 0.2), transparent 26%),
+                linear-gradient(135deg, #f6fffb 0%, #eaf4ff 48%, #f8fbf7 100%);
+        }
+
+        button {
+            border: 0;
+            border-radius: 14px;
+            padding: 12px 14px;
+            font: inherit;
+            font-weight: 800;
+            color: var(--text);
+            cursor: pointer;
+            transition: transform 0.16s ease, filter 0.16s ease, opacity 0.16s ease;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.46;
+        }
+
+        .game-shell {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 360px minmax(0, 1fr);
+        }
+
+        .sidebar {
+            padding: 26px;
+            border-right: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.76);
+            backdrop-filter: blur(14px);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand__icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #0f766e, #2563eb);
+            box-shadow: 0 16px 34px rgba(37, 99, 235, 0.22);
+        }
+
+        h1, h2, h3, p { margin: 0; }
+
+        h1 {
+            font-size: 2rem;
+            line-height: 1.04;
+        }
+
+        .subtitle {
+            margin-top: 6px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .card,
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: var(--panel);
+            box-shadow: 0 10px 26px rgba(15, 42, 55, 0.06);
+        }
+
+        .card { padding: 16px; }
+
+        .goal {
+            display: grid;
+            gap: 9px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.94rem;
+        }
+
+        .goal strong { color: var(--text); }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .stat {
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(18, 65, 84, 0.08);
+        }
+
+        .stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .stat strong {
+            display: block;
+            margin-top: 6px;
+            font-size: 1.35rem;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+        }
+
+        .btn-secondary {
+            color: #0f3f3a;
+            background: #d9f8ef;
+        }
+
+        .btn-wide { grid-column: 1 / -1; }
+
+        .main {
+            min-width: 0;
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+            padding: 22px;
+            border-radius: 28px;
+            color: white;
+            background:
+                linear-gradient(135deg, rgba(15, 118, 110, 0.94), rgba(37, 99, 235, 0.88)),
+                radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.2), transparent 30%);
+            box-shadow: var(--shadow);
+        }
+
+        .topbar h2 {
+            margin-top: 8px;
+            font-size: clamp(1.8rem, 3.6vw, 3rem);
+            line-height: 1;
+        }
+
+        .topbar p {
+            max-width: 700px;
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.82);
+            line-height: 1.7;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        .scorebox {
+            min-width: 140px;
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.16);
+            text-align: right;
+        }
+
+        .scorebox span {
+            display: block;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.85rem;
+        }
+
+        .scorebox strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 1.55rem;
+        }
+
+        .policy-row {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .policy {
+            min-height: 76px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(18, 65, 84, 0.1);
+        }
+
+        .policy.is-active {
+            color: white;
+            background: linear-gradient(135deg, #2563eb, #0f766e);
+        }
+
+        .policy span {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            opacity: 0.72;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+            gap: 18px;
+            align-items: start;
+        }
+
+        .panel {
+            padding: 18px;
+            min-width: 0;
+        }
+
+        .panel h3 {
+            font-size: 1.15rem;
+            margin-bottom: 14px;
+        }
+
+        .build-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .build-card {
+            padding: 15px;
+            border-radius: 18px;
+            border: 1px solid rgba(18, 65, 84, 0.09);
+            background: white;
+            display: grid;
+            gap: 10px;
+        }
+
+        .build-card__head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .build-card__name {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-weight: 900;
+        }
+
+        .build-card__icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #e6fffb;
+        }
+
+        .build-card p,
+        .market-line {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .cost {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 8px;
+            border-radius: 999px;
+            background: #f1f7f6;
+            color: #25515c;
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        .build-card button {
+            padding: 10px 12px;
+            color: white;
+            background: #0f766e;
+        }
+
+        .meter-list {
+            display: grid;
+            gap: 13px;
+        }
+
+        .meter {
+            display: grid;
+            gap: 7px;
+        }
+
+        .meter__label {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .meter__track {
+            height: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e5eef1;
+        }
+
+        .meter__fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #0f766e, #38bdf8);
+            transition: width 0.25s ease;
+        }
+
+        .facility-summary {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .mini {
+            padding: 12px;
+            border-radius: 15px;
+            background: #f8fbfb;
+            border: 1px solid rgba(18, 65, 84, 0.07);
+        }
+
+        .mini span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .mini strong {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .log {
+            max-height: 260px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            padding-right: 4px;
+        }
+
+        .log p {
+            padding: 10px 12px;
+            border-radius: 14px;
+            color: #315262;
+            background: #f4fbfa;
+            line-height: 1.55;
+            font-size: 0.9rem;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: rgba(11, 30, 42, 0.44);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal[hidden] { display: none; }
+
+        .modal__panel {
+            width: min(680px, 100%);
+            padding: 24px;
+            border-radius: 28px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .modal__panel h2 {
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+        }
+
+        .modal__panel p {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .choices {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .choice {
+            padding: 14px;
+            border-radius: 18px;
+            border: 1px solid rgba(18, 65, 84, 0.1);
+            background: #f7fbfa;
+            text-align: left;
+        }
+
+        .choice strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .choice span {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 980px) {
+            .game-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .grid,
+            .policy-row {
+                grid-template-columns: 1fr;
+            }
+
+            .build-list {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+            }
+
+            .scorebox {
+                width: 100%;
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .main,
+            .sidebar {
+                padding: 18px;
+            }
+
+            .stats,
+            .facility-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="game-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand__icon" aria-hidden="true">🛰️</div>
+                <div>
+                    <h1>星港殖民地</h1>
+                    <p class="subtitle">60 个太阳日内，把一座边境基地经营成能够自给自足的星港。</p>
+                </div>
+            </div>
+
+            <section class="card goal">
+                <strong>自治目标</strong>
+                <span>第 60 天结算时：人口 ≥ 45、士气 ≥ 50、科研 ≥ 90。资源越稳，评分越高。</span>
+            </section>
+
+            <section class="card">
+                <div class="stats" id="stats"></div>
+            </section>
+
+            <section class="card">
+                <div class="actions">
+                    <button class="btn-primary btn-wide" id="nextBtn">推进 1 天</button>
+                    <button class="btn-secondary" id="restartBtn">重新开局</button>
+                    <button class="btn-secondary" id="autoBtn">连续 5 天</button>
+                </div>
+            </section>
+        </aside>
+
+        <section class="main">
+            <div class="topbar">
+                <div>
+                    <span class="pill" id="policyPill">稳健生产</span>
+                    <h2 id="statusTitle">边境基地启动</h2>
+                    <p id="statusText">先补能源和食物，再决定是扩张人口还是冲科研。随机事件会逼你在短期收益和长期稳定之间做取舍。</p>
+                </div>
+                <div class="scorebox">
+                    <span>当前评分</span>
+                    <strong id="scoreValue">0</strong>
+                </div>
+            </div>
+
+            <div class="policy-row" id="policyRow"></div>
+
+            <div class="grid">
+                <section class="panel">
+                    <h3>设施建设</h3>
+                    <div class="build-list" id="buildList"></div>
+                </section>
+
+                <div class="side-panels">
+                    <section class="panel">
+                        <h3>殖民地概况</h3>
+                        <div class="facility-summary" id="facilitySummary"></div>
+                        <div class="meter-list" id="meters"></div>
+                    </section>
+
+                    <section class="panel" style="margin-top:18px;">
+                        <h3>航行日志</h3>
+                        <div class="log" id="log"></div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="eventModal" hidden>
+        <div class="modal__panel">
+            <h2 id="eventTitle"></h2>
+            <p id="eventText"></p>
+            <div class="choices" id="eventChoices"></div>
+        </div>
+    </div>
+
+    <script>
+        const resourceLabels = {
+            credits: "信用点",
+            food: "食物",
+            ore: "矿石",
+            science: "科研",
+            population: "人口",
+            morale: "士气"
+        };
+
+        const facilityDefs = [
+            {
+                id: "solar",
+                icon: "☀️",
+                name: "太阳阵列",
+                max: 8,
+                cost: { credits: 120, ore: 4 },
+                desc: "每天提供 6 点能源，是所有生产链的底座。"
+            },
+            {
+                id: "farm",
+                icon: "🌱",
+                name: "藻类农场",
+                max: 8,
+                cost: { credits: 95, ore: 3 },
+                desc: "消耗能源生产食物，人口扩张前最好先准备。"
+            },
+            {
+                id: "mine",
+                icon: "⛏️",
+                name: "小行星矿井",
+                max: 8,
+                cost: { credits: 105, ore: 2 },
+                desc: "稳定产出矿石，越早建越能滚出设施优势。"
+            },
+            {
+                id: "lab",
+                icon: "🔬",
+                name: "研究舱",
+                max: 7,
+                cost: { credits: 135, ore: 4 },
+                desc: "产出科研点，自治结算和防灾都离不开它。"
+            },
+            {
+                id: "habitat",
+                icon: "🏠",
+                name: "居住环",
+                max: 6,
+                cost: { credits: 160, ore: 7 },
+                desc: "提升人口上限，并略微改善殖民者士气。"
+            },
+            {
+                id: "shield",
+                icon: "🛡️",
+                name: "磁暴护盾",
+                max: 4,
+                cost: { credits: 210, ore: 8, science: 18 },
+                desc: "降低随机灾害损失，后期越多越安心。"
+            },
+            {
+                id: "port",
+                icon: "🚀",
+                name: "贸易港",
+                max: 4,
+                cost: { credits: 240, ore: 10, science: 14 },
+                desc: "每天获得信用点，也能让人口更快流入。"
+            },
+            {
+                id: "reactor",
+                icon: "⚡",
+                name: "聚变反应堆",
+                max: 3,
+                cost: { credits: 320, ore: 14, science: 32 },
+                desc: "高额能源设施，适合中后期支撑科研冲刺。"
+            }
+        ];
+
+        const policies = {
+            balanced: {
+                name: "稳健生产",
+                detail: "全部产出正常，士气稳定",
+                food: 1,
+                ore: 1,
+                science: 1,
+                credits: 1,
+                morale: 0
+            },
+            growth: {
+                name: "移民扩张",
+                detail: "人口流入更快，食物压力更大",
+                food: 0.92,
+                ore: 1,
+                science: 0.95,
+                credits: 1.05,
+                morale: 1
+            },
+            research: {
+                name: "科研冲刺",
+                detail: "科研 +25%，士气小幅下降",
+                food: 0.95,
+                ore: 0.96,
+                science: 1.25,
+                credits: 0.95,
+                morale: -2
+            },
+            austerity: {
+                name: "节能配给",
+                detail: "食物消耗下降，士气下降",
+                food: 1.08,
+                ore: 1.04,
+                science: 0.92,
+                credits: 1,
+                morale: -3
+            }
+        };
+
+        const events = [
+            {
+                title: "补给船提前抵达",
+                text: "一艘民用补给船请求停靠。你可以用信用点换资源，也可以邀请技术员留下。",
+                choices: [
+                    { label: "采购压缩口粮", cost: { credits: 120 }, effect: { food: 18, morale: 3 }, note: "补给充足，餐厅久违地热闹起来。" },
+                    { label: "招募技术员", cost: { credits: 90 }, effect: { science: 16, population: 2 }, note: "两名技术员加入殖民地，研究舱效率提升。" },
+                    { label: "只做燃料补给", cost: {}, effect: { credits: 80, morale: -2 }, note: "补给船离港，港务费让账面轻松了一点。" }
+                ]
+            },
+            {
+                title: "微陨石雨",
+                text: "监测站发现微陨石群正在接近。护盾越多，损失越轻。",
+                choices: [
+                    { label: "全员加固设施", cost: { ore: 6 }, effect: { morale: 4 }, note: "加固完成，大家对基地更有信心。" },
+                    { label: "调用科研模型规避", cost: { science: 14 }, effect: { ore: 8 }, note: "轨迹模型准确命中，小行星碎片被回收成矿石。" },
+                    { label: "硬扛过去", cost: {}, effect: { morale: -8, food: -6, ore: -5 }, shieldReduce: true, note: "基地扛住了，但维修清单变长了。" }
+                ]
+            },
+            {
+                title: "移民家庭申请",
+                text: "三组家庭希望加入星港。人口能带来税收和发展速度，也会提高食物压力。",
+                choices: [
+                    { label: "批准完整名额", cost: { food: 8 }, effect: { population: 6, morale: 4 }, note: "新家庭带来了新的技能和笑声。" },
+                    { label: "只接收工程师", cost: { credits: 80 }, effect: { population: 2, ore: 8, science: 4 }, note: "工程师小队开始优化采矿流程。" },
+                    { label: "暂缓移民", cost: {}, effect: { morale: -4, credits: 80 }, note: "你选择稳住库存，联盟给了少量安置补贴。" }
+                ]
+            },
+            {
+                title: "地下冰层发现",
+                text: "矿井探测到一片浅层冰。开采它能缓解粮食链路，但也可能耽误矿石生产。",
+                choices: [
+                    { label: "转为温室用水", cost: { ore: 4 }, effect: { food: 20 }, note: "藻类农场产能短期暴涨。" },
+                    { label: "提炼为工业冷媒", cost: { science: 10 }, effect: { ore: 12, credits: 60 }, note: "冷媒交易很抢手，矿井也更稳定。" },
+                    { label: "封存冰层", cost: {}, effect: { science: 8, morale: 2 }, note: "完整样本被送入研究舱，科研团队很满意。" }
+                ]
+            },
+            {
+                title: "议会质询",
+                text: "殖民者对资源分配提出质询。透明公开会付出成本，但能稳住民心。",
+                choices: [
+                    { label: "公开预算并补贴家庭", cost: { credits: 130 }, effect: { morale: 10 }, note: "公开账目后，居民对管理层更信任。" },
+                    { label: "用数据说明长期计划", cost: { science: 12 }, effect: { morale: 6, credits: 45 }, note: "研究报告让争议降温，还拿到一点联盟奖励。" },
+                    { label: "维持原计划", cost: {}, effect: { morale: -6, ore: 5 }, note: "生产没有停，但殖民者的不满也没有消失。" }
+                ]
+            }
+        ];
+
+        const els = {
+            stats: document.getElementById("stats"),
+            nextBtn: document.getElementById("nextBtn"),
+            restartBtn: document.getElementById("restartBtn"),
+            autoBtn: document.getElementById("autoBtn"),
+            policyRow: document.getElementById("policyRow"),
+            policyPill: document.getElementById("policyPill"),
+            statusTitle: document.getElementById("statusTitle"),
+            statusText: document.getElementById("statusText"),
+            scoreValue: document.getElementById("scoreValue"),
+            buildList: document.getElementById("buildList"),
+            facilitySummary: document.getElementById("facilitySummary"),
+            meters: document.getElementById("meters"),
+            log: document.getElementById("log"),
+            eventModal: document.getElementById("eventModal"),
+            eventTitle: document.getElementById("eventTitle"),
+            eventText: document.getElementById("eventText"),
+            eventChoices: document.getElementById("eventChoices")
+        };
+
+        let state = createInitialState();
+
+        function createInitialState() {
+            return {
+                sol: 1,
+                credits: 420,
+                food: 34,
+                ore: 18,
+                science: 0,
+                population: 14,
+                morale: 72,
+                policy: "balanced",
+                ended: false,
+                pendingEvent: null,
+                metrics: {
+                    energyGenerated: 12,
+                    energyNeed: 6,
+                    energyBalance: 6,
+                    capacity: 18,
+                    efficiency: 1
+                },
+                facilities: Object.fromEntries(facilityDefs.map((item) => [item.id, 0])),
+                log: ["第 1 天：殖民核心上线，第一批居民开始整理生活舱。"],
+                best: readBestScore()
+            };
+        }
+
+        function readBestScore() {
+            try {
+                return Number(localStorage.getItem("space-colony-best") || 0);
+            } catch (error) {
+                return 0;
+            }
+        }
+
+        function saveBestScore(score) {
+            if (score <= state.best) return;
+            state.best = score;
+            try {
+                localStorage.setItem("space-colony-best", String(score));
+            } catch (error) {
+                // localStorage may be unavailable in private browsing.
+            }
+        }
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+
+        function round(value) {
+            return Math.round(value);
+        }
+
+        function format(value) {
+            return Math.round(value).toLocaleString("zh-CN");
+        }
+
+        function totalFacilities() {
+            return Object.values(state.facilities).reduce((sum, value) => sum + value, 0);
+        }
+
+        function getCost(def) {
+            const owned = state.facilities[def.id];
+            const scale = 1 + owned * 0.36;
+            const result = {};
+            for (const [key, value] of Object.entries(def.cost)) {
+                result[key] = Math.ceil(value * scale);
+            }
+            return result;
+        }
+
+        function canAfford(cost) {
+            return Object.entries(cost).every(([key, value]) => state[key] >= value);
+        }
+
+        function applyCost(cost) {
+            for (const [key, value] of Object.entries(cost)) {
+                state[key] -= value;
+            }
+        }
+
+        function applyEffect(effect) {
+            for (const [key, value] of Object.entries(effect)) {
+                if (key in state) {
+                    state[key] += value;
+                }
+            }
+            normalizeState();
+        }
+
+        function normalizeState() {
+            state.credits = Math.max(0, state.credits);
+            state.food = Math.max(0, state.food);
+            state.ore = Math.max(0, state.ore);
+            state.science = Math.max(0, state.science);
+            state.population = Math.max(0, Math.round(state.population));
+            state.morale = clamp(Math.round(state.morale), 0, 100);
+        }
+
+        function costText(cost) {
+            const entries = Object.entries(cost);
+            if (entries.length === 0) return "<span class=\"chip\">免费</span>";
+            return entries.map(([key, value]) => `<span class="chip">${resourceLabels[key]} ${format(value)}</span>`).join("");
+        }
+
+        function buildFacility(def) {
+            if (state.ended || state.pendingEvent) return;
+            const owned = state.facilities[def.id];
+            if (owned >= def.max) return;
+            const cost = getCost(def);
+            if (!canAfford(cost)) return;
+            applyCost(cost);
+            state.facilities[def.id] += 1;
+            if (def.id === "habitat") {
+                state.morale += 2;
+            }
+            addLog(`第 ${state.sol} 天：建成 ${def.name}，设施总数达到 ${totalFacilities()}。`);
+            updateMetrics();
+            render();
+        }
+
+        function updateMetrics() {
+            const f = state.facilities;
+            const capacity = 18 + f.habitat * 9;
+            const energyGenerated = 12 + f.solar * 6 + f.reactor * 15;
+            const energyNeed = 6 + f.farm * 2 + f.mine * 3 + f.lab * 4 + f.habitat * 1 + f.shield * 3 + f.port * 2 + state.population * 0.12;
+            const efficiency = energyGenerated >= energyNeed ? 1 : clamp(energyGenerated / energyNeed, 0.38, 1);
+            state.metrics = {
+                capacity,
+                energyGenerated,
+                energyNeed,
+                energyBalance: energyGenerated - energyNeed,
+                efficiency
+            };
+        }
+
+        function advanceDay() {
+            if (state.ended || state.pendingEvent) return;
+            updateMetrics();
+            const f = state.facilities;
+            const policy = policies[state.policy];
+            const efficiency = state.metrics.efficiency;
+            const foodDelta = f.farm * 6.2 * efficiency * policy.food - state.population * (state.policy === "austerity" ? 0.44 : 0.56);
+            const oreDelta = f.mine * 5.1 * efficiency * policy.ore - totalFacilities() * 0.08;
+            const scienceDelta = f.lab * 4.4 * efficiency * policy.science + f.shield * 0.6;
+            const creditDelta = (34 + state.population * 2.1 + f.port * 28) * policy.credits;
+            state.food += foodDelta;
+            state.ore += oreDelta;
+            state.science += scienceDelta;
+            state.credits += creditDelta;
+            state.morale += policy.morale;
+
+            if (state.metrics.energyBalance < 0) {
+                const penalty = Math.ceil(Math.abs(state.metrics.energyBalance) / 3);
+                state.morale -= penalty;
+                addLog(`第 ${state.sol} 天：能源缺口影响生产，士气 -${penalty}。`);
+            }
+
+            if (state.food <= 0) {
+                const lost = Math.max(1, Math.ceil(state.population * 0.08));
+                state.population -= lost;
+                state.morale -= 10;
+                state.food = 0;
+                addLog(`第 ${state.sol} 天：食物耗尽，${lost} 名居民离开殖民地。`);
+            } else if (state.food > state.population * 1.5 && state.morale >= 62 && state.population < state.metrics.capacity) {
+                const growth = Math.min(state.metrics.capacity - state.population, 1 + f.port + (state.policy === "growth" ? 2 : 0));
+                if (growth > 0) {
+                    state.population += growth;
+                    state.food -= growth * 0.8;
+                    addLog(`第 ${state.sol} 天：生活条件稳定，新增 ${growth} 名居民。`);
+                }
+            }
+
+            if (state.population >= state.metrics.capacity) {
+                state.morale -= 2;
+            }
+
+            normalizeState();
+            state.sol += 1;
+            updateMetrics();
+
+            if (!state.ended && state.sol % 5 === 0 && state.sol < 60) {
+                openEvent();
+            }
+
+            checkEnd();
+            render();
+        }
+
+        function addLog(message) {
+            state.log.unshift(message);
+            state.log = state.log.slice(0, 18);
+        }
+
+        function openEvent() {
+            const eventIndex = (state.sol / 5 + totalFacilities() + state.population) % events.length;
+            state.pendingEvent = events[eventIndex];
+        }
+
+        function applyChoice(choice) {
+            if (!state.pendingEvent || !canAfford(choice.cost)) return;
+            applyCost(choice.cost);
+            const effect = { ...choice.effect };
+            if (choice.shieldReduce && state.facilities.shield > 0) {
+                effect.morale = Math.min(0, effect.morale + state.facilities.shield * 3);
+                effect.food = Math.min(0, effect.food + state.facilities.shield * 2);
+                effect.ore = Math.min(0, effect.ore + state.facilities.shield * 2);
+            }
+            applyEffect(effect);
+            addLog(`第 ${state.sol} 天事件：${choice.note}`);
+            state.pendingEvent = null;
+            checkEnd();
+            render();
+        }
+
+        function calculateScore() {
+            return Math.max(0, Math.round(
+                state.credits +
+                state.food * 4 +
+                state.ore * 7 +
+                state.science * 10 +
+                state.population * 42 +
+                state.morale * 12 +
+                totalFacilities() * 115 -
+                Math.max(0, 60 - state.sol) * 8
+            ));
+        }
+
+        function checkEnd() {
+            if (state.ended) return;
+            let title = "";
+            let text = "";
+            if (state.population <= 0 || state.morale <= 0) {
+                state.ended = true;
+                title = "殖民地撤离";
+                text = "人口或士气跌破底线，联盟宣布撤离计划。下一局可以更早补食物和居住环。";
+            } else if (state.sol > 60) {
+                state.ended = true;
+                const won = state.population >= 45 && state.morale >= 50 && state.science >= 90;
+                title = won ? "自治星港成立" : "自治申请延期";
+                text = won
+                    ? "殖民地通过自治评估，成为边境星区新的补给节点。"
+                    : "基地活了下来，但人口、士气或科研没有达标，需要再规划一次发展节奏。";
+            }
+
+            if (!state.ended) return;
+            const score = calculateScore();
+            saveBestScore(score);
+            addLog(`${title}：最终评分 ${format(score)}。${text}`);
+            els.statusTitle.textContent = title;
+            els.statusText.textContent = text;
+        }
+
+        function renderStats() {
+            const items = [
+                ["太阳日", `${state.sol}/60`],
+                ["信用点", format(state.credits)],
+                ["食物", format(state.food)],
+                ["矿石", format(state.ore)],
+                ["科研", format(state.science)],
+                ["人口", `${format(state.population)}/${format(state.metrics.capacity)}`],
+                ["士气", `${state.morale}%`],
+                ["最佳", format(state.best)]
+            ];
+            els.stats.innerHTML = items.map(([label, value]) => `
+                <div class="stat">
+                    <span>${label}</span>
+                    <strong>${value}</strong>
+                </div>
+            `).join("");
+        }
+
+        function renderPolicies() {
+            els.policyRow.innerHTML = Object.entries(policies).map(([id, policy]) => `
+                <button class="policy ${state.policy === id ? "is-active" : ""}" data-policy="${id}">
+                    ${policy.name}
+                    <span>${policy.detail}</span>
+                </button>
+            `).join("");
+
+            els.policyRow.querySelectorAll("button").forEach((button) => {
+                button.disabled = state.ended || Boolean(state.pendingEvent);
+                button.addEventListener("click", () => {
+                    state.policy = button.dataset.policy;
+                    addLog(`第 ${state.sol} 天：殖民政策调整为「${policies[state.policy].name}」。`);
+                    render();
+                });
+            });
+        }
+
+        function renderBuildList() {
+            els.buildList.innerHTML = facilityDefs.map((def) => {
+                const owned = state.facilities[def.id];
+                const cost = getCost(def);
+                const maxed = owned >= def.max;
+                return `
+                    <article class="build-card">
+                        <div class="build-card__head">
+                            <div class="build-card__name">
+                                <span class="build-card__icon" aria-hidden="true">${def.icon}</span>
+                                <span>${def.name}</span>
+                            </div>
+                            <span class="chip">${owned}/${def.max}</span>
+                        </div>
+                        <p>${def.desc}</p>
+                        <div class="cost">${maxed ? "<span class=\"chip\">已满级</span>" : costText(cost)}</div>
+                        <button data-build="${def.id}" ${maxed || !canAfford(cost) || state.ended || state.pendingEvent ? "disabled" : ""}>建设</button>
+                    </article>
+                `;
+            }).join("");
+
+            els.buildList.querySelectorAll("button[data-build]").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const def = facilityDefs.find((item) => item.id === button.dataset.build);
+                    buildFacility(def);
+                });
+            });
+        }
+
+        function renderMeters() {
+            const efficiency = Math.round(state.metrics.efficiency * 100);
+            const energyPercent = clamp((state.metrics.energyGenerated / Math.max(1, state.metrics.energyNeed)) * 100, 0, 130);
+            const capacityPercent = clamp((state.population / state.metrics.capacity) * 100, 0, 100);
+            const sciencePercent = clamp((state.science / 90) * 100, 0, 100);
+            const items = [
+                ["能源", `${format(state.metrics.energyGenerated)} / ${format(state.metrics.energyNeed)}`, energyPercent],
+                ["产能效率", `${efficiency}%`, efficiency],
+                ["人口容量", `${format(state.population)} / ${format(state.metrics.capacity)}`, capacityPercent],
+                ["自治科研", `${format(state.science)} / 90`, sciencePercent],
+                ["士气稳定", `${state.morale}%`, state.morale]
+            ];
+            els.meters.innerHTML = items.map(([label, value, percent]) => `
+                <div class="meter">
+                    <div class="meter__label"><span>${label}</span><strong>${value}</strong></div>
+                    <div class="meter__track"><div class="meter__fill" style="width:${clamp(percent, 0, 100)}%"></div></div>
+                </div>
+            `).join("");
+        }
+
+        function renderFacilitySummary() {
+            const items = [
+                ["设施", `${totalFacilities()} 座`],
+                ["能源差", `${state.metrics.energyBalance >= 0 ? "+" : ""}${format(state.metrics.energyBalance)}`],
+                ["住房", `${format(state.metrics.capacity)} 人`],
+                ["政策", policies[state.policy].name]
+            ];
+            els.facilitySummary.innerHTML = items.map(([label, value]) => `
+                <div class="mini">
+                    <span>${label}</span>
+                    <strong>${value}</strong>
+                </div>
+            `).join("");
+        }
+
+        function renderLog() {
+            els.log.innerHTML = state.log.map((item) => `<p>${item}</p>`).join("");
+        }
+
+        function renderEvent() {
+            if (!state.pendingEvent) {
+                els.eventModal.hidden = true;
+                return;
+            }
+            const event = state.pendingEvent;
+            els.eventTitle.textContent = event.title;
+            els.eventText.textContent = event.text;
+            els.eventChoices.innerHTML = event.choices.map((choice, index) => `
+                <button class="choice" data-choice="${index}" ${canAfford(choice.cost) ? "" : "disabled"}>
+                    <strong>${choice.label}</strong>
+                    <span>${costText(choice.cost).replaceAll("span", "em")} ${choice.note}</span>
+                </button>
+            `).join("");
+            els.eventChoices.querySelectorAll("button").forEach((button) => {
+                button.addEventListener("click", () => applyChoice(event.choices[Number(button.dataset.choice)]));
+            });
+            els.eventModal.hidden = false;
+        }
+
+        function renderStatus() {
+            if (!state.ended) {
+                const balance = state.metrics.energyBalance;
+                els.statusTitle.textContent = balance < 0 ? "能源吃紧" : state.morale < 45 ? "民心需要安抚" : "殖民地运转中";
+                els.statusText.textContent = balance < 0
+                    ? "能源不足会拖慢所有生产，优先补太阳阵列或反应堆。"
+                    : state.morale < 45
+                        ? "士气过低会触发撤离风险，可以通过居住环、事件选择和稳健政策回血。"
+                        : "继续平衡人口、科研、食物和矿石。越早建立正循环，后期越容易冲自治目标。";
+            }
+            els.policyPill.textContent = policies[state.policy].name;
+            els.scoreValue.textContent = format(calculateScore());
+            els.nextBtn.disabled = state.ended || Boolean(state.pendingEvent);
+            els.autoBtn.disabled = state.ended || Boolean(state.pendingEvent);
+        }
+
+        function render() {
+            updateMetrics();
+            renderStats();
+            renderPolicies();
+            renderBuildList();
+            renderFacilitySummary();
+            renderMeters();
+            renderLog();
+            renderStatus();
+            renderEvent();
+        }
+
+        els.nextBtn.addEventListener("click", advanceDay);
+        els.restartBtn.addEventListener("click", () => {
+            state = createInitialState();
+            render();
+        });
+        els.autoBtn.addEventListener("click", () => {
+            for (let i = 0; i < 5; i += 1) {
+                if (state.ended || state.pendingEvent) break;
+                advanceDay();
+            }
+        });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.key.toLowerCase() === "n") {
+                advanceDay();
+            }
+        });
+
+        render();
+    </script>
+</body>
+</html>

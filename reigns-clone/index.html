@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>王权模拟器 - 在线创意工具小游戏 | 贝谷游戏</title>
+    
+    <!-- SEO:BEGIN -->
+    <meta name="description" content="滑动卡牌策略文字游戏，平衡宗教、民心、军事和财富，尽可能延长统治时间。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="keywords" content="王权模拟器,王权,Reigns,卡牌游戏,文字游戏,策略,创意工具,在线小游戏,网页游戏,贝谷游戏">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://game.bago.top/reigns-clone/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="王权模拟器 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta property="og:description" content="滑动卡牌策略文字游戏，平衡宗教、民心、军事和财富，尽可能延长统治时间。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta property="og:url" content="https://game.bago.top/reigns-clone/">
+    <meta property="og:site_name" content="贝谷游戏">
+    <meta property="og:image" content="https://game.bago.top/favicon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="王权模拟器 - 在线创意工具小游戏 | 贝谷游戏">
+    <meta name="twitter:description" content="滑动卡牌策略文字游戏，平衡宗教、民心、军事和财富，尽可能延长统治时间。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。">
+    <meta name="twitter:image" content="https://game.bago.top/favicon.png">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="icon" href="/favicon.png">
+    <meta name="google-adsense-account" content="ca-pub-3709160807018181">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3709160807018181" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Game","name":"王权模拟器","description":"滑动卡牌策略文字游戏，平衡宗教、民心、军事和财富，尽可能延长统治时间。在贝谷游戏支持手机、平板和电脑浏览器直接打开，无需下载。","url":"https://game.bago.top/reigns-clone/","genre":"创意工具","inLanguage":"zh-CN","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"贝谷游戏","url":"https://game.bago.top"}}</script>
+    <!-- SEO:END -->
+<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            background-color: #2c2925;
+            color: #ece1cc;
+            font-family: "Georgia", "Times New Roman", serif;
+            overflow: hidden;
+            touch-action: none;
+        }
+        
+        .stat-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            border: 2px solid #5a5245;
+            border-radius: 50%;
+            background-color: #3b3630;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #1a1815;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background-color: #ece1cc;
+            transition: width 0.3s ease-out;
+            width: 50%;
+        }
+
+        .stat-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #ece1cc;
+            border-radius: 50%;
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .card {
+            width: 280px;
+            height: 380px;
+            background: linear-gradient(135deg, #f4ecd8 0%, #e2d1b3 100%);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.4);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+            display: flex;
+            flex-col;
+            align-items: center;
+            justify-content: center;
+            color: #2c2925;
+            padding: 24px;
+            text-align: center;
+            user-select: none;
+            will-change: transform;
+        }
+
+        .card:active {
+            cursor: grabbing;
+        }
+
+        .card-character {
+            font-size: 80px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        .card-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #c8b99c;
+            padding-bottom: 8px;
+            width: 100%;
+        }
+
+        .card-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .choice-hint {
+            position: absolute;
+            top: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            opacity: 0;
+            color: #2c2925;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255,255,255,0.7);
+            padding: 4px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+        }
+
+        .choice-hint.left {
+            right: 20px;
+            transform: rotate(5deg);
+        }
+
+        .choice-hint.right {
+            left: 20px;
+            transform: rotate(-5deg);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen items-center justify-center">
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="w-full max-w-md min-h-[100dvh] flex flex-col relative hidden">
+        
+        <!-- Header: Stats -->
+        <header class="flex justify-between px-6 pt-12 pb-4 z-20">
+            <div class="flex flex-col items-center w-12 relative" id="stat-container-religion">
+                <div class="stat-dot"></div>
+                <div class="stat-icon">⛪</div>
+                <div class="stat-bar"><div class="stat-fill" id="bar-religion"></div></div>
+            </div>
+            <div class="flex flex-col items-center w-12 relative" id="stat-container-people">
+                <div class="stat-dot"></div>
+                <div class="stat-icon">👨‍🌾</div>
+                <div class="stat-bar"><div class="stat-fill" id="bar-people"></div></div>
+            </div>
+            <div class="flex flex-col items-center w-12 relative" id="stat-container-military">
+                <div class="stat-dot"></div>
+                <div class="stat-icon">⚔️</div>
+                <div class="stat-bar"><div class="stat-fill" id="bar-military"></div></div>
+            </div>
+            <div class="flex flex-col items-center w-12 relative" id="stat-container-wealth">
+                <div class="stat-dot"></div>
+                <div class="stat-icon">💰</div>
+                <div class="stat-bar"><div class="stat-fill" id="bar-wealth"></div></div>
+            </div>
+        </header>
+
+        <!-- Year display -->
+        <div class="text-center font-bold text-xl tracking-widest mt-2 mb-4 z-20">
+            在位 <span id="year-display" class="text-amber-400">1</span> 年
+        </div>
+
+        <!-- Cards Area -->
+        <main class="flex-1 relative card-container z-10 w-full">
+            <div id="card-deck">
+                <!-- Cards injected via JS -->
+            </div>
+        </main>
+
+        <!-- Footer / Mobile Hints -->
+        <footer class="h-24 flex justify-between items-center px-8 text-sm text-neutral-500 font-sans tracking-widest z-20">
+            <span>&larr; 滑动拒绝</span>
+            <span>滑动同意 &rarr;</span>
+        </footer>
+    </div>
+
+    <!-- Death Screen -->
+    <div id="death-screen" class="w-full max-w-md min-h-[100dvh] flex flex-col items-center justify-center bg-[#1a1815] text-center p-8 absolute inset-0 z-50">
+        <h1 class="text-4xl font-bold text-red-500 mb-6 border-b border-red-900 pb-4">国王驾崩</h1>
+        <p id="death-reason" class="text-xl mb-8 leading-relaxed"></p>
+        <p class="text-neutral-400 mb-12 text-lg">你在位了 <span id="death-years" class="text-amber-400 font-bold text-2xl">0</span> 年</p>
+        
+        <button onclick="startGame()" class="px-8 py-3 border-2 border-amber-600 text-amber-500 font-bold tracking-widest uppercase hover:bg-amber-600 hover:text-black transition-colors rounded-sm">
+            新王登基
+        </button>
+    </div>
+
+    <script>
+        const CARDS = [
+            {
+                id: 1, character: "🧑‍🌾", name: "农夫",
+                text: "陛下，今年大旱，庄稼颗粒无收，请开仓放粮！",
+                left: { text: "不管死活", effects: { people: -20, wealth: +10 } },
+                right: { text: "开仓赈灾", effects: { people: +20, wealth: -20 } }
+            },
+            {
+                id: 2, character: "💂‍♂️", name: "将军",
+                text: "邻国边境陈兵十万，我们需要增加军费以备不测。",
+                left: { text: "驳回请求", effects: { military: -20, people: +10 } },
+                right: { text: "增加军费", effects: { military: +20, wealth: -20 } }
+            },
+            {
+                id: 3, character: "🧙‍♂️", name: "大主教",
+                text: "异教徒在民间散播谣言，我们需要建立宗教裁判所来净化他们。",
+                left: { text: "信仰自由", effects: { religion: -20, people: +15 } },
+                right: { text: "同意建立", effects: { religion: +20, people: -20 } }
+            },
+            {
+                id: 4, character: "🤴", name: "贵族",
+                text: "陛下，为了彰显王室威仪，我们应该举办一场盛大的皇家舞会。",
+                left: { text: "浪费国库", effects: { wealth: +10, people: +5 } },
+                right: { text: "准奏", effects: { wealth: -20, people: -5 } }
+            },
+            {
+                id: 5, character: "🕵️", name: "密探",
+                text: "我们在民间抓到了几个叛乱分子，是否公开处决？",
+                left: { text: "秘密关押", effects: { military: -10, people: +10 } },
+                right: { text: "杀鸡儆猴", effects: { military: +15, people: -20 } }
+            },
+            {
+                id: 6, character: "💰", name: "商人",
+                text: "陛下，如果降低贸易关税，商人们愿意为您捐赠一笔巨款。",
+                left: { text: "维持关税", effects: { wealth: -10, people: +10 } },
+                right: { text: "同意降税", effects: { wealth: +25, people: -15 } }
+            },
+            {
+                id: 7, character: "📜", name: "学者",
+                text: "我们需要资金建立一所皇家图书馆，以保存古代文献。",
+                left: { text: "没钱", effects: { religion: -5, wealth: +5 } },
+                right: { text: "拨款建造", effects: { religion: +15, wealth: -15 } }
+            },
+            {
+                id: 8, character: "👸", name: "王后",
+                text: "亲爱的，我的寝宫太旧了，能不能用丝绸和黄金重新装饰一下？",
+                left: { text: "国库空虚", effects: { wealth: +5, people: +5 } },
+                right: { text: "当然可以", effects: { wealth: -25, people: -10 } }
+            },
+            {
+                id: 9, character: "🃏", name: "弄臣",
+                text: "（模仿主教的语气）“神说，你应该把钱都交给我！”",
+                left: { text: "拖出去打", effects: { religion: +10, people: -10 } },
+                right: { text: "哈哈大笑", effects: { religion: -15, people: +15 } }
+            },
+            {
+                id: 10, character: "🧙‍♀️", name: "女巫",
+                text: "我熬制了一种能让士兵不知疲倦的药水，但教会说这是邪术。",
+                left: { text: "烧死女巫", effects: { religion: +15, military: -15 } },
+                right: { text: "给军队使用", effects: { religion: -20, military: +25 } }
+            },
+            {
+                id: 11, character: "👨‍⚕️", name: "医生",
+                text: "陛下，一场可怕的瘟疫正在蔓延，我们需要立刻封城并隔离感染者！",
+                left: { text: "顺其自然", effects: { people: -30, wealth: +10 } },
+                right: { text: "立刻封城", effects: { people: +15, wealth: -25 } }
+            },
+            {
+                id: 12, character: "👽", name: "邻国使者",
+                text: "我们的国王希望能与贵国联姻，并送上了十箱黄金作为聘礼。",
+                left: { text: "拒绝联姻", effects: { military: -15, people: +10 } },
+                right: { text: "欣然接受", effects: { wealth: +25, military: +10 } }
+            },
+            {
+                id: 13, character: "👷‍♂️", name: "工匠",
+                text: "城墙已经年久失修，如果现在不加固，敌人打过来就惨了。",
+                left: { text: "以后再说", effects: { military: -20, wealth: +10 } },
+                right: { text: "拨钱修墙", effects: { military: +20, wealth: -20 } }
+            },
+            {
+                id: 14, character: "🧑‍🌾", name: "农夫",
+                text: "陛下！我们在挖井的时候发现了一座古代金矿！",
+                left: { text: "归入国库", effects: { wealth: +30, people: -15 } },
+                right: { text: "分给百姓", effects: { wealth: +5, people: +25 } }
+            },
+            {
+                id: 15, character: "💂‍♂️", name: "将军",
+                text: "士兵们抱怨军饷太低，士气低落。如果不加薪，恐怕会有哗变。",
+                left: { text: "武力镇压", effects: { military: -25, people: -10 } },
+                right: { text: "提高军饷", effects: { military: +20, wealth: -20 } }
+            },
+            {
+                id: 16, character: "🧙‍♂️", name: "大主教",
+                text: "我们需要举办一场盛大的祭祀仪式来祈求风调雨顺。",
+                left: { text: "迷信活动", effects: { religion: -20, wealth: +10 } },
+                right: { text: "拨款支持", effects: { religion: +20, wealth: -15 } }
+            },
+            {
+                id: 17, character: "💰", name: "商人",
+                text: "陛下，我有一批走私武器，价格便宜，您要不要给军队采购一批？",
+                left: { text: "拒绝走私", effects: { religion: +10, military: -10 } },
+                right: { text: "暗中买下", effects: { military: +20, wealth: -15, religion: -10 } }
+            },
+            {
+                id: 18, character: "🧛", name: "刺客",
+                text: "（压低声音）只要您付钱，我可以帮您解决掉那个总是反对您的公爵。",
+                left: { text: "叫卫兵！", effects: { military: +5, wealth: +0 } },
+                right: { text: "成交", effects: { wealth: -15, people: -10, military: +10 } }
+            },
+            {
+                id: 19, character: "🐕", name: "流浪狗",
+                text: "（汪汪叫着，叼着一块破布，看着你）",
+                left: { text: "踢开它", effects: { people: -5 } },
+                right: { text: "喂点肉", effects: { people: +10, wealth: -2 } }
+            },
+            {
+                id: 20, character: "📜", name: "学者",
+                text: "我发现地球是圆的，并且绕着太阳转！但教会要烧死我！",
+                left: { text: "交给教会", effects: { religion: +20, people: -10 } },
+                right: { text: "保护学者", effects: { religion: -30, people: +15 } }
+            },
+            {
+                id: 21, character: "🤴", name: "贵族",
+                text: "这些贱民居然敢要求减少赋税？请允许我用皮鞭教训他们！",
+                left: { text: "不可暴力", effects: { people: +20, wealth: -10 } },
+                right: { text: "随便你", effects: { people: -30, wealth: +20 } }
+            },
+            {
+                id: 22, character: "👸", name: "王后",
+                text: "我怀孕了！是个男孩！我们应该大赦天下庆祝！",
+                left: { text: "低调处理", effects: { wealth: +5, people: -5 } },
+                right: { text: "大赦天下", effects: { people: +25, military: -15, wealth: -10 } }
+            },
+            {
+                id: 23, character: "🕵️", name: "密探",
+                text: "我们在下水道发现了一个邪教窝点，里面藏着大量的黄金。",
+                left: { text: "炸毁那里", effects: { religion: +15, people: +5 } },
+                right: { text: "没收黄金", effects: { wealth: +30, religion: -15 } }
+            },
+            {
+                id: 24, character: "👨‍⚕️", name: "医生",
+                text: "我需要解剖尸体来研究人体构造，但这违反了教规。",
+                left: { text: "遵守教规", effects: { religion: +15, people: -5 } },
+                right: { text: "秘密批准", effects: { religion: -20, people: +15 } }
+            },
+            {
+                id: 25, character: "🃏", name: "弄臣",
+                text: "陛下，不如我们宣布今天为‘全国倒立日’，让大家都倒着走路！",
+                left: { text: "你疯了吗", effects: { religion: +5, people: -5 } },
+                right: { text: "好主意！", effects: { people: +15, military: -10, wealth: -5 } }
+            }
+        ];
+
+        let state = {
+            religion: 50,
+            people: 50,
+            military: 50,
+            wealth: 50,
+            year: 1,
+            isDead: false
+        };
+
+        const deckEl = document.getElementById('card-deck');
+        let currentCardEl = null;
+        let currentCardData = null;
+
+        function updateStatsUI() {
+            document.getElementById('bar-religion').style.width = `${Math.max(0, Math.min(100, state.religion))}%`;
+            document.getElementById('bar-people').style.width = `${Math.max(0, Math.min(100, state.people))}%`;
+            document.getElementById('bar-military').style.width = `${Math.max(0, Math.min(100, state.military))}%`;
+            document.getElementById('bar-wealth').style.width = `${Math.max(0, Math.min(100, state.wealth))}%`;
+            document.getElementById('year-display').innerText = state.year;
+        }
+
+        function checkDeath() {
+            const reasons = [];
+            if (state.religion <= 0) reasons.push("教会宣布你为异端，暴徒冲入王宫将你烧死。");
+            if (state.religion >= 100) reasons.push("教皇的权力凌驾于王权之上，你被废黜成为傀儡。");
+            if (state.people <= 0) reasons.push("愤怒的民众发动起义，你被送上了断头台。");
+            if (state.people >= 100) reasons.push("刁民们得寸进尺，冲入王宫瓜分了你的财产。");
+            if (state.military <= 0) reasons.push("邻国军队轻而易举地攻破了城门，你沦为阶下囚。");
+            if (state.military >= 100) reasons.push("将军们发动军事政变，将你赶下了王座。");
+            if (state.wealth <= 0) reasons.push("国库空虚，连卫兵的工资都发不出，你被刺客暗杀。");
+            if (state.wealth >= 100) reasons.push("你在金币堆中醉生梦死，最终死于纵欲过度。");
+
+            if (reasons.length > 0) {
+                state.isDead = true;
+                document.getElementById('death-reason').innerText = reasons[0];
+                document.getElementById('death-years').innerText = state.year;
+                
+                setTimeout(() => {
+                    document.getElementById('game-screen').classList.add('hidden');
+                    document.getElementById('death-screen').classList.remove('hidden');
+                    
+                    gsap.fromTo("#death-screen > *", 
+                        { opacity: 0, y: 20 }, 
+                        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" }
+                    );
+                }, 500);
+                return true;
+            }
+            return false;
+        }
+
+        function showDots(effects) {
+            ['religion', 'people', 'military', 'wealth'].forEach(key => {
+                const dot = document.querySelector(`#stat-container-${key} .stat-dot`);
+                if (effects && effects[key] !== undefined) {
+                    dot.style.opacity = 1;
+                    dot.style.transform = effects[key] > 0 ? 'translateX(-50%) translateY(-5px) scale(1.2)' : 'translateX(-50%) translateY(5px) scale(0.8)';
+                } else {
+                    dot.style.opacity = 0;
+                    dot.style.transform = 'translateX(-50%)';
+                }
+            });
+        }
+
+        function spawnCard() {
+            if (state.isDead) return;
+
+            // Pick random card
+            currentCardData = CARDS[Math.floor(Math.random() * CARDS.length)];
+            
+            const card = document.createElement('div');
+            card.className = 'card flex flex-col';
+            card.innerHTML = `
+                <div class="choice-hint left">${currentCardData.left.text}</div>
+                <div class="choice-hint right">${currentCardData.right.text}</div>
+                <div class="card-character">${currentCardData.character}</div>
+                <div class="card-name">${currentCardData.name}</div>
+                <div class="card-text">${currentCardData.text}</div>
+            `;
+            
+            deckEl.appendChild(card);
+            currentCardEl = card;
+
+            gsap.fromTo(card, 
+                { scale: 0.8, opacity: 0, y: 50 }, 
+                { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }
+            );
+
+            initDrag(card);
+        }
+
+        function makeChoice(direction) {
+            const effects = direction === -1 ? currentCardData.left.effects : currentCardData.right.effects;
+            
+            for (let key in effects) {
+                state[key] += effects[key];
+            }
+            state.year++;
+            updateStatsUI();
+            showDots(null); // hide dots
+
+            const outX = direction === -1 ? -window.innerWidth : window.innerWidth;
+            const rot = direction === -1 ? -30 : 30;
+
+            gsap.to(currentCardEl, {
+                x: outX,
+                y: 100,
+                rotation: rot,
+                opacity: 0,
+                duration: 0.4,
+                ease: "power2.in",
+                onComplete: () => {
+                    currentCardEl.remove();
+                    if (!checkDeath()) {
+                        setTimeout(spawnCard, 200);
+                    }
+                }
+            });
+        }
+
+        function initDrag(card) {
+            let startX = 0, startY = 0;
+            let currentX = 0, currentY = 0;
+            let isDragging = false;
+            
+            const threshold = 100;
+            const hintLeft = card.querySelector('.choice-hint.left');
+            const hintRight = card.querySelector('.choice-hint.right');
+
+            function onStart(e) {
+                isDragging = true;
+                const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+                startX = clientX - currentX;
+                startY = clientY - currentY;
+                
+                card.style.transition = 'none';
+            }
+
+            function onMove(e) {
+                if (!isDragging) return;
+                const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+                
+                currentX = clientX - startX;
+                currentY = clientY - startY;
+
+                const rotate = currentX * 0.1;
+                card.style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px)) rotate(${rotate}deg)`;
+
+                // Hints opacity
+                if (currentX < -20) {
+                    hintLeft.style.opacity = Math.min(1, Math.abs(currentX) / threshold);
+                    hintRight.style.opacity = 0;
+                    showDots(currentCardData.left.effects);
+                } else if (currentX > 20) {
+                    hintRight.style.opacity = Math.min(1, currentX / threshold);
+                    hintLeft.style.opacity = 0;
+                    showDots(currentCardData.right.effects);
+                } else {
+                    hintLeft.style.opacity = 0;
+                    hintRight.style.opacity = 0;
+                    showDots(null);
+                }
+            }
+
+            function onEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                card.style.transition = 'transform 0.3s ease-out';
+
+                if (currentX < -threshold) {
+                    makeChoice(-1);
+                } else if (currentX > threshold) {
+                    makeChoice(1);
+                } else {
+                    currentX = 0;
+                    currentY = 0;
+                    card.style.transform = `translate(-50%, -50%) rotate(0deg)`;
+                    hintLeft.style.opacity = 0;
+                    hintRight.style.opacity = 0;
+                    showDots(null);
+                }
+            }
+
+            card.addEventListener('mousedown', onStart);
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onEnd);
+
+            card.addEventListener('touchstart', onStart, {passive: true});
+            window.addEventListener('touchmove', onMove, {passive: true});
+            window.addEventListener('touchend', onEnd);
+        }
+
+        function startGame() {
+            state = {
+                religion: 50,
+                people: 50,
+                military: 50,
+                wealth: 50,
+                year: 1,
+                isDead: false
+            };
+            
+            document.getElementById('death-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+            deckEl.innerHTML = '';
+            
+            updateStatsUI();
+            setTimeout(spawnCard, 300);
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', startGame);
+
+    </script>
+</body>
+</html>
